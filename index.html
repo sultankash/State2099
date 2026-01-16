@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STATE 2099 | ROYAL HUB</title>
-    <!-- المكتبات -->
+    <title>STATE 2099 | ROYAL STATE PORTAL</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,47 +23,43 @@
         
         body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2); z-index: -1; }
 
-        /* --- شريط الأدوات الجانبي --- */
-        .side-dock { position: fixed; right: 12px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
-        .dock-item { 
-            width: 75px; height: 85px; background: var(--panel); border: 2px solid var(--wos-sky); border-radius: 12px; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            cursor: pointer; transition: 0.3s; box-shadow: 0 8px 20px rgba(0,0,0,0.5); text-decoration: none;
-        }
-        .dock-item i { font-size: 1.4rem; color: #fff; margin-bottom: 4px; }
-        .dock-label { font-family: 'Orbitron'; font-size: 0.5rem; font-weight: 900; color: #fff; text-align: center; line-height: 1.1; letter-spacing: 0.2px; }
+        /* --- الأزرار الجانبية --- */
+        .side-dock { position: fixed; right: 15px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 1000; }
+        .dock-item { width: 75px; height: 85px; background: var(--panel); border: 2px solid var(--wos-sky); border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; transition: 0.3s; box-shadow: 0 8px 20px rgba(0,0,0,0.5); text-decoration: none; }
+        .dock-item i { font-size: 1.5rem; color: #fff; margin-bottom: 4px; }
+        .dock-label { font-family: 'Orbitron'; font-size: 0.5rem; font-weight: 900; color: #fff; text-align: center; line-height: 1.1; }
         .dock-item:hover { transform: scale(1.1) translateX(-5px); border-color: var(--wos-gold); }
-        .dock-item.highlight { border-color: var(--wos-gold); }
-        .dock-item.highlight i, .dock-item.highlight .dock-label { color: var(--wos-gold); }
+        .dock-item.gift { border-color: var(--wos-gold); }
+        .dock-item.gift i, .dock-item.gift .dock-label { color: var(--wos-gold); }
 
-        /* --- اختيار اللغة (أعلى اليسار) --- */
+        /* --- اختيار اللغة (أعلام) --- */
         .lang-dropdown { position: fixed; top: 12px; left: 12px; z-index: 10001; background: rgba(0,0,0,0.6); border: 1.5px solid var(--wos-sky); border-radius: 12px; padding: 6px 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
         .lang-list { display: none; position: absolute; top: 110%; left: 0; background: #000; border: 1px solid #333; border-radius: 10px; width: 130px; }
         .lang-dropdown:hover .lang-list { display: block; }
-        .flag-item { display: flex; align-items: center; gap: 12px; padding: 10px; font-size: 0.85rem; font-weight: bold; border-bottom: 1px solid #222; }
+        .flag-item { display: flex; align-items: center; gap: 12px; padding: 10px; font-size: 0.85rem; font-weight: bold; border-bottom: 1px solid #222; cursor: pointer; color: #fff; }
         .flag-item img { width: 22px; height: 14px; border-radius: 2px; }
-        #google_translate_element { display: none; }
 
-        .container { width: 100%; max-width: 1000px; margin: 40px auto 20px; padding: 15px; box-sizing: border-box; }
+        #google_translate_element, .skiptranslate { display: none !important; }
+        body { top: 0 !important; }
+
+        .container { width: 100%; max-width: 1000px; margin: 50px auto 20px; padding: 15px; box-sizing: border-box; }
         header h1 { font-family: 'Orbitron'; font-size: clamp(3.5rem, 15vw, 6.5rem); text-align: center; margin: 0; font-weight: 900; letter-spacing: 12px; text-shadow: 0 5px 15px rgba(0,0,0,0.4); line-height: 1; }
         .portal-tag { color: var(--wos-gold); text-align: center; font-weight: 900; letter-spacing: 15px; font-size: 1.2rem; font-family: 'Orbitron'; margin-top: -5px; text-transform: uppercase; }
 
-        /* --- بار الإحصائيات الملكي --- */
+        /* --- الإحصائيات الملكية --- */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 35px 0; }
         .stat-card { background: var(--panel); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .stat-card h4 { margin: 0; font-family: 'Orbitron'; color: #ade8f4; font-size: 0.7rem; letter-spacing: 1px; }
         .stat-card p { margin: 8px 0 0; font-weight: 800; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
         
-        /* تلوين ذهبي متوهج */
+        /* تذهيب الأرقام والأيقونات */
         .gold-highlight { color: var(--wos-gold) !important; text-shadow: 0 0 10px rgba(255, 186, 8, 0.5); }
-        .fa-crown, .fa-trophy, .fa-swords, .fa-star, .fa-paw, .fa-shield-halved, .fa-book { 
-            color: var(--wos-gold) !important; 
-            filter: drop-shadow(0 0 8px rgba(255, 186, 8, 0.6)); 
-        }
+        .fa-crown, .fa-trophy, .fa-swords, .fa-star, .fa-paw, .fa-shield-halved, .fa-book { color: var(--wos-gold) !important; filter: drop-shadow(0 0 8px rgba(255, 186, 8, 0.6)); }
         .pom-card { border: 2.5px solid var(--wos-gold); background: linear-gradient(45deg, rgba(255, 186, 8, 0.1), var(--panel)); }
 
-        .announcement-box { background: rgba(10, 25, 47, 0.95); border: 2.5px solid var(--wos-gold); border-radius: 18px; padding: 25px; margin-bottom: 35px; position: relative; }
-        .announcement-box::before { content: "STATE'S ANNOUNCEMENTS"; position: absolute; top: -12px; left: 25px; background: var(--wos-gold); color: #051a30; font-family: 'Orbitron'; font-size: 0.7rem; padding: 4px 15px; font-weight: 900; border-radius: 5px; }
+        /* إطار الإعلانات المحدث */
+        .announcement-card { background: rgba(10, 25, 47, 0.95); border: 2.5px solid var(--wos-gold); border-radius: 18px; padding: 25px; margin-bottom: 35px; position: relative; backdrop-filter: blur(15px); }
+        .announcement-card::before { content: "STATE'S ANNOUNCEMENTS"; position: absolute; top: -12px; left: 25px; background: var(--wos-gold); color: #051a30; font-family: 'Orbitron'; font-size: 0.7rem; padding: 4px 15px; font-weight: 900; border-radius: 5px; }
         .announcement-text { margin: 0; font-size: 1.2rem; font-weight: 700; color: #fff; text-align: center; line-height: 1.5; }
 
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
@@ -84,26 +79,28 @@
         /* النماذج */
         .view { display: none; width: 100%; max-width: 680px; margin: 40px auto; padding: 15px; animation: fadeIn 0.5s ease; }
         .form-frame { background: rgba(5, 20, 45, 0.99); padding: 45px 30px; border-radius: 40px; border: 3px solid #fff; box-shadow: 0 30px 80px rgba(0,0,0,0.8); }
-        label { display: block; font-family: 'Orbitron'; font-weight: 900; color: #ade8f4; margin-bottom: 6px; font-size: 0.95rem; }
-        input, select, textarea { width: 100%; padding: 16px; border-radius: 15px; border: 1.5px solid #444; background: #000; color: #fff; font-family: 'Rajdhani'; font-size: 1.2rem; box-sizing: border-box; font-weight: 700; margin-bottom: 20px; outline: none; }
+        label { display: block; font-family: 'Orbitron'; font-weight: 900; color: #ade8f4; margin-bottom: 6px; font-size: 0.95rem; text-transform: uppercase; }
+        input, select, textarea { width: 100%; padding: 16px; border-radius: 15px; border: 1.5px solid #444; background: #000; color: #fff; font-family: 'Rajdhani'; font-size: 1.25rem; box-sizing: border-box; font-weight: 700; margin-bottom: 20px; outline: none; }
+        select option { background: #000; color: #fff; padding: 10px; }
         .btn-action { width: 100%; padding: 22px; background: #fff; border: none; border-radius: 18px; color: #051a30; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; font-size: 1.4rem; text-transform: uppercase; transition: 0.3s; }
 
+        .helios-panel { border-left: 4px solid var(--wos-gold); padding-left: 20px; margin: 20px 0; background: rgba(255, 186, 8, 0.05); padding: 20px; border-radius: 0 15px 15px 0; }
+        .grid-check { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .check-item { display: flex; align-items: center; gap: 10px; font-weight: 700; color: #fff; cursor: pointer; font-size: 0.9rem; }
+        
         #adminArea { position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 11000; display: none; padding: 25px; box-sizing: border-box; overflow-y: auto; }
         .admin-card { background: #111; padding: 25px; border-radius: 20px; border: 1px solid #333; margin-bottom: 25px; }
         .bt-input-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
 
-        @media (max-width: 768px) { 
-            .side-dock { position: relative; top: 0; right: 0; transform: none; flex-direction: row; flex-wrap: wrap; justify-content: center; margin: 20px 0; gap: 8px; } 
-            .dock-item { width: 80px; height: 70px; }
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 768px) { .side-dock { position: relative; top: 0; right: 0; transform: none; flex-direction: row; justify-content: center; margin-bottom: 20px; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-<!-- Side Tools Dock -->
+<!-- شريط الأدوات -->
 <div class="side-dock">
-    <div class="dock-item" onclick="showView('bt')"><i class="fas fa-paw"></i><span class="dock-label">BT TIMES</span></div>
+    <div class="dock-item" onclick="showView('bt')"><i class="fas fa-paw"></i><span class="dock-label">BT TIMINGS</span></div>
     <div class="dock-item highlight" onclick="smartLink('REDEEM PORTAL', 'https://wos-giftcode.centurygame.com/')"><i class="fas fa-gift"></i><span class="dock-label">REDEEM</span></div>
     <div class="dock-item" onclick="smartLink('GEAR CALC', 'https://whiteoutsurvival.pl/chief-gear-calculator/')"><i class="fas fa-shield-halved"></i><span class="dock-label">GEAR CALC</span></div>
     <div class="dock-item" onclick="smartLink('CHARMS CALC', 'https://www.quackulator.com/chiefcharm.php')"><i class="fas fa-book"></i><span class="dock-label">CHARM CALC</span></div>
@@ -111,7 +108,7 @@
 
 <!-- اختيار اللغة -->
 <div class="lang-dropdown">
-    <i class="fas fa-globe" style="color:var(--wos-sky)"></i>
+    <i class="fas fa-globe"></i>
     <img id="cur-flag" src="https://flagcdn.com/w40/sa.png" style="width:20px; height:13px;">
     <div class="lang-list">
         <div class="flag-item" onclick="execTrans('ar', 'sa')"><img src="https://flagcdn.com/w40/sa.png"> AR</div>
@@ -127,18 +124,18 @@
     <header><h1>2099</h1><p class="portal-tag">STATE PORTAL</p></header>
 
     <div class="stats-grid">
-        <div class="stat-card"><h4>CURRENT PRESIDENT</h4><p><i class="fas fa-crown"></i> <span id="p_val" style="font-size:1.1rem">...</span></p></div>
+        <div class="stat-card"><h4>CURRENT PRESIDENT</h4><p><i class="fas fa-crown"></i> <span id="p_val">...</span></p></div>
         <div class="stat-card"><h4>LEAGUES TITLES</h4><p><span id="l_val" class="gold-highlight">0</span> <i class="fas fa-trophy"></i></p></div>
         <div class="stat-card"><h4>SVS VICTORIES</h4><p><span id="s_val" class="gold-highlight">0</span> <i class="fas fa-swords"></i></p></div>
-        <div class="stat-card pom-card"><h4>PLAYER OF THE MONTH</h4><p><i class="fas fa-star"></i> <span id="pom_val" style="font-size:1.1rem">...</span></p></div>
+        <div class="stat-card pom-card"><h4>PLAYER OF THE MONTH</h4><p><i class="fas fa-star"></i> <span id="pom_val">...</span></p></div>
     </div>
 
-    <div class="announcement-card"><p class="announcement-text" id="ann_val">Loading strategic portal data...</p></div>
+    <div class="announcement-card"><p class="announcement-text" id="ann_val">Tactical uplink established...</p></div>
 
     <div class="menu-grid">
-        <div class="menu-card" id="card_svs" onclick="showView('svs')"><i class="fas fa-chess-rook card-icon"></i><h2>MINISTRY</h2><span class="ar-desc" style="display:block;margin-top:5px;opacity:0.6;">طلبات الوزارات</span></div>
-        <div class="menu-card" id="card_tyrant" onclick="showView('tyrant')"><i class="fas fa-dragon card-icon"></i><h2>TYRANT</h2><span class="ar-desc" style="display:block;margin-top:5px;opacity:0.6;">تسجيل الطاغية</span></div>
-        <div class="menu-card" id="card_transfers" onclick="showView('transfers')"><i class="fas fa-plane-departure card-icon"></i><h2>TRANSFER</h2><span class="ar-desc" style="display:block;margin-top:5px;opacity:0.6;">طلبات الانتقال</span></div>
+        <div class="menu-card" id="card_svs" onclick="showView('svs')"><i class="fas fa-chess-rook card-icon"></i><h2>MINISTRY</h2></div>
+        <div class="menu-card" id="card_tyrant" onclick="showView('tyrant')"><i class="fas fa-dragon card-icon"></i><h2>TYRANT</h2></div>
+        <div class="menu-card" id="card_transfers" onclick="showView('transfers')"><i class="fas fa-plane-departure card-icon"></i><h2>TRANSFER</h2></div>
     </div>
 
     <div class="wall-section">
@@ -146,18 +143,18 @@
         <div id="wall_msgs">Loading messages...</div>
         <div class="msg-input-group">
             <input type="text" id="wall_name" class="msg-input" placeholder="Name" style="max-width:120px;">
-            <input type="text" id="wall_txt" class="msg-input" placeholder="Message" maxlength="150">
-            <button onclick="postWall()" class="btn-action" style="height:52px; width:80px; font-size:0.8rem; padding:0; background:var(--wos-sky); color:#fff; border:none; border-radius:10px; cursor:pointer; font-weight:900;">SEND</button>
+            <input type="text" id="wall_txt" class="msg-input" placeholder="Say something..." maxlength="150">
+            <button onclick="postWall()" class="dock-item" style="height:52px; width:80px; background:var(--wos-sky); border:none; border-radius:10px; font-family:'Orbitron'; font-weight:900; color:#fff;">SEND</button>
         </div>
     </div>
 
-    <div style="text-align: center; margin-top: 60px;"><button onclick="openAdmin()" style="background:none; border:none; color:rgba(255,255,255,0.05); font-family:'Orbitron'; cursor:pointer;">[ ADMIN_OVERRIDE_V19 ]</button></div>
+    <div style="text-align: center; margin-top: 60px;"><button onclick="openAdmin()" style="background:none; border:none; color:rgba(255,255,255,0.05); font-family:'Orbitron'; cursor:pointer;">[ ADMIN_OVERRIDE ]</button></div>
 </div>
 
-<!-- BT View -->
+<!-- Forms -->
 <div id="bt_view" class="view">
     <button onclick="exitView()" class="btn-action" style="width:auto; padding:10px 20px; margin-bottom:20px;"><i class="fas fa-arrow-left"></i> BACK</button>
-    <div class="form-frame"><h2 style="text-align:center;">TOP ALLIANCES BT (UTC)</h2><table id="bt_data" style="width:100%; border-collapse:collapse; text-align:center; margin-top:20px;"></table></div>
+    <div class="form-frame"><h2 style="text-align:center;">BT TIMINGS (UTC)</h2><table id="bt_data" style="width:100%; border-collapse:collapse; text-align:center; margin-top:20px;"></table></div>
 </div>
 
 <div id="svs_view" class="view">
@@ -223,7 +220,7 @@
     <div class="admin-card">
         <h3>BT TIMINGS CONTROL</h3>
         <div id="bt_admin_list"></div>
-        <button onclick="saveBT()" class="btn-action" style="margin-top:10px; background:var(--wos-sky); color:#fff;">SAVE BT TIMES</button>
+        <button onclick="saveBT()" class="btn-action" style="margin-top:10px; background:var(--sky); color:#fff;">SAVE BT TIMES</button>
     </div>
     <div class="admin-card">
         <h3>SYSTEM PROTOCOLS</h3>
@@ -247,6 +244,17 @@
 <script>
     const ENGINE = 'https://script.google.com/macros/s/AKfycbyDQkEsqPx7BJ9OP2b5Fhm8trsbsTs_3F492TL96fQ8e74ckl_kmUPFas3_yiRnVAi9rw/exec'; 
     let cfg = {};
+
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    months.forEach(m => { 
+        let el = document.getElementById('tr_m');
+        if(el) el.innerHTML += `<option value="${m}">${m}</option>`;
+    });
+    for(let i=0; i<24; i++) {
+        let t = i < 10 ? `0${i}:00` : `${i}:00`;
+        let el = document.getElementById('svs_t');
+        if(el) el.innerHTML += `<option value="${t} UTC">${t} UTC</option>`;
+    }
 
     async function load() {
         try {
@@ -277,18 +285,16 @@
         });
     }
 
-    async function smartLink(title, url) { 
-        Swal.fire({ title: title, text: 'Opening secure tactical portal...', icon: 'info', background: '#051a30', color: '#fff', confirmButtonText: 'PROCEED' }).then((r) => { if (r.isConfirmed) window.open(url, "_blank"); }); 
-    }
-
+    async function smartLink(title, url) { Swal.fire({ title: title, text: 'Opening official portal...', icon: 'info', background: '#051a30', color: '#fff', confirmButtonText: 'PROCEED' }).then((r) => { if (r.isConfirmed) window.open(url, "_blank"); }); }
+    
     async function loadBT() { 
         const res = await fetch(`${ENGINE}?sheet=bt_timings`);
         const data = await res.json();
-        let h = '<tr><th style="background:var(--wos-sky); color:#fff">Alliance</th><th style="background:var(--wos-sky); color:#fff">BT1</th><th style="background:var(--wos-sky); color:#fff">BT2</th></tr>';
+        let h = '<tr><th style="background:var(--sky)">Alliance</th><th style="background:var(--sky)">BT1</th><th style="background:var(--sky)">BT2</th></tr>';
         let adminHtml = '';
         for(let i=0; i<4; i++) {
             let r = data[i] || {alliance:'', bt1:'', bt2:''};
-            h += `<tr style="border-bottom:1px solid #333"><td>${r.alliance || '-'}</td><td>${r.bt1 || '-'}</td><td>${r.bt2 || '-'}</td></tr>`;
+            h += `<tr><td>${r.alliance || '-'}</td><td>${r.bt1 || '-'}</td><td>${r.bt2 || '-'}</td></tr>`;
             adminHtml += `<div class="bt-input-row"><input type="text" class="bt-a" value="${r.alliance}" placeholder="Tag"><input type="text" class="bt-1" value="${r.bt1}" placeholder="BT1"><input type="text" class="bt-2" value="${r.bt2}" placeholder="BT2"></div>`;
         }
         document.getElementById('bt_data').innerHTML = h;
@@ -296,8 +302,15 @@
     }
 
     async function loadW() { const res = await fetch(`${ENGINE}?sheet=messages`); const data = await res.json(); const latest = data.slice(-5).reverse(); let h = ''; latest.forEach(m => h += `<div class="msg-item"><div class="msg-header"><span>${m.name}</span><span>${m.date}</span></div><div class="msg-body">${m.message}</div></div>`); document.getElementById('wall_msgs').innerHTML = h || "No messages."; }
-    async function postWall() { const n = document.getElementById('wall_name').value, t = document.getElementById('wall_txt').value; if(!n || !t) return; await fetch(ENGINE, { method:'POST', body: JSON.stringify({sheet:'messages', data:[{date: new Date().toLocaleDateString(), name: n, message: t}]}) }); document.getElementById('wall_txt').value = ''; loadW(); }
-    async function saveBT() { Swal.fire({title:'Saving BT...', didOpen:()=>Swal.showLoading()}); const rows = []; const a = document.querySelectorAll('.bt-a'), t1 = document.querySelectorAll('.bt-1'), t2 = document.querySelectorAll('.bt-2'); a.forEach((el, i) => rows.push([el.value, t1[i].value, t2[i].value])); await fetch(ENGINE, { method:'POST', body: JSON.stringify({sheet:'bt_timings', data: rows, action:'update_bt'}) }); location.reload(); }
+    
+    async function postWall() { 
+        const n = document.getElementById('wall_name').value, t = document.getElementById('wall_txt').value; if(!n || !t) return;
+        Swal.fire({title:'Posting...', didOpen:()=>Swal.showLoading()});
+        await fetch(ENGINE, { method:'POST', body: JSON.stringify({sheet:'messages', data:[{date: new Date().toLocaleDateString(), name: n, message: t}]}) });
+        document.getElementById('wall_txt').value = ''; loadW(); Swal.close();
+    }
+
+    async function saveBT() { Swal.fire({title:'Saving...', didOpen:()=>Swal.showLoading()}); const rows = []; const a = document.querySelectorAll('.bt-a'), t1 = document.querySelectorAll('.bt-1'), t2 = document.querySelectorAll('.bt-2'); a.forEach((el, i) => rows.push([el.value, t1[i].value, t2[i].value])); await fetch(ENGINE, { method:'POST', body: JSON.stringify({sheet:'bt_timings', data: rows, action:'update_bt'}) }); location.reload(); }
     async function saveDash() { Swal.fire({title:'Syncing...', didOpen:()=>Swal.showLoading()}); await upS('president', document.getElementById('a_pres').value); await upS('leagues', document.getElementById('a_league').value); await upS('wins', document.getElementById('a_svs').value); await upS('player_of_month', document.getElementById('a_pom').value); await upS('announcement', document.getElementById('a_ann').value); location.reload(); }
     async function tLock(k) { const v = String(cfg[k]).toLowerCase() === 'true' ? 'false' : 'true'; await upS(k, v); location.reload(); }
     async function upS(k, v) { await fetch(ENGINE, { method:'POST', body: JSON.stringify({sheet:'settings', key: k, value: v, action:'update'}) }); }
