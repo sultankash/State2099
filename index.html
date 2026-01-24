@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STATE 2099 | ROYAL PORTAL</title>
+    <title>STATE 2099 | ROYAL HUB</title>
     <!-- المكتبات -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -13,7 +13,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Noto+Sans+Arabic:wght@400;600&display=swap');
         
         :root {
-            --sky: #29a4d8; --navy: #051a30; --gold: #ffba08; --panel: rgba(5, 20, 45, 0.98);
+            --wos-sky: #29a4d8; --wos-deep: #051a30; --wos-gold: #ffba08; --panel: rgba(5, 20, 45, 0.98);
         }
         
         body {
@@ -24,78 +24,83 @@
         
         body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2); z-index: -1; }
 
-        /* --- شريط الأدوات الجانبي --- */
+        /* --- الأزرار الجانبية التكتيكية --- */
         .side-dock { position: fixed; right: 12px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
         .dock-item { 
-            width: 75px; height: 95px; background: var(--panel); border: 2px solid var(--sky); border-radius: 12px; 
+            width: 75px; height: 95px; background: var(--panel); border: 2px solid var(--wos-sky); border-radius: 12px; 
             display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            cursor: pointer; transition: 0.3s; box-shadow: 0 8px 20px rgba(0,0,0,0.5); text-decoration: none;
+            cursor: pointer; transition: 0.3s; box-shadow: 0 8px 25px rgba(0,0,0,0.6); text-decoration: none;
         }
-        .dock-item i { font-size: 1.4rem; color: #fff; margin-bottom: 4px; }
-        .dock-label { font-family: 'Orbitron'; font-size: 0.5rem; font-weight: 900; color: #fff; text-align: center; line-height: 1.1; margin-top: 4px; }
-        .dock-item:hover { transform: scale(1.1) translateX(-5px); border-color: var(--gold); }
-        .dock-item.gift { border-color: var(--gold); color: var(--gold); }
-
+        .dock-item i { font-size: 1.5rem; color: #fff; margin-bottom: 5px; }
+        .dock-label { font-family: 'Orbitron'; font-size: 0.5rem; font-weight: 900; color: #fff; text-align: center; line-height: 1.2; letter-spacing: 0.5px; }
+        .dock-item:hover { transform: scale(1.1) translateX(-8px); border-color: var(--wos-gold); }
+        
         /* --- اختيار اللغة (أعلام) --- */
-        .lang-dropdown { position: fixed; top: 12px; left: 12px; z-index: 10001; background: rgba(0,0,0,0.6); border: 1.5px solid var(--sky); border-radius: 12px; padding: 6px 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+        .lang-dropdown { position: fixed; top: 12px; left: 12px; z-index: 10001; background: rgba(0,0,0,0.6); border: 1.5px solid var(--wos-sky); border-radius: 12px; padding: 6px 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
         .lang-list { display: none; position: absolute; top: 110%; left: 0; background: #000; border: 1px solid #333; border-radius: 10px; width: 130px; }
         .lang-dropdown:hover .lang-list { display: block; }
-        .flag-item { display: flex; align-items: center; gap: 12px; padding: 10px; font-size: 0.85rem; font-weight: bold; border-bottom: 1px solid #222; color:#fff; cursor: pointer; }
+        .flag-item { display: flex; align-items: center; gap: 12px; padding: 10px; font-size: 0.85rem; font-weight: bold; border-bottom: 1px solid #222; color: #fff; cursor: pointer; }
         .flag-item img { width: 22px; height: 14px; border-radius: 2px; }
         #google_translate_element, .skiptranslate { display: none !important; }
-        body { top: 0 !important; }
 
-        .container { width: 100%; max-width: 950px; margin: 50px auto 20px; padding: 15px; box-sizing: border-box; }
-        header h1 { font-family: 'Orbitron'; font-size: clamp(3.5rem, 15vw, 6rem); text-align: center; margin: 0; font-weight: 900; letter-spacing: 12px; text-shadow: 0 5px 15px rgba(0,0,0,0.4); line-height: 1; }
-        .portal-tag { color: var(--gold); text-align: center; font-weight: 900; letter-spacing: 15px; font-size: 1.2rem; font-family: 'Orbitron'; margin-top: -5px; text-transform: uppercase; }
+        .container { width: 100%; max-width: 950px; margin: 40px auto 20px; padding: 15px; box-sizing: border-box; }
+        header h1 { font-family: 'Orbitron'; font-size: clamp(3.5rem, 15vw, 6.5rem); text-align: center; margin: 0; font-weight: 900; letter-spacing: 12px; text-shadow: 0 5px 20px rgba(0,0,0,0.4); line-height: 1; }
+        .portal-tag { color: var(--wos-gold); text-align: center; font-weight: 900; letter-spacing: 15px; font-size: 1.2rem; font-family: 'Orbitron'; margin-top: -5px; text-transform: uppercase; }
 
         /* --- بار الإحصائيات مع تذهيب --- */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 35px 0; }
         .stat-card { background: var(--panel); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .stat-card h4 { margin: 0; font-family: 'Orbitron'; color: #ade8f4; font-size: 0.7rem; letter-spacing: 1px; }
-        .stat-card p { margin: 8px 0 0; font-weight: 800; font-size: 1.35rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .gold-txt { color: var(--gold) !important; text-shadow: 0 0 10px rgba(255, 220, 92, 0.5); }
-        .fa-crown, .fa-trophy, .fa-swords, .fa-star, .fa-paw, .fa-shield-halved, .fa-book, .fa-bolt { color: var(--gold) !important; filter: drop-shadow(0 0 8px rgba(255, 186, 8, 0.6)); }
-        .pom-card { border: 2.5px solid var(--gold); background: linear-gradient(45deg, rgba(255, 186, 8, 0.1), var(--panel)); }
+        .stat-card p { margin: 8px 0 0; font-weight: 800; font-size: 1.3rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        
+        .gold-txt { color: var(--wos-gold) !important; text-shadow: 0 0 10px rgba(255, 186, 8, 0.6); }
+        .fa-crown, .fa-trophy, .fa-swords, .fa-star, .fa-paw, .fa-shield-halved, .fa-book, .fa-bolt { color: var(--wos-gold) !important; filter: drop-shadow(0 0 8px rgba(255, 186, 8, 0.6)); }
+        .pom-card { border: 2.5px solid var(--wos-gold); background: linear-gradient(45deg, rgba(255, 186, 8, 0.15), var(--panel)); }
 
-        /* الإعلانات */
-        .announcement-box { background: rgba(19, 108, 164, 0.6); border: 2.5px solid var(--gold); border-radius: 18px; padding: 25px; margin-bottom: 35px; position: relative; backdrop-filter: blur(15px); }
-        .announcement-box::before { content: "STATE'S ANNOUNCEMENTS"; position: absolute; top: -12px; left: 25px; background: var(--gold); color: #051a30; font-family: 'Orbitron'; font-size: 0.7rem; padding: 4px 15px; font-weight: 900; border-radius: 5px; }
+        .announcement-box { background: rgba(0, 40, 80, 0.95); border: 2.5px solid var(--wos-gold); border-radius: 18px; padding: 25px; margin-bottom: 35px; position: relative; box-shadow: 0 15px 35px rgba(0,0,0,0.5); }
+        .announcement-box::before { content: "STATE'S ANNOUNCEMENTS"; position: absolute; top: -12px; left: 25px; background: var(--wos-gold); color: #051a30; font-family: 'Orbitron'; font-size: 0.7rem; padding: 4px 15px; font-weight: 900; border-radius: 5px; }
         .announcement-text { margin: 0; font-size: 1.2rem; font-weight: 700; color: #fff; text-align: center; line-height: 1.5; }
 
         .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .menu-card { background: var(--panel); padding: 60px 25px; border-radius: 35px; border: 2px solid rgba(255,255,255,0.15); text-align: center; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
         .menu-card:hover { border-color: #fff; transform: translateY(-8px); }
-        .menu-card i.card-icon { font-size: 4rem; color: var(--sky); margin-bottom: 25px; filter: drop-shadow(0 0 10px var(--sky)); }
+        .menu-card i.card-icon { font-size: 4rem; color: var(--wos-sky); margin-bottom: 25px; filter: drop-shadow(0 0 10px var(--wos-sky)); }
         .menu-card h2 { font-family: 'Orbitron'; margin: 0; font-size: 2.2rem; font-weight: 900; }
-
         .lock-shield { position: absolute; top:0; left:0; width:100%; height:100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(5, 10, 25, 0.85); color: #ff5252; font-family: 'Orbitron'; font-weight: 900; z-index: 10; backdrop-filter: blur(6px); border: 2.5px solid #ff5252; border-radius: 35px; }
 
-        .wall-section { background: var(--panel); border: 2px solid var(--sky); border-radius: 25px; padding: 25px; margin-top: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
-        .msg-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 12px; border-left: 4px solid var(--sky); }
-        .msg-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--sky); font-weight: 800; font-family: 'Orbitron'; }
-        
-        /* Forms */
+        .wall-section { background: var(--panel); border: 2px solid var(--wos-sky); border-radius: 25px; padding: 25px; margin-top: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+        .msg-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 12px; border-left: 4px solid var(--wos-sky); }
+        .msg-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--wos-sky); font-weight: 800; font-family: 'Orbitron'; }
+        .msg-body { font-size: 1.1rem; font-weight: 600; color: #f0f4f8; margin-top: 5px; }
+
+        /* Forms & Vews */
         .view { display: none; width: 100%; max-width: 680px; margin: 40px auto; padding: 15px; animation: fadeIn 0.5s ease; }
         .form-frame { background: rgba(5, 20, 45, 0.99); padding: 45px 30px; border-radius: 40px; border: 3px solid #fff; box-shadow: 0 30px 80px rgba(0,0,0,0.8); }
         label { display: block; font-family: 'Orbitron'; font-weight: 900; color: #ade8f4; margin-bottom: 6px; font-size: 0.95rem; }
-        input, select, textarea { width: 100%; padding: 16px; border-radius: 15px; border: 1.5px solid #444; background: #000; color: #fff; font-family: 'Rajdhani'; font-size: 1.2rem; box-sizing: border-box; font-weight: 700; margin-bottom: 20px; outline: none; }
+        input, select, textarea { width: 100%; padding: 16px; border-radius: 15px; border: 1.5px solid #444; background: #000; color: #fff; font-family: 'Rajdhani'; font-size: 1.25rem; box-sizing: border-box; font-weight: 700; margin-bottom: 20px; outline: none; }
+        select option { background: #000; color: #fff; padding: 10px; }
         .btn-action { width: 100%; padding: 22px; background: #fff; border: none; border-radius: 18px; color: #051a30; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; font-size: 1.4rem; text-transform: uppercase; transition: 0.3s; }
 
+        .helios-panel { border-left: 5px solid var(--wos-gold); padding-left: 20px; margin: 20px 0; background: rgba(255, 186, 8, 0.05); padding: 20px; border-radius: 10px; }
+        .grid-check { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .check-item { display: flex; align-items: center; gap: 10px; font-weight: 700; color: #fff; cursor: pointer; font-size: 0.9rem; }
+        
         #adminArea { position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 11000; display: none; padding: 25px; box-sizing: border-box; overflow-y: auto; }
         .admin-card { background: #111; padding: 25px; border-radius: 20px; border: 1px solid #333; margin-bottom: 25px; }
         .bt-input-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+
         @media (max-width: 768px) { .side-dock { position: relative; top: 0; right: 0; transform: none; flex-direction: row; flex-wrap: wrap; justify-content: center; margin: 20px 0; gap: 8px; } .dock-item { width: 85px; height: 75px; } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
+<!-- Side Tools -->
 <div class="side-dock">
-    <div class="dock-item" onclick="showView('bt')"><i class="fas fa-paw"></i><span class="dock-label">BT TIMES</span></div>
+    <div class="dock-item" onclick="showView('bt')"><i class="fas fa-paw"></i><span class="dock-label">BT TIMINGS</span></div>
     <div class="dock-item highlight" onclick="smartLink('REDEEM PORTAL', 'https://wos-giftcode.centurygame.com/')"><i class="fas fa-gift"></i><span class="dock-label">REDEEM</span></div>
     <div class="dock-item" onclick="smartLink('GEAR CALC', 'https://whiteoutsurvival.pl/chief-gear-calculator/')"><i class="fas fa-shield-halved"></i><span class="dock-label">GEAR CALC</span></div>
-    <div class="dock-item" onclick="smartLink('CHARMS CALC', 'https://www.quackulator.com/chiefcharm.php')"><i class="fas fa-book"></i><span class="dock-label">CHARM CALC</span></div>
+    <div class="dock-item" onclick="smartLink('CHARMS CALC', 'https://www.quackulator.com/chiefcharm.php')"><i class="fas fa-book"></i><span class="dock-label">CHARMS</span></div>
     <div class="dock-item" onclick="smartLink('BATTLE SIM', 'https://sim.tundra.land/')"><i class="fas fa-bolt"></i><span class="dock-label">BATTLE SIM</span></div>
 </div>
 
@@ -112,35 +117,49 @@
 <div id="google_translate_element"></div>
 
 <div id="home_view" class="container">
-    <header style="text-align:center;"><h1>2099</h1><p class="portal-tag">STATE PORTAL</p></header>
+    <header><h1>2099</h1><p class="portal-tag">STATE PORTAL</p></header>
+
     <div class="stats-grid">
-        <div class="stat-card"><h4>CURRENT PRESIDENT</h4><p><i class="fas fa-crown"></i> <span id="p_val" class="gold-txt">...</span></p></div>
+        <div class="stat-card"><h4>CURRENT PRESIDENT</h4><p><i class="fas fa-crown"></i> <span id="p_val" class="gold-txt" style="font-size:1rem">...</span></p></div>
         <div class="stat-card"><h4>LEAGUES TITLES</h4><p><span id="l_val" class="gold-txt">0</span> <i class="fas fa-trophy"></i></p></div>
         <div class="stat-card"><h4>SVS VICTORIES</h4><p><span id="s_val" class="gold-txt">0</span> <i class="fas fa-swords"></i></p></div>
-        <div class="stat-card pom-card"><h4>PLAYER OF MONTH</h4><p><i class="fas fa-star"></i> <span id="pom_val" class="gold-txt">...</span></p></div>
+        <div class="stat-card pom-card"><h4>PLAYER OF MONTH</h4><p><i class="fas fa-star"></i> <span id="pom_val" class="gold-txt" style="font-size:1rem">...</span></p></div>
     </div>
-    <div class="announcement-box" style="padding:20px; text-align:center;"><p class="announcement-text" id="ann_val">Loading strategic portal...</p></div>
+
+    <div class="announcement-box"><p class="announcement-text" id="ann_val">Loading strategic portal...</p></div>
+
     <div class="menu-grid">
         <div class="menu-card" id="card_svs" onclick="showView('svs')"><i class="fas fa-chess-rook card-icon"></i><h2>MINISTRY</h2><span style="display:block;opacity:0.6;font-size:0.7rem;">طلبات الوزارات</span></div>
         <div class="menu-card" id="card_tyrant" onclick="showView('tyrant')"><i class="fas fa-dragon card-icon"></i><h2>TYRANT</h2><span style="display:block;opacity:0.6;font-size:0.7rem;">تسجيل الطاغية</span></div>
         <div class="menu-card" id="card_transfers" onclick="showView('transfers')"><i class="fas fa-plane-departure card-icon"></i><h2>TRANSFER</h2><span style="display:block;opacity:0.6;font-size:0.7rem;">طلبات الانتقال</span></div>
     </div>
-    <div class="wall-section"><h3 style="font-family:'Orbitron'; color:var(--sky); margin-bottom:15px;">COMMUNITY WALL</h3><div id="wall_msgs">Loading...</div><div style="display:flex; gap:10px; margin-top:15px;"><input type="text" id="wall_name" class="msg-input" placeholder="Name" style="width:100px; margin-bottom:0;"><input type="text" id="wall_txt" class="msg-input" placeholder="Message" style="flex:1; margin-bottom:0;"><button onclick="postWall()" class="btn-action" style="padding:0 20px; width:auto; height:52px; font-size:0.9rem;">SEND</button></div></div>
+
+    <div class="wall-section">
+        <h3 style="font-family:'Orbitron'; font-size:0.9rem; color:var(--sky); margin-bottom:15px;"><i class="fas fa-comments"></i> COMMUNITY WALL</h3>
+        <div id="wall_msgs">Loading...</div>
+        <div style="display:flex; gap:10px; margin-top:15px;">
+            <input type="text" id="wall_name" class="msg-input" placeholder="Name" style="width:100px; margin-bottom:0;">
+            <input type="text" id="wall_txt" class="msg-input" placeholder="Message" style="flex:1; margin-bottom:0;">
+            <button onclick="postWall()" class="btn-action" style="padding:0 20px; width:auto; height:52px; font-size:0.9rem;">SEND</button>
+        </div>
+    </div>
+
     <div style="text-align: center; margin-top: 60px;"><button onclick="openAdmin()" style="background:none; border:none; color:rgba(255,255,255,0.05); font-family:'Orbitron'; cursor:pointer;">[ ADMIN_OVERRIDE ]</button></div>
 </div>
 
 <!-- Forms -->
 <div id="bt_view" class="view"><button onclick="exitView()" class="btn-action" style="width:auto; padding:10px 20px; margin-bottom:20px;">BACK</button><div class="form-frame"><h2 style="text-align:center;">BT TIMINGS (UTC)</h2><table id="bt_data" style="width:100%; border-collapse:collapse; text-align:center; margin-top:20px;"></table></div></div>
+
 <div id="svs_view" class="view">
     <button onclick="exitView()" class="btn-action" style="width:auto; padding:10px 20px; margin-bottom:20px;">BACK</button>
     <div class="form-frame">
         <h2 style="text-align:center;">SVS MINISTRY REGISTRATION</h2>
         <form id="svsForm">
-            <label>Player Name</label><input type="text" id="svs_n" required>
-            <label>Alliance</label><input type="text" id="svs_a" required>
-            <label>What ministry are you looking for?</label><select id="svs_m" required><option value="VP">Vice President (نائب الرئيس)</option><option value="Education">Minister of Education (وزارة التعليم)</option></select>
-            <label>How Many Speedups do you have by days?</label><select id="svs_s" required><option value="<20 Days">Less than 20 Days</option><option value=">20 Days">More than 20 Days</option><option value="+70 Days">70+ Days</option></select>
-            <label>Preferable timing (UTC)</label><select id="svs_t" required></select>
+            <label>Player Name</label><input type="text" id="svs_name" required>
+            <label>Alliance</label><input type="text" id="svs_alliance" required>
+            <label>What ministry are you looking for?</label><select id="svs_ministry" required><option value="VP">Vice President</option><option value="Education">Minister of Education</option></select>
+            <label>How Many Speedups do you have by days?</label><select id="svs_speedups" required><option value="<20">Less than 20 Days</option><option value=">20">More than 20 Days</option><option value="+70">70+ Days</option></select>
+            <label>Preferable timing (UTC)</label><select id="svs_timing" required></select>
             <button type="submit" class="btn-action">TRANSMIT</button>
         </form>
     </div>
@@ -151,20 +170,15 @@
     <div class="form-frame">
         <h2 style="text-align:center;">TYRANT REGISTRATION</h2>
         <form id="tyrantForm">
-            <label>Player Name</label><input type="text" id="ty_n" required>
-            <label>Alliance</label><input type="text" id="ty_a" required>
-            <label>Game ID</label><input type="number" id="ty_id" required>
-            <label>Can you be active for 5 hours during tyrant?</label><select id="ty_5h" required><option value="Yes">Yes (نعم)</option><option value="No">No (لا)</option><option value="Few">Few (وقت قليل)</option></select>
-            <label>Can you join Discord call during the battle? (Mandatory)</label><select id="ty_d" required><option value="Yes">Yes (نعم)</option><option value="No">No (لا)</option></select>
-            <label>What is you FC level?</label><select id="ty_fc" onchange="toggleH()" required><option value="FC8">FC8</option><option value="FC7">FC7</option><option value="FC6">FC6</option><option value="Other">Other</option></select>
-            <div id="h_p" style="display:none; border-left: 3px solid var(--wos-gold); padding-left: 20px; margin: 20px 0;">
-                <label>FULL HELIOS?</label><select id="ty_full" onchange="toggleT()"><option value="Yes">Yes</option><option value="No">No</option></select>
-                <div id="t_p" style="display:none; margin-top:15px;"><label>Specify Types</label>
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                    <label style="font-size:0.9rem;"><input type="checkbox" class="ty-t" value="Infantry"> Infantry</label>
-                    <label style="font-size:0.9rem;"><input type="checkbox" class="ty-t" value="Lancers"> Lancers</label>
-                    <label style="font-size:0.9rem;"><input type="checkbox" class="ty-t" value="Marksmen"> Marksmen</label>
-                </div></div>
+            <label>Player Name</label><input type="text" id="ty_name" required>
+            <label>Alliance</label><input type="text" id="ty_alliance" required>
+            <label>Game ID</label><input type="number" id="ty_ID" required>
+            <label>Can you be active for 5 hours during tyrant?</label><select id="ty_Tyrant" required><option value="Yes">Yes</option><option value="No">No</option><option value="Few">Few</option></select>
+            <label>Can you join Discord call during the battle? mandatory</label><select id="ty_Discord" required><option value="Yes">Yes</option><option value="No">No</option></select>
+            <label>What is you FC level?</label><select id="ty_FC" onchange="toggleH()" required><option value="FC8">FC8</option><option value="FC7">FC7</option><option value="FC6">FC6</option><option value="Other">Other</option></select>
+            <div id="h_p" style="display:none;" class="helios-panel">
+                <label>FULL HELIOS?</label><select id="ty_Full_Helios" onchange="toggleT()"><option value="Yes">Yes</option><option value="No">No</option></select>
+                <div id="t_p" style="display:none; margin-top:15px;"><label>Specify Types</label><div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;"><label style="font-size:0.85rem;"><input type="checkbox" class="ty-t" value="Infantry"> Infantry</label><label style="font-size:0.85rem;"><input type="checkbox" class="ty-t" value="Lancers"> Lancers</label><label style="font-size:0.85rem;"><input type="checkbox" class="ty-t" value="Marksmen"> Marksmen</label></div></div>
             </div>
             <button type="submit" class="btn-action">CONFIRM</button>
         </form>
@@ -176,19 +190,19 @@
     <div class="form-frame">
         <h2 style="text-align:center;">STATE TRANSFER</h2>
         <form id="trForm">
-            <label>Player name</label><input type="text" id="tr_n" required>
-            <label>Current state</label><input type="number" id="tr_s" required>
-            <label>FC level</label><select id="tr_fc" required><option value="FC7">FC7</option><option value="FC8">FC8</option><option value="FC9">FC9</option><option value="FC10">FC10</option></select>
-            <label>Helios Troops?</label><select id="tr_h" required><option value="Yes">Yes</option><option value="No">No</option></select>
-            <label>Joining Month</label><select id="tr_m" required></select>
-            <label>Total power</label><input type="text" id="tr_p" required>
-            <label>If we are a leading state you will need to reduce power are you aware of that?</label><select id="tr_a" required><option value="Yes">Yes (نعم)</option><option value="No">No (لا)</option></select>
+            <label>Player name</label><input type="text" id="tr_name" required>
+            <label>Current state</label><input type="number" id="tr_current_state" required>
+            <label>FC level</label><select id="tr_fc_level" required><option value="FC7">FC7</option><option value="FC8">FC8</option><option value="FC9">FC9</option><option value="FC10">FC10</option></select>
+            <label>Helios Troops?</label><select id="tr_helios" required><option value="Yes">Yes</option><option value="No">No</option></select>
+            <label>Joining Month</label><select id="tr_month"></select>
+            <label>Total power</label><input type="text" id="tr_power" required>
+            <label>Reduce power awareness?</label><select id="tr_reduce_aware" required><option value="Yes">Yes</option><option value="No">No</option></select>
             <button type="submit" class="btn-action">SUBMIT APPLICATION</button>
         </form>
     </div>
 </div>
 
-<!-- Admin Panel -->
+<!-- Admin -->
 <div id="adminArea">
     <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #fff; padding-bottom:15px;"><h1 style="color:#fff;">ADMIN HQ</h1><button onclick="exitAdmin()" style="background:red; color:#fff; border:none; padding:10px 25px; border-radius:10px;">EXIT</button></div>
     <div class="admin-card" style="text-align:left; margin-top:20px;">
@@ -197,17 +211,7 @@
         <button onclick="saveDash()" class="btn-action">SAVE DASHBOARD</button>
     </div>
     <div class="admin-card"><h3>BT TIMINGS CONTROL</h3><div id="bt_admin_list"></div><button onclick="saveBT()" class="btn-action" style="margin-top:10px; background:var(--sky); color:#fff;">SAVE BT TIMES</button></div>
-    <div class="admin-card">
-        <h3>SYSTEM PROTOCOLS</h3>
-        <div style="display:flex; gap:10px; margin-bottom:20px;">
-            <button id="l_svs" onclick="tLock('svs_lock')" style="flex:1; padding:15px; border-radius:10px; font-weight:900;">SVS</button>
-            <button id="l_tyrant" onclick="tLock('tyrant_lock')" style="flex:1; padding:15px; border-radius:10px; font-weight:900;">TYRANT</button>
-            <button id="l_trans" onclick="tLock('transfer_lock')" style="flex:1; padding:15px; border-radius:10px; font-weight:900;">TRANS</button>
-        </div>
-        <button onclick="dlSheet('svs')" style="background:#28a745; width:100%; margin-bottom:5px;" class="btn-action">DL SVS</button>
-        <button onclick="dlSheet('tyrant')" style="background:#28a745; width:100%; margin-bottom:5px;" class="btn-action">DL TYRANT</button>
-        <button onclick="dlSheet('transfers')" style="background:#28a745; width:100%;" class="btn-action">DL TRANSFERS</button>
-    </div>
+    <div class="admin-card"><h3>PROTOCOLS</h3><div style="display:flex; gap:10px; margin-bottom:20px;"><button id="l_svs" onclick="tLock('svs_lock')" style="flex:1; padding:15px; border-radius:10px; font-weight:900;">SVS</button><button id="l_tyrant" onclick="tLock('tyrant_lock')" style="flex:1; padding:15px; border-radius:10px; font-weight:900;">TYRANT</button><button id="l_trans" onclick="tLock('transfer_lock')" style="flex:1; padding:15px; border-radius:10px; font-weight:900;">TRANS</button></div><button onclick="dlSheet('svs')" style="background:#28a745; width:100%; margin-bottom:5px;" class="btn-action">DL SVS</button><button onclick="dlSheet('tyrant')" style="background:#28a745; width:100%; margin-bottom:5px;" class="btn-action">DL TYRANT</button><button onclick="dlSheet('transfers')" style="background:#28a745; width:100%;" class="btn-action">DL TRANSFERS</button></div>
 </div>
 
 <script type="text/javascript">
@@ -217,11 +221,11 @@
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script>
-    const ENGINE = 'https://script.google.com/macros/s/AKfycbxogCYnlDiaDOxyqLdOxrsV7AfXIFjwBN5Q3mUT2WBCX9_WAGQjKe5DQDCFfr-wPug0Lg/exec'; 
+    const ENGINE = 'https://script.google.com/macros/s/AKfycbyC_Th2CtfOdYHFexAXMSiNqFEcOBQ1BNPiES_G0VT8s2mvcMlO8u4ZmBvv_127AlG1/exec'; 
     let cfg = {};
-    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    months.forEach(m => { if(document.getElementById('tr_m')) document.getElementById('tr_m').innerHTML += `<option value="${m}">${m}</option>`; });
-    for(let i=0; i<24; i++) { let t = i < 10 ? `0${i}:00` : `${i}:00`; if(document.getElementById('svs_t')) document.getElementById('svs_t').innerHTML += `<option value="${t} UTC">${t} UTC</option>`; }
+    const m_list = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    m_list.forEach(m => { if(document.getElementById('tr_month')) document.getElementById('tr_month').innerHTML += `<option value="${m}">${m}</option>`; });
+    for(let i=0; i<24; i++) { let t = i < 10 ? `0${i}:00` : `${i}:00`; if(document.getElementById('svs_timing')) document.getElementById('svs_timing').innerHTML += `<option value="${t} UTC">${t} UTC</option>`; }
 
     async function load() {
         try {
@@ -243,30 +247,33 @@
     }
     load();
 
-    function syncL() {
-        [['svs_lock','card_svs','l_svs'],['tyrant_lock','card_tyrant','l_tyrant'],['transfer_lock','card_transfers','l_trans']].forEach(l => {
-            const isL = String(cfg[l[0]]).toLowerCase() === 'true';
-            const c = document.getElementById(l[1]); const b = document.getElementById(l[2]);
-            if(isL) { c.classList.add('locked'); if(!c.querySelector('.lock-shield')) c.innerHTML += `<div class="lock-shield"><i class="fas fa-lock" style="font-size:3rem;margin-bottom:10px;"></i><span>SECTION CLOSED</span></div>`; b.style.background="#dc3545"; b.innerText="LOCKED"; }
-            else { c.classList.remove('locked'); const s = c.querySelector('.lock-shield'); if(s) s.remove(); b.style.background="#28a745"; b.innerText="OPEN"; }
-        });
+    function renderBT(data) {
+        let h = '<tr><th style="background:var(--sky); color:#fff">Alliance</th><th style="background:var(--sky); color:#fff">BT1</th><th style="background:var(--sky); color:#fff">BT2</th></tr>';
+        let adminHtml = '';
+        for(let i=0; i<4; i++) {
+            let r = data[i] || {alliance:'', bt1:'', bt2:''};
+            h += `<tr style="border-bottom:1px solid #333"><td>${r.alliance || '-'}</td><td>${r.bt1 || '-'}</td><td>${r.bt2 || '-'}</td></tr>`;
+            adminHtml += `<div class="bt-input-row"><input type="text" class="bt-a" value="${r.alliance}" placeholder="Tag"><input type="text" class="bt-1" value="${r.bt1}" placeholder="BT1"><input type="text" class="bt-2" value="${r.bt2}" placeholder="BT2"></div>`;
+        }
+        document.getElementById('bt_data').innerHTML = h;
+        document.getElementById('bt_admin_list').innerHTML = adminHtml;
     }
 
-    async function smartLink(title, url) { Swal.fire({ title: title, text: 'Opening secure strategic portal...', icon: 'info', background: '#051a30', color: '#fff', confirmButtonText: 'PROCEED' }).then((r) => { if (r.isConfirmed) window.open(url, "_blank"); }); }
-    async function loadBT() { const res = await fetch(`${ENGINE}?sheet=bt_timings`); const data = await res.json(); let h = '<tr><th style="background:var(--sky); color:#fff">Alliance</th><th style="background:var(--sky); color:#fff">BT1</th><th style="background:var(--sky); color:#fff">BT2</th></tr>'; let adminHtml = ''; for(let i=0; i<4; i++) { let r = data[i] || {alliance:'', bt1:'', bt2:''}; h += `<tr style="border-bottom:1px solid #333"><td>${r.alliance || '-'}</td><td>${r.bt1 || '-'}</td><td>${r.bt2 || '-'}</td></tr>`; adminHtml += `<div style="display:grid; grid-template-columns: 2fr 1fr 1fr; gap:10px; margin-bottom:10px;"><input type="text" class="bt-a" value="${r.alliance}" placeholder="Tag"><input type="text" class="bt-1" value="${r.bt1}" placeholder="BT1"><input type="text" class="bt-2" value="${r.bt2}" placeholder="BT2"></div>`; } document.getElementById('bt_data').innerHTML = h; document.getElementById('bt_admin_list').innerHTML = adminHtml; }
-    async function loadW() { const res = await fetch(`${ENGINE}?sheet=messages`); const data = await res.json(); const latest = data.slice(-5).reverse(); let h = ''; latest.forEach(m => h += `<div class="msg-item"><div class="msg-header"><span>${m.name}</span><span>${m.date}</span></div><div class="msg-body">${m.message}</div></div>`); document.getElementById('wall_msgs').innerHTML = h || "No messages."; }
+    function renderWall(data) { const latest = data.slice(-5).reverse(); let h = ''; latest.forEach(m => h += `<div class="msg-item"><div class="msg-header"><span>${m.name}</span><span>${m.date}</span></div><div class="msg-body">${m.message}</div></div>`); document.getElementById('wall_msgs').innerHTML = h || "No messages."; }
     async function postWall() { const n = document.getElementById('wall_name').value, t = document.getElementById('wall_txt').value; if(!n || !t) return; await fetch(ENGINE, { method:'POST', body: JSON.stringify({sheet:'messages', data:[{date: new Date().toLocaleDateString(), name: n, message: t}]}) }); location.reload(); }
+    function syncL() { [['svs_lock','card_svs','l_svs'],['tyrant_lock','card_tyrant','l_tyrant'],['transfer_lock','card_transfers','l_trans']].forEach(l => { const isL = String(cfg[l[0]]).toLowerCase() === 'true'; const c = document.getElementById(l[1]); const b = document.getElementById(l[2]); if(isL) { c.classList.add('locked'); if(!c.querySelector('.lock-shield')) c.innerHTML += `<div class="lock-shield"><i class="fas fa-lock" style="font-size:3rem;margin-bottom:10px;"></i><span>SECTION CLOSED</span></div>`; b.style.background="#dc3545"; b.innerText="LOCKED"; } else { c.classList.remove('locked'); const s = c.querySelector('.lock-shield'); if(s) s.remove(); b.style.background="#28a745"; b.innerText="OPEN"; } }); }
+    async function smartLink(title, url) { Swal.fire({ title: title, text: 'Opening secure HQ portal...', icon: 'info', background: '#051a30', color: '#fff', confirmButtonText: 'PROCEED' }).then((r) => { if (r.isConfirmed) window.open(url, "_blank"); }); }
     async function saveBT() { Swal.fire({title:'Saving BT...', didOpen:()=>Swal.showLoading()}); const rows = []; const a = document.querySelectorAll('.bt-a'), t1 = document.querySelectorAll('.bt-1'), t2 = document.querySelectorAll('.bt-2'); a.forEach((el, i) => rows.push([el.value, t1[i].value, t2[i].value])); await fetch(ENGINE, { method:'POST', body: JSON.stringify({sheet:'bt_timings', data: rows, action:'update_bt'}) }); location.reload(); }
     async function saveDash() { Swal.fire({title:'Syncing...', didOpen:()=>Swal.showLoading()}); const updates = {president: document.getElementById('a_pres').value, leagues: document.getElementById('a_league').value, wins: document.getElementById('a_svs').value, player_of_month: document.getElementById('a_pom').value, announcement: document.getElementById('a_ann').value}; await fetch(ENGINE, { method:'POST', body: JSON.stringify({sheet:'settings', updates: updates, action:'update_settings'}) }); location.reload(); }
     async function tLock(k) { const v = String(cfg[k]).toLowerCase() === 'true' ? 'false' : 'true'; const updates = {}; updates[k] = v; await fetch(ENGINE, { method:'POST', body: JSON.stringify({sheet:'settings', updates: updates, action:'update_settings'}) }); location.reload(); }
     function toggleH() { document.getElementById('h_p').style.display = ['FC8','FC7','FC6'].includes(document.getElementById('ty_fc').value) ? "block" : "none"; }
-    function toggleT() { document.getElementById('types_p').style.display = (document.getElementById('ty_full').value === 'No') ? "block" : "none"; }
+    function toggleT() { document.getElementById('t_p').style.display = (document.getElementById('ty_full').value === 'No') ? "block" : "none"; }
     function showView(id) { document.querySelectorAll('.view, #home_view').forEach(v=>v.style.display='none'); document.getElementById(id+'_view' || id).style.display='block'; window.scrollTo(0,0); }
     function exitView() { location.reload(); }
     function openAdmin() { if(prompt("HQ CODE:") === 'State2099') document.getElementById('adminArea').style.display = 'block'; }
     function exitAdmin() { document.getElementById('adminArea').style.display = 'none'; }
-    async function push(e, s, p) { e.preventDefault(); Swal.fire({title:"Transmitting...", didOpen:()=>Swal.showLoading()}); await fetch(ENGINE, { method:'POST', body: JSON.stringify({sheet: s, data: [p]}) }); Swal.fire("Success", "Confirmed.", "success").then(()=>location.reload()); }
-    async function dlSheet(s) { const res = await fetch(`${ENGINE}?sheet=${s}`); const data = await res.json(); const ws = XLSX.utils.json_to_sheet(data); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Data"); XLSX.writeFile(wb, `State2099_Log_${sheet}.xlsx`); }
+    async function push(e, s, p) { e.preventDefault(); Swal.fire({title:"Transmitting...", didOpen:()=>Swal.showLoading()}); await fetch(ENGINE, { method:'POST', body: JSON.stringify({sheet: s, data: [p]}) }); Swal.fire("Success", "Tactical data received.", "success").then(()=>location.reload()); }
+    async function dlSheet(s) { const res = await fetch(`${ENGINE}?sheet=${s}`); const data = await res.json(); const ws = XLSX.utils.json_to_sheet(data); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "Data"); XLSX.writeFile(wb, `State2099_${s}.xlsx`); }
 </script>
 </body>
 </html>
