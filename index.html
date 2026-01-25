@@ -3,342 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STATE 2099 | ROYAL HUB</title>
-    <!-- المكتبات -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <title>2099 STATE PORTAL | COMMAND HQ</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@600;700&family=Noto+Sans+Arabic:wght@400;600&display=swap');
-        
         :root {
-            --wos-sky: #29a4d8; --wos-deep: #051a30; --wos-gold: #ffba08; --panel: rgba(5, 20, 45, 0.98);
+            --neon: #00d4ff; --gold: #ffba08; --bg: #030b16; 
+            --glass: rgba(13, 35, 67, 0.85); --red: #ff3e3e; --green: #00ff88;
         }
-        
+
         body {
-            margin: 0; padding: 0; font-family: 'Rajdhani', sans-serif;
-            background: linear-gradient(180deg, #29a4d8 0%, #1a528a 40%, #0e3152 100%) no-repeat center center fixed;
-            background-size: cover; color: #fff; min-height: 100vh; overflow-x: hidden;
+            margin: 0; padding: 0; font-family: 'Orbitron', sans-serif;
+            background: var(--bg) url('https://whiteoutsurvival.wiki/wp-content/uploads/2023/04/Whiteout-Survival-Wallpaper-1.jpg') no-repeat center center fixed;
+            background-size: cover; color: white; min-height: 100vh;
         }
+
+        .blur-overlay { position: fixed; inset: 0; backdrop-filter: blur(18px); background: rgba(3, 11, 22, 0.75); z-index: -1; }
+
+        /* --- Custom Language HUD --- */
+        .lang-container { position: fixed; top: 20px; left: 20px; z-index: 1500; }
+        .lang-trigger { background: rgba(0,0,0,0.7); border: 1.5px solid var(--neon); border-radius: 50px; padding: 8px 15px; display: flex; align-items: center; gap: 10px; cursor: pointer; transition: 0.3s; }
+        .lang-trigger:hover { box-shadow: 0 0 15px var(--neon); }
+        .lang-trigger img { width: 22px; border-radius: 2px; }
+        .lang-dropdown { display: none; position: absolute; top: 110%; left: 0; background: rgba(3, 11, 22, 0.95); border: 1px solid var(--neon); border-radius: 12px; padding: 5px; width: 180px; backdrop-filter: blur(10px); }
+        .lang-container:hover .lang-dropdown { display: block; }
+        .lang-item { display: flex; align-items: center; gap: 12px; padding: 10px; cursor: pointer; border-radius: 8px; font-size: 0.75rem; }
+        .lang-item:hover { background: rgba(0, 212, 255, 0.2); }
+        .lang-item img { width: 20px; }
+
+        /* --- Side Dock Tools --- */
+        .side-dock { position: fixed; right: 10px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 1000; }
+        .dock-item { width: 60px; height: 60px; background: rgba(3, 11, 22, 0.9); border: 1.5px solid var(--neon); border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: white; transition: 0.3s; box-shadow: 0 0 10px rgba(0,212,255,0.2); }
+        .dock-item:hover { background: var(--neon); color: black; box-shadow: 0 0 20px var(--neon); transform: scale(1.05); }
+        .dock-item i { font-size: 1.3rem; margin-bottom: 2px; }
+        .dock-item span { font-size: 0.45rem; font-weight: 900; text-align: center; line-height: 1; }
+
+        /* --- Stats Bar --- */
+        .stats-grid { display: flex; justify-content: center; gap: 15px; max-width: 1100px; margin: 20px auto 0; padding: 10px; flex-wrap: wrap; }
+        .stat-card { background: var(--glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px 25px; text-align: center; min-width: 160px; box-shadow: 0 5px 20px rgba(0,0,0,0.4); }
+        .stat-card small { display: block; font-size: 0.6rem; color: #888; margin-bottom: 4px; }
+        .stat-card span { font-size: 1rem; color: var(--gold); font-weight: 900; }
+
+        header { text-align: center; margin-bottom: 5px; }
+        header h1 { font-size: 4rem; margin: 0; letter-spacing: 15px; text-shadow: 0 0 20px var(--neon); }
+        header p { color: var(--gold); letter-spacing: 5px; font-size: 0.8rem; margin-top: -10px; font-weight: 900; }
+
+        /* --- Announcement --- */
+        .ann-wrap { max-width: 750px; margin: 15px auto 30px; position: relative; padding: 0 20px; }
+        .ann-tag { position: absolute; top: -10px; left: 40px; background: var(--gold); color: black; font-size: 0.6rem; padding: 2px 12px; font-weight: 900; border-radius: 4px; }
+        .ann-body { background: rgba(0, 212, 255, 0.05); border: 1.5px solid var(--neon); border-radius: 12px; padding: 18px; text-align: center; font-family: 'Cairo'; font-size: 1rem; }
+
+        /* --- Main Cards --- */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+        .p-card { background: var(--glass); border: 2.5px solid rgba(255,255,255,0.05); border-radius: 25px; padding: 70px 20px; text-align: center; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; }
+        .p-card:hover { border-color: var(--neon); transform: translateY(-8px); background: rgba(0, 212, 255, 0.1); }
+        .p-card i { font-size: 4rem; color: var(--neon); margin-bottom: 20px; display: block; }
+        .p-card h2 { margin: 0; font-size: 2rem; letter-spacing: 4px; }
+        .p-card small { font-family: 'Cairo'; opacity: 0.5; font-size: 0.85rem; display: block; margin-top: 5px; }
+
+        .locked-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.92); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 20; color: var(--red); display: none; }
+        .locked-overlay i { font-size: 3rem; margin-bottom: 10px; }
+
+        /* --- Scrollable Forms (THE HUD) --- */
+        .form-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; overflow-y: auto; padding: 60px 20px; }
+        .form-hud { width: 100%; max-width: 550px; background: rgba(13, 35, 67, 0.4); border: 2px solid var(--neon); padding: 50px; border-radius: 25px; margin: auto; position: relative; backdrop-filter: blur(10px); box-shadow: 0 0 50px rgba(0,212,255,0.2); }
+        .btn-back-top { position: absolute; top: 20px; left: 20px; background: white; color: black; border: none; padding: 6px 20px; border-radius: 50px; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; text-transform: uppercase; font-size: 0.7rem; }
+
+        .field { margin-bottom: 25px; text-align: left; }
+        .field label { display: block; font-size: 0.7rem; color: var(--neon); margin-bottom: 8px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+        input, select { width: 100%; padding: 14px; background: #000; border: 1.5px solid #1a3a5a; color: white; font-family: 'Orbitron'; box-sizing: border-box; font-size: 1rem; border-radius: 8px; }
         
-        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2); z-index: -1; }
+        .btn-transmit { width: 100%; padding: 20px; background: white; color: black; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; border-radius: 12px; margin-top: 20px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        .btn-transmit:hover { background: var(--neon); transform: translateY(-3px); }
 
-        /* --- شريط الأدوات الجانبي التكتيكي --- */
-        .side-dock { position: fixed; right: 12px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
-        .dock-item { 
-            width: 75px; height: 95px; background: var(--panel); border: 2px solid var(--wos-sky); border-radius: 12px; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            cursor: pointer; transition: 0.3s; box-shadow: 0 8px 25px rgba(0,0,0,0.6); text-decoration: none;
-        }
-        .dock-item i { font-size: 1.6rem; color: #fff; margin-bottom: 5px; }
-        .dock-label { font-family: 'Orbitron'; font-size: 0.5rem; font-weight: 900; color: #fff; text-align: center; line-height: 1.1; }
-        .dock-item:hover { transform: scale(1.1) translateX(-5px); border-color: var(--wos-gold); }
-        .dock-item.gift { border-color: var(--wos-gold); color: var(--wos-gold); }
+        /* --- Admin HQ --- */
+        #admin-hq { display: none; position: fixed; inset: 0; background: #000; z-index: 3000; padding: 30px; overflow-y: auto; }
+        .admin-wrap { max-width: 1000px; margin: 0 auto; background: #080808; border: 1px solid #222; border-radius: 15px; padding: 45px; }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 30px; }
+        .admin-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .status-btn { padding: 18px; border: none; font-weight: 900; cursor: pointer; border-radius: 8px; font-size: 0.9rem; }
+        .open { background: var(--green); color: black; }
+        .locked { background: var(--red); color: white; }
+        .dl-btn { background: var(--green); color: black; padding: 18px; text-align: center; text-decoration: none; font-weight: 900; border-radius: 8px; display: block; margin-top: 10px; }
 
-        /* --- اختيار اللغة (Dropdown أعلام) --- */
-        .lang-dropdown { position: fixed; top: 12px; left: 12px; z-index: 10001; background: rgba(0,0,0,0.6); border: 1.5px solid var(--wos-sky); border-radius: 12px; padding: 6px 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; }
-        .lang-list { display: none; position: absolute; top: 110%; left: 0; background: #000; border: 1px solid #333; border-radius: 10px; width: 130px; }
-        .lang-dropdown:hover .lang-list { display: block; }
-        .flag-item { display: flex; align-items: center; gap: 12px; padding: 10px; font-size: 0.85rem; font-weight: bold; border-bottom: 1px solid #222; }
-        .flag-item img { width: 22px; height: 14px; border-radius: 2px; }
-        #google_translate_element, .skiptranslate { display: none !important; }
-        body { top: 0 !important; }
-
-        .container { width: 100%; max-width: 950px; margin: 40px auto 20px; padding: 15px; box-sizing: border-box; }
-        header h1 { font-family: 'Orbitron'; font-size: clamp(3.5rem, 15vw, 6.5rem); text-align: center; margin: 0; font-weight: 900; letter-spacing: 12px; text-shadow: 0 5px 20px rgba(0,0,0,0.4); line-height: 1; }
-        .portal-tag { color: var(--wos-gold); text-align: center; font-weight: 900; letter-spacing: 15px; font-size: 1.2rem; font-family: 'Orbitron'; margin-top: -5px; text-transform: uppercase; }
-
-        /* --- الإحصائيات الملكية الذهبية --- */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 35px 0; }
-        .stat-card { background: var(--panel); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .stat-card h4 { margin: 0; font-family: 'Orbitron'; color: #ade8f4; font-size: 0.7rem; letter-spacing: 1px; }
-        .stat-card p { margin: 8px 0 0; font-weight: 800; font-size: 1.25rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        
-        /* تذهيب متوهج */
-        .gold-txt { color: var(--wos-gold) !important; text-shadow: 0 0 10px rgba(255, 186, 8, 0.5); }
-        .fa-crown, .fa-trophy, .fa-swords, .fa-star, .fa-paw, .fa-shield-halved, .fa-book, .fa-bolt { color: var(--wos-gold) !important; filter: drop-shadow(0 0 8px rgba(255, 186, 8, 0.6)); }
-        .pom-card { border: 2.5px solid var(--wos-gold); background: linear-gradient(45deg, rgba(255, 186, 8, 0.1), var(--panel)); }
-
-        .announcement-box { background: rgba(19, 108, 164, 0.6); border: 2.5px solid var(--wos-gold); border-radius: 18px; padding: 25px; margin-bottom: 35px; position: relative; backdrop-filter: blur(15px); }
-        .announcement-box::before { content: "STATE'S ANNOUNCEMENTS"; position: absolute; top: -12px; left: 25px; background: var(--wos-gold); color: #051a30; font-family: 'Orbitron'; font-size: 0.7rem; padding: 4px 15px; font-weight: 900; border-radius: 5px; }
-        .announcement-text { margin: 0; font-size: 1.2rem; font-weight: 700; color: #fff; text-align: center; line-height: 1.5; }
-
-        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .menu-card { background: var(--panel); padding: 60px 25px; border-radius: 35px; border: 2px solid rgba(255,255,255,0.15); text-align: center; cursor: pointer; transition: 0.3s; position: relative; overflow: hidden; }
-        .menu-card:hover { border-color: #fff; transform: translateY(-8px); }
-        .menu-card i.card-icon { font-size: 4rem; color: var(--wos-sky); margin-bottom: 25px; filter: drop-shadow(0 0 10px var(--wos-sky)); }
-        .menu-card h2 { font-family: 'Orbitron'; margin: 0; font-size: 2.2rem; font-weight: 900; }
-
-        .lock-shield { position: absolute; top:0; left:0; width:100%; height:100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(5, 10, 25, 0.85); color: #ff5252; font-family: 'Orbitron'; font-weight: 900; z-index: 10; backdrop-filter: blur(6px); border: 2.5px solid #ff5252; border-radius: 35px; }
-
-        /* جدار الرسائل */
-        .wall-section { background: var(--panel); border: 2px solid var(--wos-sky); border-radius: 25px; padding: 25px; margin-top: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
-        .msg-item { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 12px; border-left: 4px solid var(--wos-sky); }
-        .msg-header { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--wos-sky); font-weight: 800; font-family: 'Orbitron'; }
-        .msg-body { font-size: 1.1rem; font-weight: 600; color: #f0f4f8; margin-top: 5px; }
-
-        /* النماذج والوضوح */
-        .view { display: none; width: 100%; max-width: 680px; margin: 40px auto; padding: 15px; animation: fadeIn 0.5s ease; }
-        .form-frame { background: rgba(5, 20, 45, 0.99); padding: 45px 30px; border-radius: 40px; border: 3px solid #fff; box-shadow: 0 30px 80px rgba(0,0,0,0.8); }
-        label { display: block; font-family: 'Orbitron'; font-weight: 900; color: #ade8f4; margin-bottom: 6px; font-size: 0.95rem; text-transform: uppercase; }
-        .ar-desc { font-family: 'Noto Sans Arabic'; font-size: 0.75rem; color: #94a3b8; display: block; margin-bottom: 12px; font-weight: normal; }
-        
-        input, select, textarea { 
-            width: 100%; padding: 16px; border-radius: 12px; border: 1.5px solid #444; 
-            background: #000; color: #fff; font-family: 'Rajdhani'; font-size: 1.25rem; 
-            box-sizing: border-box; font-weight: 700; margin-bottom: 20px; outline: none; 
-        }
-        select option { background: #000; color: #fff; padding: 10px; }
-
-        .btn-action { width: 100%; padding: 22px; background: #fff; border: none; border-radius: 18px; color: #051a30; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; font-size: 1.4rem; text-transform: uppercase; transition: 0.3s; }
-        .btn-action:hover { background: var(--wos-sky); color: #fff; transform: translateY(-3px); }
-
-        .helios-panel { border-left: 5px solid var(--wos-gold); padding-left: 20px; margin: 20px 0; background: rgba(255, 220, 92, 0.05); padding: 20px; border-radius: 10px; }
-        .grid-check { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .check-item { display: flex; align-items: center; gap: 10px; font-weight: 700; color: #fff; cursor: pointer; font-size: 0.9rem; }
-        
-        #adminArea { position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 11000; display: none; padding: 25px; box-sizing: border-box; overflow-y: auto; }
-        .admin-card { background: #111; padding: 25px; border-radius: 20px; border: 1px solid #333; margin-bottom: 25px; }
-        .bt-input-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-
-        @media (max-width: 768px) { .side-dock { position: relative; top: 0; right: 0; transform: none; flex-direction: row; flex-wrap: wrap; justify-content: center; margin: 20px 0; gap: 8px; } .dock-item { width: 85px; height: 75px; } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .success-box { display: none; text-align: center; }
+        .success-box i { font-size: 5rem; color: var(--green); margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-<!-- شريط الأدوات الجانبي -->
+<div class="blur-overlay"></div>
+
+<!-- Language Tool -->
+<div class="lang-container">
+    <div class="lang-trigger">
+        <i class="fas fa-globe"></i>
+        <img src="https://flagcdn.com/w40/sa.png" id="active-flag">
+        <span>EN / AR</span>
+    </div>
+    <div class="lang-dropdown">
+        <div class="lang-item" onclick="setLang('ar','sa')"><img src="https://flagcdn.com/w40/sa.png"> العربية</div>
+        <div class="lang-item" onclick="setLang('en','us')"><img src="https://flagcdn.com/w40/us.png"> English</div>
+        <div class="lang-item" onclick="setLang('ru','kz')"><img src="https://flagcdn.com/w40/kz.png"> Русский</div>
+        <div class="lang-item" onclick="setLang('ko','kr')"><img src="https://flagcdn.com/w40/kr.png"> 한국어</div>
+        <div class="lang-item" onclick="setLang('id','id')"><img src="https://flagcdn.com/w40/id.png"> Indonesia</div>
+    </div>
+</div>
+
+<!-- Tools HUD -->
 <div class="side-dock">
-    <div class="dock-item" onclick="showView('bt')"><i class="fas fa-paw"></i><span class="dock-label">BT TIMINGS</span></div>
-    <div class="dock-item highlight" onclick="smartLink('REDEEM PORTAL', 'https://wos-giftcode.centurygame.com/')"><i class="fas fa-gift"></i><span class="dock-label">REDEEM</span></div>
-    <div class="dock-item" onclick="smartLink('GEAR CALC', 'https://whiteoutsurvival.pl/chief-gear-calculator/')"><i class="fas fa-shield-halved"></i><span class="dock-label">GEAR CALC</span></div>
-    <div class="dock-item" onclick="smartLink('CHARMS CALC', 'https://www.quackulator.com/chiefcharm.php')"><i class="fas fa-book"></i><span class="dock-label">CHARM CALC</span></div>
-    <div class="dock-item" onclick="smartLink('BATTLE SIM', 'https://sim.tundra.land/')"><i class="fas fa-bolt"></i><span class="dock-label">BATTLE SIM</span></div>
+    <div class="dock-item" onclick="showBT()"><i class="fas fa-paw"></i><span>BT TIMINGS</span></div>
+    <a href="https://wos-giftcode.centurygame.com/" target="_blank" class="dock-item"><i class="fas fa-gift"></i><span>REDEEM</span></a>
+    <a href="https://whiteoutsurvival.pl/chief-gear-calculator/" target="_blank" class="dock-item"><i class="fas fa-shield-halved"></i><span>GEAR CALC</span></a>
+    <a href="https://www.quackulator.com/chiefcharm.php" target="_blank" class="dock-item"><i class="fas fa-book"></i><span>CHARM CALC</span></a>
+    <a href="https://sim.tundra.land/" target="_blank" class="dock-item"><i class="fas fa-bolt"></i><span>BATTLE SIM</span></a>
 </div>
 
-<!-- اختيار اللغة -->
-<div class="lang-dropdown">
-    <i class="fas fa-globe" style="color:var(--wos-sky)"></i>
-    <img id="cur-flag" src="https://flagcdn.com/w40/sa.png" style="width:20px; height:13px; margin-left:5px;">
-    <div class="lang-list">
-        <div class="flag-item" onclick="execTrans('ar', 'sa')"><img src="https://flagcdn.com/w40/sa.png"> AR</div>
-        <div class="flag-item" onclick="execTrans('en', 'us')"><img src="https://flagcdn.com/w40/us.png"> EN</div>
-        <div class="flag-item" onclick="execTrans('ru', 'ru')"><img src="https://flagcdn.com/w40/ru.png"> RU</div>
-        <div class="flag-item" onclick="execTrans('ko', 'kr')"><img src="https://flagcdn.com/w40/kr.png"> KO</div>
-    </div>
-</div>
-
-<div id="google_translate_element"></div>
-
-<div id="home_view" class="container">
-    <header style="text-align:center;"><h1>2099</h1><p class="portal-tag">STATE PORTAL</p></header>
+<!-- Portal UI -->
+<div id="player-portal">
     <div class="stats-grid">
-        <div class="stat-card"><h4>CURRENT PRESIDENT</h4><p><i class="fas fa-crown gold-txt"></i> <span id="p_val" class="gold-txt" style="font-size:1rem">...</span></p></div>
-        <div class="stat-card"><h4>LEAGUES TITLES</h4><p><span id="l_val" class="gold-txt">0</span> <i class="fas fa-trophy gold-txt"></i></p></div>
-        <div class="stat-card"><h4>SVS VICTORIES</h4><p><span id="s_val" class="gold-txt">0</span> <i class="fas fa-swords gold-txt"></i></p></div>
-        <div class="stat-card pom-card"><h4>PLAYER OF MONTH</h4><p><i class="fas fa-star gold-txt"></i> <span id="pom_val" class="gold-txt" style="font-size:1rem">...</span></p></div>
+        <div class="stat-card"><small>CURRENT PRESIDENT</small><span id="v-pres">LOADING...</span></div>
+        <div class="stat-card"><small>LEAGUES TITLES</small><span id="v-league">...</span></div>
+        <div class="stat-card"><small>SVS VICTORIES</small><span id="v-svs">...</span></div>
+        <div class="stat-card"><small>PLAYER OF MONTH</small><span id="v-pom">...</span></div>
     </div>
-    <div class="announcement-box" style="padding:20px; text-align:center;"><p class="announcement-text" id="ann_val">Loading strategic portal...</p></div>
-    <div class="menu-grid">
-        <div class="menu-card" id="card_svs" onclick="showView('svs')"><i class="fas fa-chess-rook card-icon"></i><h2>MINISTRY</h2><span style="display:block;opacity:0.6;font-size:0.7rem;">طلبات الوزارات</span></div>
-        <div class="menu-card" id="card_tyrant" onclick="showView('tyrant')"><i class="fas fa-dragon card-icon"></i><h2>TYRANT</h2><span style="display:block;opacity:0.6;font-size:0.7rem;">تسجيل الطاغية</span></div>
-        <div class="menu-card" id="card_transfers" onclick="showView('transfers')"><i class="fas fa-plane-departure card-icon"></i><h2>TRANSFER</h2><span style="display:block;opacity:0.6;font-size:0.7rem;">طلبات الانتقال</span></div>
-    </div>
-    <div class="wall-section"><h3 style="font-family:'Orbitron'; color:var(--sky); margin-bottom:15px;">COMMUNITY WALL</h3><div id="wall_msgs">Loading...</div><div style="display:flex; gap:10px; margin-top:15px;"><input type="text" id="wall_name" class="msg-input" placeholder="Name" style="width:100px; margin-bottom:0;"><input type="text" id="wall_txt" class="msg-input" placeholder="Message" style="flex:1; margin-bottom:0;"><button onclick="postWall()" class="btn-action" style="padding:0 20px; width:auto; height:52px; font-size:0.9rem;">SEND</button></div></div>
-    <div style="text-align: center; margin-top: 60px;"><button onclick="openAdmin()" style="background:none; border:none; color:rgba(255,255,255,0.05); font-family:'Orbitron'; cursor:pointer;">[ ADMIN_OVERRIDE ]</button></div>
-</div>
 
-<div id="bt_view" class="view"><button onclick="exitView()" class="btn-action" style="width:auto; padding:10px 20px; margin-bottom:20px;">BACK</button><div class="form-frame"><h2 style="text-align:center;">BT TIMINGS (UTC)</h2><table id="bt_data" style="width:100%; border-collapse:collapse; text-align:center; margin-top:20px;"></table></div></div>
+    <header><h1>2099</h1><p>STATE PORTAL</p></header>
 
-<div id="svs_view" class="view">
-    <button onclick="exitView()" class="btn-action" style="width:auto; padding:10px 20px; margin-bottom:20px;">BACK</button>
-    <div class="form-frame">
-        <h2 style="text-align:center;">SVS MINISTRY</h2>
-        <form id="svsForm">
-            <label>name</label><input type="text" id="svs_name" required>
-            <label>alliance</label><input type="text" id="svs_alliance" required>
-            <label>ministry</label><select id="svs_ministry" required><option value="VP">Vice President</option><option value="Edu">Minister of Education</option></select>
-            <label>speedups</label><select id="svs_speedups" required><option value="<20">Less than 20 Days</option><option value=">20">More than 20 Days</option><option value="+70">70+ Days</option></select>
-            <label>timing</label><select id="svs_timing"></select>
-            <button type="submit" class="btn-action">TRANSMIT</button>
-        </form>
+    <div class="ann-wrap">
+        <div class="ann-tag">STATE'S ANNOUNCEMENTS</div>
+        <div class="ann-body" id="v-ann">Establishing HQ Link...</div>
     </div>
-</div>
 
-<div id="tyrant_view" class="view">
-    <button onclick="exitView()" class="btn-action" style="width:auto; padding:10px 20px; margin-bottom:20px;">BACK</button>
-    <div class="form-frame">
-        <h2 style="text-align:center;">TYRANT REGISTRATION</h2>
-        <form id="tyrantForm">
-            <label>name</label><input type="text" id="ty_name" required>
-            <label>alliance</label><input type="text" id="ty_alliance" required>
-            <label>ID</label><input type="number" id="ty_ID" required>
-            <label>Tyrant</label><select id="ty_Tyrant" required><option value="Yes">Yes</option><option value="No">No</option><option value="Few">Few</option></select>
-            <label>Discord</label><select id="ty_Discord" required><option value="Yes">Yes</option><option value="No">No</option></select>
-            <label>FC</label><select id="ty_FC" onchange="toggleH()" required><option value="FC8">FC8</option><option value="FC7">FC7</option><option value="FC6">FC6</option><option value="Other">Other</option></select>
-            <div id="h_p" style="display:none; padding:15px; background:rgba(255,255,255,0.05); border-radius:10px; margin-bottom:20px;">
-                <label>Full_Helios</label><select id="ty_Full_Helios" onchange="toggleT()"><option value="Yes">Yes</option><option value="No">No</option></select>
-                <div id="t_p" style="display:none; margin-top:15px;"><label>Types</label><div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;"><label style="font-size:0.85rem;"><input type="checkbox" class="ty-t" value="Infantry"> Infantry</label><label style="font-size:0.85rem;"><input type="checkbox" class="ty-t" value="Lancers"> Lancers</label><label style="font-size:0.85rem;"><input type="checkbox" class="ty-t" value="Marksmen"> Marksmen</label></div></div>
-            </div>
-            <button type="submit" class="btn-action">CONFIRM</button>
-        </form>
-    </div>
-</div>
-
-<div id="transfers_view" class="view">
-    <button onclick="exitView()" class="btn-action" style="width:auto; padding:10px 20px; margin-bottom:20px;">BACK</button>
-    <div class="form-frame">
-        <h2 style="text-align:center;">STATE TRANSFER</h2>
-        <form id="trForm">
-            <label>name</label><input type="text" id="tr_name" required>
-            <label>current_state</label><input type="number" id="tr_current_state" required>
-            <label>fc_level</label><select id="tr_fc_level" required><option value="FC7">FC7</option><option value="FC8">FC8</option><option value="FC9">FC9</option><option value="FC10">FC10</option></select>
-            <label>helios</label><select id="tr_helios" required><option value="Yes">Yes</option><option value="No">No</option></select>
-            <label>month</label><select id="tr_month"></select>
-            <label>power</label><input type="text" id="tr_power" required>
-            <label>reduce_aware</label><select id="tr_reduce_aware" required><option value="Yes">Yes</option><option value="No">No</option></select>
-            <button type="submit" class="btn-action">SUBMIT APPLICATION</button>
-        </form>
-    </div>
-</div>
-
-<!-- Admin -->
-<div id="adminArea">
-    <div style="display:flex; justify-content:space-between; align-items:center;"><h1 style="color:#fff;">ADMIN HQ</h1><button onclick="exitAdmin()" style="background:red; color:#fff; border:none; padding:10px 25px; border-radius:10px;">EXIT</button></div>
-    <div class="admin-card" style="text-align:left; margin-top:20px;">
-        <h3>DASHBOARD</h3>
-        <label>President:</label><input type="text" id="a_pres"><label>Player of Month:</label><input type="text" id="a_pom"><label>Leagues Titles:</label><input type="text" id="a_league"><label>SVS Wins:</label><input type="text" id="a_svs"><label>Announcement:</label><textarea id="a_ann"></textarea>
-        <button onclick="saveDash()" class="btn-action">SAVE DASHBOARD</button>
-    </div>
-    <div class="admin-card">
-        <h3>BT TIMINGS</h3>
-        <div id="bt_admin_list"></div>
-        <button onclick="saveBT()" class="btn-action" style="margin-top:10px; background:var(--sky); color:#fff;">SAVE BT TIMES</button>
-    </div>
-    <div class="admin-card">
-        <h3>PROTOCOLS</h3>
-        <div style="display:flex; gap:10px; margin-bottom:20px;">
-            <button id="l_svs" onclick="tLock('svs_lock')" style="flex:1; padding:15px; border-radius:10px;">SVS</button>
-            <button id="l_tyrant" onclick="tLock('tyrant_lock')" style="flex:1; padding:15px; border-radius:10px;">TYRANT</button>
-            <button id="l_trans" onclick="tLock('transfer_lock')" style="flex:1; padding:15px; border-radius:10px;">TRANS</button>
+    <div class="cards-grid">
+        <div class="p-card" onclick="openProtocol('svs')">
+            <i class="fas fa-chess-rook"></i><h2>MINISTRY</h2><small>طلبات الوزارات</small>
+            <div id="lock-svs-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>SECTION CLOSED</span></div>
         </div>
-        <button onclick="dlSheet('svs')" style="background:#28a745; width:100%; margin-bottom:5px;" class="btn-action">DL SVS</button>
-        <button onclick="dlSheet('tyrant')" style="background:#28a745; width:100%; margin-bottom:5px;" class="btn-action">DL TYRANT</button>
-        <button onclick="dlSheet('transfers')" style="background:#28a745; width:100%;" class="btn-action">DL TRANSFERS</button>
+        <div class="p-card" onclick="openProtocol('tyrant')">
+            <i class="fas fa-skull-crossbones"></i><h2>TYRANT</h2><small>حرب الطاغية</small>
+            <div id="lock-tyrant-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>SECTION CLOSED</span></div>
+        </div>
+        <div class="p-card" onclick="openProtocol('transfers')">
+            <i class="fas fa-plane-arrival"></i><h2>TRANSFER</h2><small>طلبات الانتقال</small>
+            <div id="lock-transfers-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>SECTION CLOSED</span></div>
+        </div>
     </div>
 </div>
 
-<script type="text/javascript">
-    function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'ru,fr,es,it,ko,zh-CN,id,hi,pl,ar,en', autoDisplay: false}, 'google_translate_element'); }
-    function execTrans(lang, flag) { var c = document.querySelector(".goog-te-combo"); if (c) { c.value = lang; c.dispatchEvent(new Event('change')); document.getElementById('cur-flag').src = `https://flagcdn.com/w40/${flag}.png`; } }
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!-- Form Modal -->
+<div id="form-view" class="form-view">
+    <div class="form-hud">
+        <button class="btn-back-top" onclick="closeProtocol()">BACK</button>
+        <div id="form-container">
+            <h2 id="f-title" style="text-align:center; color:white; letter-spacing:4px; margin-top:20px;">PROTOCOL</h2>
+            <div id="f-inputs"></div>
+            <button class="btn-transmit" id="sub-btn" onclick="submitMission()">TRANSMIT</button>
+        </div>
+        <div id="success-view" class="success-box">
+            <i class="fas fa-check-double"></i>
+            <h2 style="letter-spacing:5px;">MISSION SECURED</h2>
+            <button class="btn-transmit" onclick="closeProtocol()">RETURN TO PORTAL</button>
+        </div>
+    </div>
+</div>
+
+<!-- Admin HQ -->
+<div id="admin-hq">
+    <div class="admin-wrap">
+        <div class="admin-header">
+            <h1 style="color:var(--neon); margin:0;">ADMIN HQ</h1>
+            <button class="status-btn locked" onclick="exitAdmin()">EXIT</button>
+        </div>
+        <div class="field"><label>PRESIDENT:</label><input type="text" id="adm-pres"></div>
+        <div class="admin-row">
+            <div class="field"><label>PLAYER OF MONTH:</label><input type="text" id="adm-pom"></div>
+            <div class="field"><label>LEAGUES TITLES:</label><input type="text" id="adm-league"></div>
+            <div class="field"><label>SVS WINS:</label><input type="text" id="adm-svs"></div>
+        </div>
+        <div class="field"><label>ANNOUNCEMENT:</label><textarea id="adm-ann" rows="3" style="width:100%; background:#000; color:white; border:1px solid #333; padding:15px; font-family:'Cairo'; font-size:1.1rem;"></textarea></div>
+
+        <h3 style="color:var(--neon); border-bottom:1px solid #333; margin-top:40px;">BT TIMINGS</h3>
+        <div id="adm-bt-grid"></div>
+
+        <h3 style="color:var(--neon); border-bottom:1px solid #333; margin-top:40px;">SYSTEM LOCKS</h3>
+        <div class="admin-row">
+            <button id="pb-svs" class="status-btn" onclick="toggleLock('svs_lock')">SVS</button>
+            <button id="pb-tyrant" class="status-btn" onclick="toggleLock('tyrant_lock')">TYRANT</button>
+            <button id="pb-transfers" class="status-btn" onclick="toggleLock('transfers_lock')">TRANSFERS</button>
+        </div>
+
+        <h3 style="color:var(--neon); border-bottom:1px solid #333; margin-top:40px;">DATA EXPORTS (EXCEL)</h3>
+        <div class="admin-row">
+            <a href="#" id="dl-svs" class="dl-btn">DOWNLOAD SVS</a>
+            <a href="#" id="dl-tyrant" class="dl-btn">DOWNLOAD TYRANT</a>
+            <a href="#" id="dl-trans" class="dl-btn">DOWNLOAD TRANSFERS</a>
+        </div>
+        <button class="btn-transmit" style="background:var(--neon); margin-top:40px;" onclick="saveHQ()">SAVE DASHBOARD</button>
+    </div>
+</div>
+
+<div style="text-align:center; padding:30px; opacity:0.01;"><button onclick="loginAdmin()">HQ_OVERRIDE</button></div>
 
 <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbyC_Th2CtfOdYHFexAXMSiNqFEcOBQ1BNPiES_G0VT8s2mvcMlO8u4ZmBvv_127AlG1/exec'; 
-    let cfg = {};
+    const API = "https://script.google.com/macros/s/AKfycbwYnknz6OOm1CNpocLueTMXMSrBdkqH6bDb5OKlGfPGi-cLD20ZdN-taIahdSvefiA/exec";
+    const SHEET_ID = "1LkFhOMltulOB-gTkBP1G99bGlzwTt-_nxCu68gR-wwU";
+    let hqData = {};
+    let activeType = "";
 
-    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    months.forEach(m => { if(document.getElementById('tr_month')) document.getElementById('tr_month').innerHTML += `<option value="${m}">${m}</option>`; });
-    for(let i=0; i<24; i++) { let t = i < 10 ? `0${i}:00` : `${i}:00`; if(document.getElementById('svs_timing')) document.getElementById('svs_timing').innerHTML += `<option value="${t} UTC">${t} UTC</option>`; }
+    window.onload = loadData;
 
-    async function loadSite() {
-        try {
-            const res = await fetch(`${API_URL}?sheet=all`);
-            const data = await res.json();
-            data.settings.forEach(d => cfg[d.key] = String(d.value));
-            document.getElementById('p_val').innerText = cfg.president || "---";
-            document.getElementById('l_val').innerText = cfg.leagues || "---";
-            document.getElementById('s_val').innerText = cfg.wins || "---";
-            document.getElementById('pom_val').innerText = cfg.player_of_month || "---";
-            document.getElementById('ann_val').innerText = cfg.announcement || "...";
-            document.getElementById('a_pres').value = cfg.president || "";
-            document.getElementById('a_league').value = cfg.leagues || "";
-            document.getElementById('a_svs').value = cfg.wins || "";
-            document.getElementById('a_pom').value = cfg.player_of_month || "";
-            document.getElementById('a_ann').value = cfg.announcement || "";
-            updateLockUI('svs_lock', 'card_svs', 'l_svs');
-            updateLockUI('tyrant_lock', 'card_tyrant', 'l_tyrant');
-            updateLockUI('transfer_lock', 'card_transfers', 'l_trans');
-            renderBT(data.bt_timings); renderWall(data.messages);
-        } catch(e) { }
+    function loadData() {
+        fetch(API).then(r => r.json()).then(data => {
+            hqData = data;
+            syncUI();
+        });
     }
-    loadSite();
 
-    function renderBT(data) {
-        let h = '<tr><th style="background:var(--wos-mid)">Alliance</th><th style="background:var(--wos-mid)">BT1</th><th style="background:var(--wos-mid)">BT2</th></tr>';
-        let adminHtml = '';
+    function syncUI() {
+        const s = hqData.settings;
+        document.getElementById('v-pres').innerText = s.president || '---';
+        document.getElementById('v-league').innerText = s.league_wins || '---';
+        document.getElementById('v-svs').innerText = s.svs_wins || '---';
+        document.getElementById('v-pom').innerText = s.player_of_the_month || s.hero_of_the_month || '---';
+        document.getElementById('v-ann').innerText = s.announcement || 'No communications.';
+
+        // Locks logic
+        document.getElementById('lock-svs-ui').style.display = (s.svs_lock === "TRUE") ? "flex" : "none";
+        document.getElementById('lock-tyrant-ui').style.display = (s.tyrant_lock === "TRUE") ? "flex" : "none";
+        document.getElementById('lock-transfers-ui').style.display = (s.transfers_lock === "TRUE") ? "flex" : "none";
+
+        // Admin Fields
+        document.getElementById('adm-pres').value = s.president || '';
+        document.getElementById('adm-pom').value = s.player_of_the_month || '';
+        document.getElementById('adm-league').value = s.league_wins || '';
+        document.getElementById('adm-svs').value = s.svs_wins || '';
+        document.getElementById('adm-ann').value = s.announcement || '';
+
+        const btG = document.getElementById('adm-bt-grid');
+        btG.innerHTML = "";
+        hqData.bt.forEach((b, i) => {
+            btG.innerHTML += `<div class="admin-row"><input type="text" id="at-n-${i}" value="${b.alliance}"><input type="text" id="at-1-${i}" value="${b.bt1}"><input type="text" id="at-2-${i}" value="${b.bt2}"></div>`;
+        });
+
+        updateLockBtn('pb-svs', s.svs_lock);
+        updateLockBtn('pb-tyrant', s.tyrant_lock);
+        updateLockBtn('pb-transfers', s.transfers_lock);
+
+        // Download Links (Excel XLSX Format)
+        const base = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=xlsx`;
+        document.getElementById('dl-svs').href = base + `&gid=1767999200`;
+        document.getElementById('dl-tyrant').href = base + `&gid=1142906535`;
+        document.getElementById('dl-trans').href = base + `&gid=914028515`;
+    }
+
+    function updateLockBtn(id, val) {
+        const el = document.getElementById(id);
+        el.innerText = (val === "TRUE") ? "LOCKED" : "OPEN";
+        el.className = "status-btn " + (val === "TRUE" ? "locked" : "open");
+    }
+
+    function openProtocol(type) {
+        if(hqData.settings[type + "_lock"] === "TRUE") return;
+        activeType = type;
+        document.getElementById('player-portal').style.display = 'none';
+        document.getElementById('form-view').style.display = 'block';
+        document.getElementById('form-container').style.display = 'block';
+        document.getElementById('success-view').style.display = 'none';
+        document.getElementById('f-title').innerText = type.toUpperCase() + " PROTOCOL";
+        
+        const ins = document.getElementById('f-inputs');
+        ins.innerHTML = "";
+
+        if(type === 'svs') {
+            ins.innerHTML = `<div class="field"><label>NAME</label><input type="text" id="sv-n"></div><div class="field"><label>ALLIANCE</label><input type="text" id="sv-a"></div><div class="field"><label>GAME ID</label><input type="text" id="sv-i"></div><div class="field"><label>MINISTRY</label><select id="sv-m"><option>Vice President</option><option>Ministry of Education</option></select></div><div class="field"><label>SPEEDUPS</label><select id="sv-s"><option>40 Days or less</option><option>Above 40 Days</option><option>Above 100 Days</option></select></div><div class="field"><label>TIMING (UTC)</label><select id="sv-t">${getTimes()}</select></div>`;
+        } else if(type === 'transfers') {
+            ins.innerHTML = `<div class="field"><label>NAME</label><input type="text" id="tr-n"></div><div class="field"><label>CURRENT STATE</label><input type="text" id="tr-s"></div><div class="field"><label>FC LEVEL</label><select id="tr-f"><option>FC7</option><option>FC8</option><option>FC9</option><option>FC10</option></select></div><div class="field"><label>HELIOS TROOPS?</label><select id="tr-h"><option>Yes</option><option>No</option></select></div><div class="field"><label>CURRENT POWER</label><input type="text" id="tr-p"></div><div class="field"><label>MONTH OF JOINING</label><select id="tr-m">${getMonths()}</select></div><div class="field"><label>AWARE OF REDUCTION?</label><select id="tr-a"><option>Yes</option><option>No</option></select></div>`;
+        } else if(type === 'tyrant') {
+            ins.innerHTML = `<div class="field"><label>NAME</label><input type="text" id="ty-n"></div><div class="field"><label>ALLIANCE</label><input type="text" id="ty-a"></div><div class="field"><label>AVAILABLE 5H?</label><select id="ty-5"><option>Yes</option><option>No</option></select></div><div class="field"><label>DISCORD (MANDATORY)?</label><select id="ty-d"><option>Yes</option><option>No</option></select></div><div class="field"><label>FC LEVEL</label><select id="ty-f"><option>FC8</option><option>FC9</option><option>FC10</option></select></div><div class="field"><label>HELIOS CATEGORY</label><select id="ty-h"><option>1 Category</option><option>2 Categories</option><option>Full Helios</option></select></div>`;
+        }
+    }
+
+    function getTimes() { let o=""; for(let i=0; i<24; i++){ let h=i<10?'0'+i:i; o+=`<option>${h}:00 UTC</option>`; } return o; }
+    function getMonths() { return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map(m => `<option>${m}</option>`).join(""); }
+
+    function closeProtocol() { document.getElementById('player-portal').style.display='block'; document.getElementById('form-view').style.display='none'; }
+
+    function submitMission() {
+        const p = {};
+        document.querySelectorAll('#f-inputs input, #f-inputs select').forEach(i => { p[i.previousElementSibling.innerText] = i.value; });
+        document.getElementById('sub-btn').innerText = "TRANSMITTING...";
+        fetch(API, { method: 'POST', body: JSON.stringify({ type: activeType, payload: p }) }).then(() => {
+            document.getElementById('form-container').style.display='none';
+            document.getElementById('success-view').style.display='block';
+        });
+    }
+
+    function showBT() {
+        let msg = "BEAR TRAP TIMINGS:\n\n";
+        hqData.bt.forEach(b => msg += `${b.alliance}: ${b.bt1} & ${b.bt2}\n`);
+        alert(msg);
+    }
+
+    function setLang(code, flag) {
+        document.getElementById('active-flag').src = `https://flagcdn.com/w40/${flag}.png`;
+        alert("Translating interface...");
+    }
+
+    function loginAdmin() { if(prompt("HQ CLEARANCE:") === "State2099") document.getElementById('admin-hq').style.display='block'; }
+    function exitAdmin() { document.getElementById('admin-hq').style.display='none'; }
+
+    function saveHQ() {
+        const s = {
+            president: document.getElementById('adm-pres').value,
+            player_of_the_month: document.getElementById('adm-pom').value,
+            league_wins: document.getElementById('adm-league').value,
+            svs_wins: document.getElementById('adm-svs').value,
+            announcement: document.getElementById('adm-ann').value,
+            svs_lock: hqData.settings.svs_lock, tyrant_lock: hqData.settings.tyrant_lock, transfers_lock: hqData.settings.transfers_lock
+        };
+        const b = [];
         for(let i=0; i<4; i++) {
-            let r = data[i] || {alliance:'', bt1:'', bt2:''};
-            h += `<tr style="border-bottom:1px solid #333"><td>${r.alliance || '-'}</td><td>${r.bt1 || '-'}</td><td>${r.bt2 || '-'}</td></tr>`;
-            adminHtml += `<div class="bt-input-row"><input type="text" class="bt-a" value="${r.alliance}" placeholder="Tag"><input type="text" class="bt-1" value="${r.bt1}" placeholder="BT1"><input type="text" class="bt-2" value="${r.bt2}" placeholder="BT2"></div>`;
+            b.push([ document.getElementById(`at-n-${i}`).value, document.getElementById(`at-1-${i}`).value, document.getElementById(`at-2-${i}`).value ]);
         }
-        document.getElementById('bt_data').innerHTML = h;
-        document.getElementById('bt_admin_list').innerHTML = adminHtml;
+        fetch(API, { method: 'POST', body: JSON.stringify({ type: "admin_update", settings: s, bt: b }) }).then(() => location.reload());
     }
 
-    function renderWall(data) { const latest = data.slice(-5).reverse(); let h = ''; latest.forEach(m => h += `<div class="msg-item"><div class="msg-header"><span>${m.name}</span><span>${m.date}</span></div><div class="msg-body">${m.message}</div></div>`); document.getElementById('wall_msgs').innerHTML = h || "No messages."; }
-    function postWall() { const n = document.getElementById('wall_name').value, t = document.getElementById('wall_txt').value; if(!n || !t) return; fetch(API_URL, { method:'POST', body: JSON.stringify({sheet:'messages', data:[{date: new Date().toLocaleDateString(), name: n, message: t}]}) }).then(()=>location.reload()); }
-    
-    function updateLockUI(key, cardId, btnId) {
-        const isLocked = String(cfg[key]).toLowerCase() === 'true';
-        const card = document.getElementById(cardId);
-        const btn = document.getElementById(btnId);
-        if(isLocked) {
-            card.classList.add('locked');
-            if(!card.querySelector('.lock-shield')) card.innerHTML += `<div class="lock-shield"><i class="fas fa-lock" style="font-size:3rem;margin-bottom:10px;"></i><span>SECTION CLOSED</span></div>`;
-            btn.style.background = "#ff3333"; btn.innerText = "LOCKED";
-        } else {
-            card.classList.remove('locked');
-            const b = card.querySelector('.lock-shield'); if(b) b.remove();
-            btn.style.background = "#28a745"; btn.innerText = "OPEN";
-        }
-    }
-
-    async function saveSettings() {
-        Swal.fire({ title: 'Broadcasting to HQ...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-        const updates = {president: document.getElementById('a_pres').value, leagues: document.getElementById('a_league').value, wins: document.getElementById('a_svs').value, player_of_month: document.getElementById('a_pom').value, announcement: document.getElementById('a_ann').value};
-        await fetch(API_URL, { method:'POST', body: JSON.stringify({sheet:'settings', updates: updates, action:'update_settings'}) });
-        setTimeout(() => location.reload(), 1200);
-    }
-
-    async function saveBT() {
-        Swal.fire({title:'Saving BT...', didOpen:()=>Swal.showLoading()});
-        const rows = []; const a = document.querySelectorAll('.bt-a'), t1 = document.querySelectorAll('.bt-1'), t2 = document.querySelectorAll('.bt-2');
-        a.forEach((el, i) => rows.push([el.value, t1[i].value, t2[i].value]));
-        await fetch(API_URL, { method:'POST', body: JSON.stringify({sheet:'bt_timings', data: rows, action:'update_bt'}) });
-        setTimeout(() => location.reload(), 1200);
-    }
-
-    async function toggleLock(key) {
-        const newVal = String(cfg[key]).toLowerCase() === 'true' ? 'false' : 'true';
-        Swal.fire({ title: 'Overriding...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-        const up = {}; up[key] = newVal;
-        await fetch(API_URL, { method:'POST', body: JSON.stringify({sheet:'settings', updates: up, action:'update_settings'}) });
-        setTimeout(() => location.reload(), 1200);
-    }
-
-    async function smartLink(title, url) { Swal.fire({ title: title, text: 'Opening official portal...', icon: 'info', background: '#051a30', color: '#fff', confirmButtonText: 'PROCEED' }).then((r) => { if (r.isConfirmed) window.open(url, "_blank"); }); }
-    function toggleH() { document.getElementById('h_p').style.display = ['FC8','FC7','FC6'].includes(document.getElementById('ty_FC').value) ? "block" : "none"; }
-    function toggleT() { document.getElementById('t_p').style.display = (document.getElementById('ty_Full_Helios').value === 'No') ? "block" : "none"; }
-    function showView(id) { document.querySelectorAll('.view, #home_view').forEach(v=>v.style.display='none'); document.getElementById(id+'_view' || id).style.display='block'; window.scrollTo(0,0); }
-    function exitView() { location.reload(); }
-    function openAdmin() { if(prompt("HQ CLEARANCE CODE:") === 'State2099') document.getElementById('adminArea').style.display = 'block'; }
-    function exitAdmin() { document.getElementById('adminArea').style.display = 'none'; }
-    async function push(e, sheet, p) { e.preventDefault(); Swal.fire({title:"Transmitting...", didOpen:()=>Swal.showLoading()}); await fetch(API_URL, { method:'POST', body: JSON.stringify({sheet: sheet, data: [p]}) }); Swal.fire("Success", "Tactical data received.", "success").then(()=>location.reload()); }
-
-    document.getElementById('svsForm').onsubmit = e => push(e, 'svs', { name: document.getElementById('svs_name').value, alliance: document.getElementById('svs_alliance').value, ministry: document.getElementById('svs_ministry').value, speedups: document.getElementById('svs_speedups').value, timing: document.getElementById('svs_timing').value });
-    document.getElementById('tyrantForm').onsubmit = e => { const tyTypes = Array.from(document.querySelectorAll('.ty-t:checked')).map(c => c.value).join(', '); const isFull = document.getElementById('ty_Full_Helios').value; push(e, 'tyrant', { name: document.getElementById('ty_name').value, alliance: document.getElementById('ty_alliance').value, ID: document.getElementById('ty_ID').value, Tyrant: document.getElementById('ty_Tyrant').value, Discord: document.getElementById('ty_Discord').value, FC: document.getElementById('ty_FC').value, Full_Helios: isFull, Types: (isFull === 'No') ? tyTypes : 'Full' }); }
-    document.getElementById('trForm').onsubmit = e => push(e, 'transfers', { name: document.getElementById('tr_name').value, current_state: document.getElementById('tr_current_state').value, fc_level: document.getElementById('tr_fc_level').value, helios: document.getElementById('tr_helios').value, month: document.getElementById('tr_month').value, power: document.getElementById('tr_power').value, reduce_aware: document.getElementById('tr_reduce_aware').value });
-
-    async function downloadSheet(sheet) {
-        const res = await fetch(`${API_URL}?sheet=${sheet}`);
-        const data = await res.json();
-        const ws = XLSX.utils.json_to_sheet(data);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Data");
-        XLSX.writeFile(wb, `State2099_Log_${sheet}.xlsx`);
+    function toggleLock(key) {
+        hqData.settings[key] = (hqData.settings[key] === "TRUE") ? "FALSE" : "TRUE";
+        saveHQ();
     }
 </script>
 </body>
