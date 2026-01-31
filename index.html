@@ -13,22 +13,21 @@
         body { margin: 0; padding: 0; font-family: 'Orbitron', sans-serif; background: var(--bg) url('https://whiteoutsurvival.wiki/wp-content/uploads/2023/04/Whiteout-Survival-Wallpaper-1.jpg') no-repeat center center fixed; background-size: cover; color: white; overflow-x: hidden; }
         .blur-overlay { position: fixed; inset: 0; backdrop-filter: blur(18px); background: rgba(3, 11, 22, 0.75); z-index: -1; }
         
-        /* --- Language HUD (FLAGS) --- */
         .lang-hud { position: fixed; top: 15px; left: 15px; z-index: 1000; background: rgba(0,0,0,0.7); border: 1px solid var(--neon); border-radius: 50px; padding: 5px 12px; display: flex; gap: 10px; align-items: center; }
         .lang-hud img { width: 22px; cursor: pointer; transition: 0.3s; border-radius: 2px; }
         .lang-hud img:hover { transform: scale(1.3); box-shadow: 0 0 10px var(--neon); }
 
-        /* --- Side Dock (Tools) --- */
         .side-dock { position: fixed; right: 10px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 1000; }
         .dock-item { width: 60px; height: 60px; background: rgba(3, 11, 22, 0.9); border: 1.5px solid var(--neon); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: white; transition: 0.3s; cursor: pointer; }
         .dock-item:hover { background: var(--neon); color: black; box-shadow: 0 0 15px var(--neon); }
         .dock-item i { font-size: 1.2rem; margin-bottom: 2px; }
         .dock-item span { font-size: 0.42rem; font-weight: 900; text-align: center; }
 
-        /* --- UI Elements --- */
         .stats-grid { display: flex; justify-content: center; gap: 12px; max-width: 1100px; margin: 20px auto 0; padding: 10px; flex-wrap: wrap; }
         .stat-card { background: var(--glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 15px; text-align: center; min-width: 160px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        .stat-card small { display: block; font-size: 0.55rem; color: #888; margin-bottom: 4px; letter-spacing: 1px; }
         .stat-card span { font-size: 0.95rem; color: var(--gold); font-weight: 900; }
+
         header { text-align: center; }
         header h1 { font-size: 4rem; margin: 0; letter-spacing: 15px; text-shadow: 0 0 20px var(--neon); }
         .ann-wrap { max-width: 800px; margin: 10px auto 30px; position: relative; }
@@ -37,27 +36,26 @@
         
         .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1100px; margin: 40px auto; padding: 0 20px; }
         .p-card { background: var(--glass); border: 2.5px solid rgba(255,255,255,0.05); border-radius: 25px; padding: 70px 20px; text-align: center; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; }
-        .locked-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.92); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 20; color: var(--red); }
-        
-        /* --- Form View --- */
+        .p-card i { font-size: 3.5rem; color: var(--neon); margin-bottom: 20px; display: block; }
+        .locked-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.92); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 20; color: var(--red); pointer-events: none; }
+
         .form-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; overflow-y: auto; padding: 60px 20px; }
         .form-hud { width: 100%; max-width: 550px; background: rgba(13, 35, 67, 0.4); border: 2px solid var(--neon); padding: 45px; border-radius: 25px; margin: auto; position: relative; backdrop-filter: blur(10px); }
-        .btn-back-top { position: absolute; top: 20px; left: 20px; background: white; color: black; border: none; padding: 8px 25px; cursor: pointer; font-weight: 900; }
-        .field { margin-bottom: 22px; }
-        .field label { display: block; font-size: 0.75rem; color: var(--neon); margin-bottom: 10px; font-weight: 900; }
-        input, select, textarea { width: 100%; padding: 15px; background: #000; border: 1.5px solid #1a3a5a; color: white; font-family: 'Orbitron'; border-radius: 8px; }
-        .btn-transmit { width: 100%; padding: 20px; background: white; color: black; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; border-radius: 12px; margin-top: 20px; }
-        
-        /* --- Admin HQ --- */
+        .btn-back-top { position: absolute; top: 20px; left: 20px; background: white; color: black; border: none; padding: 8px 25px; cursor: pointer; font-family: 'Orbitron'; font-weight: 900; }
+        .field { margin-bottom: 22px; text-align: left; }
+        .field label { display: block; font-size: 0.75rem; color: var(--neon); margin-bottom: 10px; font-weight: 900; letter-spacing: 1px; }
+        input, select, textarea { width: 100%; padding: 15px; background: #000; border: 1.5px solid #1a3a5a; color: white; font-family: 'Orbitron'; box-sizing: border-box; font-size: 1rem; border-radius: 8px; }
+        .btn-transmit { width: 100%; padding: 20px; background: white; color: black; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; border-radius: 12px; margin-top: 20px; font-size: 1.2rem; }
+
         #admin-hq { display: none; position: fixed; inset: 0; background: #000; z-index: 3000; padding: 40px; overflow-y: auto; }
         .admin-wrap { max-width: 1000px; margin: 0 auto; background: #0a0a0a; border: 1px solid #222; border-radius: 20px; padding: 45px; }
         .admin-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .status-btn { padding: 18px; border: none; font-weight: 900; cursor: pointer; border-radius: 8px; transition: 0.3s; text-decoration: none; text-align: center; font-size: 0.8rem; }
+        .status-btn { padding: 18px; border: none; font-weight: 900; cursor: pointer; border-radius: 8px; font-size: 0.8rem; text-decoration: none; text-align: center; }
         .open { background: var(--green); color: black; }
         .locked { background: var(--red); color: white; }
-        .download-btn { background: var(--neon); color: black; }
-        .danger-zone { border: 1px dashed var(--red); padding: 20px; border-radius: 10px; margin-top: 30px; }
-        .btn-clear { background: none; border: 1px solid var(--red); color: var(--red); padding: 10px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; width: 100%; }
+        .dl-btn { background: var(--neon); color: black; }
+        .danger-zone { border: 1px dashed var(--red); padding: 25px; border-radius: 15px; margin-top: 40px; }
+        .btn-clear { background: none; border: 1px solid var(--red); color: var(--red); padding: 12px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; width: 100%; font-weight: 900; }
         .btn-clear:hover { background: var(--red); color: white; }
     </style>
 </head>
@@ -66,7 +64,6 @@
 <div class="blur-overlay"></div>
 <div id="google_translate_element" style="display:none"></div>
 
-<!-- Language HUD (الأعلام) -->
 <div class="lang-hud">
     <img src="https://flagcdn.com/w40/sa.png" title="Arabic" onclick="translatePage('ar')">
     <img src="https://flagcdn.com/w40/us.png" title="English" onclick="translatePage('en')">
@@ -75,7 +72,6 @@
     <img src="https://flagcdn.com/w40/id.png" title="Indonesian" onclick="translatePage('id')">
 </div>
 
-<!-- Tools Side (القائمة الجانبية كاملة) -->
 <div class="side-dock">
     <div class="dock-item" onclick="showBT()"><i class="fas fa-paw"></i><span>BT TIMINGS</span></div>
     <a href="https://wos-giftcode.centurygame.com/" target="_blank" class="dock-item"><i class="fas fa-gift"></i><span>REDEEM</span></a>
@@ -83,23 +79,22 @@
     <a href="https://www.quackulator.com/chiefcharm.php" target="_blank" class="dock-item"><i class="fas fa-book"></i><span>CHARM CALC</span></a>
 </div>
 
-<!-- Main UI -->
 <div id="player-ui">
     <div class="stats-grid">
         <div class="stat-card"><small>PRESIDENT</small><br><span id="v-pres">...</span></div>
-        <div class="stat-card"><small>LEAGUES</small><br><span id="v-league">...</span></div>
-        <div class="stat-card"><small>SVS WINS</small><br><span id="v-svs">...</span></div>
+        <div class="stat-card"><small>LEAGUES TITLES</small><br><span id="v-league">...</span></div>
+        <div class="stat-card"><small>SVS VICTORIES</small><br><span id="v-svs">...</span></div>
         <div class="stat-card"><small>PLAYER OF MONTH</small><br><span id="v-pom">...</span></div>
     </div>
     <header><h1>2099</h1><p>STATE PORTAL</p></header>
     <div class="ann-wrap">
-        <div class="ann-tag">ANNOUNCEMENTS</div>
-        <div class="ann-body" id="v-ann">Syncing...</div>
+        <div class="ann-tag">STATE'S ANNOUNCEMENTS</div>
+        <div class="ann-body" id="v-ann">Syncing HQ...</div>
     </div>
     <div class="cards-grid">
-        <div class="p-card" onclick="openProtocol('svs')"><i class="fas fa-chess-rook"></i><h2>MINISTRY</h2><div id="lock-svs-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>CLOSED</span></div></div>
-        <div class="p-card" onclick="openProtocol('tyrant')"><i class="fas fa-skull-crossbones"></i><h2>TYRANT</h2><div id="lock-tyrant-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>CLOSED</span></div></div>
-        <div class="p-card" onclick="openProtocol('transfers')"><i class="fas fa-plane-arrival"></i><h2>TRANSFER</h2><div id="lock-transfer-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>CLOSED</span></div></div>
+        <div class="p-card" onclick="openProtocol('svs')"><i class="fas fa-chess-rook"></i><h2>MINISTRY</h2><div id="lock-svs-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>SECTION CLOSED</span></div></div>
+        <div class="p-card" onclick="openProtocol('tyrant')"><i class="fas fa-skull-crossbones"></i><h2>TYRANT</h2><div id="lock-tyrant-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>SECTION CLOSED</span></div></div>
+        <div class="p-card" onclick="openProtocol('transfers')"><i class="fas fa-plane-arrival"></i><h2>TRANSFER</h2><div id="lock-transfer-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>SECTION CLOSED</span></div></div>
     </div>
 </div>
 
@@ -119,45 +114,37 @@
     </div>
 </div>
 
-<!-- Admin HQ -->
 <div id="admin-hq">
     <div class="admin-wrap">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
             <h1 style="color:var(--neon); margin:0;">ADMIN HQ</h1>
             <button class="status-btn locked" onclick="exitAdmin()">EXIT</button>
         </div>
-        
         <div class="field"><label>PRESIDENT:</label><input type="text" id="adm-pres"></div>
         <div class="admin-row">
-            <div class="field"><label>PLAYER OF THE MONTH:</label><input type="text" id="adm-pom"></div>
+            <div class="field"><label>PLAYER OF MONTH:</label><input type="text" id="adm-pom"></div>
             <div class="field"><label>LEAGUES TITLES:</label><input type="text" id="adm-league"></div>
-            <div class="field"><label>SVS VICTORIES:</label><input type="text" id="adm-svs"></div>
+            <div class="field"><label>SVS WINS:</label><input type="text" id="adm-svs"></div>
         </div>
         <div class="field"><label>ANNOUNCEMENT:</label><textarea id="adm-ann" rows="3"></textarea></div>
-        
-        <h3 style="color:var(--neon); border-bottom: 1px solid #333;">BT TIMINGS</h3>
+        <h3 style="color:var(--neon); border-bottom:1px solid #333;">BT TIMINGS</h3>
         <div id="adm-bt-grid"></div>
         <button onclick="addBTrow()" style="background:none; border:1px solid var(--neon); color:var(--neon); padding:5px 15px; cursor:pointer; margin-bottom:20px;">+ Add Alliance</button>
-
-        <h3 style="color:var(--neon); border-bottom: 1px solid #333;">SYSTEM LOCKS</h3>
+        <h3 style="color:var(--neon); border-bottom:1px solid #333;">SYSTEM LOCKS</h3>
         <div class="admin-row">
             <button id="pb-svs" class="status-btn" onclick="toggleLock('svs_lock')">SVS</button>
             <button id="pb-tyrant" class="status-btn" onclick="toggleLock('tyrant_lock')">TYRANT</button>
             <button id="pb-trans" class="status-btn" onclick="toggleLock('transfer_lock')">TRANSFERS</button>
         </div>
-
         <h3 style="color:var(--neon); border-bottom:1px solid #333; margin-top:40px;">DOWNLOAD REPORTS (XLSX)</h3>
         <div class="admin-row">
-            <a href="#" id="dl-svs" class="status-btn download-btn">SVS DATA</a>
-            <a href="#" id="dl-tyrant" class="status-btn download-btn">TYRANT DATA</a>
-            <a href="#" id="dl-trans" class="status-btn download-btn">TRANSFERS DATA</a>
+            <a href="#" id="dl-svs" class="status-btn dl-btn">SVS DATA</a>
+            <a href="#" id="dl-tyrant" class="status-btn dl-btn">TYRANT DATA</a>
+            <a href="#" id="dl-trans" class="status-btn dl-btn">TRANSFERS DATA</a>
         </div>
-
-        <button class="btn-transmit" style="background:var(--neon); margin-bottom:30px; margin-top: 40px;" id="save-btn" onclick="saveHQ()">SAVE ALL CHANGES</button>
-
+        <button class="btn-transmit" style="background:var(--neon); margin-top:40px;" id="save-btn" onclick="saveHQ()">SAVE DASHBOARD</button>
         <div class="danger-zone">
             <h3 style="color:var(--red); margin-top:0;">DATA MANAGEMENT (MONTHLY RESET)</h3>
-            <p style="font-size:0.7rem; color:#888; margin-bottom: 15px;">Clears player submissions. Headers will be kept.</p>
             <div class="admin-row">
                 <button class="btn-clear" onclick="clearData('svs')">CLEAR SVS</button>
                 <button class="btn-clear" onclick="clearData('tyrant')">CLEAR TYRANT</button>
@@ -167,7 +154,7 @@
     </div>
 </div>
 
-<div style="text-align:center; padding:50px; opacity:0.3;"><button onclick="loginAdmin()" style="background:none; border:none; color:white; cursor:pointer;">[ ADMIN_LOGIN ]</button></div>
+<div style="text-align:center; padding:50px; opacity:0.3;"><button onclick="loginAdmin()" style="background:none; border:none; color:white; cursor:pointer; font-family:'Orbitron'; font-size:0.8rem;">[ ADMIN_LOGIN ]</button></div>
 
 <script type="text/javascript">
 function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element'); }
@@ -184,10 +171,7 @@ function translatePage(lang) { var select = document.querySelector('.goog-te-com
     window.onload = loadData;
 
     function loadData() {
-        fetch(API).then(r => r.json()).then(data => {
-            hqData = data;
-            syncUI();
-        });
+        fetch(API).then(r => r.json()).then(data => { hqData = data; syncUI(); });
     }
 
     function syncUI() {
@@ -197,24 +181,20 @@ function translatePage(lang) { var select = document.querySelector('.goog-te-com
         document.getElementById('v-svs').innerText = s.svs_wins || '---';
         document.getElementById('v-pom').innerText = s.player_of_the_month || '---';
         document.getElementById('v-ann').innerText = s.announcement || '';
-
         document.getElementById('lock-svs-ui').style.display = (s.svs_lock === "TRUE") ? "flex" : "none";
         document.getElementById('lock-tyrant-ui').style.display = (s.tyrant_lock === "TRUE") ? "flex" : "none";
         document.getElementById('lock-transfer-ui').style.display = (s.transfer_lock === "TRUE") ? "flex" : "none";
-
         document.getElementById('adm-pres').value = s.president || '';
         document.getElementById('adm-pom').value = s.player_of_the_month || '';
         document.getElementById('adm-league').value = s.league_wins || '';
         document.getElementById('adm-svs').value = s.svs_wins || '';
         document.getElementById('adm-ann').value = s.announcement || '';
-
         const btG = document.getElementById('adm-bt-grid');
         btG.innerHTML = "";
         hqData.bt.forEach((b, i) => {
             btG.innerHTML += `<div class="admin-row bt-row"><input type="text" class="bt-n" value="${b.alliance}"><input type="text" class="bt-1" value="${b.bt1}"><input type="text" class="bt-2" value="${b.bt2}"></div>`;
         });
         updateLockButtons();
-
         const base = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=xlsx`;
         document.getElementById('dl-svs').href = base + `&gid=1767999200`;
         document.getElementById('dl-tyrant').href = base + `&gid=1142906535`;
@@ -233,10 +213,7 @@ function translatePage(lang) { var select = document.querySelector('.goog-te-com
         el.className = "status-btn " + (val === "TRUE" ? "locked" : "open");
     }
 
-    function toggleLock(key) {
-        hqData.settings[key] = (hqData.settings[key] === "TRUE") ? "FALSE" : "TRUE";
-        updateLockButtons();
-    }
+    function toggleLock(key) { hqData.settings[key] = (hqData.settings[key] === "TRUE") ? "FALSE" : "TRUE"; updateLockButtons(); }
 
     function addBTrow() {
         const btG = document.getElementById('adm-bt-grid');
@@ -251,9 +228,7 @@ function translatePage(lang) { var select = document.querySelector('.goog-te-com
             league_wins: document.getElementById('adm-league').value,
             svs_wins: document.getElementById('adm-svs').value,
             announcement: document.getElementById('adm-ann').value,
-            svs_lock: hqData.settings.svs_lock,
-            tyrant_lock: hqData.settings.tyrant_lock,
-            transfer_lock: hqData.settings.transfer_lock
+            svs_lock: hqData.settings.svs_lock, tyrant_lock: hqData.settings.tyrant_lock, transfer_lock: hqData.settings.transfer_lock
         };
         const bt = [];
         document.querySelectorAll('.bt-row').forEach(row => {
@@ -262,16 +237,12 @@ function translatePage(lang) { var select = document.querySelector('.goog-te-com
             const t2 = row.querySelector('.bt-2').value;
             if(n) bt.push([n, t1, t2]);
         });
-        fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: "admin_update", settings: settings, bt: bt }) }).then(() => {
-            alert("Updated!"); location.reload();
-        });
+        fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: "admin_update", settings: settings, bt: bt }) }).then(() => { alert("SECURED!"); location.reload(); });
     }
 
     function clearData(sheetName) {
-        if(confirm("DANGER: Monthly Reset for " + sheetName.toUpperCase() + "?")) {
-            fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: "clear_sheet", sheetName: sheetName }) }).then(() => {
-                alert("Data cleared!");
-            });
+        if(confirm("RESET " + sheetName.toUpperCase() + "?")) {
+            fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: "clear_sheet", sheetName: sheetName }) }).then(() => alert("CLEARED!"));
         }
     }
 
@@ -282,27 +253,30 @@ function translatePage(lang) { var select = document.querySelector('.goog-te-com
         document.getElementById('player-ui').style.display = 'none';
         document.getElementById('form-view').style.display = 'block';
         document.getElementById('form-container').style.display = 'block';
+        document.getElementById('success-view').style.display = 'none';
         document.getElementById('f-title').innerText = type.toUpperCase() + " PROTOCOL";
         const f = document.getElementById('f-inputs');
         f.innerHTML = "";
         
         if(type === 'svs') {
-            f.innerHTML = `
-                <div class="field"><label>NAME</label><input type="text" id="sv-n"></div>
-                <div class="field"><label>ALLIANCE</label><input type="text" id="sv-a"></div>
-                <div class="field"><label>GAME ID</label><input type="text" id="sv-i"></div>
-                <div class="field"><label>MINISTRY</label><select id="sv-m"><option value="Vice President">Vice President</option><option value="Education">Education</option><option value="Interior">Interior</option><option value="Strategy">Strategy</option></select></div>
-                <div class="field"><label>BUFF REQUEST</label><select id="sv-b"><option value="None">None</option><option value="Construction Buff">Construction Buff</option><option value="Troops Buff">Troops Buff</option><option value="Research Buff">Research Buff</option></select></div>
-                <div class="field"><label>SPEEDUPS</label><select id="sv-s"><option value="40 Days or less">40 Days or less</option><option value="Above 40 Days">Above 40 Days</option><option value="Above 100 Days">Above 100 Days</option></select></div>
-                <div class="field"><label>TIMING (UTC)</label><select id="sv-t">${getUTC()}</select></div>`;
+            f.innerHTML = `<div class="field"><label>NAME</label><input type="text" id="sv-n"></div><div class="field"><label>ALLIANCE</label><input type="text" id="sv-a"></div><div class="field"><label>GAME ID</label><input type="text" id="sv-i"></div><div class="field"><label>MINISTRY</label><select id="sv-m"><option>Vice President</option><option>Education</option><option>Interior</option><option>Strategy</option></select></div><div class="field"><label>BUFF REQUEST</label><select id="sv-b"><option>None</option><option>Construction Buff</option><option>Troops Buff</option><option>Research Buff</option></select></div><div class="field"><label>SPEEDUPS</label><select id="sv-s"><option>40 Days or less</option><option>Above 40 Days</option><option>Above 100 Days</option></select></div><div class="field"><label>TIMING (UTC)</label><select id="sv-t">${getUTC()}</select></div>`;
         } else if(type === 'transfers') {
-            f.innerHTML = `<div class="field"><label>NAME</label><input type="text" id="tr-n"></div><div class="field"><label>CURRENT STATE</label><input type="text" id="tr-s"></div><div class="field"><label>FC LEVEL</label><select id="tr-f"><option>FC7</option><option>FC8</option><option>FC9</option><option>FC10</option></select></div><div class="field"><label>POWER</label><input type="text" id="tr-p"></div>`;
+            f.innerHTML = `
+                <div class="field"><label>NAME</label><input type="text" id="tr-n"></div>
+                <div class="field"><label>GAME ID</label><input type="text" id="tr-i"></div>
+                <div class="field"><label>CURRENT STATE</label><input type="text" id="tr-s"></div>
+                <div class="field"><label>FC LEVEL</label><select id="tr-f"><option>FC7</option><option>FC8</option><option>FC9</option><option>FC10</option></select></div>
+                <div class="field"><label>HELIOS TROOPS?</label><select id="tr-h"><option>Yes</option><option>No</option></select></div>
+                <div class="field"><label>CURRENT POWER</label><input type="text" id="tr-p"></div>
+                <div class="field"><label>MONTH OF JOINING</label><select id="tr-m">${getM()}</select></div>
+                <div class="field"><label>AWARE OF REDUCTION?</label><select id="tr-a"><option>Yes</option><option>No</option></select></div>`;
         } else if(type === 'tyrant') {
-            f.innerHTML = `<div class="field"><label>NAME</label><input type="text" id="ty-n"></div><div class="field"><label>ALLIANCE</label><input type="text" id="ty-a"></div><div class="field"><label>DISCORD?</label><select id="ty-d"><option value="Yes">Yes</option><option value="No">No</option></select></div>`;
+            f.innerHTML = `<div class="field"><label>NAME</label><input type="text" id="ty-n"></div><div class="field"><label>ALLIANCE</label><input type="text" id="ty-a"></div><div class="field"><label>DISCORD?</label><select id="ty-d"><option>Yes</option><option>No</option></select></div>`;
         }
     }
 
-    function getUTC() { let o=""; for(let i=0; i<24; i++){ let h=i<10?'0'+i:i; o+=`<option value="${h}:00">${h}:00</option>`; } return o; }
+    function getUTC() { let o=""; for(let i=0; i<24; i++){ let h=i<10?'0'+i:i; o+=`<option>${h}:00</option>`; } return o; }
+    function getM() { return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map(m => `<option>${m}</option>`).join(""); }
     function closeProtocol() { document.getElementById('player-ui').style.display='block'; document.getElementById('form-view').style.display='none'; }
 
     function submitPortalForm() {
@@ -317,15 +291,18 @@ function translatePage(lang) { var select = document.querySelector('.goog-te-com
             p['Timing'] = document.getElementById('sv-t').value;
         } else if(activeType === 'transfers') {
             p['Name'] = document.getElementById('tr-n').value;
-            p['State'] = document.getElementById('tr-s').value;
-            p['FC'] = document.getElementById('tr-f').value;
-            p['Power'] = document.getElementById('tr-p').value;
+            p['Game_ID'] = document.getElementById('tr-i').value;
+            p['Current_State'] = document.getElementById('tr-s').value;
+            p['FC_Level'] = document.getElementById('tr-f').value;
+            p['Helios'] = document.getElementById('tr-h').value;
+            p['Current_Power'] = document.getElementById('tr-p').value;
+            p['Month'] = document.getElementById('tr-m').value;
+            p['Reduce_Aware'] = document.getElementById('tr-a').value;
         } else if(activeType === 'tyrant') {
             p['Name'] = document.getElementById('ty-n').value;
             p['Alliance'] = document.getElementById('ty-a').value;
             p['Discord'] = document.getElementById('ty-d').value;
         }
-        
         document.getElementById('sub-btn').innerText = "TRANSMITTING...";
         fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: activeType, payload: p }) }).then(() => {
             document.getElementById('form-container').style.display='none';
