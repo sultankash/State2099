@@ -259,28 +259,61 @@ function translatePage(lang) { var select = document.querySelector('.goog-te-com
         f.innerHTML = "";
         
         if(type === 'svs') {
-            f.innerHTML = `<div class="field"><label>NAME</label><input type="text" id="sv-n"></div><div class="field"><label>ALLIANCE</label><input type="text" id="sv-a"></div><div class="field"><label>GAME ID</label><input type="text" id="sv-i"></div><div class="field"><label>MINISTRY</label><select id="sv-m"><option>Vice President</option><option>Education</option><option>Interior</option><option>Strategy</option></select></div><div class="field"><label>BUFF REQUEST</label><select id="sv-b"><option>None</option><option>Construction Buff</option><option>Troops Buff</option><option>Research Buff</option></select></div><div class="field"><label>SPEEDUPS</label><select id="sv-s"><option>40 Days or less</option><option>Above 40 Days</option><option>Above 100 Days</option></select></div><div class="field"><label>TIMING (UTC)</label><select id="sv-t">${getUTC()}</select></div>`;
+            f.innerHTML = `
+                <div class="field"><label>NAME</label><input type="text" id="sv-n"></div>
+                <div class="field"><label>ALLIANCE</label><input type="text" id="sv-a"></div>
+                <div class="field"><label>GAME ID</label><input type="text" id="sv-i"></div>
+                <div class="field"><label>MINISTRY</label><select id="sv-m">
+                    <option value="Vice President">Vice President</option>
+                    <option value="Education">Education</option>
+                    <option value="Interior">Interior</option>
+                    <option value="Strategy">Strategy</option>
+                </select></div>
+                <div class="field"><label>BUFF REQUEST</label><select id="sv-b">
+                    <option value="None">None</option>
+                    <option value="Construction Buff">Construction Buff</option>
+                    <option value="Troops Buff">Troops Buff</option>
+                    <option value="Research Buff">Research Buff</option>
+                </select></div>
+                <div class="field"><label>SPEEDUPS</label><select id="sv-s">
+                    <option value="40 Days or less">40 Days or less</option>
+                    <option value="Above 40 Days">Above 40 Days</option>
+                    <option value="Above 100 Days">Above 100 Days</option>
+                </select></div>
+                <div class="field"><label>TIMING (UTC)</label><select id="sv-t">${getUTC()}</select></div>`;
         } else if(type === 'transfers') {
             f.innerHTML = `
                 <div class="field"><label>NAME</label><input type="text" id="tr-n"></div>
                 <div class="field"><label>GAME ID</label><input type="text" id="tr-i"></div>
                 <div class="field"><label>CURRENT STATE</label><input type="text" id="tr-s"></div>
-                <div class="field"><label>FC LEVEL</label><select id="tr-f"><option>FC7</option><option>FC8</option><option>FC9</option><option>FC10</option></select></div>
-                <div class="field"><label>HELIOS TROOPS?</label><select id="tr-h"><option>Yes</option><option>No</option></select></div>
+                <div class="field"><label>FC LEVEL</label><select id="tr-f">
+                    <option value="FC7">FC7</option><option value="FC8">FC8</option><option value="FC9">FC9</option><option value="FC10">FC10</option>
+                </select></div>
+                <div class="field"><label>HELIOS TROOPS?</label><select id="tr-h">
+                    <option value="Yes">Yes</option><option value="No">No</option>
+                </select></div>
                 <div class="field"><label>CURRENT POWER</label><input type="text" id="tr-p"></div>
                 <div class="field"><label>MONTH OF JOINING</label><select id="tr-m">${getM()}</select></div>
-                <div class="field"><label>AWARE OF REDUCTION?</label><select id="tr-a"><option>Yes</option><option>No</option></select></div>`;
+                <div class="field"><label>AWARE OF REDUCTION?</label><select id="tr-a">
+                    <option value="Yes">Yes</option><option value="No">No</option>
+                </select></div>`;
         } else if(type === 'tyrant') {
-            f.innerHTML = `<div class="field"><label>NAME</label><input type="text" id="ty-n"></div><div class="field"><label>ALLIANCE</label><input type="text" id="ty-a"></div><div class="field"><label>DISCORD?</label><select id="ty-d"><option>Yes</option><option>No</option></select></div>`;
+            f.innerHTML = `
+                <div class="field"><label>NAME</label><input type="text" id="ty-n"></div>
+                <div class="field"><label>ALLIANCE</label><input type="text" id="ty-a"></div>
+                <div class="field"><label>DISCORD?</label><select id="ty-d">
+                    <option value="Yes">Yes</option><option value="No">No</option>
+                </select></div>`;
         }
     }
 
-    function getUTC() { let o=""; for(let i=0; i<24; i++){ let h=i<10?'0'+i:i; o+=`<option>${h}:00</option>`; } return o; }
-    function getM() { return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map(m => `<option>${m}</option>`).join(""); }
+    function getUTC() { let o=""; for(let i=0; i<24; i++){ let h=i<10?'0'+i:i; o+=`<option value="${h}:00">${h}:00</option>`; } return o; }
+    function getM() { return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map(m => `<option value="${m}">${m}</option>`).join(""); }
     function closeProtocol() { document.getElementById('player-ui').style.display='block'; document.getElementById('form-view').style.display='none'; }
 
     function submitPortalForm() {
         const p = {};
+        // دقة يا قائد: هنا نقرأ الـ value وليس الـ text لضمان وصول القيمة بالإنجليزية للإكسل
         if(activeType === 'svs') {
             p['Name'] = document.getElementById('sv-n').value;
             p['Alliance'] = document.getElementById('sv-a').value;
