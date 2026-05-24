@@ -1,356 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2099 STATE PORTAL | COMMAND HQ</title>
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root { --neon: #00d4ff; --gold: #ffba08; --bg: #030b16; --glass: rgba(13, 35, 67, 0.85); --red: #ff3e3e; --green: #00ff88; }
-        body { margin: 0; padding: 0; font-family: 'Orbitron', sans-serif; background: var(--bg) url('https://whiteoutsurvival.wiki/wp-content/uploads/2023/04/Whiteout-Survival-Wallpaper-1.jpg') no-repeat center center fixed; background-size: cover; color: white; overflow-x: hidden; }
-        .blur-overlay { position: fixed; inset: 0; backdrop-filter: blur(18px); background: rgba(3, 11, 22, 0.75); z-index: -1; }
-        
-        .lang-hud { position: fixed; top: 15px; left: 15px; z-index: 1000; background: rgba(0,0,0,0.7); border: 1px solid var(--neon); border-radius: 50px; padding: 5px 12px; display: flex; gap: 10px; align-items: center; }
-        .lang-hud img { width: 22px; cursor: pointer; transition: 0.3s; border-radius: 2px; }
-        .lang-hud img:hover { transform: scale(1.3); box-shadow: 0 0 10px var(--neon); }
-
-        .side-dock { position: fixed; right: 10px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 1000; }
-        .dock-item { width: 60px; height: 60px; background: rgba(3, 11, 22, 0.9); border: 1.5px solid var(--neon); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; color: white; transition: 0.3s; cursor: pointer; }
-        .dock-item:hover { background: var(--neon); color: black; box-shadow: 0 0 15px var(--neon); }
-        .dock-item i { font-size: 1.2rem; margin-bottom: 2px; }
-        .dock-item span { font-size: 0.42rem; font-weight: 900; text-align: center; }
-
-        .stats-grid { display: flex; justify-content: center; gap: 12px; max-width: 1100px; margin: 20px auto 0; padding: 10px; flex-wrap: wrap; }
-        .stat-card { background: var(--glass); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 10px 15px; text-align: center; min-width: 160px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        .stat-card small { display: block; font-size: 0.55rem; color: #888; margin-bottom: 4px; letter-spacing: 1px; }
-        .stat-card span { font-size: 0.95rem; color: var(--gold); font-weight: 900; }
-
-        header { text-align: center; }
-        header h1 { font-size: 4rem; margin: 0; letter-spacing: 15px; text-shadow: 0 0 20px var(--neon); }
-        .ann-wrap { max-width: 800px; margin: 10px auto 30px; position: relative; }
-        .ann-tag { position: absolute; top: -10px; left: 25px; background: var(--gold); color: black; font-size: 0.6rem; padding: 2px 10px; font-weight: 900; border-radius: 4px; }
-        .ann-body { background: rgba(0, 212, 255, 0.05); border: 1.5px solid var(--neon); border-radius: 10px; padding: 20px; text-align: center; font-family: 'Cairo'; }
-        
-        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; max-width: 1100px; margin: 40px auto; padding: 0 20px; }
-        .p-card { background: var(--glass); border: 2.5px solid rgba(255,255,255,0.05); border-radius: 25px; padding: 70px 20px; text-align: center; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; }
-        .p-card i { font-size: 3.5rem; color: var(--neon); margin-bottom: 20px; display: block; }
-        .locked-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.92); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 20; color: var(--red); pointer-events: none; }
-
-        .form-view { display: none; position: fixed; inset: 0; background: var(--bg); z-index: 2000; overflow-y: auto; padding: 60px 20px; }
-        .form-hud { width: 100%; max-width: 550px; background: rgba(13, 35, 67, 0.4); border: 2px solid var(--neon); padding: 45px; border-radius: 25px; margin: auto; position: relative; backdrop-filter: blur(10px); }
-        .btn-back-top { position: absolute; top: 20px; left: 20px; background: white; color: black; border: none; padding: 8px 25px; cursor: pointer; font-family: 'Orbitron'; font-weight: 900; }
-        .field { margin-bottom: 22px; text-align: left; }
-        .field label { display: block; font-size: 0.75rem; color: var(--neon); margin-bottom: 10px; font-weight: 900; letter-spacing: 1px; }
-        input, select, textarea { width: 100%; padding: 15px; background: #000; border: 1.5px solid #1a3a5a; color: white; font-family: 'Orbitron'; box-sizing: border-box; font-size: 1rem; border-radius: 8px; }
-        .btn-transmit { width: 100%; padding: 20px; background: white; color: black; border: none; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; border-radius: 12px; margin-top: 20px; font-size: 1.2rem; }
-
-        #admin-hq { display: none; position: fixed; inset: 0; background: #000; z-index: 3000; padding: 40px; overflow-y: auto; }
-        .admin-wrap { max-width: 1000px; margin: 0 auto; background: #0a0a0a; border: 1px solid #222; border-radius: 20px; padding: 45px; }
-        .admin-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .status-btn { padding: 18px; border: none; font-weight: 900; cursor: pointer; border-radius: 8px; font-size: 0.8rem; text-decoration: none; text-align: center; }
-        .open { background: var(--green); color: black; }
-        .locked { background: var(--red); color: white; }
-        .dl-btn { background: var(--neon); color: black; }
-        .danger-zone { border: 1px dashed var(--red); padding: 25px; border-radius: 15px; margin-top: 40px; }
-        .btn-clear { background: none; border: 1px solid var(--red); color: var(--red); padding: 12px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.7rem; width: 100%; font-weight: 900; }
-        .btn-clear:hover { background: var(--red); color: white; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>2099 State Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=Tajawal:wght@500;700;800&family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root{
+      --bg:#020914; --panel:rgba(5,23,47,.82); --panel2:rgba(8,36,72,.70);
+      --ice:#72d9ff; --ice2:#c9f4ff; --gold:#ffd26a; --gold2:#b8832c;
+      --red:#ff4c56; --green:#63ffb7; --muted:#a9bfd6; --line:rgba(147,222,255,.38);
+      --shadow:0 18px 60px rgba(0,0,0,.45); --radius:24px;
+      --font-ui:'Rajdhani','Tajawal','Noto Sans KR',sans-serif; --font-display:'Chakra Petch','Rajdhani','Tajawal',sans-serif; --font-ar:'Tajawal','Rajdhani','Noto Sans KR',sans-serif;
+    }
+    *{box-sizing:border-box} html{min-height:100%;background:#020914} body{margin:0;min-height:100%;font-family:var(--font-ui);color:#fff;overflow-x:hidden;background:#020914} body.lang-ar{font-family:var(--font-ar)}
+    body:before{content:"";position:fixed;inset:0;z-index:-4;background:linear-gradient(180deg,rgba(0,10,28,.18),rgba(1,5,14,.94)),url('assets/frost-bg.jpg') center/cover no-repeat;filter:saturate(1.08)}
+    body:after{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 22% 14%,rgba(69,182,255,.33),transparent 26%),radial-gradient(circle at 78% 16%,rgba(255,184,64,.18),transparent 23%),radial-gradient(circle at 50% 105%,rgba(0,184,255,.18),transparent 30%),rgba(0,0,0,.22);pointer-events:none}
+    .snow{position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.50) 0 1px,transparent 1.8px),radial-gradient(circle,rgba(150,220,255,.45) 0 1px,transparent 1.6px);background-size:90px 90px,140px 140px;animation:drift 26s linear infinite;opacity:.42}@keyframes drift{from{background-position:0 0,0 0}to{background-position:160px 420px,-120px 340px}}
+    button,input,select,textarea{font:inherit} button{cursor:pointer}.hidden{display:none!important} .title2099,.portal-title,.gate-title,.gate-subtitle,.card-title,.slogan,.top-lang-label,.gate-kicker{font-family:var(--font-display)} select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#ffd26a 50%),linear-gradient(135deg,#ffd26a 50%,transparent 50%);background-position:calc(100% - 22px) 22px,calc(100% - 15px) 22px;background-size:7px 7px,7px 7px;background-repeat:no-repeat} html[dir='rtl'] select{background-position:22px 22px,15px 22px}
+    .gate{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 12%,rgba(54,190,255,.30),transparent 30%),linear-gradient(180deg,rgba(0,11,28,.74),rgba(0,0,0,.94)),url('assets/frost-bg.jpg') center/cover no-repeat}.gate-card{width:min(980px,100%);border:1px solid rgba(255,210,106,.42);border-radius:34px;padding:38px 24px 30px;background:linear-gradient(180deg,rgba(6,31,67,.72),rgba(2,10,26,.95));box-shadow:var(--shadow),inset 0 0 46px rgba(105,217,255,.10);text-align:center;position:relative;overflow:hidden}.gate-card:before{content:"";position:absolute;inset:-2px;background:linear-gradient(120deg,transparent,rgba(174,236,255,.18),transparent);transform:translateX(-70%);animation:shine 7s ease-in-out infinite}@keyframes shine{50%{transform:translateX(80%)}100%{transform:translateX(80%)}}
+    .gate-kicker{color:var(--gold);letter-spacing:.26em;font-size:.78rem;text-transform:uppercase}.gate-title{font-size:clamp(3.2rem,10vw,7.2rem);line-height:.85;margin:22px 0 6px;font-weight:900;color:#e9fbff;text-shadow:0 0 14px rgba(108,219,255,.85),0 8px 0 rgba(21,78,129,.55)}.gate-subtitle{font-size:clamp(1rem,2.4vw,1.35rem);color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-bottom:26px}.language-grid{display:grid;grid-template-columns:repeat(5,minmax(132px,1fr));gap:13px;max-width:900px;margin:0 auto}.lang-btn{border:1px solid rgba(126,216,255,.50);border-radius:999px;color:#fff;background:linear-gradient(180deg,rgba(20,75,130,.80),rgba(5,17,39,.88));padding:14px 18px;display:flex;align-items:center;justify-content:center;gap:11px;box-shadow:0 0 0 1px rgba(255,255,255,.04),inset 0 0 24px rgba(114,217,255,.10);transition:.22s;font-weight:700;font-size:1.02rem}.lang-btn:hover{transform:translateY(-2px);border-color:rgba(255,210,106,.78);box-shadow:0 0 24px rgba(97,210,255,.26),inset 0 0 22px rgba(255,210,106,.08)}.flag{font-size:1.45rem}.gate-note{font-family:var(--font-ar);font-size:.96rem;color:rgba(224,244,255,.82);margin-top:20px}
+    .wrap{width:min(1240px,calc(100% - 28px));margin:0 auto;padding:18px 0 28px}.top-lang{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 auto 10px}.top-lang-label{width:100%;text-align:center;color:var(--gold);font-size:.72rem;letter-spacing:.25em;text-transform:uppercase}.chip{border:1px solid rgba(126,216,255,.34);background:rgba(5,24,51,.72);border-radius:999px;color:#fff;padding:8px 16px;font-size:.76rem;display:flex;align-items:center;gap:8px;min-width:120px;justify-content:center}.chip.active{border-color:var(--gold);box-shadow:0 0 18px rgba(255,210,106,.16);color:#fff}
+    .hero{border:1px solid rgba(129,220,255,.35);border-radius:34px;background:linear-gradient(180deg,rgba(5,31,65,.62),rgba(1,10,24,.82));box-shadow:var(--shadow),inset 0 0 60px rgba(108,219,255,.10);overflow:hidden;position:relative;padding:14px clamp(14px,3vw,34px) 24px}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.06),transparent 12%,transparent 88%,rgba(255,255,255,.05)),radial-gradient(circle at 6% 8%,rgba(130,225,255,.22),transparent 20%),radial-gradient(circle at 94% 10%,rgba(255,183,68,.12),transparent 18%);pointer-events:none}.mast{text-align:center;position:relative;padding:12px 0 10px}.title2099{font-weight:900;font-size:clamp(3.8rem,11vw,8.5rem);line-height:.78;color:#dff8ff;letter-spacing:.05em;text-shadow:0 0 20px rgba(114,217,255,.9),0 10px 0 rgba(13,72,121,.58),0 24px 50px rgba(0,0,0,.5)}.portal-title{font-weight:900;font-size:clamp(1.8rem,5vw,4.2rem);letter-spacing:.08em;margin-top:-4px;background:linear-gradient(180deg,#fff,#8ce6ff 45%,#2b87d2);-webkit-background-clip:text;color:transparent;text-shadow:0 0 18px rgba(112,220,255,.45)}.slogan{color:var(--gold);letter-spacing:.24em;text-transform:uppercase;font-size:clamp(.75rem,1.8vw,1.05rem);margin-top:6px}
+    .stats{display:grid;grid-template-columns:1.25fr 1fr 1fr 1.35fr;gap:12px;margin:8px 0 12px;position:relative}.stat{min-height:78px;border:1px solid rgba(129,220,255,.35);border-radius:18px;background:linear-gradient(180deg,rgba(8,35,73,.78),rgba(2,11,28,.84));box-shadow:inset 0 0 28px rgba(114,217,255,.09);display:flex;align-items:center;gap:14px;padding:10px 16px;overflow:hidden;position:relative}.stat:after{content:"";position:absolute;inset:auto -20% 0 -20%;height:1px;background:linear-gradient(90deg,transparent,var(--ice),transparent);opacity:.65}.stat-icon{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:1.8rem;background:linear-gradient(180deg,rgba(113,213,255,.18),rgba(10,64,111,.18));color:var(--ice2);flex:0 0 auto;text-shadow:0 0 14px var(--ice)}.stat .label{font-size:.64rem;color:#c6d8e8;text-transform:uppercase;letter-spacing:.12em}.stat .value{font-size:1.12rem;font-weight:900;margin-top:4px}.stat .big{font-size:1.85rem}.gold{color:var(--gold)}.portrait{background:linear-gradient(180deg,#244d78,#10243f);overflow:hidden}.portrait:before{content:"👤";font-size:2rem}.announce{position:relative;display:flex;align-items:center;gap:16px;border:1px solid rgba(129,220,255,.34);border-radius:18px;background:linear-gradient(90deg,rgba(7,33,68,.86),rgba(2,12,30,.72));padding:14px 18px;margin:8px 0 16px}.ann-icon{width:62px;height:62px;border-right:1px solid rgba(129,220,255,.28);display:grid;place-items:center;color:#a6e9ff;font-size:2rem;flex:0 0 auto}.ann-title{color:var(--gold);font-size:.88rem;letter-spacing:.12em;text-transform:uppercase}.ann-body{color:#d8eaff;font-size:.92rem;line-height:1.55;font-family:'Cairo',sans-serif}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.portal-card{position:relative;min-height:330px;border:1px solid rgba(180,231,255,.36);border-radius:20px;overflow:hidden;background:#07142a;color:#fff;box-shadow:0 15px 40px rgba(0,0,0,.36),inset 0 0 24px rgba(100,200,255,.08);isolation:isolate;transition:.24s}.portal-card:hover{transform:translateY(-5px);border-color:rgba(255,210,106,.8);box-shadow:0 20px 56px rgba(0,0,0,.48),0 0 28px rgba(95,207,255,.20)}.portal-card .bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:.35s;z-index:-3}.portal-card:hover .bg{transform:scale(1.06)}.portal-card:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,13,31,.20),rgba(3,10,25,.48) 42%,rgba(0,5,14,.96));z-index:-2}.portal-card:after{content:"";position:absolute;inset:0;border-radius:20px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),inset 0 -18px 40px rgba(0,0,0,.45);pointer-events:none}.card-content{position:absolute;inset:auto 14px 14px;text-align:center;background:linear-gradient(180deg,rgba(0,9,24,.05),rgba(0,9,24,.55));border-radius:16px;padding:8px 8px 0}.crest{width:58px;height:58px;margin:0 auto 8px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(210,246,255,.17),rgba(14,68,120,.42));border:1px solid rgba(187,237,255,.38);color:#effcff;font-size:1.8rem;text-shadow:0 0 15px var(--ice)}.card-title{font-size:1.35rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#f3fcff;text-shadow:0 0 10px rgba(117,223,255,.75),0 3px 0 rgba(0,0,0,.92),0 6px 16px rgba(0,0,0,.95)}.card-desc{font-family:'Cairo',sans-serif;color:#f0f8ff;margin:6px 0 12px;font-size:.92rem;text-shadow:0 2px 8px rgba(0,0,0,.95)}.enter{display:flex;align-items:center;justify-content:center;gap:12px;border:1px solid rgba(142,220,255,.38);background:linear-gradient(90deg,rgba(17,82,138,.82),rgba(9,43,89,.86));color:#fff;border-radius:999px;height:38px;font-size:.77rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(117,219,255,.1)}.locked-cover{position:absolute;inset:0;background:rgba(0,0,0,.72);display:none;place-items:center;text-align:center;z-index:5}.portal-card.locked .locked-cover{display:grid}.locked-cover i{font-size:3rem;color:var(--red);margin-bottom:10px}.footer{padding:18px 0 0;text-align:center;color:#b9cfe4;position:relative}.footer .brand{color:#dff8ff;font-weight:900;letter-spacing:.18em}.footer .line{height:1px;margin:14px auto 10px;width:min(520px,90%);background:linear-gradient(90deg,transparent,rgba(255,210,106,.65),rgba(114,217,255,.75),transparent)}.admin-link{margin-top:12px;border:0;background:transparent;color:rgba(205,230,255,.35);font-size:.7rem;letter-spacing:.18em}.admin-link:hover{color:var(--ice)}
+    .modal{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);display:none;align-items:flex-start;justify-content:center;padding:24px 14px;overflow:auto}.modal.show{display:flex}.sheet{width:min(760px,100%);border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,rgba(5,28,61,.96),rgba(2,10,25,.98));box-shadow:var(--shadow);padding:20px;position:relative}.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(126,216,255,.18);padding-bottom:14px;margin-bottom:16px}.sheet h2{margin:0;color:#e9fbff;font-size:1.45rem;font-family:var(--font-display);letter-spacing:.05em}.close{width:44px;height:44px;border-radius:14px;border:1px solid rgba(126,216,255,.35);background:rgba(10,43,82,.75);color:#fff}.form-grid{display:grid;gap:14px}.field label{display:block;color:var(--gold);font-size:.88rem;text-transform:none;letter-spacing:.03em;margin-bottom:8px;font-weight:800}.field input,.field select,.field textarea{width:100%;min-height:56px;border-radius:16px;border:1px solid rgba(132,219,255,.38);background-color:rgba(0,5,14,.82);color:#fff;padding:13px 16px;outline:none;font-size:1.04rem;font-weight:700}.field textarea{min-height:94px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(255,210,106,.12)}.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:8px}.choice{border:1px solid rgba(132,219,255,.34);border-radius:14px;padding:12px 10px;background:rgba(7,31,63,.76);text-align:center;color:#e5f4ff;font-size:.9rem;transition:.18s;min-height:48px;display:grid;place-items:center;font-weight:700}.choice.selected{border-color:var(--gold);background:linear-gradient(180deg,rgba(255,210,106,.19),rgba(16,65,105,.85));box-shadow:0 0 20px rgba(255,210,106,.12);color:#fff}.helper{font-family:'Cairo',sans-serif;color:#bcd2e8;font-size:.9rem;margin-top:6px}.actions{display:flex;gap:10px;margin-top:18px}.primary,.danger,.ghost{border:1px solid rgba(132,219,255,.35);border-radius:16px;min-height:52px;padding:0 18px;color:#fff;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.primary{background:linear-gradient(90deg,#2a93dc,#0d4f9a);flex:1}.danger{background:linear-gradient(90deg,#832029,#b7313b)}.ghost{background:rgba(8,31,62,.75)}.success{display:none;text-align:center;padding:24px 10px}.success i{font-size:4rem;color:var(--green);text-shadow:0 0 24px rgba(99,255,183,.6)}.success h2{margin:16px 0 8px}.admin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.admin-section{border:1px solid rgba(126,216,255,.22);border-radius:20px;padding:14px;background:rgba(2,13,31,.42);margin-top:14px}.lock-row,.report-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;border-bottom:1px solid rgba(126,216,255,.12);padding:10px 0}.lock-row:last-child,.report-row:last-child{border-bottom:0}.mini-btn{border:1px solid rgba(126,216,255,.35);border-radius:12px;background:rgba(13,55,100,.72);color:#fff;padding:9px 12px;font-size:.72rem}.mini-btn.open{background:rgba(36,146,89,.55)}.mini-btn.locked{background:rgba(160,43,54,.65)}
+    @media(max-width:940px){.wrap{width:min(520px,calc(100% - 20px));padding-top:10px}.hero{padding:12px 10px 18px;border-radius:26px}.top-lang .chip{min-width:auto;flex:1 1 92px;padding:8px 8px;font-size:.70rem}.stats{grid-template-columns:1fr 1fr;gap:8px}.stat{min-height:70px;padding:8px 10px;gap:8px}.stat-icon{width:46px;height:46px;font-size:1.45rem}.stat .value{font-size:.92rem}.stat .big{font-size:1.45rem}.announce{padding:10px;gap:10px}.ann-icon{width:48px;height:48px;font-size:1.6rem}.cards{grid-template-columns:1fr 1fr;gap:10px}.portal-card{min-height:210px;border-radius:16px}.card-content{inset:auto 8px 8px;padding:6px 6px 0}.crest{width:42px;height:42px;border-radius:14px;font-size:1.25rem;margin-bottom:6px}.card-title{font-size:.92rem;letter-spacing:.07em}.card-desc{display:none}.enter{height:32px;font-size:.6rem}.language-grid{grid-template-columns:1fr 1fr}.gate-card{border-radius:26px}.admin-grid{grid-template-columns:1fr}.lock-row,.report-row{grid-template-columns:1fr}.actions{flex-direction:column}.modal{padding:10px}.sheet{border-radius:22px;padding:14px}.choices{grid-template-columns:1fr 1fr}}
+    @media(max-width:430px){.language-grid{grid-template-columns:1fr}.portal-card{min-height:190px}.title2099{font-size:4rem}.portal-title{font-size:1.8rem}.slogan{font-size:.68rem}.stat .label{font-size:.52rem}.ann-body{font-size:.78rem}.ann-title{font-size:.75rem}}
+  </style>
 </head>
 <body>
+<div class="snow"></div>
 
-<div class="blur-overlay"></div>
-<div id="google_translate_element" style="display:none"></div>
+<section id="languageGate" class="gate">
+  <div class="gate-card">
+    <div class="gate-kicker" data-i18n="choose">Choose your language</div>
+    <div class="gate-title">2099</div>
+    <div class="portal-title">STATE PORTAL</div>
+    <div class="gate-subtitle">Lead. Defend. Conquer.</div>
+    <div class="language-grid" id="gateLangs"></div>
+    <div class="gate-note">اختر لغتك أولًا، ثم ستظهر لك البوابة كاملة بنفس اللغة</div>
+  </div>
+</section>
 
-<div class="lang-hud">
-    <img src="https://flagcdn.com/w40/sa.png" title="Arabic" onclick="translatePage('ar')">
-    <img src="https://flagcdn.com/w40/us.png" title="English" onclick="translatePage('en')">
-    <img src="https://flagcdn.com/w40/kz.png" title="Russian" onclick="translatePage('ru')">
-    <img src="https://flagcdn.com/w40/kr.png" title="Korean" onclick="translatePage('ko')">
-    <img src="https://flagcdn.com/w40/id.png" title="Indonesian" onclick="translatePage('id')">
-</div>
+<main id="app" class="hidden">
+  <div class="wrap">
+    <section class="hero">
+      <div class="top-lang">
+        <div class="top-lang-label" data-i18n="choose">Choose your language</div>
+        <div id="topLangs" style="display:contents"></div>
+      </div>
+      <div class="mast">
+        <div class="title2099">2099</div>
+        <div class="portal-title" data-i18n="portalTitle">STATE PORTAL</div>
+        <div class="slogan" data-i18n="slogan">Lead. Defend. Conquer.</div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="stat-icon portrait"></div><div><div class="label" data-i18n="president">Current President</div><div class="value" id="v-president">---</div></div></div>
+        <div class="stat"><div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div><div><div class="label" data-i18n="svsWins">SVS Wins</div><div class="value big" id="v-svs">0</div></div></div>
+        <div class="stat"><div class="stat-icon gold"><i class="fa-solid fa-trophy"></i></div><div><div class="label" data-i18n="leagueTitles">League Titles</div><div class="value big" id="v-league">0</div></div></div>
+        <div class="stat"><div class="stat-icon"><i class="fa-solid fa-star gold"></i></div><div><div class="label" data-i18n="playerMonth">Player of the Month</div><div class="value" id="v-pom">---</div></div></div>
+      </div>
+      <div class="announce">
+        <div class="ann-icon"><i class="fa-solid fa-bullhorn"></i></div>
+        <div style="flex:1"><div class="ann-title" data-i18n="announcement">State Announcement</div><div class="ann-body" id="v-ann">Long live 2099</div></div>
+      </div>
+      <div class="cards" id="cards"></div>
+      <footer class="footer">
+        <div class="line"></div><div class="brand">2099 STATE PORTAL</div><div style="font-family:'Cairo',sans-serif;margin-top:4px" data-i18n="footer">United We Stand. Legends Never Fall.</div>
+        <button class="admin-link" onclick="loginAdmin()">[ ADMIN HQ ]</button>
+      </footer>
+    </section>
+  </div>
+</main>
 
-<div class="side-dock">
-    <div class="dock-item" onclick="showBT()"><i class="fas fa-paw"></i><span>BT TIMINGS</span></div>
-    <a href="https://wos-giftcode.centurygame.com/" target="_blank" class="dock-item"><i class="fas fa-gift"></i><span>REDEEM</span></a>
-    <a href="https://whiteoutsurvival.pl/chief-gear-calculator/" target="_blank" class="dock-item"><i class="fas fa-shield-halved"></i><span>GEAR CALC</span></a>
-    <a href="https://www.quackulator.com/chiefcharm.php" target="_blank" class="dock-item"><i class="fas fa-book"></i><span>CHARM CALC</span></a>
-</div>
+<div class="modal" id="formModal"><div class="sheet"><div class="sheet-head"><h2 id="formTitle">Protocol</h2><button class="close" onclick="closeForm()"><i class="fa-solid fa-xmark"></i></button></div><div id="formArea"></div><div class="success" id="successView"><i class="fa-solid fa-circle-check"></i><h2 data-i18n="secured">Mission Secured</h2><p data-i18n="securedText">Your response has been submitted.</p><button class="primary" onclick="closeForm()" data-i18n="returnHome">Return</button></div></div></div>
 
-<div id="player-ui">
-    <div class="stats-grid">
-        <div class="stat-card"><small>PRESIDENT</small><br><span id="v-pres">...</span></div>
-        <div class="stat-card"><small>LEAGUES TITLES</small><br><span id="v-league">...</span></div>
-        <div class="stat-card"><small>SVS VICTORIES</small><br><span id="v-svs">...</span></div>
-        <div class="stat-card"><small>PLAYER OF MONTH</small><br><span id="v-pom">...</span></div>
-    </div>
-    <header><h1>2099</h1><p>STATE PORTAL</p></header>
-    <div class="ann-wrap">
-        <div class="ann-tag">STATE'S ANNOUNCEMENTS</div>
-        <div class="ann-body" id="v-ann">Syncing HQ...</div>
-    </div>
-    <div class="cards-grid">
-        <div class="p-card" onclick="openProtocol('svs')"><i class="fas fa-chess-rook"></i><h2>MINISTRY</h2><div id="lock-svs-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>SECTION CLOSED</span></div></div>
-        <div class="p-card" onclick="openProtocol('tyrant')"><i class="fas fa-skull-crossbones"></i><h2>TYRANT</h2><div id="lock-tyrant-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>SECTION CLOSED</span></div></div>
-        <div class="p-card" onclick="openProtocol('transfers')"><i class="fas fa-plane-arrival"></i><h2>TRANSFER</h2><div id="lock-transfer-ui" class="locked-overlay"><i class="fas fa-lock"></i><span>SECTION CLOSED</span></div></div>
-    </div>
-</div>
-
-<div id="form-view" class="form-view">
-    <div class="form-hud">
-        <button class="btn-back-top" onclick="closeProtocol()">BACK</button>
-        <div id="form-container">
-            <h2 id="f-title" style="text-align:center;">PROTOCOL</h2>
-            <div id="f-inputs"></div>
-            <button class="btn-transmit" id="sub-btn" onclick="submitPortalForm()">TRANSMIT</button>
-        </div>
-        <div id="success-view" style="display:none; text-align:center;">
-            <i class="fas fa-check-double" style="font-size:5rem; color:var(--green);"></i>
-            <h2>MISSION SECURED</h2>
-            <button class="btn-transmit" onclick="closeProtocol()">RETURN</button>
-        </div>
-    </div>
-</div>
-
-<div id="admin-hq">
-    <div class="admin-wrap">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
-            <h1 style="color:var(--neon); margin:0;">ADMIN HQ</h1>
-            <button class="status-btn locked" onclick="exitAdmin()">EXIT</button>
-        </div>
-        <div class="field"><label>PRESIDENT:</label><input type="text" id="adm-pres"></div>
-        <div class="admin-row">
-            <div class="field"><label>PLAYER OF MONTH:</label><input type="text" id="adm-pom"></div>
-            <div class="field"><label>LEAGUES TITLES:</label><input type="text" id="adm-league"></div>
-            <div class="field"><label>SVS WINS:</label><input type="text" id="adm-svs"></div>
-        </div>
-        <div class="field"><label>ANNOUNCEMENT:</label><textarea id="adm-ann" rows="3"></textarea></div>
-        <h3 style="color:var(--neon); border-bottom:1px solid #333;">BT TIMINGS</h3>
-        <div id="adm-bt-grid"></div>
-        <button onclick="addBTrow()" style="background:none; border:1px solid var(--neon); color:var(--neon); padding:5px 15px; cursor:pointer; margin-bottom:20px;">+ Add Alliance</button>
-        <h3 style="color:var(--neon); border-bottom:1px solid #333;">SYSTEM LOCKS</h3>
-        <div class="admin-row">
-            <button id="pb-svs" class="status-btn" onclick="toggleLock('svs_lock')">SVS</button>
-            <button id="pb-tyrant" class="status-btn" onclick="toggleLock('tyrant_lock')">TYRANT</button>
-            <button id="pb-trans" class="status-btn" onclick="toggleLock('transfer_lock')">TRANSFERS</button>
-        </div>
-        <h3 style="color:var(--neon); border-bottom:1px solid #333; margin-top:40px;">DOWNLOAD REPORTS (XLSX)</h3>
-        <div class="admin-row">
-            <a href="#" id="dl-svs" class="status-btn dl-btn">SVS DATA</a>
-            <a href="#" id="dl-tyrant" class="status-btn dl-btn">TYRANT DATA</a>
-            <a href="#" id="dl-trans" class="status-btn dl-btn">TRANSFERS DATA</a>
-        </div>
-        <button class="btn-transmit" style="background:var(--neon); margin-top:40px;" id="save-btn" onclick="saveHQ()">SAVE DASHBOARD</button>
-        <div class="danger-zone">
-            <h3 style="color:var(--red); margin-top:0;">DATA MANAGEMENT (MONTHLY RESET)</h3>
-            <div class="admin-row">
-                <button class="btn-clear" onclick="clearData('svs')">CLEAR SVS</button>
-                <button class="btn-clear" onclick="clearData('tyrant')">CLEAR TYRANT</button>
-                <button class="btn-clear" onclick="clearData('transfers')">CLEAR TRANSFERS</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div style="text-align:center; padding:50px; opacity:0.3;"><button onclick="loginAdmin()" style="background:none; border:none; color:white; cursor:pointer; font-family:'Orbitron'; font-size:0.8rem;">[ ADMIN_LOGIN ]</button></div>
-
-<script type="text/javascript">
-function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element'); }
-function translatePage(lang) { var select = document.querySelector('.goog-te-combo'); if (select) { select.value = lang; select.dispatchEvent(new Event('change')); } }
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<div class="modal" id="adminModal"><div class="sheet"><div class="sheet-head"><h2>ADMIN HQ</h2><button class="close" onclick="exitAdmin()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="admin-grid">
+    <div class="field"><label>President</label><input id="adm-president"></div>
+    <div class="field"><label>Player of the Month</label><input id="adm-pom"></div>
+    <div class="field"><label>SVS Wins</label><input id="adm-svs"></div>
+    <div class="field"><label>League Titles</label><input id="adm-league"></div>
+  </div>
+  <div class="field" style="margin-top:12px"><label>Announcement</label><textarea id="adm-ann"></textarea></div>
+  <div class="admin-section"><h3>Section Locks</h3><div id="lockControls"></div></div>
+  <div class="admin-section"><h3>Reports & Monthly Reset</h3><div id="reportControls"></div></div>
+  <div class="actions"><button class="primary" onclick="saveAdmin()">Save Dashboard</button><button class="ghost" onclick="exitAdmin()">Exit</button></div>
+</div></div>
 
 <script>
-    const API = "https://script.google.com/macros/s/AKfycbyt-uMjmWL9H3Luk6yah0nsiFXQMDk9u-W50zzkBsn1SehFeFjQwMWn50zoeHynDPJB/exec";
-    const SHEET_ID = "1LkFhOMltulOB-gTkBP1G99bGlzwTt-_nxCu68gR-wwU";
-    let hqData = { settings: {}, bt: [] };
-    let activeType = "";
-
-    window.onload = loadData;
-
-    function loadData() {
-        fetch(API).then(r => r.json()).then(data => { hqData = data; syncUI(); });
-    }
-
-    function syncUI() {
-        const s = hqData.settings;
-        document.getElementById('v-pres').innerText = s.president || '---';
-        document.getElementById('v-league').innerText = s.league_wins || '---';
-        document.getElementById('v-svs').innerText = s.svs_wins || '---';
-        document.getElementById('v-pom').innerText = s.player_of_the_month || '---';
-        document.getElementById('v-ann').innerText = s.announcement || '';
-        document.getElementById('lock-svs-ui').style.display = (s.svs_lock === "TRUE") ? "flex" : "none";
-        document.getElementById('lock-tyrant-ui').style.display = (s.tyrant_lock === "TRUE") ? "flex" : "none";
-        document.getElementById('lock-transfer-ui').style.display = (s.transfer_lock === "TRUE") ? "flex" : "none";
-        document.getElementById('adm-pres').value = s.president || '';
-        document.getElementById('adm-pom').value = s.player_of_the_month || '';
-        document.getElementById('adm-league').value = s.league_wins || '';
-        document.getElementById('adm-svs').value = s.svs_wins || '';
-        document.getElementById('adm-ann').value = s.announcement || '';
-        const btG = document.getElementById('adm-bt-grid');
-        btG.innerHTML = "";
-        hqData.bt.forEach((b, i) => {
-            btG.innerHTML += `<div class="admin-row bt-row"><input type="text" class="bt-n" value="${b.alliance}"><input type="text" class="bt-1" value="${b.bt1}"><input type="text" class="bt-2" value="${b.bt2}"></div>`;
-        });
-        updateLockButtons();
-        const base = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=xlsx`;
-        document.getElementById('dl-svs').href = base + `&gid=1767999200`;
-        document.getElementById('dl-tyrant').href = base + `&gid=1142906535`;
-        document.getElementById('dl-trans').href = base + `&gid=914028515`;
-    }
-
-    function updateLockButtons() {
-        setLockBtn('pb-svs', hqData.settings.svs_lock);
-        setLockBtn('pb-tyrant', hqData.settings.tyrant_lock);
-        setLockBtn('pb-trans', hqData.settings.transfer_lock);
-    }
-
-    function setLockBtn(id, val) {
-        const el = document.getElementById(id);
-        el.innerText = (val === "TRUE") ? "LOCKED" : "OPEN";
-        el.className = "status-btn " + (val === "TRUE" ? "locked" : "open");
-    }
-
-    function toggleLock(key) { hqData.settings[key] = (hqData.settings[key] === "TRUE") ? "FALSE" : "TRUE"; updateLockButtons(); }
-
-    function addBTrow() {
-        const btG = document.getElementById('adm-bt-grid');
-        btG.innerHTML += `<div class="admin-row bt-row"><input type="text" class="bt-n" placeholder="Alliance"><input type="text" class="bt-1" placeholder="Time 1"><input type="text" class="bt-2" placeholder="Time 2"></div>`;
-    }
-
-    function saveHQ() {
-        document.getElementById('save-btn').innerText = "SAVING...";
-        const settings = {
-            president: document.getElementById('adm-pres').value,
-            player_of_the_month: document.getElementById('adm-pom').value,
-            league_wins: document.getElementById('adm-league').value,
-            svs_wins: document.getElementById('adm-svs').value,
-            announcement: document.getElementById('adm-ann').value,
-            svs_lock: hqData.settings.svs_lock, tyrant_lock: hqData.settings.tyrant_lock, transfer_lock: hqData.settings.transfer_lock
-        };
-        const bt = [];
-        document.querySelectorAll('.bt-row').forEach(row => {
-            const n = row.querySelector('.bt-n').value;
-            const t1 = row.querySelector('.bt-1').value;
-            const t2 = row.querySelector('.bt-2').value;
-            if(n) bt.push([n, t1, t2]);
-        });
-        fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: "admin_update", settings: settings, bt: bt }) }).then(() => { alert("SECURED!"); location.reload(); });
-    }
-
-    function clearData(sheetName) {
-        if(confirm("RESET " + sheetName.toUpperCase() + "?")) {
-            fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: "clear_sheet", sheetName: sheetName }) }).then(() => alert("CLEARED!"));
-        }
-    }
-
-    function openProtocol(type) {
-        let lockKey = type === 'transfers' ? 'transfer_lock' : type + '_lock';
-        if(hqData.settings[lockKey] === "TRUE") return;
-        activeType = type;
-        document.getElementById('player-ui').style.display = 'none';
-        document.getElementById('form-view').style.display = 'block';
-        document.getElementById('form-container').style.display = 'block';
-        document.getElementById('success-view').style.display = 'none';
-        document.getElementById('f-title').innerText = type.toUpperCase() + " PROTOCOL";
-        const f = document.getElementById('f-inputs');
-        f.innerHTML = "";
-        
-        if(type === 'svs') {
-            f.innerHTML = `
-                <div class="field"><label>NAME</label><input type="text" id="sv-n"></div>
-                <div class="field"><label>ALLIANCE</label><input type="text" id="sv-a"></div>
-                <div class="field"><label>GAME ID</label><input type="text" id="sv-i"></div>
-                <div class="field"><label>MINISTRY</label><select id="sv-m">
-                    <option value="Vice President">Vice President</option>
-                    <option value="Education">Education</option>
-                    <option value="Interior">Interior</option>
-                    <option value="Strategy">Strategy</option>
-                </select></div>
-                <div class="field"><label>BUFF REQUEST</label><select id="sv-b">
-                    <option value="None">None</option>
-                    <option value="Construction Buff">Construction Buff</option>
-                    <option value="Troops Buff">Troops Buff</option>
-                    <option value="Research Buff">Research Buff</option>
-                </select></div>
-                <div class="field"><label>SPEEDUPS</label><select id="sv-s">
-                    <option value="40 Days or less">40 Days or less</option>
-                    <option value="Above 40 Days">Above 40 Days</option>
-                    <option value="Above 100 Days">Above 100 Days</option>
-                </select></div>
-                <div class="field"><label>TIMING (UTC)</label><select id="sv-t">${getUTC()}</select></div>`;
-        } else if(type === 'transfers') {
-            f.innerHTML = `
-                <div class="field"><label>NAME</label><input type="text" id="tr-n"></div>
-                <div class="field"><label>GAME ID</label><input type="text" id="tr-i"></div>
-                <div class="field"><label>CURRENT STATE</label><input type="text" id="tr-s"></div>
-                <div class="field"><label>FC LEVEL</label><select id="tr-f">
-                    <option value="FC7">FC7</option><option value="FC8">FC8</option><option value="FC9">FC9</option><option value="FC10">FC10</option>
-                </select></div>
-                <div class="field"><label>HELIOS TROOPS?</label><select id="tr-h">
-                    <option value="Yes">Yes</option><option value="No">No</option>
-                </select></div>
-                <div class="field"><label>CURRENT POWER</label><input type="text" id="tr-p"></div>
-                <div class="field"><label>MONTH OF JOINING</label><select id="tr-m">${getM()}</select></div>
-                <div class="field"><label>AWARE OF REDUCTION?</label><select id="tr-a">
-                    <option value="Yes">Yes</option><option value="No">No</option>
-                </select></div>`;
-        } else if(type === 'tyrant') {
-            f.innerHTML = `
-                <div class="field"><label>NAME</label><input type="text" id="ty-n"></div>
-                <div class="field"><label>ALLIANCE</label><input type="text" id="ty-a"></div>
-                <div class="field"><label>DISCORD?</label><select id="ty-d">
-                    <option value="Yes">Yes</option><option value="No">No</option>
-                </select></div>`;
-        }
-    }
-
-    function getUTC() { let o=""; for(let i=0; i<24; i++){ let h=i<10?'0'+i:i; o+=`<option value="${h}:00">${h}:00</option>`; } return o; }
-    function getM() { return ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map(m => `<option value="${m}">${m}</option>`).join(""); }
-    function closeProtocol() { document.getElementById('player-ui').style.display='block'; document.getElementById('form-view').style.display='none'; }
-
-    function submitPortalForm() {
-        const p = {};
-        // دقة يا قائد: هنا نقرأ الـ value وليس الـ text لضمان وصول القيمة بالإنجليزية للإكسل
-        if(activeType === 'svs') {
-            p['Name'] = document.getElementById('sv-n').value;
-            p['Alliance'] = document.getElementById('sv-a').value;
-            p['GameID'] = document.getElementById('sv-i').value;
-            p['Ministry'] = document.getElementById('sv-m').value;
-            p['Buff_Request'] = document.getElementById('sv-b').value;
-            p['Speedups'] = document.getElementById('sv-s').value;
-            p['Timing'] = document.getElementById('sv-t').value;
-        } else if(activeType === 'transfers') {
-            p['Name'] = document.getElementById('tr-n').value;
-            p['Game_ID'] = document.getElementById('tr-i').value;
-            p['Current_State'] = document.getElementById('tr-s').value;
-            p['FC_Level'] = document.getElementById('tr-f').value;
-            p['Helios'] = document.getElementById('tr-h').value;
-            p['Current_Power'] = document.getElementById('tr-p').value;
-            p['Month'] = document.getElementById('tr-m').value;
-            p['Reduce_Aware'] = document.getElementById('tr-a').value;
-        } else if(activeType === 'tyrant') {
-            p['Name'] = document.getElementById('ty-n').value;
-            p['Alliance'] = document.getElementById('ty-a').value;
-            p['Discord'] = document.getElementById('ty-d').value;
-        }
-        document.getElementById('sub-btn').innerText = "TRANSMITTING...";
-        fetch(API, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ type: activeType, payload: p }) }).then(() => {
-            document.getElementById('form-container').style.display='none';
-            document.getElementById('success-view').style.display='block';
-        });
-    }
-
-    function showBT() {
-        let msg = "BEAR TRAP TIMINGS:\n\n";
-        hqData.bt.forEach(b => msg += `${b.alliance}: ${b.bt1} & ${b.bt2}\n`);
-        alert(msg);
-    }
-
-    function loginAdmin() { if(prompt("ACCESS CODE:") === "State2099") document.getElementById('admin-hq').style.display='block'; }
-    function exitAdmin() { document.getElementById('admin-hq').style.display='none'; }
+const API='https://script.google.com/macros/s/AKfycbx9T9jcu8Afce8Gksry5m6KWcynbWVYeQr7WUx164oEMz5EczEw47x3lW8aLpC23sDNUw/exec';
+const LANGS=[['ar','🇸🇦','العربية'],['en','🇺🇸','English'],['id','🇮🇩','Indonesia'],['ru','🇰🇿','Русский'],['ko','🇰🇷','한국어']];
+const I18N={
+ en:{choose:'Choose your language',portalTitle:'STATE PORTAL',slogan:'Lead. Defend. Conquer.',president:'Current President',svsWins:'SVS Wins',leagueTitles:'League Titles',playerMonth:'Player of the Month',announcement:'State Announcement',footer:'United We Stand. Legends Never Fall.',ministries:'SVS Ministries',svs:'SVS Survey',fdt:'FDT Survey',league:'League Survey',enter:'Enter Portal',name:'Player Name',gameId:'Your Game ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'Speedups Days',timings:'Preferable Timings UTC - 3 Picks Only',availability:'Are you available for the entire event?',troops:'Troops Type',helios:'Helios Troops',discord:'Are you able to join the Discord?',rotation:'You are aware that the state will rotate joiners and prioritize what helps the state the most. It is not personal at all.',leagueAvail:'Are you available for the entire league?',submit:'Submit',back:'Back',secured:'Mission Secured',securedText:'Your response has been submitted.',returnHome:'Return',locked:'Section Closed'},
+ ar:{choose:'اختر لغتك',portalTitle:'بوابة المقاطعة',slogan:'قُد. دافع. انتصر.',president:'الرئيس الحالي',svsWins:'انتصارات SVS',leagueTitles:'ألقاب الدوري',playerMonth:'لاعب الشهر',announcement:'إعلانات المقاطعة',footer:'متحدون نقف. والأساطير لا تسقط.',ministries:'وزارات SVS',svs:'استبيان SVS',fdt:'استبيان FDT',league:'استبيان الدوري',enter:'دخول البوابة',name:'اسم اللاعب باللعبة',gameId:'رقم يوزرك باللعبة',alliance:'التحالف',ministry:'الوزارة المطلوبة',speedups:'عدد أيام التسريعات',timings:'الأوقات المفضلة UTC - اختر 3 فقط',availability:'هل أنت متاح طوال الحدث؟',troops:'نوع القوات',helios:'قوات هيليوس',discord:'هل تستطيع دخول الديسكورد؟',rotation:'أنت تعلم أن المقاطعة ستدوّر المشاركين وتختار ما يخدم المقاطعة أكثر، والأمر ليس شخصيًا إطلاقًا.',leagueAvail:'هل أنت متاح طوال الدوري؟',submit:'إرسال',back:'رجوع',secured:'تم تأمين المهمة',securedText:'تم إرسال إجابتك بنجاح.',returnHome:'عودة',locked:'القسم مغلق'},
+ id:{choose:'Pilih bahasa Anda',portalTitle:'PORTAL NEGARA',slogan:'Pimpin. Pertahankan. Taklukkan.',president:'Presiden Saat Ini',svsWins:'Kemenangan SVS',leagueTitles:'Gelar Liga',playerMonth:'Pemain Bulan Ini',announcement:'Pengumuman Negara',footer:'Bersatu Kita Berdiri. Legenda Tak Pernah Jatuh.',ministries:'SVS Ministries',svs:'Survei SVS',fdt:'Survei FDT',league:'Survei Liga',enter:'Masuk Portal',name:'Nama Pemain',gameId:'ID Game Anda',alliance:'Alliance',ministry:'Ministry Required',speedups:'Hari Speedups',timings:'Waktu Pilihan UTC - Maksimal 3',availability:'Apakah Anda tersedia sepanjang event?',troops:'Jenis Pasukan',helios:'Pasukan Helios',discord:'Apakah Anda bisa masuk Discord?',rotation:'Anda memahami bahwa state akan melakukan rotasi joiner dan memprioritaskan yang paling membantu state. Ini sama sekali bukan masalah pribadi.',leagueAvail:'Apakah Anda tersedia sepanjang liga?',submit:'Kirim',back:'Kembali',secured:'Misi Aman',securedText:'Jawaban Anda telah dikirim.',returnHome:'Kembali',locked:'Bagian Ditutup'},
+ ru:{choose:'Выберите язык',portalTitle:'ПОРТАЛ ШТАТА',slogan:'Веди. Защищай. Побеждай.',president:'Текущий президент',svsWins:'Победы SVS',leagueTitles:'Титулы лиги',playerMonth:'Игрок месяца',announcement:'Объявление штата',footer:'Мы едины. Легенды не падают.',ministries:'SVS Ministries',svs:'Опрос SVS',fdt:'Опрос FDT',league:'Опрос лиги',enter:'Войти',name:'Имя игрока',gameId:'Ваш игровой ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'Дни ускорений',timings:'Предпочтительное время UTC - только 3',availability:'Вы доступны на всё событие?',troops:'Тип войск',helios:'Войска Helios',discord:'Вы можете зайти в Discord?',rotation:'Вы понимаете, что штат будет ротировать участников и выбирать то, что лучше всего помогает штату. Это не личное.',leagueAvail:'Вы доступны на всю лигу?',submit:'Отправить',back:'Назад',secured:'Миссия принята',securedText:'Ваш ответ отправлен.',returnHome:'Вернуться',locked:'Раздел закрыт'},
+ ko:{choose:'언어를 선택하세요',portalTitle:'스테이트 포털',slogan:'지휘하라. 방어하라. 정복하라.',president:'현재 대통령',svsWins:'SVS 승리',leagueTitles:'리그 타이틀',playerMonth:'이달의 플레이어',announcement:'스테이트 공지',footer:'우리는 함께 선다. 전설은 쓰러지지 않는다.',ministries:'SVS Ministries',svs:'SVS 설문',fdt:'FDT 설문',league:'리그 설문',enter:'포털 입장',name:'플레이어 이름',gameId:'게임 ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'스피드업 일수',timings:'선호 시간 UTC - 3개만 선택',availability:'전체 이벤트에 참여 가능합니까?',troops:'병력 유형',helios:'Helios 병력',discord:'Discord 참여가 가능합니까?',rotation:'스테이트는 조인러를 순환 배치하며 스테이트에 가장 도움이 되는 것을 우선합니다. 개인적인 이유가 아닙니다.',leagueAvail:'전체 리그에 참여 가능합니까?',submit:'제출',back:'뒤로',secured:'임무 확보',securedText:'응답이 제출되었습니다.',returnHome:'돌아가기',locked:'섹션 닫힘'}
+};
+const options={alliances:['SOS','XCR','ASL','L99'],ministries:['Education','Vice President'],availability:['Yes - Full Time','Partially - First Two Hours','Partially - Two Mid Hours','Partially - Last Two Hours','Nope'],troops:['All Troops FC10','FC10 Infantry','FC10 Lancer','FC10 Marksmen','All Troops FC9','FC9 Infantry','FC9 Lancer','FC9 Marksmen','FC8 and Below'],helios:['ALL T11','T11/Infantry Only','T11/Lancer Only','T11/Marksman Only','Nope'],yesno:['Yes','No']};
+let lang='en', hq={settings:{},bt:[]}, activeType='', selectedTimings=[], selectedHelios=[];
+const $=id=>document.getElementById(id), t=k=>(I18N[lang]&&I18N[lang][k])||I18N.en[k]||k;
+function initLangButtons(){const make=(where,small=false)=>{$(where).innerHTML=LANGS.map(([c,f,n])=>`<button class="${small?'chip':'lang-btn'} ${c===lang?'active':''}" onclick="selectLang('${c}')"><span class="flag">${f}</span><span>${n}</span></button>`).join('')};make('gateLangs');make('topLangs',true)}
+function selectLang(c){lang=c;localStorage.setItem('state2099_lang',c);document.documentElement.lang=c;document.documentElement.dir=c==='ar'?'rtl':'ltr';document.body.classList.toggle('lang-ar',c==='ar');$('languageGate').classList.add('hidden');$('app').classList.remove('hidden');initLangButtons();applyLang();renderCards()}
+function applyLang(){document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n))}
+function boot(){lang=localStorage.getItem('state2099_lang')||'en';document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.classList.toggle('lang-ar',lang==='ar');initLangButtons();applyLang();loadData()} window.onload=boot;
+function loadData(){fetch(API).then(r=>r.json()).then(d=>{hq=d||hq;syncHQ()}).catch(()=>{hq.settings={president:'Sultan',svs_wins:'0',league_wins:'0',player_of_the_month:'---',announcement:'Long live 2099'};syncHQ()})}
+function syncHQ(){const s=hq.settings||{};$('v-president').textContent=s.president||'---';$('v-svs').textContent=s.svs_wins||'0';$('v-league').textContent=s.league_wins||'0';$('v-pom').textContent=s.player_of_the_month||'---';$('v-ann').textContent=s.announcement||'Long live 2099';renderCards();if(sessionStorage.getItem('state2099_admin'))fillAdmin()}
+function renderCards(){const s=hq.settings||{};const data=[['ministries',t('ministries'),'Appoint Ministers. Strengthen the State.','assets/ministries.jpg','fa-landmark',s.ministries_lock],['svs_survey',t('svs'),'Strategy. Valor. Victory.','assets/svs-battle.jpg','fa-shield-halved',s.svs_survey_lock],['fdt_survey',t('fdt'),'Face the Frost Dragon. Earn Glory.','assets/fdt-dragon.jpg','fa-dragon',s.fdt_survey_lock],['league_survey',t('league'),'Compete. Dominate. Become Champion.','assets/league.jpg','fa-trophy',s.league_survey_lock]];$('cards').innerHTML=data.map(([type,title,desc,img,icon,lock])=>`<button class="portal-card ${lock==='TRUE'?'locked':''}" onclick="openForm('${type}')"><div class="bg" style="background-image:url('${img}')"></div><div class="locked-cover"><div><i class="fa-solid fa-lock"></i><br>${t('locked')}</div></div><div class="card-content"><div class="crest"><i class="fa-solid ${icon}"></i></div><div class="card-title">${title}</div><div class="card-desc">${desc}</div><div class="enter">${t('enter')} <i class="fa-solid fa-chevron-right"></i></div></div></button>`).join('')}
+function openForm(type){const lock=(hq.settings||{})[{ministries:'ministries_lock',svs_survey:'svs_survey_lock',fdt_survey:'fdt_survey_lock',league_survey:'league_survey_lock'}[type]];if(lock==='TRUE')return;activeType=type;selectedTimings=[];selectedTroops=[];selectedHelios=[];$('successView').style.display='none';$('formArea').style.display='block';$('formTitle').textContent={ministries:t('ministries'),svs_survey:t('svs'),fdt_survey:t('fdt'),league_survey:t('league')}[type];$('formArea').innerHTML=buildForm(type);$('formModal').classList.add('show')}
+function closeForm(){$('formModal').classList.remove('show')}
+function field(id,label,type='text'){return `<div class="field"><label for="${id}">${label}</label><input id="${id}" type="${type}" required></div>`}
+function selectField(id,label,arr){return `<div class="field"><label for="${id}">${label}</label><select id="${id}">${arr.map(x=>`<option value="${x}">${x}</option>`).join('')}</select></div>`}
+function timingSlots(){let a=[];for(let h=0;h<24;h++){for(let m of [0,30]){let sh=String(h).padStart(2,'0'),sm=String(m).padStart(2,'0');let total=h*60+m+30,eh=String(Math.floor(total/60)%24).padStart(2,'0'),em=String(total%60).padStart(2,'0');a.push(`${sh}:${sm}-${eh}:${em}`)}}return a}
+function chips(arr,fn){return `<div class="choices">${arr.map(v=>`<button type="button" class="choice" data-val="${v}" onclick="${fn}(this)">${v}</button>`).join('')}</div>`}
+function buildForm(type){let common=field('f-name',t('name'))+field('f-game',t('gameId'))+selectField('f-alliance',t('alliance'),options.alliances);let body='';if(type==='ministries'){body=common+selectField('f-ministry',t('ministry'),options.ministries)+field('f-speedups',t('speedups'),'number')+`<div class="field"><label>${t('timings')}</label>${chips(timingSlots(),'toggleTiming')}<div class="helper" id="timingHelp">0 / 3</div></div>`}else if(type==='svs_survey'||type==='fdt_survey'){body=common+selectField('f-availability',t('availability'),options.availability)+`<div class="field"><label>${t('troops')}</label>${chips(options.troops,'toggleTroops')}<div class="helper" id="troopsHelp">0 selected - you may mix FC10 and FC9 types</div></div>`+`<div class="field"><label>${t('helios')}</label>${chips(options.helios,'toggleHelios')}<div class="helper" id="heliosHelp">0 / 3</div></div>`+''}else{body=common+selectField('f-rotation',t('rotation'),options.yesno)+selectField('f-league-avail',t('leagueAvail'),options.yesno)}return `<form onsubmit="submitForm(event)" class="form-grid">${body}<div class="actions"><button class="ghost" type="button" onclick="closeForm()">${t('back')}</button><button class="primary" id="submitBtn" type="submit">${t('submit')}</button></div></form>`}
+function toggleTiming(el){const v=el.dataset.val;const i=selectedTimings.indexOf(v);if(i>-1){selectedTimings.splice(i,1);el.classList.remove('selected')}else{if(selectedTimings.length>=3){alert('3 picks only');return}selectedTimings.push(v);el.classList.add('selected')}$('timingHelp').textContent=selectedTimings.length+' / 3'}
+function toggleTroops(el){const v=el.dataset.val;const i=selectedTroops.indexOf(v);if(i>-1){selectedTroops.splice(i,1);el.classList.remove('selected')}else{selectedTroops.push(v);el.classList.add('selected')}const help=$('troopsHelp');if(help)help.textContent=selectedTroops.length+' selected';}
+function toggleHelios(el){const v=el.dataset.val;if(v==='Nope'||v==='ALL T11'){document.querySelectorAll('#formArea .choice').forEach(x=>x.classList.remove('selected'));selectedHelios=[v];el.classList.add('selected')}else{selectedHelios=selectedHelios.filter(x=>x!=='Nope'&&x!=='ALL T11');document.querySelectorAll('#formArea .choice[data-val="Nope"],#formArea .choice[data-val="ALL T11"]').forEach(x=>x.classList.remove('selected'));const i=selectedHelios.indexOf(v);if(i>-1){selectedHelios.splice(i,1);el.classList.remove('selected')}else{if(selectedHelios.length>=3){alert('3 picks only');return}selectedHelios.push(v);el.classList.add('selected')}}$('heliosHelp').textContent=selectedHelios.length+' / 3'}
+function val(id){return $(id).value.trim()}
+function submitForm(e){e.preventDefault();let payload={playerName:val('f-name'),gameId:val('f-game'),alliance:val('f-alliance'),language:lang};let type=activeType;if(type==='ministries'){if(selectedTimings.length<1){alert('Select at least 1 timing');return}Object.assign(payload,{ministryRequired:val('f-ministry'),speedupsDays:val('f-speedups'),timings:selectedTimings})}else if(type==='svs_survey'||type==='fdt_survey'){if(selectedTroops.length<1){alert('Select at least one Troops Type');return}if(selectedHelios.length<1){alert('Select Helios Troops');return}Object.assign(payload,{availability:val('f-availability'),troops:selectedTroops,heliosTroops:selectedHelios,discordAvailable:'No'})}else{Object.assign(payload,{understandsRotation:val('f-rotation'),availableEntireLeague:val('f-league-avail')})}const btn=$('submitBtn');btn.disabled=true;btn.textContent='...';fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify({type,payload})}).then(()=>showSuccess()).catch(()=>showSuccess())}
+function showSuccess(){$('formArea').style.display='none';$('successView').style.display='block'}
+function loginAdmin(){const existing=sessionStorage.getItem('state2099_admin');const code=existing||prompt('ACCESS CODE:');if(!code)return;sessionStorage.setItem('state2099_admin',code);fillAdmin();$('adminModal').classList.add('show')}
+function exitAdmin(){$('adminModal').classList.remove('show')}
+function fillAdmin(){const s=hq.settings||{};$('adm-president').value=s.president||'';$('adm-pom').value=s.player_of_the_month||'';$('adm-svs').value=s.svs_wins||'';$('adm-league').value=s.league_wins||'';$('adm-ann').value=s.announcement||'';const locks=[['ministries','Ministries Data','ministries_lock'],['svs_survey','SvS Survey Data','svs_survey_lock'],['fdt_survey','FDT Survey Data','fdt_survey_lock'],['league_survey','League Survey Data','league_survey_lock']];$('lockControls').innerHTML=locks.map(([r,n,k])=>`<div class="lock-row"><strong>${n}</strong><button class="mini-btn ${(s[k]==='TRUE')?'locked':'open'}" onclick="toggleAdminLock('${k}')">${s[k]==='TRUE'?'LOCKED':'OPEN'}</button></div>`).join('');$('reportControls').innerHTML=locks.map(([r,n,k])=>`<div class="report-row"><strong>${n}</strong><button class="mini-btn" onclick="downloadReport('${r}')">Download CSV</button><button class="mini-btn locked" onclick="clearReport('${r}')">Clear</button></div>`).join('')}
+function toggleAdminLock(k){hq.settings[k]=(hq.settings[k]==='TRUE')?'FALSE':'TRUE';fillAdmin()}
+function saveAdmin(){const code=sessionStorage.getItem('state2099_admin')||'';const settings={president:$('adm-president').value,player_of_the_month:$('adm-pom').value,svs_wins:$('adm-svs').value,league_wins:$('adm-league').value,announcement:$('adm-ann').value,ministries_lock:hq.settings.ministries_lock||'FALSE',svs_survey_lock:hq.settings.svs_survey_lock||'FALSE',fdt_survey_lock:hq.settings.fdt_survey_lock||'FALSE',league_survey_lock:hq.settings.league_survey_lock||'FALSE'};fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'admin_update',adminCode:code,settings,bt:hq.bt||[]})}).then(()=>{Object.assign(hq.settings,settings);syncHQ();alert('Saved')})}
+function downloadReport(report){const code=sessionStorage.getItem('state2099_admin')||prompt('ACCESS CODE:');if(!code)return;window.open(API+'?action=download&report='+encodeURIComponent(report)+'&adminCode='+encodeURIComponent(code),'_blank')}
+function clearReport(sheetName){const code=sessionStorage.getItem('state2099_admin')||prompt('ACCESS CODE:');if(!code)return;if(!confirm('Clear '+sheetName+' data?'))return;fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'clear_sheet',adminCode:code,sheetName})}).then(()=>alert('Cleared'))}
 </script>
 </body>
 </html>
