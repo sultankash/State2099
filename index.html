@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>2099 State Portal</title>
-  <!-- State2099 Portal v14.2 FINAL: Planning generator only; based on v14.1 safe checkpoint -->
+  <!-- State2099 Portal v14.2.2: Planning generator language fix only; based on v14.1 safe checkpoint -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=Tajawal:wght@500;700;800&family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
@@ -128,7 +128,7 @@
     <button class="planning-tab" id="tab-joiner" onclick="setPlanningTab('joiner')">Joiner</button>
   </div>
   <div class="planning-note">Simple SvS message generator. Select values, generate the compact message, then copy it for in-game use.</div>
-  <div class="planning-lang"><div class="field"><label for="p-msg-lang">Message Language</label><select id="p-msg-lang"><option value="ar">🇸🇦 العربية</option><option value="ru">🇰🇿 Русский</option><option value="id">🇮🇩 Indonesia</option><option value="ko">🇰🇷 한국어</option><option value="de">🇩🇪 Deutsch</option></select></div></div>
+  <div class="planning-lang"><div class="field"><label for="p-msg-lang">Message Language</label><select id="p-msg-lang"><option value="en">🇺🇸 English</option><option value="ar">🇸🇦 العربية</option><option value="ru">🇰🇿 Русский</option><option value="id">🇮🇩 Indonesia</option><option value="ko">🇰🇷 한국어</option><option value="de">🇩🇪 Deutsch</option></select></div></div>
   <div id="planningArea"></div>
 </div></div>
 
@@ -229,7 +229,7 @@ function updatePlanningRow(){const row=$('p-row');if(row)row.textContent=($('p-a
 function planningVal(id){return ($(id)?.value||'').trim()}
 function planningRatio(){const inf=Number(planningVal('p-inf')),lan=Number(planningVal('p-lan')),mar=Number(planningVal('p-mar'));return {inf,lan,mar,sum:inf+lan+mar,txt:`${inf}/${lan}/${mar}`}}
 function showPlanningError(msg){const box=$('planningError');if(!box)return;box.textContent=msg;box.style.display=msg?'block':'none'}
-function planningMessageLang(){return planningVal('p-msg-lang')||'ar'}
+function planningMessageLang(){return planningVal('p-msg-lang')||'en'}
 function formatFormation(r,lang){
   if(lang==='ar')return `مشاة ${r.inf}% | رماح ${r.lan}% | رماة ${r.mar}%`;
   if(lang==='ru')return `Пехота ${r.inf}% | Копья ${r.lan}% | Стрелки ${r.mar}%`;
@@ -239,20 +239,212 @@ function formatFormation(r,lang){
   return `INF ${r.inf}% | LAN ${r.lan}% | MAR ${r.mar}%`;
 }
 function makeRallyMessage(lang,d){
-  if(lang==='ar')return `تم تعيينك قائد حشد.\n\n${d.team} | ${d.alliance} | تفعيل الحيوانات: ${d.pets}\n${d.h1} / ${d.h2} / ${d.h3}\n${formatFormation(d.r,lang)}\n\nالجوينرز:\n${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}\n\nابدأ في AMT لأول سيطرة، ثم انتقل إلى ${d.alliance} واتبع DC.`;
-  if(lang==='ru')return `Вы назначены лидером ралли.\n\n${d.team} | ${d.alliance} | Активация питомцев: ${d.pets}\n${d.h1} / ${d.h2} / ${d.h3}\n${formatFormation(d.r,lang)}\n\nJoiners:\n${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}\n\nНачните в AMT для первого контроля, затем перейдите в ${d.alliance} и следуйте DC.`;
-  if(lang==='id')return `Kamu ditugaskan sebagai Rally Leader.\n\n${d.team} | ${d.alliance} | Aktivasi Pet: ${d.pets}\n${d.h1} / ${d.h2} / ${d.h3}\n${formatFormation(d.r,lang)}\n\nJoiners:\n${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}\n\nMulai di AMT untuk kontrol pertama, lalu pindah ke ${d.alliance} dan ikuti DC.`;
-  if(lang==='ko')return `랠리 리더로 배정되었습니다.\n\n${d.team} | ${d.alliance} | 펫 활성화: ${d.pets}\n${d.h1} / ${d.h2} / ${d.h3}\n${formatFormation(d.r,lang)}\n\n조이너 순서:\n${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}\n\n첫 점령은 AMT에서 시작한 뒤 ${d.alliance}(으)로 이동하고 DC 지시를 따르세요.`;
-  if(lang==='de')return `Du bist als Rally Leader eingeteilt.\n\n${d.team} | ${d.alliance} | Tier-Aktivierung: ${d.pets}\n${d.h1} / ${d.h2} / ${d.h3}\n${formatFormation(d.r,lang)}\n\nJoiner-Reihenfolge:\n${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}\n\nStarte in AMT für die erste Kontrolle, wechsle dann zu ${d.alliance} und folge DC.`;
-  return `Hello! You are assigned as Rally Leader.\n\nTeam: ${d.team} | Alliance: ${d.alliance} | Pets: ${d.pets}\nPreset: ${d.h1}/${d.h2}/${d.h3} | Formation: ${d.r.txt}\nJoiners order: ${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}\n\nWatch order. Start in AMT for first control, then move to ${d.alliance} and follow DC.`;
+  if(lang==='ar')return `تم تعيينك قائد حشد.
+
+${d.team}
+Alliance: ${d.alliance}
+تفعيل الحيوانات: ${d.pets}
+
+أبطال الحشد:
+${d.h1} / ${d.h2} / ${d.h3}
+
+النسبة:
+${formatFormation(d.r,lang)}
+
+الجوينرز:
+${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
+
+نأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.
+
+ابدأ في AMT لأول سيطرة.
+ثم انتقل إلى ${d.alliance} واتبع تعليمات الديسكورد.`;
+  if(lang==='ru')return `Вы назначены лидером ралли.
+
+${d.team}
+Alliance: ${d.alliance}
+Активация питомцев: ${d.pets}
+
+Герои ралли:
+${d.h1} / ${d.h2} / ${d.h3}
+
+Формация:
+${formatFormation(d.r,lang)}
+
+Joiners:
+${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
+
+Сохраните пресеты заранее для готовности.
+
+Начните в AMT для первого контроля.
+Затем перейдите в ${d.alliance} и следуйте Discord.`;
+  if(lang==='id')return `Kamu ditugaskan sebagai Rally Leader.
+
+${d.team}
+Alliance: ${d.alliance}
+Aktivasi Pet: ${d.pets}
+
+Hero Rally:
+${d.h1} / ${d.h2} / ${d.h3}
+
+Formasi:
+${formatFormation(d.r,lang)}
+
+Joiners:
+${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
+
+Harap simpan preset lebih awal agar siap.
+
+Mulai di AMT untuk kontrol pertama.
+Lalu pindah ke ${d.alliance} dan ikuti Discord.`;
+  if(lang==='ko')return `랠리 리더로 배정되었습니다.
+
+${d.team}
+Alliance: ${d.alliance}
+펫 활성화: ${d.pets}
+
+랠리 영웅:
+${d.h1} / ${d.h2} / ${d.h3}
+
+편성:
+${formatFormation(d.r,lang)}
+
+조이너 순서:
+${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
+
+준비를 위해 미리 프리셋을 저장해 주세요.
+
+첫 점령은 AMT에서 시작하세요.
+그다음 ${d.alliance}(으)로 이동하고 Discord 지시를 따르세요.`;
+  if(lang==='de')return `Du bist als Rally Leader eingeteilt.
+
+${d.team}
+Alliance: ${d.alliance}
+Tier-Aktivierung: ${d.pets}
+
+Rally-Helden:
+${d.h1} / ${d.h2} / ${d.h3}
+
+Formation:
+${formatFormation(d.r,lang)}
+
+Joiner-Reihenfolge:
+${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
+
+Bitte speichere die Formationen frühzeitig zur Bereitschaft.
+
+Starte in AMT für die erste Kontrolle.
+Wechsle dann zu ${d.alliance} und folge Discord.`;
+  return `You are assigned as Rally Leader.
+
+${d.team}
+Alliance: ${d.alliance}
+Pets Activation: ${d.pets}
+
+Rally Heroes:
+${d.h1} / ${d.h2} / ${d.h3}
+
+Formation:
+${formatFormation(d.r,lang)}
+
+Joiners:
+${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
+
+Please save the presets early for readiness.
+
+Start in AMT for first control.
+Then move to ${d.alliance} and follow Discord.`;
 }
 function makeJoinerMessage(lang,d){
-  if(lang==='ar')return `تم تعيينك جوينر.\n\n${d.alliance} | Castle Row: ${d.row}\nاحفظ التشكيلات التالية:\n\n1- ${d.j1} + أي بطلين | ${d.r.txt}\n2- ${d.j2} + أي بطلين | ${d.r.txt}\n3- ${d.j3} + أي بطلين | ${d.r.txt}\n4- ${d.j4} + أي بطلين | ${d.r.txt}\n\nاتبع الترتيب وادخل DC.`;
-  if(lang==='ru')return `Вы назначены joiner.\n\n${d.alliance} | Castle Row: ${d.row}\nСохраните 4 пресета по порядку:\n\n1- ${d.j1} + любые 2 | ${d.r.txt}\n2- ${d.j2} + любые 2 | ${d.r.txt}\n3- ${d.j3} + любые 2 | ${d.r.txt}\n4- ${d.j4} + любые 2 | ${d.r.txt}\n\nСледуйте порядку и зайдите в DC.`;
-  if(lang==='id')return `Kamu ditugaskan sebagai Joiner.\n\n${d.alliance} | Castle Row: ${d.row}\nSimpan 4 preset berurutan:\n\n1- ${d.j1} + bebas 2 hero | ${d.r.txt}\n2- ${d.j2} + bebas 2 hero | ${d.r.txt}\n3- ${d.j3} + bebas 2 hero | ${d.r.txt}\n4- ${d.j4} + bebas 2 hero | ${d.r.txt}\n\nIkuti urutan dan masuk DC.`;
-  if(lang==='ko')return `조이너로 배정되었습니다.\n\n${d.alliance} | Castle Row: ${d.row}\n아래 4개 프리셋을 순서대로 저장하세요:\n\n1- ${d.j1} + 아무 영웅 2명 | ${d.r.txt}\n2- ${d.j2} + 아무 영웅 2명 | ${d.r.txt}\n3- ${d.j3} + 아무 영웅 2명 | ${d.r.txt}\n4- ${d.j4} + 아무 영웅 2명 | ${d.r.txt}\n\n순서를 따르고 DC에 들어오세요.`;
-  if(lang==='de')return `Du bist als Joiner eingeteilt.\n\n${d.alliance} | Castle Row: ${d.row}\nSpeichere diese 4 Formationen in Reihenfolge:\n\n1- ${d.j1} + beliebige 2 Helden | ${d.r.txt}\n2- ${d.j2} + beliebige 2 Helden | ${d.r.txt}\n3- ${d.j3} + beliebige 2 Helden | ${d.r.txt}\n4- ${d.j4} + beliebige 2 Helden | ${d.r.txt}\n\nFolge der Reihenfolge und komm in DC.`;
-  return `Hello! You are assigned as Joiner.\n\nAlliance: ${d.alliance} | Castle Row: ${d.row}\nSave 4 presets in order | All sets: ${d.r.txt}\n\n1- ${d.j1} + any 2 | 2- ${d.j2} + any 2\n3- ${d.j3} + any 2 | 4- ${d.j4} + any 2\n\nWatch order. Join DC VC.`;
+  if(lang==='ar')return `تم تعيينك جوينر.
+
+Alliance: ${d.alliance}
+Castle Row: ${d.row}
+
+احفظ التشكيلات التالية:
+
+1- ${d.j1} + أي بطلين | ${d.r.txt}
+2- ${d.j2} + أي بطلين | ${d.r.txt}
+3- ${d.j3} + أي بطلين | ${d.r.txt}
+4- ${d.j4} + أي بطلين | ${d.r.txt}
+
+نأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.
+
+اتبع الترتيب وادخل الديسكورد.`;
+  if(lang==='ru')return `Вы назначены joiner.
+
+Alliance: ${d.alliance}
+Castle Row: ${d.row}
+
+Сохраните следующие пресеты:
+
+1- ${d.j1} + любые 2 | ${d.r.txt}
+2- ${d.j2} + любые 2 | ${d.r.txt}
+3- ${d.j3} + любые 2 | ${d.r.txt}
+4- ${d.j4} + любые 2 | ${d.r.txt}
+
+Сохраните пресеты заранее для готовности.
+
+Следуйте порядку и зайдите в Discord.`;
+  if(lang==='id')return `Kamu ditugaskan sebagai Joiner.
+
+Alliance: ${d.alliance}
+Castle Row: ${d.row}
+
+Simpan preset berikut:
+
+1- ${d.j1} + bebas 2 hero | ${d.r.txt}
+2- ${d.j2} + bebas 2 hero | ${d.r.txt}
+3- ${d.j3} + bebas 2 hero | ${d.r.txt}
+4- ${d.j4} + bebas 2 hero | ${d.r.txt}
+
+Harap simpan preset lebih awal agar siap.
+
+Ikuti urutan dan masuk Discord.`;
+  if(lang==='ko')return `조이너로 배정되었습니다.
+
+Alliance: ${d.alliance}
+Castle Row: ${d.row}
+
+아래 프리셋을 저장하세요:
+
+1- ${d.j1} + 아무 영웅 2명 | ${d.r.txt}
+2- ${d.j2} + 아무 영웅 2명 | ${d.r.txt}
+3- ${d.j3} + 아무 영웅 2명 | ${d.r.txt}
+4- ${d.j4} + 아무 영웅 2명 | ${d.r.txt}
+
+준비를 위해 미리 프리셋을 저장해 주세요.
+
+순서를 따르고 Discord에 들어오세요.`;
+  if(lang==='de')return `Du bist als Joiner eingeteilt.
+
+Alliance: ${d.alliance}
+Castle Row: ${d.row}
+
+Speichere die folgenden Formationen:
+
+1- ${d.j1} + beliebige 2 Helden | ${d.r.txt}
+2- ${d.j2} + beliebige 2 Helden | ${d.r.txt}
+3- ${d.j3} + beliebige 2 Helden | ${d.r.txt}
+4- ${d.j4} + beliebige 2 Helden | ${d.r.txt}
+
+Bitte speichere die Formationen frühzeitig zur Bereitschaft.
+
+Folge der Reihenfolge und komm in Discord.`;
+  return `You are assigned as Joiner.
+
+Alliance: ${d.alliance}
+Castle Row: ${d.row}
+
+Save the following presets:
+
+1- ${d.j1} + any 2 heroes | ${d.r.txt}
+2- ${d.j2} + any 2 heroes | ${d.r.txt}
+3- ${d.j3} + any 2 heroes | ${d.r.txt}
+4- ${d.j4} + any 2 heroes | ${d.r.txt}
+
+Please save the presets early for readiness.
+
+Follow the order and join Discord.`;
 }
 function generatePlanningMessage(type){
   showPlanningError('');
@@ -272,6 +464,8 @@ function generatePlanningMessage(type){
     msg=makeJoinerMessage(lang,data);
   }
   $('planningOutput').value=msg;
+  $('planningOutput').dir=(lang==='ar')?'rtl':'ltr';
+  $('planningOutput').style.textAlign=(lang==='ar')?'right':'left';
   $('planningOutputWrap').style.display='block';
 }
 function copyPlanningMessage(){const out=$('planningOutput');if(!out||!out.value){alert('Generate the message first');return}navigator.clipboard?.writeText(out.value).then(()=>alert('Copied')).catch(()=>{out.select();document.execCommand('copy');alert('Copied')})}
