@@ -1,479 +1,227 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>2099 State Portal</title>
-  <!-- State2099 Portal v14.2.4: Planning heroes list fix; based on v14.1 safe checkpoint -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Chakra+Petch:wght@500;600;700&family=Tajawal:wght@500;700;800&family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>State2099 Planning Control Room v16.4</title>
   <style>
     :root{
-      --bg:#020914; --panel:rgba(5,23,47,.82); --panel2:rgba(8,36,72,.70);
-      --ice:#72d9ff; --ice2:#c9f4ff; --gold:#ffd26a; --gold2:#b8832c;
-      --red:#ff4c56; --green:#63ffb7; --muted:#a9bfd6; --line:rgba(147,222,255,.38);
-      --shadow:0 18px 60px rgba(0,0,0,.45); --radius:24px;
-      --font-ui:'Rajdhani','Tajawal','Noto Sans KR',sans-serif; --font-display:'Chakra Petch','Rajdhani','Tajawal',sans-serif; --font-ar:'Tajawal','Rajdhani','Noto Sans KR',sans-serif;
+      --bg:#07111f; --panel:#0f1b2d; --panel2:#13243b; --line:#263954; --text:#eaf2ff; --muted:#9fb1ca;
+      --green:#22c55e; --green2:#143625; --red:#ef4444; --amber:#f59e0b; --blue:#38bdf8; --purple:#a78bfa;
+      --shadow: 0 24px 80px rgba(0,0,0,.35); --radius:22px;
     }
-    *{box-sizing:border-box} html{min-height:100%;background:#020914} body{margin:0;min-height:100%;font-family:var(--font-ui);color:#fff;overflow-x:hidden;background:#020914} body.lang-ar{font-family:var(--font-ar)}
-    body:before{content:"";position:fixed;inset:0;z-index:-4;background:linear-gradient(180deg,rgba(0,10,28,.18),rgba(1,5,14,.94)),url('assets/frost-bg.jpg') center/cover no-repeat;filter:saturate(1.08)}
-    body:after{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 22% 14%,rgba(69,182,255,.33),transparent 26%),radial-gradient(circle at 78% 16%,rgba(255,184,64,.18),transparent 23%),radial-gradient(circle at 50% 105%,rgba(0,184,255,.18),transparent 30%),rgba(0,0,0,.22);pointer-events:none}
-    .snow{position:fixed;inset:0;z-index:-2;pointer-events:none;background-image:radial-gradient(circle,rgba(255,255,255,.50) 0 1px,transparent 1.8px),radial-gradient(circle,rgba(150,220,255,.45) 0 1px,transparent 1.6px);background-size:90px 90px,140px 140px;animation:drift 26s linear infinite;opacity:.42}@keyframes drift{from{background-position:0 0,0 0}to{background-position:160px 420px,-120px 340px}}
-    button,input,select,textarea{font:inherit} button{cursor:pointer}.hidden{display:none!important} .title2099,.portal-title,.gate-title,.gate-subtitle,.card-title,.slogan,.top-lang-label,.gate-kicker{font-family:var(--font-display)} select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,#ffd26a 50%),linear-gradient(135deg,#ffd26a 50%,transparent 50%);background-position:calc(100% - 22px) 22px,calc(100% - 15px) 22px;background-size:7px 7px,7px 7px;background-repeat:no-repeat} html[dir='rtl'] select{background-position:22px 22px,15px 22px}
-    .gate{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 12%,rgba(54,190,255,.30),transparent 30%),linear-gradient(180deg,rgba(0,11,28,.74),rgba(0,0,0,.94)),url('assets/frost-bg.jpg') center/cover no-repeat}.gate-card{width:min(980px,100%);border:1px solid rgba(255,210,106,.42);border-radius:34px;padding:38px 24px 30px;background:linear-gradient(180deg,rgba(6,31,67,.72),rgba(2,10,26,.95));box-shadow:var(--shadow),inset 0 0 46px rgba(105,217,255,.10);text-align:center;position:relative;overflow:hidden}.gate-card:before{content:"";position:absolute;inset:-2px;background:linear-gradient(120deg,transparent,rgba(174,236,255,.18),transparent);transform:translateX(-70%);animation:shine 7s ease-in-out infinite}@keyframes shine{50%{transform:translateX(80%)}100%{transform:translateX(80%)}}
-    .gate-kicker{color:var(--gold);letter-spacing:.26em;font-size:.78rem;text-transform:uppercase}.gate-title{font-size:clamp(3.2rem,10vw,7.2rem);line-height:.85;margin:22px 0 6px;font-weight:900;color:#e9fbff;text-shadow:0 0 14px rgba(108,219,255,.85),0 8px 0 rgba(21,78,129,.55)}.gate-subtitle{font-size:clamp(1rem,2.4vw,1.35rem);color:var(--gold);letter-spacing:.22em;text-transform:uppercase;margin-bottom:26px}.language-grid{display:grid;grid-template-columns:repeat(5,minmax(132px,1fr));gap:13px;max-width:900px;margin:0 auto}.lang-btn{border:1px solid rgba(126,216,255,.50);border-radius:999px;color:#fff;background:linear-gradient(180deg,rgba(20,75,130,.80),rgba(5,17,39,.88));padding:14px 18px;display:flex;align-items:center;justify-content:center;gap:11px;box-shadow:0 0 0 1px rgba(255,255,255,.04),inset 0 0 24px rgba(114,217,255,.10);transition:.22s;font-weight:700;font-size:1.02rem}.lang-btn:hover{transform:translateY(-2px);border-color:rgba(255,210,106,.78);box-shadow:0 0 24px rgba(97,210,255,.26),inset 0 0 22px rgba(255,210,106,.08)}.flag{width:30px;height:21px;object-fit:cover;border-radius:4px;box-shadow:0 0 0 1px rgba(255,255,255,.24),0 3px 10px rgba(0,0,0,.30);flex:0 0 auto}.chip .flag{width:24px;height:17px;border-radius:3px}.gate-note{font-family:var(--font-ar);font-size:.96rem;color:rgba(224,244,255,.82);margin-top:20px}
-    .wrap{width:min(1240px,calc(100% - 28px));margin:0 auto;padding:18px 0 28px}.top-lang{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 auto 10px}.top-lang-label{width:100%;text-align:center;color:var(--gold);font-size:.72rem;letter-spacing:.25em;text-transform:uppercase}.chip{border:1px solid rgba(126,216,255,.34);background:rgba(5,24,51,.72);border-radius:999px;color:#fff;padding:8px 16px;font-size:.76rem;display:flex;align-items:center;gap:8px;min-width:120px;justify-content:center}.chip.active{border-color:var(--gold);box-shadow:0 0 18px rgba(255,210,106,.16);color:#fff}
-    .hero{border:1px solid rgba(129,220,255,.35);border-radius:34px;background:linear-gradient(180deg,rgba(5,31,65,.62),rgba(1,10,24,.82));box-shadow:var(--shadow),inset 0 0 60px rgba(108,219,255,.10);overflow:hidden;position:relative;padding:14px clamp(14px,3vw,34px) 24px}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,255,255,.06),transparent 12%,transparent 88%,rgba(255,255,255,.05)),radial-gradient(circle at 6% 8%,rgba(130,225,255,.22),transparent 20%),radial-gradient(circle at 94% 10%,rgba(255,183,68,.12),transparent 18%);pointer-events:none}.mast{text-align:center;position:relative;padding:12px 0 10px}.title2099{font-weight:900;font-size:clamp(3.8rem,11vw,8.5rem);line-height:.78;color:#dff8ff;letter-spacing:.05em;text-shadow:0 0 20px rgba(114,217,255,.9),0 10px 0 rgba(13,72,121,.58),0 24px 50px rgba(0,0,0,.5)}.portal-title{font-weight:900;font-size:clamp(1.8rem,5vw,4.2rem);letter-spacing:.08em;margin-top:-4px;background:linear-gradient(180deg,#fff,#8ce6ff 45%,#2b87d2);-webkit-background-clip:text;color:transparent;text-shadow:0 0 18px rgba(112,220,255,.45)}.slogan{color:var(--gold);letter-spacing:.24em;text-transform:uppercase;font-size:clamp(.75rem,1.8vw,1.05rem);margin-top:6px}
-    .stats{display:grid;grid-template-columns:1.25fr 1fr 1fr 1.35fr;gap:12px;margin:8px 0 12px;position:relative}.stat{min-height:78px;border:1px solid rgba(129,220,255,.35);border-radius:18px;background:linear-gradient(180deg,rgba(8,35,73,.78),rgba(2,11,28,.84));box-shadow:inset 0 0 28px rgba(114,217,255,.09);display:flex;align-items:center;gap:14px;padding:10px 16px;overflow:hidden;position:relative}.stat:after{content:"";position:absolute;inset:auto -20% 0 -20%;height:1px;background:linear-gradient(90deg,transparent,var(--ice),transparent);opacity:.65}.stat-icon{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:1.8rem;background:linear-gradient(180deg,rgba(113,213,255,.18),rgba(10,64,111,.18));color:var(--ice2);flex:0 0 auto;text-shadow:0 0 14px var(--ice)}.stat .label{font-size:.64rem;color:#c6d8e8;text-transform:uppercase;letter-spacing:.12em}.stat .value{font-size:1.12rem;font-weight:900;margin-top:4px}.stat .big{font-size:1.85rem}.gold{color:var(--gold)}.portrait{background:linear-gradient(180deg,#244d78,#10243f);overflow:hidden}.portrait:before{content:"👤";font-size:2rem}.announce{position:relative;display:flex;align-items:center;gap:16px;border:1px solid rgba(129,220,255,.34);border-radius:18px;background:linear-gradient(90deg,rgba(7,33,68,.86),rgba(2,12,30,.72));padding:14px 18px;margin:8px 0 16px}.ann-icon{width:62px;height:62px;border-right:1px solid rgba(129,220,255,.28);display:grid;place-items:center;color:#a6e9ff;font-size:2rem;flex:0 0 auto}.ann-title{color:var(--gold);font-size:.88rem;letter-spacing:.12em;text-transform:uppercase}.ann-body{color:#d8eaff;font-size:.92rem;line-height:1.55;font-family:'Cairo',sans-serif}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.portal-card{position:relative;min-height:330px;border:1px solid rgba(180,231,255,.36);border-radius:20px;overflow:hidden;background:#07142a;color:#fff;box-shadow:0 15px 40px rgba(0,0,0,.36),inset 0 0 24px rgba(100,200,255,.08);isolation:isolate;transition:.24s}.portal-card:hover{transform:translateY(-5px);border-color:rgba(255,210,106,.8);box-shadow:0 20px 56px rgba(0,0,0,.48),0 0 28px rgba(95,207,255,.20)}.portal-card .bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:.35s;z-index:-3}.portal-card:hover .bg{transform:scale(1.06)}.portal-card:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,13,31,.20),rgba(3,10,25,.48) 42%,rgba(0,5,14,.96));z-index:-2}.portal-card:after{content:"";position:absolute;inset:0;border-radius:20px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),inset 0 -18px 40px rgba(0,0,0,.45);pointer-events:none}.card-content{position:absolute;inset:auto 14px 14px;text-align:center;background:linear-gradient(180deg,rgba(0,9,24,.05),rgba(0,9,24,.55));border-radius:16px;padding:8px 8px 0}.crest{width:58px;height:58px;margin:0 auto 8px;border-radius:18px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(210,246,255,.17),rgba(14,68,120,.42));border:1px solid rgba(187,237,255,.38);color:#effcff;font-size:1.8rem;text-shadow:0 0 15px var(--ice)}.card-title{font-size:1.35rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:#f3fcff;text-shadow:0 0 10px rgba(117,223,255,.75),0 3px 0 rgba(0,0,0,.92),0 6px 16px rgba(0,0,0,.95)}.card-desc{font-family:'Cairo',sans-serif;color:#f0f8ff;margin:6px 0 12px;font-size:.92rem;text-shadow:0 2px 8px rgba(0,0,0,.95)}.enter{display:flex;align-items:center;justify-content:center;gap:12px;border:1px solid rgba(142,220,255,.38);background:linear-gradient(90deg,rgba(17,82,138,.82),rgba(9,43,89,.86));color:#fff;border-radius:999px;height:38px;font-size:.77rem;font-weight:900;letter-spacing:.1em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(117,219,255,.1)}.locked-cover{position:absolute;inset:0;background:rgba(0,0,0,.72);display:none;place-items:center;text-align:center;z-index:5}.portal-card.locked .locked-cover{display:grid}.locked-cover i{font-size:3rem;color:var(--red);margin-bottom:10px}.footer{padding:18px 0 0;text-align:center;color:#b9cfe4;position:relative}.footer .brand{color:#dff8ff;font-weight:900;letter-spacing:.18em}.footer .line{height:1px;margin:14px auto 10px;width:min(520px,90%);background:linear-gradient(90deg,transparent,rgba(255,210,106,.65),rgba(114,217,255,.75),transparent)}.admin-link{margin-top:12px;border:0;background:transparent;color:rgba(205,230,255,.35);font-size:.7rem;letter-spacing:.18em}.admin-link:hover{color:var(--ice)}
-    .modal{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);display:none;align-items:flex-start;justify-content:center;padding:24px 14px;overflow:auto}.modal.show{display:flex}.sheet{width:min(760px,100%);border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,rgba(5,28,61,.96),rgba(2,10,25,.98));box-shadow:var(--shadow);padding:20px;position:relative}.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid rgba(126,216,255,.18);padding-bottom:14px;margin-bottom:16px}.sheet h2{margin:0;color:#e9fbff;font-size:1.45rem;font-family:var(--font-display);letter-spacing:.05em}.close{width:44px;height:44px;border-radius:14px;border:1px solid rgba(126,216,255,.35);background:rgba(10,43,82,.75);color:#fff}.form-grid{display:grid;gap:14px}.field label{display:block;color:var(--gold);font-size:.88rem;text-transform:none;letter-spacing:.03em;margin-bottom:8px;font-weight:800}.field input,.field select,.field textarea{width:100%;min-height:56px;border-radius:16px;border:1px solid rgba(132,219,255,.38);background-color:rgba(0,5,14,.82);color:#fff;padding:13px 16px;outline:none;font-size:1.04rem;font-weight:700}.field textarea{min-height:94px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(255,210,106,.12)}.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:8px}.choice{border:1px solid rgba(132,219,255,.34);border-radius:14px;padding:12px 10px;background:rgba(7,31,63,.76);text-align:center;color:#e5f4ff;font-size:.9rem;transition:.18s;min-height:48px;display:grid;place-items:center;font-weight:700}.choice.selected{border-color:var(--gold);background:linear-gradient(180deg,rgba(255,210,106,.19),rgba(16,65,105,.85));box-shadow:0 0 20px rgba(255,210,106,.12);color:#fff}.helper{font-family:'Cairo',sans-serif;color:#bcd2e8;font-size:.9rem;margin-top:6px}.actions{display:flex;gap:10px;margin-top:18px}.primary,.danger,.ghost{border:1px solid rgba(132,219,255,.35);border-radius:16px;min-height:52px;padding:0 18px;color:#fff;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.primary{background:linear-gradient(90deg,#2a93dc,#0d4f9a);flex:1}.danger{background:linear-gradient(90deg,#832029,#b7313b)}.ghost{background:rgba(8,31,62,.75)}.success{display:none;text-align:center;padding:24px 10px}.success i{font-size:4rem;color:var(--green);text-shadow:0 0 24px rgba(99,255,183,.6)}.success h2{margin:16px 0 8px}.admin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.admin-section{border:1px solid rgba(126,216,255,.22);border-radius:20px;padding:14px;background:rgba(2,13,31,.42);margin-top:14px}.lock-row,.report-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;border-bottom:1px solid rgba(126,216,255,.12);padding:10px 0}.lock-row:last-child,.report-row:last-child{border-bottom:0}.mini-btn{border:1px solid rgba(126,216,255,.35);border-radius:12px;background:rgba(13,55,100,.72);color:#fff;padding:9px 12px;font-size:.72rem}.mini-btn.open{background:rgba(36,146,89,.55)}.mini-btn.locked{background:rgba(160,43,54,.65)}
-
-    .tools-dock{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:1800;display:grid;gap:9px;max-width:74px}.tool-btn{width:66px;min-height:62px;border:1px solid rgba(126,216,255,.42);border-radius:16px;background:linear-gradient(180deg,rgba(10,46,88,.88),rgba(2,12,30,.90));color:#eafaff;box-shadow:0 10px 28px rgba(0,0,0,.38),inset 0 0 18px rgba(114,217,255,.08);display:grid;place-items:center;text-align:center;padding:8px 5px;transition:.22s}.tool-btn:hover{transform:translateX(-3px);border-color:rgba(255,210,106,.82);box-shadow:0 0 24px rgba(114,217,255,.22),inset 0 0 20px rgba(255,210,106,.08)}.tool-btn i{font-size:1.35rem;color:var(--ice2);text-shadow:0 0 10px rgba(114,217,255,.7)}.tool-btn span{font-size:.48rem;font-weight:900;letter-spacing:.04em;text-transform:uppercase;line-height:1.1;margin-top:3px}.resource-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.field.optional label:after{content:'  · optional';color:rgba(201,244,255,.62);font-size:.76em;font-weight:600;text-transform:none;letter-spacing:0}
-
-
-    .footer-actions{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-top:12px}.footer-actions .admin-link{margin-top:0}
-    .planning-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 16px}.planning-tab{border:1px solid rgba(126,216,255,.38);border-radius:16px;background:rgba(7,31,63,.74);color:#dff8ff;min-height:50px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.planning-tab.active{border-color:var(--gold);background:linear-gradient(180deg,rgba(255,210,106,.20),rgba(17,80,134,.82));box-shadow:0 0 22px rgba(255,210,106,.14)}
-    .planning-note{font-family:'Cairo',var(--font-ar),sans-serif;color:#bfd7ec;font-size:.92rem;line-height:1.45;margin:-4px 0 14px;border:1px solid rgba(126,216,255,.16);border-radius:16px;padding:10px 12px;background:rgba(0,8,22,.34)}.planning-lang{margin:0 0 16px}.planning-lang .field{max-width:310px}.planning-lang select{border-color:rgba(255,210,106,.45)}.planning-lang{margin:0 0 16px}.planning-lang .field{max-width:310px}.planning-lang select{border-color:rgba(255,210,106,.45)}
-    .planning-form{display:grid;gap:13px}.planning-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.planning-grid.three{grid-template-columns:repeat(3,1fr)}.planning-grid.four{grid-template-columns:repeat(4,1fr)}
-    .ratio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.planning-row-label{color:var(--gold);font-weight:900;margin:8px 0 -2px;letter-spacing:.04em}
-    .planning-output{display:none;margin-top:16px;border:1px solid rgba(255,210,106,.36);border-radius:18px;background:rgba(0,8,22,.78);padding:14px}.planning-output textarea{width:100%;min-height:178px;border:1px solid rgba(126,216,255,.30);border-radius:14px;background:#020914;color:#eafaff;padding:12px 14px;font-size:.96rem;line-height:1.45;resize:vertical;font-family:var(--font-ui)}.planning-error{display:none;color:#ffd2d6;background:rgba(160,43,54,.22);border:1px solid rgba(255,76,86,.42);border-radius:14px;padding:10px 12px;font-weight:800}.row-pill{display:inline-flex;align-items:center;justify-content:center;min-height:56px;border:1px solid rgba(132,219,255,.38);border-radius:16px;background:rgba(0,5,14,.60);color:#fff;padding:13px 16px;font-weight:900}
-
-    @media(max-width:940px){.wrap{width:min(520px,calc(100% - 20px));padding-top:10px}.hero{padding:12px 10px 18px;border-radius:26px}.top-lang .chip{min-width:auto;flex:1 1 92px;padding:8px 8px;font-size:.70rem}.stats{grid-template-columns:1fr 1fr;gap:8px}.stat{min-height:70px;padding:8px 10px;gap:8px}.stat-icon{width:46px;height:46px;font-size:1.45rem}.stat .value{font-size:.92rem}.stat .big{font-size:1.45rem}.announce{padding:10px;gap:10px}.ann-icon{width:48px;height:48px;font-size:1.6rem}.cards{grid-template-columns:1fr 1fr;gap:10px}.portal-card{min-height:210px;border-radius:16px}.card-content{inset:auto 8px 8px;padding:6px 6px 0}.crest{width:42px;height:42px;border-radius:14px;font-size:1.25rem;margin-bottom:6px}.card-title{font-size:.92rem;letter-spacing:.07em}.card-desc{display:none}.enter{height:32px;font-size:.6rem}.language-grid{grid-template-columns:1fr 1fr}.gate-card{border-radius:26px}.admin-grid{grid-template-columns:1fr}.lock-row,.report-row{grid-template-columns:1fr}.actions{flex-direction:column}.modal{padding:10px}.sheet{border-radius:22px;padding:14px}.choices{grid-template-columns:1fr 1fr}}
-    @media(max-width:430px){.language-grid{grid-template-columns:1fr}.portal-card{min-height:190px}.title2099{font-size:4rem}.portal-title{font-size:1.8rem}.slogan{font-size:.68rem}.stat .label{font-size:.52rem}.ann-body{font-size:.78rem}.ann-title{font-size:.75rem}}
-  
-
-    .footer-actions{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-top:12px}.footer-actions .admin-link{margin-top:0}
-    .planning-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 16px}.planning-tab{border:1px solid rgba(126,216,255,.38);border-radius:16px;background:rgba(7,31,63,.74);color:#dff8ff;min-height:50px;font-weight:900;letter-spacing:.06em;text-transform:uppercase}.planning-tab.active{border-color:var(--gold);background:linear-gradient(180deg,rgba(255,210,106,.20),rgba(17,80,134,.82));box-shadow:0 0 22px rgba(255,210,106,.14)}
-    .planning-note{font-family:'Cairo',var(--font-ar),sans-serif;color:#bfd7ec;font-size:.92rem;line-height:1.45;margin:-4px 0 14px;border:1px solid rgba(126,216,255,.16);border-radius:16px;padding:10px 12px;background:rgba(0,8,22,.34)}.planning-lang{margin:0 0 16px}.planning-lang .field{max-width:310px}.planning-lang select{border-color:rgba(255,210,106,.45)}.planning-lang{margin:0 0 16px}.planning-lang .field{max-width:310px}.planning-lang select{border-color:rgba(255,210,106,.45)}
-    .planning-form{display:grid;gap:13px}.planning-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.planning-grid.three{grid-template-columns:repeat(3,1fr)}.planning-grid.four{grid-template-columns:repeat(4,1fr)}
-    .ratio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.planning-row-label{color:var(--gold);font-weight:900;margin:8px 0 -2px;letter-spacing:.04em}
-    .planning-output{display:none;margin-top:16px;border:1px solid rgba(255,210,106,.36);border-radius:18px;background:rgba(0,8,22,.78);padding:14px}.planning-output textarea{width:100%;min-height:178px;border:1px solid rgba(126,216,255,.30);border-radius:14px;background:#020914;color:#eafaff;padding:12px 14px;font-size:.96rem;line-height:1.45;resize:vertical;font-family:var(--font-ui)}.planning-error{display:none;color:#ffd2d6;background:rgba(160,43,54,.22);border:1px solid rgba(255,76,86,.42);border-radius:14px;padding:10px 12px;font-weight:800}.row-pill{display:inline-flex;align-items:center;justify-content:center;min-height:56px;border:1px solid rgba(132,219,255,.38);border-radius:16px;background:rgba(0,5,14,.60);color:#fff;padding:13px 16px;font-weight:900}
-
-    @media(max-width:940px){.tools-dock{left:10px;right:10px;top:auto;bottom:10px;transform:none;grid-template-columns:repeat(5,1fr);max-width:none;gap:7px}.tool-btn{width:100%;min-height:50px;border-radius:14px;padding:6px 3px}.tool-btn i{font-size:1.05rem}.tool-btn span{font-size:.42rem}.footer{padding-bottom:58px}.resource-grid{grid-template-columns:1fr 1fr}}
-    @media(max-width:430px){.resource-grid{grid-template-columns:1fr}.tools-dock{grid-template-columns:repeat(4,1fr)}.tool-btn{min-height:50px;padding:5px 2px}.tool-btn i{font-size:1rem}.tool-btn span{display:block;font-size:.34rem;line-height:1.05;letter-spacing:.02em;margin-top:2px;white-space:normal}}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at top left,#14345d 0,#07111f 38%,#050914 100%);color:var(--text);min-height:100vh}
+    .wrap{max-width:1180px;margin:auto;padding:22px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:14px}.logo{width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,#38bdf8,#22c55e);display:grid;place-items:center;font-weight:900;color:#04101d;box-shadow:0 12px 28px rgba(56,189,248,.18)}
+    h1{font-size:26px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:4px}.pill{border:1px solid var(--line);background:rgba(15,27,45,.72);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:1fr;gap:16px}.card{background:linear-gradient(180deg,rgba(19,36,59,.96),rgba(12,24,42,.96));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.cardHead{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.cardHead h2{font-size:17px;margin:0}.cardBody{padding:18px}.formGrid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px}.field{grid-column:span 3}.field.small{grid-column:span 2}.field.wide{grid-column:span 4}.lineGroup{grid-column:1/-1;border:1px solid var(--line);background:rgba(7,19,38,.42);border-radius:18px;padding:12px}.lineTitle{font-size:12px;color:#bae6fd;font-weight:900;letter-spacing:.03em;margin-bottom:10px;text-transform:uppercase}.inlineGrid{display:grid;gap:10px}.inlineGrid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.inlineGrid.four{grid-template-columns:repeat(4,minmax(0,1fr))}.ratioGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.miniField{position:relative}.miniField span{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--muted);font-weight:900;pointer-events:none}.miniField input{padding-left:52px}.inputAddon{display:grid;grid-template-columns:1fr auto;align-items:center;border:1px solid var(--line);background:#09182a;border-radius:14px;overflow:hidden}.inputAddon select{border:0;border-radius:0;background:transparent}.addon{padding:0 12px;color:#bae6fd;font-size:12px;font-weight:900;border-left:1px solid var(--line)}label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}input,select,textarea{width:100%;border:1px solid var(--line);background:#09182a;color:var(--text);border-radius:14px;padding:11px 12px;outline:none;font-size:14px}select option{background:#09182a;color:#eaf2ff}textarea{min-height:86px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(56,189,248,.1)}.timePicker{position:relative;width:100%;min-width:0}.timeButton{width:100%;min-height:43px;border:0;background:transparent;color:var(--text);border-radius:0;padding:11px 12px;text-align:left;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:space-between}.timeButton:after{content:'▾';color:#bae6fd;font-size:12px}.timeMenu{position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:50;background:#071326;border:1px solid #375376;border-radius:16px;box-shadow:var(--shadow);padding:8px;max-height:270px;overflow:auto;display:none}.timePicker.open .timeMenu{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.timeOption{background:#0f1b2d;border:1px solid #263954;border-radius:10px;color:#eaf2ff;padding:8px 6px;text-align:center;cursor:pointer;font-weight:800;font-size:13px}.timeOption:hover,.timeOption.active{background:#1d4ed8;border-color:#38bdf8;color:white}.inputAddon .timePicker{min-width:0}.timeOverlay{position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,.62);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:18px}.timeOverlay.show{display:flex}.timePanel{width:min(560px,94vw);max-height:82vh;overflow:auto;background:linear-gradient(180deg,#10203a,#071326);border:1px solid #375376;border-radius:24px;box-shadow:0 28px 100px rgba(0,0,0,.55);padding:16px}.timePanelHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.timePanelHead strong{font-size:16px;color:#eaf2ff}.timePanelHead span{font-size:12px;color:#bae6fd}.timeGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.timeGrid .timeOption{min-height:44px;font-size:14px;background:#0a1728}.timeGrid .timeOption.active{background:linear-gradient(135deg,#2563eb,#38bdf8);border-color:#7dd3fc;color:#fff}.timeClose{border:1px solid #375376;background:#13243b;color:#eaf2ff;border-radius:12px;padding:8px 10px;font-weight:800}.timeMenu{display:none!important}.span2{grid-column:span 2}.span4{grid-column:span 4}.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.btn{border:1px solid var(--line);background:#13243b;color:var(--text);border-radius:14px;padding:10px 14px;font-weight:700;cursor:pointer;transition:.15s}.btn:hover{transform:translateY(-1px);border-color:#3f5d82}.btn.primary{background:linear-gradient(135deg,#2563eb,#38bdf8);color:white;border:0}.btn.green{background:linear-gradient(135deg,#16a34a,#22c55e);color:#04100a;border:0}.btn.danger{background:#3b1119;color:#fecaca;border-color:#7f1d1d}.btn.ghost{background:transparent}.btn.small{padding:7px 10px;border-radius:10px;font-size:12px}.previewBox{white-space:pre-wrap;background:#071326;border:1px dashed #375376;border-radius:16px;padding:14px;color:#dbeafe;min-height:90px}.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.tableWrap{overflow:auto;border:1px solid var(--line);border-radius:18px}table{border-collapse:collapse;width:100%;min-width:940px;background:#0a1728}th,td{border-bottom:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top}th{background:#0f172a;color:#dbeafe;font-size:12px;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0;z-index:1}td{font-size:13px;color:#e5eefc}.tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:800}.tag.amt{background:rgba(34,197,94,.16);color:#86efac}.tag.pro{background:rgba(167,139,250,.16);color:#c4b5fd}.tag.warn{background:rgba(245,158,11,.14);color:#fcd34d}.simpleGrid{display:grid;grid-template-columns:140px 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}.simpleHead,.simpleCell{background:#0a1728;padding:12px;white-space:pre-wrap}.simpleHead{background:#0f172a;font-weight:900;color:#dbeafe;text-align:center}.simpleCell.time{color:#bae6fd;font-weight:900;text-align:center}.simpleCell.amt{background:rgba(20,54,37,.45)}.simpleCell.pro{background:rgba(42,32,69,.45)}.toast{position:fixed;right:18px;bottom:18px;background:#0f172a;border:1px solid var(--line);color:white;padding:13px 15px;border-radius:14px;box-shadow:var(--shadow);display:none}.lock{position:fixed;inset:0;background:radial-gradient(circle at top,#14345d,#050914 55%);display:grid;place-items:center;z-index:9}.lockBox{width:min(420px,92vw);background:rgba(15,27,45,.95);border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow)}.lockBox h2{margin-top:0}.hint{color:var(--muted);font-size:12px;margin-top:8px}.hidden{display:none!important}.rtl{direction:rtl;text-align:right}.splitLine{height:1px;background:var(--line);margin:16px 0}.status{font-size:12px;color:var(--muted)}
+    @media(max-width:900px){.formGrid{grid-template-columns:1fr}.field,.field.small,.field.wide,.span4{grid-column:1/-1}.inlineGrid.three,.inlineGrid.four,.ratioGrid{grid-template-columns:1fr}.two{grid-template-columns:1fr}.simpleGrid{grid-template-columns:110px 1fr}.simpleHead.pro,.simpleCell.pro{grid-column:1 / -1}.top{align-items:flex-start;flex-direction:column}}
+    @media(max-width:760px){.timeGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.timePanel{max-height:78vh}.timePanelHead{align-items:flex-start}.timePanelHead strong{font-size:15px}}
 
   </style>
 </head>
 <body>
-<div class="snow"></div>
-
-<section id="languageGate" class="gate">
-  <div class="gate-card">
-    <div class="gate-kicker" data-i18n="choose">Choose your language</div>
-    <div class="gate-title">2099</div>
-    <div class="portal-title">STATE PORTAL</div>
-    <div class="gate-subtitle">Lead. Defend. Conquer.</div>
-    <div class="language-grid" id="gateLangs"></div>
-    <div class="gate-note">اختر لغتك أولًا، ثم ستظهر لك البوابة كاملة بنفس اللغة</div>
+<div class="lock" id="lock">
+  <div class="lockBox">
+    <div class="logo">2099</div>
+    <h2>Planning Control Room</h2>
+    <p class="sub">Enter the planning password to continue.</p>
+    <input id="pass" type="password" placeholder="Password" onkeydown="if(event.key==='Enter') unlock()" />
+    <div class="btns"><button class="btn primary" onclick="unlock()">Enter</button></div>
+    <div class="hint">This page is standalone for planning only.</div>
   </div>
-</section>
+</div>
 
-<main id="app" class="hidden">
-  <div class="wrap">
-    <section class="hero">
-      <div class="top-lang">
-        <div class="top-lang-label" data-i18n="choose">Choose your language</div>
-        <div id="topLangs" style="display:contents"></div>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><div class="logo">2099</div><div><h1>Planning Control Room</h1><div class="sub">Rally Leaders · Joiners · Pet Activation UTC · Copy-safe messages</div></div></div>
+    <div class="pill">Password: StateOf2099 · Planning Only</div>
+  </div>
+
+  <div class="grid">
+    <section class="card">
+      <div class="cardHead"><h2 id="formTitle">Add New Plan</h2><div class="status" id="apiStatus">API not connected yet</div></div>
+      <div class="cardBody">
+        <div class="formGrid">
+          <input id="planId" type="hidden" />
+
+          <div class="field"><label>Alliance</label><select id="alliance" onchange="updateTeamOptions(); generatePreview();"><option>AMT</option><option>PRO</option></select></div>
+          <div class="field"><label>Team Name</label><select id="team"></select></div>
+          <div class="field"><label>Rally Leader</label><select id="rallyLeader" onchange="toggleOther()"></select></div>
+          <div class="field" id="otherBox"><label>Other Leader Name</label><input id="otherLeader" placeholder="Write leader name" /></div>
+
+          <div class="field"><label>Pet Activation</label><div class="inputAddon"><div class="timePicker" id="petStartPicker"><button type="button" class="timeButton" id="petStartBtn" onclick="openTimeOverlay(event)">14:00</button><input id="petStart" type="hidden" value="14:00" /><div class="timeMenu" id="petStartMenu"></div></div><span class="addon">UTC</span></div></div>
+          <div class="field"><label>Language</label><select id="language"><option>English</option><option>Arabic</option><option>Russian</option><option>Indonesian</option><option>Korean</option><option>German</option></select></div>
+
+          <div class="lineGroup">
+            <div class="lineTitle">Rally Heroes</div>
+            <div class="inlineGrid three">
+              <select id="hero1"></select>
+              <select id="hero2"></select>
+              <select id="hero3"></select>
+            </div>
+          </div>
+
+          <div class="lineGroup">
+            <div class="lineTitle">Formation — Total must be 100%</div>
+            <div class="ratioGrid">
+              <div class="miniField"><span>INF</span><input id="inf" type="number" min="0" max="100" value="60" /></div>
+              <div class="miniField"><span>LAN</span><input id="lan" type="number" min="0" max="100" value="40" /></div>
+              <div class="miniField"><span>MM</span><input id="mm" type="number" min="0" max="100" value="0" /></div>
+            </div>
+          </div>
+
+          <div class="lineGroup">
+            <div class="lineTitle">Joiners — in order</div>
+            <div class="inlineGrid four">
+              <select id="joiner1"></select>
+              <select id="joiner2"></select>
+              <select id="joiner3"></select>
+              <select id="joiner4"></select>
+            </div>
+          </div>
+
+          <div class="span4"><label>Organizer Plan / Notes</label><textarea id="notes" placeholder="For the organizer only. This will not be included in the game message."></textarea></div>
+        </div>
+        <div class="btns">
+          <button class="btn primary" onclick="generatePreview()">Generate Preview</button>
+          <button class="btn green" onclick="savePlan()" id="saveBtn">Save Plan</button>
+          <button class="btn" onclick="copyCurrent('rally')">Copy Rally Message</button>
+          <button class="btn" onclick="copyCurrent('joiner')">Copy Joiner Message</button>
+          <button class="btn ghost" onclick="clearForm()">Clear Form</button>
+        </div>
+        <div class="splitLine"></div>
+        <div class="two">
+          <div><label>Rally Message Preview</label><div class="previewBox" id="rallyPreview"></div></div>
+          <div><label>Joiner Message Preview</label><div class="previewBox" id="joinerPreview"></div></div>
+        </div>
       </div>
-      <div class="mast">
-        <div class="title2099">2099</div>
-        <div class="portal-title" data-i18n="portalTitle">STATE PORTAL</div>
-        <div class="slogan" data-i18n="slogan">Lead. Defend. Conquer.</div>
+    </section>
+
+    <section class="card">
+      <div class="cardHead"><h2>Saved Plans</h2><div class="btns" style="margin:0"><button class="btn small" onclick="loadPlans(false)">Refresh Board</button><button class="btn small green" onclick="downloadPlan('downloadFullPlan')">Download Full Plan</button><button class="btn small" onclick="downloadPlan('downloadSimplePlan')">Download Simple Plan</button><button class="btn small danger" onclick="clearPlanningData()">Clear Planning Data</button></div></div>
+      <div class="cardBody">
+        <div class="tableWrap"><table><thead><tr><th>Time</th><th>Alliance</th><th>Team</th><th>Rally Leader</th><th>Pets</th><th>Formation</th><th>Joiners</th><th>Actions</th></tr></thead><tbody id="savedBody"><tr><td colspan="8">No plans yet.</td></tr></tbody></table></div>
       </div>
-      <div class="stats">
-        <div class="stat"><div class="stat-icon portrait"></div><div><div class="label" data-i18n="president">Current President</div><div class="value" id="v-president">---</div></div></div>
-        <div class="stat"><div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div><div><div class="label" data-i18n="svsWins">SVS Wins</div><div class="value big" id="v-svs">0</div></div></div>
-        <div class="stat"><div class="stat-icon gold"><i class="fa-solid fa-trophy"></i></div><div><div class="label" data-i18n="leagueTitles">League Titles</div><div class="value big" id="v-league">0</div></div></div>
-        <div class="stat"><div class="stat-icon"><i class="fa-solid fa-star gold"></i></div><div><div class="label" data-i18n="playerMonth">Player of the Month</div><div class="value" id="v-pom">---</div></div></div>
-      </div>
-      <div class="announce">
-        <div class="ann-icon"><i class="fa-solid fa-bullhorn"></i></div>
-        <div style="flex:1"><div class="ann-title" data-i18n="announcement">State Announcement</div><div class="ann-body" id="v-ann">Long live 2099</div></div>
-      </div>
-      <div class="cards" id="cards"></div>
-      <footer class="footer">
-        <div class="line"></div><div class="brand">2099 STATE PORTAL</div><div style="font-family:'Cairo',sans-serif;margin-top:4px" data-i18n="footer">United We Stand. Legends Never Fall.</div>
-        <div class="footer-actions"><button class="admin-link" onclick="loginAdmin()">[ ADMIN HQ ]</button><button class="admin-link" onclick="window.location.href='planning.html'">[ PLANNING 🔒 ]</button></div>
-      </footer>
+    </section>
+
+    <section class="card">
+      <div class="cardHead"><h2>Simple AMT / PRO Preview</h2><div class="status">Screenshot-friendly view</div></div>
+      <div class="cardBody"><div class="simpleGrid" id="simplePreview"></div></div>
     </section>
   </div>
-</main>
+</div>
 
-<aside class="tools-dock hidden" id="toolsDock" aria-label="Game tools">
-  <button class="tool-btn" onclick="openTool('gift')"><i class="fa-solid fa-gift"></i><span>Gift Codes</span></button>
-  <button class="tool-btn" onclick="openTool('charms')"><i class="fa-solid fa-gem"></i><span>Charms</span></button>
-  <button class="tool-btn" onclick="openTool('building')"><i class="fa-solid fa-building"></i><span>Buildings</span></button>
-  <button class="tool-btn" onclick="openTool('sim')"><i class="fa-solid fa-burst"></i><span>Battle Sim</span></button>
-</aside>
-
-<div class="modal" id="formModal"><div class="sheet"><div class="sheet-head"><h2 id="formTitle">Protocol</h2><button class="close" onclick="closeForm()"><i class="fa-solid fa-xmark"></i></button></div><div id="formArea"></div><div class="success" id="successView"><i class="fa-solid fa-circle-check"></i><h2 data-i18n="secured">Mission Secured</h2><p data-i18n="securedText">Your response has been submitted.</p><button class="primary" onclick="closeForm()" data-i18n="returnHome">Return</button></div></div></div>
-
-<div class="modal" id="adminModal"><div class="sheet"><div class="sheet-head"><h2>ADMIN HQ</h2><button class="close" onclick="exitAdmin()"><i class="fa-solid fa-xmark"></i></button></div>
-  <div class="admin-grid">
-    <div class="field"><label>President</label><input id="adm-president"></div>
-    <div class="field"><label>Player of the Month</label><input id="adm-pom"></div>
-    <div class="field"><label>SVS Wins</label><input id="adm-svs"></div>
-    <div class="field"><label>League Titles</label><input id="adm-league"></div>
+<div class="toast" id="toast"></div>
+<div class="timeOverlay" id="timeOverlay" onclick="closeTimeOverlay(event)">
+  <div class="timePanel" onclick="event.stopPropagation()">
+    <div class="timePanelHead"><div><strong>Select Pet Activation</strong><br><span>UTC · pets stay active for 2 hours</span></div><button type="button" class="timeClose" onclick="closeTimeOverlay()">Close</button></div>
+    <div class="timeGrid" id="timeOverlayGrid"></div>
   </div>
-  <div class="field" style="margin-top:12px"><label>Announcement</label><textarea id="adm-ann"></textarea></div>
-  <div class="admin-section"><h3>Section Locks</h3><div id="lockControls"></div></div>
-  <div class="admin-section"><h3>Reports & Monthly Reset</h3><div id="reportControls"></div></div>
-  <div class="actions"><button class="primary" onclick="saveAdmin()">Save Dashboard</button><button class="ghost" onclick="exitAdmin()">Exit</button></div>
-</div></div>
-
-<div class="modal" id="planningModal"><div class="sheet"><div class="sheet-head"><h2>Planning 🔒</h2><button class="close" onclick="closePlanning()"><i class="fa-solid fa-xmark"></i></button></div>
-  <div class="planning-tabs">
-    <button class="planning-tab active" id="tab-rally" onclick="setPlanningTab('rally')">Rally Leader</button>
-    <button class="planning-tab" id="tab-joiner" onclick="setPlanningTab('joiner')">Joiner</button>
-  </div>
-  <div class="planning-note">Simple SvS message generator. Select values, generate the compact message, then copy it for in-game use.</div>
-  <div class="planning-lang"><div class="field"><label for="p-msg-lang">Message Language</label><select id="p-msg-lang"><option value="en">🇺🇸 English</option><option value="ar">🇸🇦 العربية</option><option value="ru">🇰🇿 Русский</option><option value="id">🇮🇩 Indonesia</option><option value="ko">🇰🇷 한국어</option><option value="de">🇩🇪 Deutsch</option></select></div></div>
-  <div id="planningArea"></div>
-</div></div>
-
+</div>
 
 <script>
-const API='https://script.google.com/macros/s/AKfycbxyYX74LDul-qjH2qAVTsMXqlAVAp6msvGNxVaUSPjFg9ZKkcDNvD6Rzr9YoVPbBIud7w/exec';
-const LANGS=[['ar','https://flagcdn.com/w40/sa.png','العربية'],['en','https://flagcdn.com/w40/us.png','English'],['id','https://flagcdn.com/w40/id.png','Indonesia'],['ru','https://flagcdn.com/w40/kz.png','Русский'],['ko','https://flagcdn.com/w40/kr.png','한국어']];
-const I18N={
- en:{choose:'Choose your language',portalTitle:'STATE PORTAL',slogan:'Lead. Defend. Conquer.',president:'Current President',svsWins:'SVS Wins',leagueTitles:'League Titles',playerMonth:'Player of the Month',announcement:'State Announcement',footer:'United We Stand. Legends Never Fall.',ministries:'SVS Ministries',svs:'SVS Survey',fdt:'FDT Survey',league:'League Survey',enter:'Enter Portal',name:'Player Name',gameId:'Your Game ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'Speedups Days',timings:'Preferable Timings UTC - 3 Picks Only',availability:'Are you available for the entire event?',troops:'Troops Type',helios:'Helios Troops',discord:'Are you able to join the Discord?',rotation:'You are aware that the state will rotate joiners and prioritize what helps the state the most. It is not personal at all.',leagueAvail:'Are you available for the entire league?',submit:'Submit',back:'Back',secured:'Mission Secured',securedText:'Your response has been submitted.',returnHome:'Return',locked:'Section Closed',meat:'Meat Resources',wood:'Wood Resources',coal:'Coal Resources',iron:'Iron Resources',notes:'Notes',leagueNotes:'Notes if you are unavailable for certain matches',discord:'Can you join Discord if needed?',externalGift:'You will open the official gift-code website in a new tab. Continue?',externalTool:'You will open a helpful game tool in a new tab. Continue?'},
- ar:{choose:'اختر لغتك',portalTitle:'بوابة المقاطعة',slogan:'قُد. دافع. انتصر.',president:'الرئيس الحالي',svsWins:'انتصارات SVS',leagueTitles:'ألقاب الدوري',playerMonth:'لاعب الشهر',announcement:'إعلانات المقاطعة',footer:'متحدون نقف. والأساطير لا تسقط.',ministries:'وزارات SVS',svs:'استبيان SVS',fdt:'استبيان FDT',league:'استبيان الدوري',enter:'دخول البوابة',name:'اسم اللاعب باللعبة',gameId:'رقم يوزرك باللعبة',alliance:'التحالف',ministry:'الوزارة المطلوبة',speedups:'عدد أيام التسريعات',timings:'الأوقات المفضلة UTC - اختر 3 فقط',availability:'هل أنت متاح طوال الحدث؟',troops:'نوع القوات',helios:'قوات هيليوس',discord:'هل تستطيع دخول الديسكورد؟',rotation:'أنت تعلم أن المقاطعة ستدوّر المشاركين وتختار ما يخدم المقاطعة أكثر، والأمر ليس شخصيًا إطلاقًا.',leagueAvail:'هل أنت متاح طوال الدوري؟',submit:'إرسال',back:'رجوع',secured:'تم تأمين المهمة',securedText:'تم إرسال إجابتك بنجاح.',returnHome:'عودة',locked:'القسم مغلق',meat:'عدد موارد اللحم',wood:'عدد موارد الخشب',coal:'عدد موارد الفحم',iron:'عدد موارد الحديد',notes:'ملاحظات',leagueNotes:'ملاحظات في حال عدم التوفر في عدد مباريات معين',discord:'هل تستطيع دخول الديسكورد عند الحاجة؟',externalGift:'راح تفتح موقع أكواد الهدايا الرسمي في تبويب جديد. نكمل؟',externalTool:'راح تفتح أداة مساعدة للعبة في تبويب جديد. نكمل؟'},
- id:{choose:'Pilih bahasa Anda',portalTitle:'PORTAL NEGARA',slogan:'Pimpin. Pertahankan. Taklukkan.',president:'Presiden Saat Ini',svsWins:'Kemenangan SVS',leagueTitles:'Gelar Liga',playerMonth:'Pemain Bulan Ini',announcement:'Pengumuman Negara',footer:'Bersatu Kita Berdiri. Legenda Tak Pernah Jatuh.',ministries:'SVS Ministries',svs:'Survei SVS',fdt:'Survei FDT',league:'Survei Liga',enter:'Masuk Portal',name:'Nama Pemain',gameId:'ID Game Anda',alliance:'Alliance',ministry:'Ministry Required',speedups:'Hari Speedups',timings:'Waktu Pilihan UTC - Maksimal 3',availability:'Apakah Anda tersedia sepanjang event?',troops:'Jenis Pasukan',helios:'Pasukan Helios',discord:'Apakah Anda bisa masuk Discord?',rotation:'Anda memahami bahwa state akan melakukan rotasi joiner dan memprioritaskan yang paling membantu state. Ini sama sekali bukan masalah pribadi.',leagueAvail:'Apakah Anda tersedia sepanjang liga?',submit:'Kirim',back:'Kembali',secured:'Misi Aman',securedText:'Jawaban Anda telah dikirim.',returnHome:'Kembali',locked:'Bagian Ditutup',meat:'Sumber Daya Meat',wood:'Sumber Daya Wood',coal:'Sumber Daya Coal',iron:'Sumber Daya Iron',notes:'Catatan',leagueNotes:'Catatan jika Anda tidak tersedia untuk beberapa pertandingan',discord:'Bisakah Anda masuk Discord jika diperlukan?',externalGift:'Anda akan membuka situs resmi gift code di tab baru. Lanjutkan?',externalTool:'Anda akan membuka alat bantu game di tab baru. Lanjutkan?'},
- ru:{choose:'Выберите язык',portalTitle:'ПОРТАЛ ШТАТА',slogan:'Веди. Защищай. Побеждай.',president:'Текущий президент',svsWins:'Победы SVS',leagueTitles:'Титулы лиги',playerMonth:'Игрок месяца',announcement:'Объявление штата',footer:'Мы едины. Легенды не падают.',ministries:'SVS Ministries',svs:'Опрос SVS',fdt:'Опрос FDT',league:'Опрос лиги',enter:'Войти',name:'Имя игрока',gameId:'Ваш игровой ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'Дни ускорений',timings:'Предпочтительное время UTC - только 3',availability:'Вы доступны на всё событие?',troops:'Тип войск',helios:'Войска Helios',discord:'Вы можете зайти в Discord?',rotation:'Вы понимаете, что штат будет ротировать участников и выбирать то, что лучше всего помогает штату. Это не личное.',leagueAvail:'Вы доступны на всю лигу?',submit:'Отправить',back:'Назад',secured:'Миссия принята',securedText:'Ваш ответ отправлен.',returnHome:'Вернуться',locked:'Раздел закрыт',meat:'Ресурсы Meat',wood:'Ресурсы Wood',coal:'Ресурсы Coal',iron:'Ресурсы Iron',notes:'Заметки',leagueNotes:'Заметки, если вы недоступны для некоторых матчей',discord:'Сможете зайти в Discord при необходимости?',externalGift:'Откроется официальный сайт gift code в новой вкладке. Продолжить?',externalTool:'Откроется полезный игровой инструмент в новой вкладке. Продолжить?'},
- ko:{choose:'언어를 선택하세요',portalTitle:'스테이트 포털',slogan:'지휘하라. 방어하라. 정복하라.',president:'현재 대통령',svsWins:'SVS 승리',leagueTitles:'리그 타이틀',playerMonth:'이달의 플레이어',announcement:'스테이트 공지',footer:'우리는 함께 선다. 전설은 쓰러지지 않는다.',ministries:'SVS Ministries',svs:'SVS 설문',fdt:'FDT 설문',league:'리그 설문',enter:'포털 입장',name:'플레이어 이름',gameId:'게임 ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'스피드업 일수',timings:'선호 시간 UTC - 3개만 선택',availability:'전체 이벤트에 참여 가능합니까?',troops:'병력 유형',helios:'Helios 병력',discord:'Discord 참여가 가능합니까?',rotation:'스테이트는 조인러를 순환 배치하며 스테이트에 가장 도움이 되는 것을 우선합니다. 개인적인 이유가 아닙니다.',leagueAvail:'전체 리그에 참여 가능합니까?',submit:'제출',back:'뒤로',secured:'임무 확보',securedText:'응답이 제출되었습니다.',returnHome:'돌아가기',locked:'섹션 닫힘',meat:'Meat 자원',wood:'Wood 자원',coal:'Coal 자원',iron:'Iron 자원',notes:'메모',leagueNotes:'일부 경기 참여가 어려운 경우 메모',discord:'필요 시 Discord 참여가 가능합니까?',externalGift:'공식 기프트 코드 사이트가 새 탭에서 열립니다. 계속할까요?',externalTool:'게임 보조 도구가 새 탭에서 열립니다. 계속할까요?'}
-};
-const options={alliances:['SOS','XCR','ASL','L99'],ministries:['Education','VP - Constructions','VP - Research'],availability:['Yes - Full Time','Partially - First Two Hours','Partially - Two Mid Hours','Partially - Last Two Hours','Nope'],troops:['All Troops FC10','FC10 Infantry','FC10 Lancer','FC10 Marksmen','All Troops FC9','FC9 Infantry','FC9 Lancer','FC9 Marksmen','FC8 and Below'],helios:['ALL T11','T11/Infantry Only','T11/Lancer Only','T11/Marksman Only','Nope'],yesno:['Yes','No']};
-let lang='en', hq={settings:{},bt:[]}, activeType='', selectedTimings=[], selectedTroops=[], selectedHelios=[];
-const $=id=>document.getElementById(id), t=k=>(I18N[lang]&&I18N[lang][k])||I18N.en[k]||k;
-function initLangButtons(){const make=(where,small=false)=>{$(where).innerHTML=LANGS.map(([c,f,n])=>`<button class="${small?'chip':'lang-btn'} ${c===lang?'active':''}" onclick="selectLang('${c}')"><img class="flag" src="${f}" alt="${n}" loading="lazy"><span>${n}</span></button>`).join('')};make('gateLangs');make('topLangs',true)}
-function selectLang(c){lang=c;localStorage.setItem('state2099_lang',c);document.documentElement.lang=c;document.documentElement.dir=c==='ar'?'rtl':'ltr';document.body.classList.toggle('lang-ar',c==='ar');$('languageGate').classList.add('hidden');$('app').classList.remove('hidden');$('toolsDock').classList.remove('hidden');initLangButtons();applyLang();renderCards()}
-function applyLang(){document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n))}
-function boot(){lang=localStorage.getItem('state2099_lang')||'en';document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.classList.toggle('lang-ar',lang==='ar');initLangButtons();applyLang();loadData()} window.onload=boot;
-function loadData(){fetch(API).then(r=>r.json()).then(d=>{hq=d||hq;syncHQ()}).catch(()=>{hq.settings={president:'Sultan',svs_wins:'0',league_wins:'0',player_of_the_month:'---',announcement:'Long live 2099'};syncHQ()})}
-function syncHQ(){const s=hq.settings||{};$('v-president').textContent=s.president||'---';$('v-svs').textContent=s.svs_wins||'0';$('v-league').textContent=s.league_wins||'0';$('v-pom').textContent=s.player_of_the_month||'---';$('v-ann').textContent=s.announcement||'Long live 2099';renderCards();if(sessionStorage.getItem('state2099_admin'))fillAdmin()}
-function renderCards(){const s=hq.settings||{};const data=[['ministries',t('ministries'),'Appoint Ministers. Strengthen the State.','assets/ministries.jpg','fa-landmark',s.ministries_lock],['svs_survey',t('svs'),'Strategy. Valor. Victory.','assets/svs-battle.jpg','fa-shield-halved',s.svs_survey_lock],['fdt_survey',t('fdt'),'Face the Frost Dragon. Earn Glory.','assets/fdt-dragon.jpg','fa-dragon',s.fdt_survey_lock],['league_survey',t('league'),'Compete. Dominate. Become Champion.','assets/league.jpg','fa-trophy',s.league_survey_lock]];$('cards').innerHTML=data.map(([type,title,desc,img,icon,lock])=>`<button class="portal-card ${lock==='TRUE'?'locked':''}" onclick="openForm('${type}')"><div class="bg" style="background-image:url('${img}')"></div><div class="locked-cover"><div><i class="fa-solid fa-lock"></i><br>${t('locked')}</div></div><div class="card-content"><div class="crest"><i class="fa-solid ${icon}"></i></div><div class="card-title">${title}</div><div class="card-desc">${desc}</div><div class="enter">${t('enter')} <i class="fa-solid fa-chevron-right"></i></div></div></button>`).join('')}
-function openForm(type){const lock=(hq.settings||{})[{ministries:'ministries_lock',svs_survey:'svs_survey_lock',fdt_survey:'fdt_survey_lock',league_survey:'league_survey_lock'}[type]];if(lock==='TRUE')return;activeType=type;selectedTimings=[];selectedTroops=[];selectedHelios=[];$('successView').style.display='none';$('formArea').style.display='block';$('formTitle').textContent={ministries:t('ministries'),svs_survey:t('svs'),fdt_survey:t('fdt'),league_survey:t('league')}[type];$('formArea').innerHTML=buildForm(type);$('formModal').classList.add('show')}
-function closeForm(){$('formModal').classList.remove('show')}
-function field(id,label,type='text',required=true){return `<div class="field ${required?'':'optional'}"><label for="${id}">${label}</label><input id="${id}" type="${type}" ${required?'required':''}></div>`}
-function textareaField(id,label,required=false){return `<div class="field ${required?'':'optional'}"><label for="${id}">${label}</label><textarea id="${id}" ${required?'required':''}></textarea></div>`}
-function selectField(id,label,arr){return `<div class="field"><label for="${id}">${label}</label><select id="${id}">${arr.map(x=>`<option value="${x}">${x}</option>`).join('')}</select></div>`}
-function timingSlots(){let a=[];for(let h=0;h<24;h++){for(let m of [0,30]){let sh=String(h).padStart(2,'0'),sm=String(m).padStart(2,'0');let total=h*60+m+30,eh=String(Math.floor(total/60)%24).padStart(2,'0'),em=String(total%60).padStart(2,'0');a.push(`${sh}:${sm}-${eh}:${em}`)}}return a}
-function chips(arr,fn){return `<div class="choices">${arr.map(v=>`<button type="button" class="choice" data-val="${v}" onclick="${fn}(this)">${v}</button>`).join('')}</div>`}
-function buildForm(type){let common=field('f-name',t('name'))+field('f-game',t('gameId'))+selectField('f-alliance',t('alliance'),options.alliances);let body='';if(type==='ministries'){body=common+selectField('f-ministry',t('ministry'),options.ministries)+field('f-speedups',t('speedups'),'number')+`<div class="field"><label>${t('timings')}</label>${chips(timingSlots(),'toggleTiming')}<div class="helper" id="timingHelp">0 / 3</div></div>`}else if(type==='svs_survey'||type==='fdt_survey'){body=common+selectField('f-availability',t('availability'),options.availability)+selectField('f-discord',t('discord'),options.yesno)+`<div class="field"><label>${t('troops')}</label>${chips(options.troops,'toggleTroops')}<div class="helper" id="troopsHelp">0 selected - you may mix FC10 and FC9 types</div></div>`+`<div class="field"><label>${t('helios')}</label>${chips(options.helios,'toggleHelios')}<div class="helper" id="heliosHelp">0 / 3</div></div>`;if(type==='fdt_survey'){body+=`<div class="resource-grid">${field('f-meat',t('meat'),'number')}${field('f-wood',t('wood'),'number')}${field('f-coal',t('coal'),'number')}${field('f-iron',t('iron'),'number')}</div>`+textareaField('f-notes',t('notes'),false)}}else{body=common+selectField('f-discord',t('discord'),options.yesno)+selectField('f-rotation',t('rotation'),options.yesno)+selectField('f-league-avail',t('leagueAvail'),options.yesno)+textareaField('f-league-notes',t('leagueNotes'),false)}return `<form onsubmit="submitForm(event)" class="form-grid">${body}<div class="actions"><button class="ghost" type="button" onclick="closeForm()">${t('back')}</button><button class="primary" id="submitBtn" type="submit">${t('submit')}</button></div></form>`}
-function toggleTiming(el){const v=el.dataset.val;const i=selectedTimings.indexOf(v);if(i>-1){selectedTimings.splice(i,1);el.classList.remove('selected')}else{if(selectedTimings.length>=3){alert('3 picks only');return}selectedTimings.push(v);el.classList.add('selected')}$('timingHelp').textContent=selectedTimings.length+' / 3'}
-function toggleTroops(el){const v=el.dataset.val;const i=selectedTroops.indexOf(v);if(i>-1){selectedTroops.splice(i,1);el.classList.remove('selected')}else{selectedTroops.push(v);el.classList.add('selected')}const help=$('troopsHelp');if(help)help.textContent=selectedTroops.length+' selected';}
-function toggleHelios(el){const v=el.dataset.val;if(v==='Nope'||v==='ALL T11'){document.querySelectorAll('#formArea .choice').forEach(x=>x.classList.remove('selected'));selectedHelios=[v];el.classList.add('selected')}else{selectedHelios=selectedHelios.filter(x=>x!=='Nope'&&x!=='ALL T11');document.querySelectorAll('#formArea .choice[data-val="Nope"],#formArea .choice[data-val="ALL T11"]').forEach(x=>x.classList.remove('selected'));const i=selectedHelios.indexOf(v);if(i>-1){selectedHelios.splice(i,1);el.classList.remove('selected')}else{if(selectedHelios.length>=3){alert('3 picks only');return}selectedHelios.push(v);el.classList.add('selected')}}$('heliosHelp').textContent=selectedHelios.length+' / 3'}
-function val(id){return $(id).value.trim()}
-function submitForm(e){e.preventDefault();let payload={playerName:val('f-name'),gameId:val('f-game'),alliance:val('f-alliance'),language:lang};let type=activeType;if(type==='ministries'){if(selectedTimings.length<1){alert('Select at least 1 timing');return}Object.assign(payload,{ministryRequired:val('f-ministry'),speedupsDays:val('f-speedups'),timings:selectedTimings})}else if(type==='svs_survey'||type==='fdt_survey'){if(selectedTroops.length<1){alert('Select at least one Troops Type');return}if(selectedHelios.length<1){alert('Select Helios Troops');return}Object.assign(payload,{availability:val('f-availability'),troops:selectedTroops,heliosTroops:selectedHelios,discordAvailable:val('f-discord')});if(type==='fdt_survey'){Object.assign(payload,{meatResources:val('f-meat'),woodResources:val('f-wood'),coalResources:val('f-coal'),ironResources:val('f-iron'),notes:val('f-notes')})}}else{Object.assign(payload,{discordAvailable:val('f-discord'),understandsRotation:val('f-rotation'),availableEntireLeague:val('f-league-avail'),leagueNotes:val('f-league-notes')})}const btn=$('submitBtn');btn.disabled=true;btn.textContent='...';fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify({type,payload})}).then(()=>showSuccess()).catch(()=>showSuccess())}
-function showSuccess(){$('formArea').style.display='none';$('successView').style.display='block'}
-function loginAdmin(){const existing=sessionStorage.getItem('state2099_admin');const code=existing||prompt('ACCESS CODE:');if(!code)return;sessionStorage.setItem('state2099_admin',code);fillAdmin();$('adminModal').classList.add('show')}
-function exitAdmin(){$('adminModal').classList.remove('show')}
-function fillAdmin(){const s=hq.settings||{};$('adm-president').value=s.president||'';$('adm-pom').value=s.player_of_the_month||'';$('adm-svs').value=s.svs_wins||'';$('adm-league').value=s.league_wins||'';$('adm-ann').value=s.announcement||'';const locks=[['ministries','Ministries Data','ministries_lock'],['svs_survey','SvS Survey Data','svs_survey_lock'],['fdt_survey','FDT Survey Data','fdt_survey_lock'],['league_survey','League Survey Data','league_survey_lock']];$('lockControls').innerHTML=locks.map(([r,n,k])=>`<div class="lock-row"><strong>${n}</strong><button class="mini-btn ${(s[k]==='TRUE')?'locked':'open'}" onclick="toggleAdminLock('${k}')">${s[k]==='TRUE'?'LOCKED':'OPEN'}</button></div>`).join('');$('reportControls').innerHTML=locks.map(([r,n,k])=>`<div class="report-row"><strong>${n}</strong><button class="mini-btn" onclick="downloadReport('${r}')">Download Excel</button><button class="mini-btn locked" onclick="clearReport('${r}')">Clear</button></div>`).join('')}
-function toggleAdminLock(k){hq.settings[k]=(hq.settings[k]==='TRUE')?'FALSE':'TRUE';fillAdmin()}
-function saveAdmin(){const code=sessionStorage.getItem('state2099_admin')||'';const settings={president:$('adm-president').value,player_of_the_month:$('adm-pom').value,svs_wins:$('adm-svs').value,league_wins:$('adm-league').value,announcement:$('adm-ann').value,ministries_lock:hq.settings.ministries_lock||'FALSE',svs_survey_lock:hq.settings.svs_survey_lock||'FALSE',fdt_survey_lock:hq.settings.fdt_survey_lock||'FALSE',league_survey_lock:hq.settings.league_survey_lock||'FALSE'};fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'admin_update',adminCode:code,settings,bt:hq.bt||[]})}).then(()=>{Object.assign(hq.settings,settings);syncHQ();alert('Saved')})}
-function downloadReport(report){const code=sessionStorage.getItem('state2099_admin')||prompt('ACCESS CODE:');if(!code)return;window.open(API+'?action=download&report='+encodeURIComponent(report)+'&adminCode='+encodeURIComponent(code),'_blank')}
-function clearReport(sheetName){const code=sessionStorage.getItem('state2099_admin')||prompt('ACCESS CODE:');if(!code)return;if(!confirm('Clear '+sheetName+' data?'))return;fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'clear_sheet',adminCode:code,sheetName})}).then(()=>alert('Cleared'))}
+const PLANNING_API = 'https://script.google.com/macros/s/AKfycbwBMLSs1YEgqevI0RoD8yzXSxQwSkheJWnF_dCjKfGVuAbFXUkCsZ9mDeu9eZTrYths/exec';
+const PASSWORD = 'StateOf2099';
+const leaders = ['Zero','KSA Abu Sanad','FAS','Final Option','Kaki','Kanis','Maher','Anas','Fahad','Tusi','Bu3ajeel','Monster','NightKing','777','Maximus','Sultan','Other'];
+const heroes = ['Sergey','Jessie','Patrick','Lumak Bokan','Ling Xue','Gina','Bahiti','Jasser','Seo-yoon','Natalia','Jeronimo','Molly','Zinman','Flint','Philly','Alonso','Logan','Mia','Greg','Ahmose','Reina','Lynn','Hector','Norah','Gwen','Wu Ming','Renee','Wayne','Edith','Gordon','Bradley','Gatot','Sonya','Hendrik','Magnus','Fred','Xura','Gregory','Freya','Blanchette','Eleonora','Lloyd','Rufus','Hervor','Karol','Ligeia','Gisela','Flora','Vulcanus','Elif','Dominic','Cara','Hank','Estrella','Viveca','Seigel','Ursar','Aisling'];
+const teams = { AMT: Array.from({length:12},(_,i)=>`Team AMT ${i+1}`), PRO: Array.from({length:12},(_,i)=>`Team PRO ${i+1}`) };
+const timeOptions = Array.from({length:48},(_,i)=>`${String(Math.floor(i/2)).padStart(2,'0')}:${i%2?'30':'00'}`);
+let plans = [];
+let currentPreview = { rally:'', joiner:'' };
+let autoRefreshTimer = null;
 
+const heroAr = {'Sergey':'سيرجي','Jessie':'جيسي','Patrick':'باتريك','Lumak Bokan':'لوماك بوكان','Ling Xue':'لينغ شيويه','Gina':'جينا','Bahiti':'باهتي','Jasser':'جاصر','Seo-yoon':'سيو يون','Natalia':'ناتاليا','Jeronimo':'جيرونيمو','Molly':'مولي','Zinman':'زينمان','Flint':'فلينت','Philly':'فيلي','Alonso':'ألونسو','Logan':'لوغان','Mia':'ميا','Greg':'غريغ','Ahmose':'أحمس','Reina':'رينا','Lynn':'لين','Hector':'هكتور','Norah':'نورا','Gwen':'غوين','Wu Ming':'وو مينغ','Renee':'رينيه','Wayne':'وين','Edith':'إديث','Gordon':'غوردون','Bradley':'برادلي','Gatot':'جاتوت','Sonya':'سونيا','Hendrik':'هندريك','Magnus':'ماغنوس','Fred':'فريد','Xura':'زورا','Gregory':'غريغوري','Freya':'فريا','Blanchette':'بلانشيت','Eleonora':'إليونورا','Lloyd':'لويد','Rufus':'روفوس','Hervor':'هيرفور','Karol':'كارول','Ligeia':'ليجيا','Gisela':'جيزيلا','Flora':'فلورا','Vulcanus':'فولكانوس','Elif':'إيليف','Dominic':'دومينيك','Cara':'كارا','Hank':'هانك','Estrella':'إستريلا','Viveca':'فيفيكا','Seigel':'سيغل','Ursar':'أورسار','Aisling':'آيسلينغ'};
+const arNums = ['صفر','واحد','اثنان','ثلاثة','أربعة','خمسة','ستة','سبعة','ثمانية','تسعة','عشرة','أحد عشر','اثنا عشر','ثلاثة عشر','أربعة عشر','خمسة عشر','ستة عشر','سبعة عشر','ثمانية عشر','تسعة عشر'];
+const arTens = {20:'عشرون',30:'ثلاثون',40:'أربعون',50:'خمسون',60:'ستون',70:'سبعون',80:'ثمانون',90:'تسعون',100:'مئة'};
+function arNum(n){n=Number(n||0); if(n<=19)return arNums[n]; if(arTens[n])return arTens[n]; const u=n%10,t=n-u; return arNums[u]+' و'+arTens[t];}
+function hAr(h){return heroAr[h]||h;}
+function arabicFormation(p){return `النسبة: ${arNum(p.inf)} مشاة، ${arNum(p.lan)} رماح، ${arNum(p.mm)} رماة`;}
 
-const PLANNING_CODE='StateOf2099';
-const PLANNING={
-  heroes:['Sergey','Jessie','Patrick','Lumak Bokan','Ling Xue','Gina','Bahiti','Jasser','Seo-yoon','Natalia','Jeronimo','Molly','Zinman','Flint','Philly','Alonso','Logan','Mia','Greg','Ahmose','Reina','Lynn','Hector','Norah','Gwen','Wu Ming','Renee','Wayne','Edith','Gordon','Bradley','Gatot','Sonya','Hendrik','Magnus','Fred','Xura','Gregory','Freya','Blanchette','Eleonora','Lloyd','Rufus','Hervor','Karol','Ligeia','Gisela','Flora','Vulcanus','Elif','Dominic','Cara','Hank','Estrella','Viveca','Seigel','Ursar','Aisling'],
-  alliances:['AMT','PRO'],
-  pets:['12:00 UTC','12:30 UTC','13:00 UTC','13:30 UTC','14:00 UTC','14:30 UTC','15:00 UTC','15:30 UTC','16:00 UTC','16:30 UTC','17:00 UTC'],
-  // Rally leader names are kept here for now. Add names inside this list later if needed.
-  // "Other" is always added automatically at the end by planningLeaders().
-  leaders:['Zero','KSA Abu Sanad','FAS','Final Option','Kaki','Kanis','Maher','Anas','Fahad','Tusi','Bu3ajeel','Monster','NightKing','777','Maximus','Sultan'],
-  teams:['Team AMT 1','Team AMT 2','Team AMT 3','Team PRO 1','Team PRO 2','Team PRO 3','Team PRO 4','Team PRO 5']
-};
-let planningTab='rally';
-function loginPlanning(){let code=sessionStorage.getItem('state2099_planning');if(code!==PLANNING_CODE){code=prompt('PLANNING ACCESS CODE:')}if(!code)return;if(code!==PLANNING_CODE){sessionStorage.removeItem('state2099_planning');alert('Wrong access code');return}sessionStorage.setItem('state2099_planning',code);setPlanningTab('rally');$('planningModal').classList.add('show')}
-function closePlanning(){$('planningModal').classList.remove('show')}
-function planningLeaders(){
-  const list=[...PLANNING.leaders];
-  const s=hq.settings||{};
-  const existing=[s.president,s.player_of_the_month].map(v=>(v||'').trim()).filter(v=>v&&v!=='---');
-  existing.reverse().forEach(name=>{if(!list.some(x=>x.toLowerCase()===name.toLowerCase()))list.unshift(name)});
-  const clean=[...new Set(list.filter(Boolean).filter(x=>x!=='Other'))];
-  clean.push('Other');
-  return clean;
+function fillSelect(id, arr){ const el=document.getElementById(id); el.innerHTML=arr.map(x=>`<option>${x}</option>`).join(''); }
+function updateTeamOptions(keepValue=true){
+  const el=document.getElementById('team');
+  const old=el.value;
+  const arr=teams[document.getElementById('alliance').value] || [];
+  el.innerHTML=arr.map(x=>`<option>${x}</option>`).join('');
+  if(keepValue && arr.includes(old)) el.value=old; else el.value=arr[0] || '';
 }
-function pOptions(arr){return arr.map(x=>`<option value="${x}">${x}</option>`).join('')}
-function pSelect(id,label,arr,onchange=''){return `<div class="field"><label for="${id}">${label}</label><select id="${id}" ${onchange}>${pOptions(arr)}</select></div>`}
-function pSelectPH(id,label,arr,placeholder,onchange=''){return `<div class="field"><label for="${id}">${label}</label><select id="${id}" ${onchange}><option value="">${placeholder}</option>${pOptions(arr)}</select></div>`}
-function pInput(id,label,type='text',value=''){return `<div class="field"><label for="${id}">${label}</label><input id="${id}" type="${type}" value="${value}"></div>`}
-function setPlanningTab(tab){planningTab=tab;$('tab-rally')?.classList.toggle('active',tab==='rally');$('tab-joiner')?.classList.toggle('active',tab==='joiner');$('planningArea').innerHTML=tab==='rally'?buildRallyPlanning():buildJoinerPlanning();updatePlanningRow()}
-function buildRallyPlanning(){return `<div class="planning-form">
-  <div id="planningError" class="planning-error"></div>
-  <div class="planning-grid">${pSelect('p-leader','Rally Leader Name',planningLeaders(),"onchange=\"toggleOtherLeader()\"")}${pInput('p-other-leader','Other Name','text')}</div>
-  <div class="planning-grid">${pSelect('p-alliance','Alliance',PLANNING.alliances)}${pSelect('p-team','Team',PLANNING.teams)}</div>
-  <div class="planning-grid">${pSelect('p-pets','Pets Time',PLANNING.pets)}${pSelect('p-h1','Hero 1',PLANNING.heroes)}</div>
-  <div class="planning-grid">${pSelect('p-h2','Hero 2',PLANNING.heroes)}${pSelect('p-h3','Hero 3',PLANNING.heroes)}</div>
-  <div class="ratio-grid">${pInput('p-inf','INF %','number','50')}${pInput('p-lan','LAN %','number','30')}${pInput('p-mar','MAR %','number','20')}</div>
-  <div class="planning-row-label">Joiners Order</div>
-  <div class="planning-grid four">${pSelect('p-j1','Joiner 1',PLANNING.heroes)}${pSelect('p-j2','Joiner 2',PLANNING.heroes)}${pSelect('p-j3','Joiner 3',PLANNING.heroes)}${pSelect('p-j4','Joiner 4',PLANNING.heroes)}</div>
-  <div class="actions"><button class="primary" onclick="generatePlanningMessage('rally')">Generate Message</button><button class="ghost" onclick="copyPlanningMessage()">Copy Message</button></div>
-  <div class="planning-output" id="planningOutputWrap"><textarea id="planningOutput" readonly></textarea></div>
-</div>`}
-function buildJoinerPlanning(){return `<div class="planning-form">
-  <div id="planningError" class="planning-error"></div>
-  <div class="planning-grid">${pSelect('p-alliance','Alliance',PLANNING.alliances,"onchange=\"updatePlanningRow()\"")}<div class="field"><label>Castle Row auto</label><div class="row-pill" id="p-row">Row 2</div></div></div>
-  <div class="planning-row-label">Joiner Presets</div>
-  <div class="planning-grid four">${pSelect('p-j1','Joiner 1',PLANNING.heroes)}${pSelect('p-j2','Joiner 2',PLANNING.heroes)}${pSelect('p-j3','Joiner 3',PLANNING.heroes)}${pSelect('p-j4','Joiner 4',PLANNING.heroes)}</div>
-  <div class="ratio-grid">${pInput('p-inf','INF %','number','50')}${pInput('p-lan','LAN %','number','30')}${pInput('p-mar','MAR %','number','20')}</div>
-  <div class="actions"><button class="primary" onclick="generatePlanningMessage('joiner')">Generate Message</button><button class="ghost" onclick="copyPlanningMessage()">Copy Message</button></div>
-  <div class="planning-output" id="planningOutputWrap"><textarea id="planningOutput" readonly></textarea></div>
-</div>`}
-function toggleOtherLeader(){const el=$('p-other-leader');if(!el)return;const isOther=$('p-leader').value==='Other';el.closest('.field').style.display=isOther?'block':'none';if(!isOther)el.value=''}
-function updatePlanningRow(){const row=$('p-row');if(row)row.textContent=($('p-alliance')?.value==='PRO')?'Row 3':'Row 2';toggleOtherLeader()}
-function planningVal(id){return ($(id)?.value||'').trim()}
-function planningRatio(){const inf=Number(planningVal('p-inf')),lan=Number(planningVal('p-lan')),mar=Number(planningVal('p-mar'));return {inf,lan,mar,sum:inf+lan+mar,txt:`${inf}/${lan}/${mar}`}}
-function showPlanningError(msg){const box=$('planningError');if(!box)return;box.textContent=msg;box.style.display=msg?'block':'none'}
-function planningMessageLang(){return planningVal('p-msg-lang')||'en'}
-function formatFormation(r,lang){
-  if(lang==='ar')return `مشاة ${r.inf}% | رماح ${r.lan}% | رماة ${r.mar}%`;
-  if(lang==='ru')return `Пехота ${r.inf}% | Копья ${r.lan}% | Стрелки ${r.mar}%`;
-  if(lang==='id')return `Infanteri ${r.inf}% | Lancer ${r.lan}% | Marksman ${r.mar}%`;
-  if(lang==='ko')return `보병 ${r.inf}% | 창병 ${r.lan}% | 궁병 ${r.mar}%`;
-  if(lang==='de')return `Infanterie ${r.inf}% | Lanzen ${r.lan}% | Schützen ${r.mar}%`;
-  return `INF ${r.inf}% | LAN ${r.lan}% | MAR ${r.mar}%`;
+
+function normalizeTime(v){
+  if(timeOptions.includes(v)) return v;
+  const m=String(v||'').match(/^(\d{1,2}):(\d{2})/);
+  if(!m) return '14:00';
+  let mins=(Number(m[1])*60+Number(m[2]));
+  mins=Math.round(mins/30)*30;
+  mins=((mins%1440)+1440)%1440;
+  return `${String(Math.floor(mins/60)).padStart(2,'0')}:${String(mins%60).padStart(2,'0')}`;
 }
-function makeRallyMessage(lang,d){
-  if(lang==='ar')return `تم تعيينك قائد حشد.
-
-${d.team}
-Alliance: ${d.alliance}
-تفعيل الحيوانات: ${d.pets}
-
-أبطال الحشد:
-${d.h1} / ${d.h2} / ${d.h3}
-
-النسبة:
-${formatFormation(d.r,lang)}
-
-الجوينرز:
-${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
-
-نأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.
-
-ابدأ في AMT لأول سيطرة.
-ثم انتقل إلى ${d.alliance} واتبع تعليمات الديسكورد.`;
-  if(lang==='ru')return `Вы назначены лидером ралли.
-
-${d.team}
-Alliance: ${d.alliance}
-Активация питомцев: ${d.pets}
-
-Герои ралли:
-${d.h1} / ${d.h2} / ${d.h3}
-
-Формация:
-${formatFormation(d.r,lang)}
-
-Joiners:
-${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
-
-Сохраните пресеты заранее для готовности.
-
-Начните в AMT для первого контроля.
-Затем перейдите в ${d.alliance} и следуйте Discord.`;
-  if(lang==='id')return `Kamu ditugaskan sebagai Rally Leader.
-
-${d.team}
-Alliance: ${d.alliance}
-Aktivasi Pet: ${d.pets}
-
-Hero Rally:
-${d.h1} / ${d.h2} / ${d.h3}
-
-Formasi:
-${formatFormation(d.r,lang)}
-
-Joiners:
-${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
-
-Harap simpan preset lebih awal agar siap.
-
-Mulai di AMT untuk kontrol pertama.
-Lalu pindah ke ${d.alliance} dan ikuti Discord.`;
-  if(lang==='ko')return `랠리 리더로 배정되었습니다.
-
-${d.team}
-Alliance: ${d.alliance}
-펫 활성화: ${d.pets}
-
-랠리 영웅:
-${d.h1} / ${d.h2} / ${d.h3}
-
-편성:
-${formatFormation(d.r,lang)}
-
-조이너 순서:
-${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
-
-준비를 위해 미리 프리셋을 저장해 주세요.
-
-첫 점령은 AMT에서 시작하세요.
-그다음 ${d.alliance}(으)로 이동하고 Discord 지시를 따르세요.`;
-  if(lang==='de')return `Du bist als Rally Leader eingeteilt.
-
-${d.team}
-Alliance: ${d.alliance}
-Tier-Aktivierung: ${d.pets}
-
-Rally-Helden:
-${d.h1} / ${d.h2} / ${d.h3}
-
-Formation:
-${formatFormation(d.r,lang)}
-
-Joiner-Reihenfolge:
-${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
-
-Bitte speichere die Formationen frühzeitig zur Bereitschaft.
-
-Starte in AMT für die erste Kontrolle.
-Wechsle dann zu ${d.alliance} und folge Discord.`;
-  return `You are assigned as Rally Leader.
-
-${d.team}
-Alliance: ${d.alliance}
-Pets Activation: ${d.pets}
-
-Rally Heroes:
-${d.h1} / ${d.h2} / ${d.h3}
-
-Formation:
-${formatFormation(d.r,lang)}
-
-Joiners:
-${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
-
-Please save the presets early for readiness.
-
-Start in AMT for first control.
-Then move to ${d.alliance} and follow Discord.`;
+function fillTimeMenu(){
+  const html=timeOptions.map(t=>`<button type="button" class="timeOption" data-time="${t}" onclick="selectPetTime('${t}')">${t}</button>`).join('');
+  const menu=document.getElementById('petStartMenu');
+  if(menu) menu.innerHTML=html;
+  const grid=document.getElementById('timeOverlayGrid');
+  if(grid) grid.innerHTML=html;
 }
-function makeJoinerMessage(lang,d){
-  if(lang==='ar')return `تم تعيينك جوينر.
-
-Alliance: ${d.alliance}
-Castle Row: ${d.row}
-
-احفظ التشكيلات التالية:
-
-1- ${d.j1} + أي بطلين | ${d.r.txt}
-2- ${d.j2} + أي بطلين | ${d.r.txt}
-3- ${d.j3} + أي بطلين | ${d.r.txt}
-4- ${d.j4} + أي بطلين | ${d.r.txt}
-
-نأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.
-
-اتبع الترتيب وادخل الديسكورد.`;
-  if(lang==='ru')return `Вы назначены joiner.
-
-Alliance: ${d.alliance}
-Castle Row: ${d.row}
-
-Сохраните следующие пресеты:
-
-1- ${d.j1} + любые 2 | ${d.r.txt}
-2- ${d.j2} + любые 2 | ${d.r.txt}
-3- ${d.j3} + любые 2 | ${d.r.txt}
-4- ${d.j4} + любые 2 | ${d.r.txt}
-
-Сохраните пресеты заранее для готовности.
-
-Следуйте порядку и зайдите в Discord.`;
-  if(lang==='id')return `Kamu ditugaskan sebagai Joiner.
-
-Alliance: ${d.alliance}
-Castle Row: ${d.row}
-
-Simpan preset berikut:
-
-1- ${d.j1} + bebas 2 hero | ${d.r.txt}
-2- ${d.j2} + bebas 2 hero | ${d.r.txt}
-3- ${d.j3} + bebas 2 hero | ${d.r.txt}
-4- ${d.j4} + bebas 2 hero | ${d.r.txt}
-
-Harap simpan preset lebih awal agar siap.
-
-Ikuti urutan dan masuk Discord.`;
-  if(lang==='ko')return `조이너로 배정되었습니다.
-
-Alliance: ${d.alliance}
-Castle Row: ${d.row}
-
-아래 프리셋을 저장하세요:
-
-1- ${d.j1} + 아무 영웅 2명 | ${d.r.txt}
-2- ${d.j2} + 아무 영웅 2명 | ${d.r.txt}
-3- ${d.j3} + 아무 영웅 2명 | ${d.r.txt}
-4- ${d.j4} + 아무 영웅 2명 | ${d.r.txt}
-
-준비를 위해 미리 프리셋을 저장해 주세요.
-
-순서를 따르고 Discord에 들어오세요.`;
-  if(lang==='de')return `Du bist als Joiner eingeteilt.
-
-Alliance: ${d.alliance}
-Castle Row: ${d.row}
-
-Speichere die folgenden Formationen:
-
-1- ${d.j1} + beliebige 2 Helden | ${d.r.txt}
-2- ${d.j2} + beliebige 2 Helden | ${d.r.txt}
-3- ${d.j3} + beliebige 2 Helden | ${d.r.txt}
-4- ${d.j4} + beliebige 2 Helden | ${d.r.txt}
-
-Bitte speichere die Formationen frühzeitig zur Bereitschaft.
-
-Folge der Reihenfolge und komm in Discord.`;
-  return `You are assigned as Joiner.
-
-Alliance: ${d.alliance}
-Castle Row: ${d.row}
-
-Save the following presets:
-
-1- ${d.j1} + any 2 heroes | ${d.r.txt}
-2- ${d.j2} + any 2 heroes | ${d.r.txt}
-3- ${d.j3} + any 2 heroes | ${d.r.txt}
-4- ${d.j4} + any 2 heroes | ${d.r.txt}
-
-Please save the presets early for readiness.
-
-Follow the order and join Discord.`;
+function setPetStart(value, doPreview=true){
+  const v=normalizeTime(value);
+  document.getElementById('petStart').value=v;
+  document.getElementById('petStartBtn').textContent=v;
+  document.querySelectorAll('.timeOption').forEach(b=>b.classList.toggle('active', b.dataset.time===v));
+  if(doPreview) generatePreview();
 }
-function generatePlanningMessage(type){
-  showPlanningError('');
-  const r=planningRatio();
-  if(r.sum!==100){showPlanningError('INF + LAN + MAR must equal 100. Current total: '+r.sum);$('planningOutputWrap').style.display='none';return}
-  const lang=planningMessageLang();
-  let msg='';
-  if(type==='rally'){
-    const selectedLeader=planningVal('p-leader');
-    if(!selectedLeader){showPlanningError('Please select a Rally Leader, or choose Other and type the name.');$('planningOutputWrap').style.display='none';return}
-    if(selectedLeader==='Other'&&!planningVal('p-other-leader')){showPlanningError('Please type the Rally Leader name.');$('planningOutputWrap').style.display='none';return}
-    const data={leader:selectedLeader==='Other'?planningVal('p-other-leader'):selectedLeader,alliance:planningVal('p-alliance'),team:planningVal('p-team'),pets:planningVal('p-pets'),h1:planningVal('p-h1'),h2:planningVal('p-h2'),h3:planningVal('p-h3'),j1:planningVal('p-j1'),j2:planningVal('p-j2'),j3:planningVal('p-j3'),j4:planningVal('p-j4'),r};
-    msg=makeRallyMessage(lang,data);
-  }else{
-    const row=planningVal('p-alliance')==='PRO'?'Row 3':'Row 2';
-    const data={alliance:planningVal('p-alliance'),row,j1:planningVal('p-j1'),j2:planningVal('p-j2'),j3:planningVal('p-j3'),j4:planningVal('p-j4'),r};
-    msg=makeJoinerMessage(lang,data);
-  }
-  $('planningOutput').value=msg;
-  $('planningOutput').dir=(lang==='ar')?'rtl':'ltr';
-  $('planningOutput').style.textAlign=(lang==='ar')?'right':'left';
-  $('planningOutputWrap').style.display='block';
+function selectPetTime(t){
+  setPetStart(t, true);
+  closeTimeOverlay();
 }
-function copyPlanningMessage(){const out=$('planningOutput');if(!out||!out.value){alert('Generate the message first');return}navigator.clipboard?.writeText(out.value).then(()=>alert('Copied')).catch(()=>{out.select();document.execCommand('copy');alert('Copied')})}
-
-
-const TOOL_LINKS={gift:'https://wos-giftcode.centurygame.com/',charms:'https://www.quackulator.com/chiefcharm.php',building:'https://www.quackulator.com/building.php',sim:'https://sim.tundra.land/'};
-function openTool(key){const msg=key==='gift'?t('externalGift'):t('externalTool');if(confirm(msg)){window.open(TOOL_LINKS[key],'_blank','noopener,noreferrer')}}
-
+function openTimeOverlay(event){
+  if(event) event.stopPropagation();
+  const overlay=document.getElementById('timeOverlay');
+  if(overlay){ overlay.classList.add('show'); setPetStart(document.getElementById('petStart').value, false); }
+}
+function closeTimeOverlay(){
+  const overlay=document.getElementById('timeOverlay');
+  if(overlay) overlay.classList.remove('show');
+}
+document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeTimeOverlay(); });
+function init(){
+  fillSelect('rallyLeader', leaders); ['hero1','hero2','hero3','joiner1','joiner2','joiner3','joiner4'].forEach(id=>fillSelect(id,heroes));
+  fillTimeMenu();
+  updateTeamOptions(false);
+  document.getElementById('hero1').value='Gatot'; document.getElementById('hero2').value='Sonya'; document.getElementById('hero3').value='Bradley';
+  document.getElementById('joiner1').value='Jessie'; document.getElementById('joiner2').value='Jasser'; document.getElementById('joiner3').value='Norah'; document.getElementById('joiner4').value='Hector';
+  document.getElementById('team').value='Team AMT 1'; setPetStart('14:00', false);
+  document.querySelectorAll('select,input,textarea').forEach(el=>{
+    if(!['pass'].includes(el.id)) el.addEventListener('change', generatePreview);
+    if(['inf','lan','mm','otherLeader','notes'].includes(el.id)) el.addEventListener('input', generatePreview);
+  });
+  toggleOther(); generatePreview(); renderSaved(); renderSimple([]);
+}
+function unlock(){ if(document.getElementById('pass').value===PASSWORD){document.getElementById('lock').classList.add('hidden'); loadPlans(false); if(!autoRefreshTimer){ autoRefreshTimer=setInterval(()=>loadPlans(true),30000); }} else toast('Wrong password'); }
+function toggleOther(){ document.getElementById('otherBox').classList.toggle('hidden', document.getElementById('rallyLeader').value!=='Other'); }
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2800);}
+function add2h(t){ if(!t)return''; const [h,m]=t.split(':').map(Number); const total=(h*60+m+120)%1440; return `${String(Math.floor(total/60)).padStart(2,'0')}:${String(total%60).padStart(2,'0')}`; }
+function formPlan(){
+  const p={planId:document.getElementById('planId').value, alliance:document.getElementById('alliance').value, team:document.getElementById('team').value.trim(), rallyLeader:document.getElementById('rallyLeader').value, otherLeader:document.getElementById('otherLeader').value.trim(), petStart:document.getElementById('petStart').value, hero1:hero1.value, hero2:hero2.value, hero3:hero3.value, inf:Number(inf.value||0), lan:Number(lan.value||0), mm:Number(mm.value||0), joiner1:joiner1.value, joiner2:joiner2.value, joiner3:joiner3.value, joiner4:joiner4.value, language:language.value, notes:notes.value.trim()};
+  p.displayLeader = p.rallyLeader==='Other' ? p.otherLeader : p.rallyLeader; p.petEnd=add2h(p.petStart); p.total=p.inf+p.lan+p.mm; p.timeWindow=`${p.petStart} - ${p.petEnd} UTC`; return p;
+}
+function validate(p){ if(!p.team)return 'Team is required'; if(!p.displayLeader)return 'Rally Leader is required'; if(!p.petStart)return 'Pet Activation is required'; if(p.total!==100)return 'Formation must equal 100'; return ''; }
+function generatePreview(){ const p=formPlan(); currentPreview.rally=buildRally(p,p.language,false); currentPreview.joiner=buildJoiner(p,p.language,false); rallyPreview.textContent=currentPreview.rally; joinerPreview.textContent=currentPreview.joiner; rallyPreview.classList.toggle('rtl',p.language==='Arabic'); joinerPreview.classList.toggle('rtl',p.language==='Arabic'); }
+function copyCurrent(kind){ generatePreview(); copyText(kind==='rally'?currentPreview.rally:currentPreview.joiner); }
+async function copyText(text){ try{ await navigator.clipboard.writeText(text); toast('Copied'); }catch(e){ toast('Copy failed'); } }
+function nowTime(){ return new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
+function setBusy(btn, text){ if(!btn) return ()=>{}; const old=btn.textContent; btn.disabled=true; btn.textContent=text; return ()=>{btn.disabled=false; btn.textContent=old;}; }
+async function api(action, data={}){ if(PLANNING_API.includes('PASTE_')) throw new Error('API URL not connected yet'); const res=await fetch(PLANNING_API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...data})}); const json=await res.json(); if(!json.ok) throw new Error(json.error||'Request failed'); return json; }
+async function loadPlans(silent=false){ try{ if(!silent) apiStatus.textContent='Refreshing board...'; const r=await api('listPlans'); plans=r.plans||[]; renderSaved(); renderSimple(r.simpleRows||[]); apiStatus.textContent='Connected · Updated '+nowTime(); }catch(e){ apiStatus.textContent=e.message; renderSaved(); if(!silent) toast('Board refresh failed'); } }
+async function savePlan(){ const p=formPlan(); const err=validate(p); if(err){toast(err);return;} generatePreview(); const done=setBusy(document.getElementById('saveBtn'),'Saving...'); apiStatus.textContent='Saving plan...'; try{ await api('savePlan',{plan:p}); clearForm(false); await loadPlans(true); toast('Plan saved successfully. Board updated.'); }catch(e){toast(e.message); apiStatus.textContent=e.message;} finally{done(); if(!planId.value){saveBtn.textContent='Save Plan';}} }
+function clearForm(reset=true){ planId.value=''; formTitle.textContent='Add New Plan'; saveBtn.textContent='Save Plan'; if(reset){ alliance.value='AMT'; updateTeamOptions(false); team.value='Team AMT 1'; rallyLeader.value='Zero'; otherLeader.value=''; setPetStart('14:00', false); inf.value=60; lan.value=40; mm.value=0; language.value='English'; notes.value=''; toggleOther(); } generatePreview(); }
+function editPlan(id){ const p=plans.find(x=>x.planId===id); if(!p)return; planId.value=p.planId; alliance.value=p.alliance; updateTeamOptions(false); team.value=p.team; rallyLeader.value=p.rallyLeader||p.displayLeader; otherLeader.value=p.otherLeader||''; setPetStart(p.petStart, false); hero1.value=p.hero1; hero2.value=p.hero2; hero3.value=p.hero3; inf.value=p.inf; lan.value=p.lan; mm.value=p.mm; joiner1.value=p.joiner1; joiner2.value=p.joiner2; joiner3.value=p.joiner3; joiner4.value=p.joiner4; language.value=p.language||'English'; notes.value=p.notes||''; toggleOther(); formTitle.textContent='Edit Existing Plan'; saveBtn.textContent='Update Plan'; generatePreview(); window.scrollTo({top:0,behavior:'smooth'}); }
+async function deletePlan(id){ if(!confirm('Delete this plan only?'))return; apiStatus.textContent='Deleting plan...'; try{ await api('deletePlan',{planId:id}); await loadPlans(true); toast('Plan deleted. Board updated.'); }catch(e){toast(e.message); apiStatus.textContent=e.message;} }
+async function clearPlanningData(){ if(!confirm('This will clear all planning data from the planning sheet. Continue?'))return; apiStatus.textContent='Clearing planning data...'; try{ await api('clearPlans'); plans=[]; renderSaved(); renderSimple([]); apiStatus.textContent='Connected · Cleared '+nowTime(); toast('Planning data cleared. Board updated.'); }catch(e){toast(e.message); apiStatus.textContent=e.message;} }
+async function downloadPlan(action){ try{ const r=await api(action); const a=document.createElement('a'); const bytes=atob(r.base64); const buf=new Uint8Array(bytes.length); for(let i=0;i<bytes.length;i++)buf[i]=bytes.charCodeAt(i); const blob=new Blob([buf],{type:r.mimeType}); a.href=URL.createObjectURL(blob); a.download=r.filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); toast('Download started'); }catch(e){toast(e.message);} }
+function renderSaved(){ const body=document.getElementById('savedBody'); if(!plans.length){body.innerHTML='<tr><td colspan="8">No plans yet.</td></tr>';return;} body.innerHTML=plans.map(p=>`<tr><td>${p.timeWindow||''}</td><td><span class="tag ${String(p.alliance).toLowerCase()}">${p.alliance}</span></td><td>${p.team||''}</td><td>${p.displayLeader||''}</td><td>${p.petStart||''}-${p.petEnd||''}</td><td>${p.inf}/${p.lan}/${p.mm}</td><td>${[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean).join(' > ')}</td><td><button class="btn small" onclick="copyText(buildRally(plans.find(x=>x.planId==='${p.planId}'), plans.find(x=>x.planId==='${p.planId}').language,false))">Copy Rally</button> <button class="btn small" onclick="copyText(buildJoiner(plans.find(x=>x.planId==='${p.planId}'), plans.find(x=>x.planId==='${p.planId}').language,false))">Copy Joiner</button> <button class="btn small" onclick="editPlan('${p.planId}')">Edit</button> <button class="btn small danger" onclick="deletePlan('${p.planId}')">Delete</button></td></tr>`).join(''); }
+function renderSimple(rows){ const box=document.getElementById('simplePreview'); box.innerHTML='<div class="simpleHead">Time</div><div class="simpleHead">AMT Plan</div><div class="simpleHead pro">PRO Plan</div>'; if(!rows||!rows.length){box.innerHTML+='<div class="simpleCell time">—</div><div class="simpleCell amt">No AMT plans yet.</div><div class="simpleCell pro">No PRO plans yet.</div>'; return;} rows.forEach(r=>{box.innerHTML+=`<div class="simpleCell time">${r[0]}</div><div class="simpleCell amt">${r[1]||'—'}</div><div class="simpleCell pro">${r[2]||'—'}</div>`;}); }
+function buildRally(p,lang='English',compact=false){ const hs=[p.hero1,p.hero2,p.hero3].filter(Boolean), js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); if(lang==='Arabic'){ if(compact)return `قائد حشد | ${p.alliance} | ${p.team}\nالأبطال: ${hs.map(hAr).join(' - ')}\n${arabicFormation(p)}\nتفعيل الحيوانات: ${p.petStart} بتوقيت اللعبة\nالجوينرز: ${js.map(hAr).join(' - ')}\nاتبع الديسكورد.`; return `تم تعيينك قائد حشد.\n\nالتحالف: ${p.alliance}\nاسم الفريق: ${p.team}\n\nأبطال الحشد:\n${hs.map(hAr).join(' - ')}\n\n${arabicFormation(p)}\n\nوقت تفعيل الحيوانات:\nالساعة ${p.petStart} بتوقيت اللعبة\n\nالجوينرز:\n${js.map(hAr).join(' - ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\nاتبع تعليمات الديسكورد.`;} if(lang==='Russian')return `Назначен RALLY LEADER\nAlliance: ${p.alliance}\nTeam: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: ${p.inf} INF / ${p.lan} LAN / ${p.mm} MM\nPet Activation: ${p.petStart} UTC\nJoiners: ${js.join(' > ')}\nFollow Discord instructions.`; if(lang==='Indonesian')return `Ditugaskan sebagai RALLY LEADER\nAlliance: ${p.alliance}\nTeam: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: ${p.inf} INF / ${p.lan} LAN / ${p.mm} MM\nPet Activation: ${p.petStart} UTC\nJoiners: ${js.join(' > ')}\nIkuti instruksi Discord.`; if(lang==='Korean')return `RALLY LEADER 배정\nAlliance: ${p.alliance}\nTeam: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: ${p.inf} INF / ${p.lan} LAN / ${p.mm} MM\nPet Activation: ${p.petStart} UTC\nJoiners: ${js.join(' > ')}\nDiscord 지시를 따라주세요.`; if(lang==='German')return `Als RALLY LEADER eingeteilt\nAlliance: ${p.alliance}\nTeam: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: ${p.inf} INF / ${p.lan} LAN / ${p.mm} MM\nPet Activation: ${p.petStart} UTC\nJoiners: ${js.join(' > ')}\nBitte Discord-Anweisungen folgen.`; if(compact)return `RALLY LEADER | ${p.alliance} | ${p.team}\nHeroes: ${hs.join(' / ')}\n${p.inf} INF / ${p.lan} LAN / ${p.mm} MM\nPets: ${p.petStart} UTC\nJoiners: ${js.join(' > ')}\nFollow Discord.`; return `Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: ${p.inf} INF / ${p.lan} LAN / ${p.mm} MM\nPet Activation: ${p.petStart} UTC\n\nJoiners:\n${js.join(' > ')}\n\nPlease save presets early and follow Discord instructions.`; }
+function buildJoiner(p,lang='English',compact=false){ const js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); if(lang==='Arabic'){ if(compact)return `جوينر في ${p.alliance}\nاحفظ: ${js.map(h=>hAr(h)+' + أي بطلين').join(' | ')}\n${arabicFormation(p)}\nاتبع الديسكورد.`; return `تم تعيينك جوينر في تحالف ${p.alliance}.\n\nاحفظ مسبقًا التشكيلات التالية:\n${js.map(h=>hAr(h)+' + أي بطلين').join('\n')}\n\n${arabicFormation(p)}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\nاتبع الترتيب وتعليمات الديسكورد.`;} const base=`Assigned as JOINER\nAlliance: ${p.alliance}\nSave these presets early:\n${js.map(h=>h+' + any 2 heroes').join('\n')}\nFormation: ${p.inf} INF / ${p.lan} LAN / ${p.mm} MM\nFollow Discord instructions.`; if(lang==='Russian')return base.replace('Assigned as JOINER','Назначен JOINER').replace('Save these presets early:','Сохраните эти пресеты заранее:').replace('Follow Discord instructions.','Следуйте инструкциям Discord.'); if(lang==='Indonesian')return base.replace('Assigned as JOINER','Ditugaskan sebagai JOINER').replace('Save these presets early:','Simpan preset ini lebih awal:').replace('Follow Discord instructions.','Ikuti instruksi Discord.'); if(lang==='Korean')return base.replace('Assigned as JOINER','JOINER 배정').replace('Save these presets early:','미리 저장할 프리셋:').replace('Follow Discord instructions.','Discord 지시를 따라주세요.'); if(lang==='German')return base.replace('Assigned as JOINER','Als JOINER eingeteilt').replace('Save these presets early:','Speichere diese Presets frühzeitig:').replace('Follow Discord instructions.','Bitte Discord-Anweisungen folgen.'); if(compact)return `JOINER | ${p.alliance}\n${js.map(h=>h+' + any 2').join(' | ')}\n${p.inf} INF / ${p.lan} LAN / ${p.mm} MM\nFollow Discord.`; return base; }
+init();
 </script>
 </body>
 </html>
