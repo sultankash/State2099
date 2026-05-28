@@ -56,6 +56,10 @@
     .hint{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
     .guide{border:1px solid rgba(243,200,107,.28);background:rgba(243,200,107,.08);border-radius:18px;padding:12px;color:#eaf6ff;line-height:1.45}
     .guide strong{color:#fde68a}
+    .infoGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+    .infoBox{border:1px solid rgba(130,215,255,.24);border-radius:16px;padding:10px;background:rgba(56,169,255,.075);font-size:13px;line-height:1.35;color:#dff3ff}
+    .infoBox.gold{background:rgba(243,200,107,.08);border-color:rgba(243,200,107,.25)}
+    .selectedGroupPreview{border:1px solid rgba(53,208,127,.28);background:rgba(53,208,127,.08);border-radius:14px;padding:9px;margin-top:8px;color:#dfffe9;font-size:13px;line-height:1.35}
     .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
     .btn{border:1px solid var(--line2);background:#122a45;color:var(--text);border-radius:15px;padding:11px 14px;font-weight:900;min-height:45px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
     .btn.primary{background:linear-gradient(135deg,#187ee0,#49c7ff);border:0;color:white}
@@ -72,6 +76,9 @@
     .routeBtn{border:1px solid var(--line2);background:#071527;border-radius:14px;color:#dcecff;min-height:48px;font-weight:900}
     .routeBtn.active{background:linear-gradient(135deg,#6d5df5,#9b87ff);border:0;color:#fff}
     .preview{white-space:pre-wrap;background:#061224;border:1px dashed #46688a;border-radius:18px;padding:13px;line-height:1.45;color:#eff8ff;direction:ltr;text-align:left}
+    textarea.preview{width:100%;min-height:210px;resize:vertical}
+    .editBadge{display:none;margin-top:7px;color:#fde68a;font-size:12px;font-weight:900}
+    .editBadge.show{display:block}
     .preview.rtl{direction:rtl;text-align:right;font-family:Tahoma,Arial,sans-serif}
     .list{display:grid;gap:10px}
     .item{border:1px solid rgba(130,215,255,.22);border-radius:17px;background:rgba(5,18,34,.62);padding:12px;line-height:1.45}
@@ -96,6 +103,7 @@
     .lockBox{width:min(94vw,430px);border:1px solid var(--line2);border-radius:28px;background:rgba(9,27,47,.96);box-shadow:var(--shadow);padding:22px}
     .lockBox h2{margin:0 0 8px;font-size:27px}.lockBox p{color:var(--muted);margin:0 0 16px}
     @media(max-width:680px){
+      .infoGrid{grid-template-columns:1fr}
       .wrap{width:100%;padding-left:10px;padding-right:10px}
       .top{margin-left:-10px;margin-right:-10px}
       .brand h1{font-size:18px}.brand small{font-size:11px}.status{font-size:11px}
@@ -146,6 +154,8 @@ let state = {lists:{}, presets:[], routes:[], battlePlans:[], messages:[], simpl
 let currentStyle = 'amt';
 let dualPattern = 'proAmtPro';
 let lastSavedRouteId = '';
+let autoRallyMessage = '';
+let autoJoinerMessage = '';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -202,7 +212,7 @@ function roleBlock(id,alliance,title,defaults={}){
       <div><label>Pet Activation</label><select id="${id}_pet">${options(state.lists.petOptions||['No Pets'],defaults.pet??'No Pets')}</select><div class="hint">Choose No Pets if this role does not activate pets.</div></div>
       <div><label>From</label><select id="${id}_from">${options(state.lists.timeOptions||[],defaults.from||'12:00 UTC')}</select></div>
       <div><label>To</label><select id="${id}_to">${options(state.lists.timeOptions||[],defaults.to||'14:00 UTC')}</select></div>
-      <div><label>Joiner Group</label><select id="${id}_preset">${presetOptions()}</select></div>
+      <div><label>Joiner Group</label><select id="${id}_preset" onchange="updatePresetPreview('${id}_preset','${id}_preset_preview')">${presetOptions()}</select><div id="${id}_preset_preview" class="selectedGroupPreview"></div></div>
       <div><label>Alliance</label><input id="${id}_alliance" value="${alliance}" readonly></div>
     </div>
     <div class="sectionTitle" style="margin-top:14px"><strong>Rally Heroes</strong></div>
@@ -264,9 +274,13 @@ function renderRally(){
       </div>
       <div class="sectionBox">
         <label>Rally Message Preview</label>
-        <div id="rallyPreview" class="preview">Generate preview first.</div>
+        <textarea id="rallyPreview" class="preview messageEdit" oninput="markEdited('rally')" placeholder="Auto message appears here. You can edit it before copying."></textarea>
+        <div id="rallyEdited" class="editBadge">Edited manually — copy will use your edited text.</div>
+        <div class="btns"><button class="btn small" onclick="resetAutoMessage('rally')">Reset to Auto</button></div>
         <label style="margin-top:14px">Joiner Message Preview</label>
-        <div id="joinerPreview" class="preview">Generate preview first.</div>
+        <textarea id="joinerPreview" class="preview messageEdit" oninput="markEdited('joiner')" placeholder="Auto joiner message appears here. You can edit it before copying."></textarea>
+        <div id="joinerEdited" class="editBadge">Edited manually — copy will use your edited text.</div>
+        <div class="btns"><button class="btn small" onclick="resetAutoMessage('joiner')">Reset to Auto</button></div>
       </div>
     </div>
   </div>
@@ -274,14 +288,18 @@ function renderRally(){
     <div class="cardHead"><h2>Saved Plans</h2><button class="btn small" onclick="init()">Refresh</button></div>
     <div class="cardBody"><div class="list">${renderSavedRoutes()}</div></div>
   </div>`;
-  renderJoinerGroupsBox(); drawAssignments();
+  renderJoinerGroupsBox(); drawAssignments(); setupLivePreview(); updateAllPresetPreviews();
 }
 function renderJoinerGroupsBox(){
   const box=$('joinerGroupsBox'); if(!box)return;
   box.innerHTML=`<div class="card">
     <div class="cardHead"><h2>Joiner Groups</h2><div class="sub">heroes + formation only</div></div>
     <div class="cardBody">
-      <div class="guide"><strong>Joiner Group:</strong> save joiner heroes and formation once. Castle Row stays separate in Joiner Message.</div>
+      <div class="guide"><strong>Joiner Group:</strong> save heroes and formation once, then select it for any rally leader.</div>
+      <div class="infoGrid">
+        <div class="infoBox"><strong>Stored here</strong><br>Heroes + formation only.</div>
+        <div class="infoBox gold"><strong>Not stored here</strong><br>Castle Row is chosen later in Joiner Message.</div>
+      </div>
       <div class="sectionBox">
         <div class="grid"><div><label>Group Name</label><input id="jg_name" value="Default Joiners"></div><div><label>Notes</label><input id="jg_notes" placeholder="Optional"></div></div>
         <div class="grid4" style="margin-top:12px">
@@ -364,9 +382,13 @@ function generateRallyPreview(){
     const p=periods[0]; const f={inf:p.rallyInf,lan:p.rallyLan,mm:p.rallyMm};
     const pet=p.petActivation&&p.petActivation!=='No Pets'?`\nPet Activation: ${p.petActivation}`:'';
     $('rallyPreview').classList.remove('rtl');
-    $('rallyPreview').textContent=`Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${p.rallyHero1} / ${p.rallyHero2} / ${p.rallyHero3}\nFormation: ${formationText(f)}${pet}\n\nJoiners:\n${joinerLine(p.joinerPresetId)}\nPlease save presets early and follow Discord instructions.`;
+    autoRallyMessage=`Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${p.rallyHero1} / ${p.rallyHero2} / ${p.rallyHero3}\nFormation: ${formationText(f)}${pet}\n\nJoiners:\n${joinerLine(p.joinerPresetId)}\nPlease save presets early and follow Discord instructions.`;
+    $('rallyPreview').value=autoRallyMessage;
+    $('rallyEdited').classList.remove('show');
     $('joinerPreview').classList.remove('rtl');
-    $('joinerPreview').textContent=localJoinerMessage(p.joinerPresetId,p.alliance);
+    autoJoinerMessage=localJoinerMessage(p.joinerPresetId,p.alliance);
+    $('joinerPreview').value=autoJoinerMessage;
+    $('joinerEdited').classList.remove('show');
   }catch(e){toast(e.message)}
 }
 function joinerLine(pid){
@@ -381,6 +403,7 @@ function localJoinerMessage(pid,alliance){
 }
 async function saveRally(){
   try{
+    try{generateRallyPreview()}catch(e){}
     const periods=buildPeriods(); validatePeriods(periods);
     toast('Saving plan...');
     const route={leader:val('leader'),leaderOther:val('leader_other'),periods};
@@ -422,6 +445,63 @@ function copyAllLeaderMsgs(leader){
   if(!msgs.length)return toast('No messages found for '+leader+'.');
   const text=msgs.map(m=>`[${m.Language} - ${m.Style}]\n${m['Message Text']}`).join('\n\n----------------\n\n');
   navigator.clipboard?.writeText(text).then(()=>toast('Copied all messages for '+leader)).catch(()=>toast('Copy failed.'));
+}
+
+
+function setupLivePreview(){
+  const pane=$('rally');
+  if(!pane) return;
+  pane.querySelectorAll('input,select,textarea').forEach(el=>{
+    if(el.classList.contains('messageEdit')) return;
+    el.removeEventListener('input', livePreviewHandler);
+    el.removeEventListener('change', livePreviewHandler);
+    el.addEventListener('input', livePreviewHandler);
+    el.addEventListener('change', livePreviewHandler);
+  });
+}
+function livePreviewHandler(){
+  clearTimeout(window._livePreviewTimer);
+  window._livePreviewTimer=setTimeout(()=>{
+    try{ generateRallyPreview(); }catch(e){}
+    updateAllPresetPreviews();
+  },120);
+}
+function updateAllPresetPreviews(){
+  document.querySelectorAll('[id$="_preset_preview"]').forEach(box=>{
+    const selectId=box.id.replace('_preview','');
+    updatePresetPreview(selectId, box.id);
+  });
+}
+function updatePresetPreview(selectId, boxId){
+  const sel=$(selectId), box=$(boxId);
+  if(!sel||!box) return;
+  const p=state.presets.find(x=>x['Preset ID']===sel.value);
+  if(!p){ box.textContent='No Joiner Group selected.'; return; }
+  const heroes=[p['Hero 1'],p['Hero 2'],p['Hero 3'],p['Hero 4']].filter(Boolean).join(' / ');
+  box.textContent=`${heroes} — ${p.INF} INF / ${p.LAN} LAN / ${p.MM} MM`;
+}
+
+
+function markEdited(type){
+  const badge=$(type+'Edited');
+  if(badge) badge.classList.add('show');
+}
+function resetAutoMessage(type){
+  if(type==='rally'){
+    if(!autoRallyMessage) {
+      try{ generateRallyPreview(); }catch(e){}
+    }
+    $('rallyPreview').value=autoRallyMessage||'';
+    $('rallyEdited')?.classList.remove('show');
+    toast('Rally message reset to auto.');
+  }else{
+    if(!autoJoinerMessage) {
+      try{ generateRallyPreview(); }catch(e){}
+    }
+    $('joinerPreview').value=autoJoinerMessage||'';
+    $('joinerEdited')?.classList.remove('show');
+    toast('Joiner message reset to auto.');
+  }
 }
 
 function renderBrief(){
@@ -520,17 +600,18 @@ async function downloadPlan(action){
   }catch(e){toast(e.message)}
 }
 async function clearWarRoomData(){
-  const ok=confirm('Clear current war plan only?\n\nThis will NOT delete Lists, Message Templates, or Joiner Groups.');
+  const ok=confirm('Clear current planning data?\n\nSaved routes, battle plans, messages, and simple brief will be cleared.\nJoiner Groups and templates will stay.');
   if(!ok)return;
-  if(prompt('Type CLEAR to confirm:')!=='CLEAR')return toast('Clear cancelled.');
   try{
-    const j=await apiPost('clearWarRoomData');
-    state.routes=j.routes||[]; state.battlePlans=j.battlePlans||[]; state.messages=j.messages||[]; state.simpleBrief=j.simpleBrief||{en:[],ar:[]};
-    toast('Cleared safely.'); renderAll();
+    toast('Clearing planning data...');
+    await apiPost('clearPlanningData');
+    toast('Planning data cleared.');
+    await init();
   }catch(e){toast(e.message)}
 }
 function copyEl(id){
-  const text=$(id)?.innerText||'';
+  const el=$(id);
+  const text=(el && 'value' in el) ? el.value : (el?.innerText||'');
   navigator.clipboard?.writeText(text).then(()=>toast('Copied')).catch(()=>toast('Copy failed.'));
 }
 </script>
