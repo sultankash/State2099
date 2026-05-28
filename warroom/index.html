@@ -6,139 +6,107 @@
   <title>State 2099 — WAR ROOM</title>
   <style>
     :root{
-      --bg:#07111f;
-      --bg2:#0b1a2f;
-      --panel:#10243d;
-      --panel2:#143453;
-      --card:#0a1b2d;
-      --line:#294768;
-      --line2:#3a638a;
-      --text:#f4fbff;
-      --muted:#a9bbcf;
-      --blue:#35a8ff;
-      --blue2:#7dd3fc;
-      --gold:#f5c76a;
-      --green:#71e6a8;
-      --red:#ff6b75;
-      --purple:#b794f6;
-      --shadow:0 18px 60px rgba(0,0,0,.35);
-      --radius:22px;
+      --bg:#07111f; --panel:#0e2239; --panel2:#102a46; --card:#071728;
+      --line:#274766; --line2:#3c668d; --text:#eef7ff; --muted:#9fb3ca;
+      --blue:#37a8ff; --blue2:#82d7ff; --green:#22c55e; --gold:#f1c76a;
+      --red:#ef4444; --purple:#8b7cf6; --shadow:0 18px 60px rgba(0,0,0,.35);
     }
     *{box-sizing:border-box}
-    html,body{margin:0;min-height:100%;width:100%;overflow-x:hidden;background:var(--bg);color:var(--text);font-family:Inter,Segoe UI,Arial,Tahoma,sans-serif}
+    html,body{margin:0;min-height:100%;width:100%;overflow-x:hidden;background:#050b14;color:var(--text);font-family:Inter,Segoe UI,Arial,Tahoma,sans-serif}
     body{
       background:
-        radial-gradient(circle at 12% 0%,rgba(53,168,255,.22),transparent 30%),
-        radial-gradient(circle at 88% 2%,rgba(245,199,106,.10),transparent 28%),
-        linear-gradient(180deg,#10223a,#07111f 55%,#040912);
+        radial-gradient(circle at 14% -10%,rgba(55,168,255,.24),transparent 30%),
+        radial-gradient(circle at 92% 0,rgba(241,199,106,.12),transparent 28%),
+        linear-gradient(180deg,#142844,#07111f 58%,#050911);
       padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
     }
     button,input,select,textarea{font:inherit}
     button{cursor:pointer}
     .hidden{display:none!important}
-    .wrap{width:min(100%,980px);margin:0 auto;padding:14px 12px 90px}
+    .wrap{width:min(100%,860px);margin:0 auto;padding:12px 10px 80px}
     .top{
-      position:sticky;top:0;z-index:20;
-      margin:0 -12px 12px;padding:10px 12px 12px;
+      position:sticky;top:0;z-index:30;margin:0 -10px 12px;padding:10px 10px 12px;
       background:linear-gradient(180deg,rgba(7,17,31,.98),rgba(7,17,31,.88));
-      backdrop-filter:blur(12px);
-      border-bottom:1px solid rgba(125,211,252,.14);
+      backdrop-filter:blur(12px);border-bottom:1px solid rgba(130,215,255,.12)
     }
-    .brand{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
-    .brand h1{margin:0;font-size:22px;letter-spacing:.04em}
+    .brand{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
+    .brand h1{margin:0;font-size:20px;letter-spacing:.04em}
     .brand small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
-    .status{font-size:12px;color:var(--muted);text-align:right}
-    .ok{color:var(--green)}.bad{color:#fecaca}.warn{color:#fde68a}
-    .tabs{
-      display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;padding:4px 0 2px;
-      -webkit-overflow-scrolling:touch;scrollbar-width:none;
-    }
+    .status{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap}
+    .ok{color:#86efac} .bad{color:#fecaca} .warn{color:#fde68a}
+    .tabs{display:flex;gap:9px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0 2px}
     .tabs::-webkit-scrollbar{display:none}
-    .tab{
-      flex:0 0 auto;border:1px solid var(--line);background:#071527;color:#d7e8f8;border-radius:999px;
-      padding:12px 18px;font-weight:900;font-size:15px;white-space:nowrap;
-    }
-    .tab.active{background:linear-gradient(135deg,#1887e2,#47c7ff);color:white;border-color:transparent}
-    .card{
-      background:linear-gradient(180deg,rgba(20,52,83,.96),rgba(9,27,47,.98));
-      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
-      margin:12px 0;overflow:hidden;
-    }
+    .tab{flex:0 0 auto;border:1px solid var(--line);background:#09182b;color:#dbeafe;border-radius:999px;padding:12px 17px;font-weight:900;font-size:15px;white-space:nowrap}
+    .tab.active{background:linear-gradient(135deg,#1887e2,#50c9ff);border:0;color:white}
+    .card{background:linear-gradient(180deg,rgba(17,42,70,.96),rgba(8,24,43,.98));border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);margin:12px 0;overflow:hidden}
     .cardHead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 16px;border-bottom:1px solid var(--line)}
-    .cardHead h2{margin:0;font-size:20px;letter-spacing:.02em}
+    .cardHead h2{margin:0;font-size:22px;line-height:1.05}
+    .cardHead .sub{color:var(--muted);font-size:14px}
     .cardBody{padding:15px}
-    label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:#c8d7e8;margin-bottom:7px}
-    input,select,textarea{
-      width:100%;border:1px solid var(--line2);background:#071527;color:var(--text);border-radius:15px;
-      padding:13px 14px;outline:none;min-height:51px;font-size:16px;
-    }
+    label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:#bfd7ee;margin:0 0 7px}
+    input,select,textarea{width:100%;border:1px solid var(--line2);background:#071527;color:var(--text);border-radius:16px;padding:13px 14px;outline:none;min-height:52px;font-size:16px}
     textarea{min-height:92px;resize:vertical;line-height:1.45}
-    input:focus,select:focus,textarea:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(125,211,252,.10)}
+    input:focus,select:focus,textarea:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(130,215,255,.10)}
     select option{background:#071527;color:white}
     .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
     .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
     .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
     .span2{grid-column:span 2}
-    .period{
-      border:1px solid rgba(125,211,252,.28);border-radius:18px;background:rgba(7,21,39,.56);
-      padding:14px;margin:12px 0;
-    }
-    .periodTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
-    .periodTitle strong{font-size:18px;letter-spacing:.04em}
+    .sectionBox{border:1px solid rgba(130,215,255,.25);border-radius:20px;background:rgba(7,21,39,.58);padding:14px;margin:12px 0}
+    .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+    .sectionTitle strong{font-size:18px;letter-spacing:.03em}
     .hint{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
     .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-    .btn{
-      border:1px solid var(--line2);background:#112a46;color:var(--text);border-radius:14px;padding:11px 14px;
-      font-weight:900;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:45px;
-    }
-    .btn.primary{background:linear-gradient(135deg,#187ee0,#45c7ff);border:0;color:white}
-    .btn.green{background:linear-gradient(135deg,#16a34a,#72e6a8);border:0;color:#04130a}
-    .btn.gold{background:linear-gradient(135deg,#9a6a15,#f5c76a);border:0;color:#171009}
+    .btn{border:1px solid var(--line2);background:#122a45;color:var(--text);border-radius:15px;padding:11px 14px;font-weight:900;min-height:45px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+    .btn.primary{background:linear-gradient(135deg,#187ee0,#49c7ff);border:0;color:white}
+    .btn.green{background:linear-gradient(135deg,#16a34a,#4ade80);border:0;color:#05120a}
+    .btn.gold{background:linear-gradient(135deg,#9a6a15,#f1c76a);border:0;color:#191006}
     .btn.danger{background:#3a1018;color:#fecaca;border-color:#7f1d1d}
     .btn.ghost{background:transparent}
     .btn.small{font-size:12px;min-height:35px;padding:8px 10px;border-radius:11px}
+    .choiceRow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .choice{border:1px solid var(--line2);background:#071527;border-radius:16px;min-height:56px;color:#dcecff;font-weight:900}
+    .choice.active{background:linear-gradient(135deg,#1887e2,#50c9ff);border:0;color:white}
+    .preview{white-space:pre-wrap;background:#061224;border:1px dashed #46688a;border-radius:18px;padding:13px;line-height:1.45;color:#eff8ff;direction:ltr;text-align:left}
+    .preview.rtl{direction:rtl;text-align:right;font-family:Tahoma,Arial,sans-serif}
+    .savedControls{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center}
     .list{display:grid;gap:10px}
-    .item{
-      border:1px solid rgba(125,211,252,.22);border-radius:16px;background:rgba(5,18,34,.62);padding:12px;line-height:1.45;
-    }
-    .item strong{color:#fff}
-    .tag{display:inline-flex;align-items:center;border-radius:999px;padding:3px 8px;font-size:12px;font-weight:900;margin:2px 5px 2px 0}
-    .tag.amt{background:rgba(53,168,255,.18);color:#9de3ff}.tag.pro{background:rgba(113,230,168,.17);color:#b6ffd8}.tag.gold{background:rgba(245,199,106,.16);color:#ffe5a2}
-    .msg{white-space:pre-wrap;background:#061224;border:1px dashed #46688a;border-radius:15px;padding:12px;line-height:1.45;color:#eff8ff;direction:ltr;text-align:left}
-    .msg.rtl{direction:rtl;text-align:right;font-family:Tahoma,Arial,sans-serif}
-    .tableWrap{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#071527}
-    table{width:100%;border-collapse:collapse;min-width:900px}
-    th,td{border-bottom:1px solid #223c5b;border-right:1px solid #223c5b;padding:11px;vertical-align:top;white-space:pre-wrap;line-height:1.42}
-    th{background:#102238;color:#e7f6ff;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
-    td{font-size:13px;color:#f4fbff}
-    .briefAR{direction:rtl;text-align:right;font-family:Tahoma,Arial,sans-serif}
+    .item{border:1px solid rgba(130,215,255,.22);border-radius:17px;background:rgba(5,18,34,.62);padding:12px;line-height:1.45}
+    .item.new{border-color:rgba(74,222,128,.75);box-shadow:0 0 0 1px rgba(74,222,128,.18), inset 0 0 24px rgba(74,222,128,.06)}
+    .tag{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:12px;font-weight:900;margin:2px 5px 2px 0}
+    .tag.amt{background:rgba(55,168,255,.18);color:#9de3ff} .tag.pro{background:rgba(34,197,94,.18);color:#bbf7d0} .tag.gold{background:rgba(241,199,106,.16);color:#fde68a}
+    .mini{color:#d8e9f7;font-size:13px;margin-top:6px}
+    .hourCard{border:1px solid rgba(130,215,255,.25);border-radius:20px;background:#071527;margin:12px 0;overflow:hidden}
+    .hourTop{background:linear-gradient(90deg,#132744,#102238);padding:12px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+    .hourTop strong{font-size:18px}
+    .hourGrid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
+    .col{padding:12px;border-right:1px solid var(--line);min-height:90px}
+    .col:last-child{border-right:0}
+    .col h4{margin:0 0 10px;font-size:16px;color:#e0f2fe}
+    .battlePlan{padding:12px;border-top:1px solid var(--line);background:rgba(241,199,106,.08)}
+    .routeBlock{border-top:1px dashed rgba(130,215,255,.25);padding-top:8px;margin-top:8px}
+    .routeBlock:first-of-type{border-top:0;margin-top:0;padding-top:0}
     .toast{position:fixed;right:12px;left:12px;bottom:18px;margin:auto;max-width:420px;background:#0b1728;border:1px solid var(--line2);box-shadow:var(--shadow);border-radius:16px;padding:13px 14px;z-index:80;display:none}
     .toast.show{display:block}
     .lock{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px;background:radial-gradient(circle at top,#143c66,#050b14 60%)}
     .lockBox{width:min(94vw,430px);border:1px solid var(--line2);border-radius:28px;background:rgba(9,27,47,.96);box-shadow:var(--shadow);padding:22px}
     .lockBox h2{margin:0 0 8px;font-size:27px}
     .lockBox p{color:var(--muted);margin:0 0 16px}
-    .compactLine{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .copyRow{display:flex;gap:8px;align-items:flex-start;justify-content:space-between}
-    .copyRow .msg{flex:1}
-    .miniPreview{color:#d8e9f7;font-size:13px;margin-top:6px}
     @media(max-width:680px){
-      .wrap{padding-left:10px;padding-right:10px;width:100%}
+      .wrap{width:100%;padding-left:10px;padding-right:10px}
       .top{margin-left:-10px;margin-right:-10px}
-      .brand h1{font-size:19px}
+      .brand h1{font-size:18px}
+      .brand small{font-size:11px}
       .status{font-size:11px}
-      .cardHead{padding:14px}
-      .cardBody{padding:12px}
-      .grid,.grid3,.grid4{grid-template-columns:1fr}
+      .grid,.grid3,.grid4,.savedControls,.hourGrid{grid-template-columns:1fr}
       .span2{grid-column:span 1}
+      .choiceRow{grid-template-columns:1fr}
       .btn{width:100%}
       .btn.small{width:auto}
-      .tabs{gap:8px}
-      .tab{padding:11px 16px;font-size:14px}
-      input,select,textarea{font-size:16px}
-      .period{padding:12px}
-      .copyRow{display:block}
-      .copyRow .btn{margin-top:8px}
+      .cardHead{padding:14px}
+      .cardBody{padding:12px}
+      .col{border-right:0;border-bottom:1px solid var(--line)}
+      .col:last-child{border-bottom:0}
     }
   </style>
 </head>
@@ -153,375 +121,330 @@
   </div>
 </div>
 
-<div class="wrap" id="app">
+<div class="wrap">
   <div class="top">
     <div class="brand">
       <div>
         <h1>State 2099 — WAR ROOM</h1>
-        <small>Leader Routes · Joiner Groups · Battle Plan · Simple Brief</small>
+        <small>Fast route planning · game-safe messages · hourly brief</small>
       </div>
       <div class="status" id="apiStatus">Connecting...</div>
     </div>
-    <div class="tabs" id="tabs">
-      <button class="tab active" onclick="showTab('routes')">Leader Routes</button>
-      <button class="tab" onclick="showTab('joiners')">Joiner Groups</button>
-      <button class="tab" onclick="showTab('joinerMsg')">Joiner Message</button>
-      <button class="tab" onclick="showTab('battle')">Battle Plan</button>
-      <button class="tab" onclick="showTab('messages')">Messages</button>
-      <button class="tab" onclick="showTab('brief')">Simple Brief</button>
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('rally')">Rally Leaders</button>
+      <button class="tab" onclick="showTab('joiners')">Joiners</button>
+      <button class="tab" onclick="showTab('brief')">Brief & Download</button>
     </div>
   </div>
 
-  <section id="routes" class="tabPane"></section>
-  <section id="joiners" class="tabPane hidden"></section>
-  <section id="joinerMsg" class="tabPane hidden"></section>
-  <section id="battle" class="tabPane hidden"></section>
-  <section id="messages" class="tabPane hidden"></section>
-  <section id="brief" class="tabPane hidden"></section>
+  <section id="rally" class="pane"></section>
+  <section id="joiners" class="pane hidden"></section>
+  <section id="brief" class="pane hidden"></section>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbwjDlFMi2ghN2qGnLHr6pDIoKnaulE_vuhdDJQCSYSoean46H8a7YWcRHup8Ds4T-HodA/exec";
+const API = 'https://script.google.com/macros/s/AKfycbwjDlFMi2ghN2qGnLHr6pDIoKnaulE_vuhdDJQCSYSoean46H8a7YWcRHup8Ds4T-HodA/exec';
 const PASSWORD = "StateOf2099";
 let state = {lists:{}, presets:[], routes:[], battlePlans:[], messages:[], simpleBrief:{en:[], ar:[]}};
-let routePeriods = [];
+let currentStyle = 'one';
+let lastSavedRouteId = '';
 
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const val = id => ($(id)?.value || '').trim();
 function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window._toast);window._toast=setTimeout(()=>t.classList.remove('show'),3300)}
-function unlock(){if(val('pass')!==PASSWORD){toast('Wrong password');return} sessionStorage.setItem('warroom_ok','1'); $('lock').classList.add('hidden'); init();}
-window.addEventListener('load',()=>{if(sessionStorage.getItem('warroom_ok')==='1') $('lock').classList.add('hidden'); init();});
+function unlock(){if(val('pass')!==PASSWORD) return toast('Wrong password'); sessionStorage.setItem('warroom_ok','1'); $('lock').classList.add('hidden'); init();}
+window.addEventListener('load',()=>{ if(sessionStorage.getItem('warroom_ok')==='1') $('lock').classList.add('hidden'); init(); });
 
 async function apiGet(action){
   const r = await fetch(API+'?action='+encodeURIComponent(action)+'&ts='+Date.now());
-  const j = await r.json();
-  if(!j.ok) throw new Error(j.error || 'API error');
-  return j;
+  const j = await r.json(); if(!j.ok) throw new Error(j.error||'API error'); return j;
 }
-async function apiPost(action, payload={}){
+async function apiPost(action,payload={}){
   const r = await fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...payload})});
-  const txt = await r.text();
-  let j; try{j=JSON.parse(txt)}catch(e){throw new Error('Bad API response: '+txt.slice(0,160))}
-  if(!j.ok) throw new Error(j.error || 'API error');
-  return j;
+  const txt=await r.text(); let j; try{j=JSON.parse(txt)}catch(e){throw new Error('Bad API response')}
+  if(!j.ok) throw new Error(j.error||'API error'); return j;
 }
 async function init(){
   try{
-    const j = await apiGet('getConfig');
-    state.lists = j.lists || {};
-    state.presets = j.presets || [];
-    state.routes = j.routes || [];
-    state.battlePlans = j.battlePlans || [];
-    state.messages = j.messages || [];
-    state.simpleBrief = j.simpleBrief || {en:[],ar:[]};
-    $('apiStatus').innerHTML = '<span class="ok">Connected · v9</span>';
+    const j=await apiGet('getConfig');
+    state.lists=j.lists||{}; state.presets=j.presets||[]; state.routes=j.routes||[];
+    state.battlePlans=j.battlePlans||[]; state.messages=j.messages||[]; state.simpleBrief=j.simpleBrief||{en:[],ar:[]};
+    $('apiStatus').innerHTML='<span class="ok">Connected · fast UI</span>';
     renderAll();
-  }catch(e){
-    $('apiStatus').innerHTML = '<span class="bad">API not connected</span>';
-    toast(e.message);
-    renderAll();
-  }
+  }catch(e){ $('apiStatus').innerHTML='<span class="bad">API not connected</span>'; toast(e.message); renderAll(); }
 }
-function renderAll(){renderRoutes();renderJoiners();renderJoinerMessage();renderBattle();renderMessages();renderBrief();}
-
-function showTab(id){
-  document.querySelectorAll('.tabPane').forEach(x=>x.classList.add('hidden'));
-  $(id).classList.remove('hidden');
-  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
-  [...document.querySelectorAll('.tab')].find(b=>b.getAttribute('onclick')?.includes("'"+id+"'"))?.classList.add('active');
+function showTab(id){document.querySelectorAll('.pane').forEach(p=>p.classList.add('hidden')); $(id).classList.remove('hidden'); document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active')); [...document.querySelectorAll('.tab')].find(t=>t.getAttribute('onclick')?.includes("'"+id+"'"))?.classList.add('active');}
+function renderAll(){renderRally();renderJoiners();renderBrief();}
+function options(arr,selected=''){return (arr||[]).map(x=>`<option value="${esc(x)}" ${String(x)===String(selected)?'selected':''}>${esc(x)}</option>`).join('')}
+function teamList(alliance){return alliance==='PRO' ? (state.lists.teamsPro||[]) : (state.lists.teamsAmt||[])}
+function presetOptions(){return (state.presets||[]).map(p=>`<option value="${esc(p['Preset ID'])}">${esc(p['Preset Name'])}</option>`).join('') || '<option value="">No groups yet</option>'}
+function leaderActual(){return val('leader')==='Other'?val('leader_other'):val('leader')}
+function maybeOtherLeader(){$('leaderOtherWrap')?.classList.toggle('hidden',val('leader')!=='Other')}
+function styleBtn(style){currentStyle=style; document.querySelectorAll('.choice').forEach(b=>b.classList.remove('active')); $(`style_${style}`).classList.add('active'); drawAssignments();}
+function formation(prefix){return {inf:Number(val(prefix+'_inf')||0), lan:Number(val(prefix+'_lan')||0), mm:Number(val(prefix+'_mm')||0)}}
+function formationText(f){return `${f.inf} INF / ${f.lan} LAN / ${f.mm} MM`}
+function total(f){return Number(f.inf)+Number(f.lan)+Number(f.mm)}
+function periodCommon(id,title,defaults={}){
+  const a=defaults.alliance||'AMT';
+  const showPet = defaults.pet !== undefined ? defaults.pet : 'No Pets';
+  return `<div class="sectionBox" id="${id}">
+    <div class="sectionTitle"><strong>${title}</strong></div>
+    <div class="grid">
+      <div><label>Alliance</label><select id="${id}_alliance" onchange="refreshTeam('${id}')">${options(state.lists.alliances||['AMT','PRO'],a)}</select></div>
+      <div><label>Team</label><select id="${id}_team">${options(teamList(a),defaults.team||teamList(a)[0])}</select></div>
+      <div><label>From</label><select id="${id}_from">${options(state.lists.timeOptions||[],defaults.from||'12:00 UTC')}</select></div>
+      <div><label>To</label><select id="${id}_to">${options(state.lists.timeOptions||[],defaults.to||'14:00 UTC')}</select></div>
+      <div><label>Pet Activation</label><select id="${id}_pet">${options(state.lists.petOptions||['No Pets'],showPet)}</select><div class="hint">No Pets will not appear in the message or Simple Brief.</div></div>
+      <div><label>Joiner Group</label><select id="${id}_preset">${presetOptions()}</select></div>
+    </div>
+    <div class="sectionTitle" style="margin-top:14px"><strong>Rally Heroes</strong></div>
+    <div class="grid3">
+      <div><label>Hero 1</label><select id="${id}_h1">${options(state.lists.heroes||[],defaults.h1||'Gatot')}</select></div>
+      <div><label>Hero 2</label><select id="${id}_h2">${options(state.lists.heroes||[],defaults.h2||'Sonya')}</select></div>
+      <div><label>Hero 3</label><select id="${id}_h3">${options(state.lists.heroes||[],defaults.h3||'Bradley')}</select></div>
+    </div>
+    <div class="sectionTitle" style="margin-top:14px"><strong>Formation — total must be 100%</strong></div>
+    <div class="grid3">
+      <div><label>INF</label><input id="${id}_inf" type="number" value="${defaults.inf??60}"></div>
+      <div><label>LAN</label><input id="${id}_lan" type="number" value="${defaults.lan??40}"></div>
+      <div><label>MM</label><input id="${id}_mm" type="number" value="${defaults.mm??0}"></div>
+    </div>
+    <div style="margin-top:12px"><label>Organizer Note</label><textarea id="${id}_note" placeholder="Optional. Appears in detailed message / brief.">${esc(defaults.note||'')}</textarea></div>
+  </div>`;
 }
-
-function options(arr, selected=''){
-  return (arr||[]).map(x=>`<option value="${esc(x)}" ${String(x)===String(selected)?'selected':''}>${esc(x)}</option>`).join('');
+function proSetupBlock(){
+  return `<div class="sectionBox" id="prosetup">
+    <div class="sectionTitle"><strong>PRO Setup</strong><span class="hint">Fill once. It can be used before and after AMT pets.</span></div>
+    <div class="grid">
+      <div><label>PRO Team</label><select id="pro_team">${options(teamList('PRO'),teamList('PRO')[0])}</select></div>
+      <div><label>Joiner Group</label><select id="pro_preset">${presetOptions()}</select></div>
+      <div><label>Before Pets?</label><select id="pro_before_on"><option value="Yes">Yes</option><option value="No">No</option></select></div>
+      <div><label>After Pets?</label><select id="pro_after_on"><option value="Yes">Yes</option><option value="No">No</option></select></div>
+      <div><label>Before From</label><select id="pro_before_from">${options(state.lists.timeOptions||[],'12:00 UTC')}</select></div>
+      <div><label>Before To</label><select id="pro_before_to">${options(state.lists.timeOptions||[],'14:00 UTC')}</select></div>
+      <div><label>After From</label><select id="pro_after_from">${options(state.lists.timeOptions||[],'16:00 UTC')}</select></div>
+      <div><label>After To</label><select id="pro_after_to">${options(state.lists.timeOptions||[],'18:00 UTC')}</select></div>
+    </div>
+    <div class="sectionTitle" style="margin-top:14px"><strong>PRO Rally Heroes</strong></div>
+    <div class="grid3">
+      <div><label>Hero 1</label><select id="pro_h1">${options(state.lists.heroes||[],'Jeronimo')}</select></div>
+      <div><label>Hero 2</label><select id="pro_h2">${options(state.lists.heroes||[],'Hector')}</select></div>
+      <div><label>Hero 3</label><select id="pro_h3">${options(state.lists.heroes||[],'Mia')}</select></div>
+    </div>
+    <div class="sectionTitle" style="margin-top:14px"><strong>PRO Formation</strong></div>
+    <div class="grid3">
+      <div><label>INF</label><input id="pro_inf" type="number" value="50"></div>
+      <div><label>LAN</label><input id="pro_lan" type="number" value="40"></div>
+      <div><label>MM</label><input id="pro_mm" type="number" value="10"></div>
+    </div>
+  </div>`;
 }
-function heroSelect(id, label, selected=''){
-  return `<div><label>${label}</label><select id="${id}" onchange="toggleOther('${id}')">${options(state.lists.heroes||[], selected)}</select></div><div id="${id}_other_wrap" class="hidden"><label>${label} Other</label><input id="${id}_other" placeholder="Write hero name"></div>`;
+function refreshTeam(id){
+  const a=val(id+'_alliance'); const team=$(id+'_team'); if(team) team.innerHTML=options(teamList(a),teamList(a)[0]);
 }
-function toggleOther(id){
-  const wrap=$(id+'_other_wrap');
-  if(wrap) wrap.classList.toggle('hidden', val(id)!=='Other');
+function drawAssignments(){
+  const box=$('assignments'); if(!box) return;
+  if(currentStyle==='one') box.innerHTML = periodCommon('a1','Alliance Setup',{alliance:'AMT',from:'12:00 UTC',to:'14:00 UTC',pet:'12:00 UTC'});
+  if(currentStyle==='two') box.innerHTML = periodCommon('a1','First Alliance',{alliance:'AMT',from:'12:00 UTC',to:'14:00 UTC',pet:'12:00 UTC'})+periodCommon('a2','Second Alliance',{alliance:'PRO',from:'14:00 UTC',to:'16:00 UTC',pet:'No Pets',team:teamList('PRO')[0]});
+  if(currentStyle==='proamtpro') box.innerHTML = proSetupBlock()+periodCommon('amtpets','AMT Pets Setup',{alliance:'AMT',from:'14:00 UTC',to:'16:00 UTC',pet:'14:00 UTC'});
 }
-function leaderNameSelect(){
-  return `<div><label>Rally Leader</label><select id="leader" onchange="toggleOther('leader')">${options(state.lists.leaders||[], 'Kaki')}</select></div>
-  <div id="leader_other_wrap" class="hidden"><label>Other Leader Name</label><input id="leader_other" placeholder="Write leader name"></div>`;
-}
-function teamOptions(alliance){
-  return alliance === 'PRO' ? (state.lists.teamsPro||[]) : (state.lists.teamsAmt||[]);
-}
-function presetOptions(){
-  return (state.presets||[]).map(p=>`<option value="${esc(p['Preset ID'])}">${esc(p['Preset Name'])}</option>`).join('');
-}
-function formationInputs(prefix, inf=60, lan=40, mm=0){
-  return `<div class="grid3"><div><label>INF</label><input id="${prefix}_inf" type="number" value="${inf}"></div><div><label>LAN</label><input id="${prefix}_lan" type="number" value="${lan}"></div><div><label>MM</label><input id="${prefix}_mm" type="number" value="${mm}"></div></div>`;
-}
-function totalFormation(prefix){
-  return Number(val(prefix+'_inf')||0)+Number(val(prefix+'_lan')||0)+Number(val(prefix+'_mm')||0);
-}
-
-function renderRoutes(){
-  $('routes').innerHTML = `
-  <div class="card">
-    <div class="cardHead"><h2>Create Leader Route</h2><button class="btn small ghost" onclick="clearRouteForm()">Clear</button></div>
+function renderRally(){
+  $('rally').innerHTML = `<div class="card">
+    <div class="cardHead"><h2>Create Rally Leader</h2><button class="btn small ghost" onclick="clearRally()">Clear</button></div>
     <div class="cardBody">
-      <div class="grid">${leaderNameSelect()}<div><label>Quick Hint</label><div class="item">Add one or more periods for the same leader. Same leader in PRO before/after AMT pets = Flex without using the word Flex.</div></div></div>
-      <div id="periods"></div>
+      <div class="grid">
+        <div><label>Rally Leader</label><select id="leader" onchange="maybeOtherLeader()">${options(state.lists.leaders||[],'Kaki')}</select></div>
+        <div id="leaderOtherWrap" class="hidden"><label>Other Leader Name</label><input id="leader_other" placeholder="Write leader name"></div>
+      </div>
+      <div style="margin-top:14px"><label>How will he play?</label>
+        <div class="choiceRow">
+          <button class="choice active" id="style_one" onclick="styleBtn('one')">One Alliance</button>
+          <button class="choice" id="style_two" onclick="styleBtn('two')">Two Alliances</button>
+          <button class="choice" id="style_proamtpro" onclick="styleBtn('proamtpro')">PRO → AMT Pets → PRO</button>
+        </div>
+      </div>
+      <div id="assignments"></div>
       <div class="btns">
-        <button class="btn" onclick="addPeriod()">+ Add Period</button>
-        <button class="btn gold" onclick="duplicateLastPeriod()">Duplicate Last Period</button>
-        <button class="btn primary" onclick="saveLeaderRoute()">Save Leader Route</button>
+        <button class="btn primary" onclick="generateRallyPreview()">Generate Preview</button>
+        <button class="btn green" onclick="saveRally()">Save Plan</button>
+        <button class="btn" onclick="copyEl('rallyPreview')">Copy Rally Message</button>
+        <button class="btn" onclick="copyEl('joinerPreview')">Copy Joiner Message</button>
+      </div>
+      <div class="sectionBox">
+        <label>Rally Message Preview</label>
+        <div id="rallyPreview" class="preview">Generate preview first.</div>
+        <label style="margin-top:14px">Joiner Message Preview</label>
+        <div id="joinerPreview" class="preview">Generate preview first.</div>
       </div>
     </div>
   </div>
   <div class="card">
-    <div class="cardHead"><h2>Saved Route Periods</h2><button class="btn small" onclick="init()">Refresh</button></div>
-    <div class="cardBody"><div class="list">${renderRouteList()}</div></div>
+    <div class="cardHead"><h2>Saved Plans</h2><div class="savedControls"><button class="btn small" onclick="init()">Refresh Board</button><button class="btn small green" onclick="downloadPlan('downloadFullPlan')">Download Full Plan</button><button class="btn small" onclick="downloadPlan('downloadSimpleBrief')">Download Simple Plan</button><button class="btn small danger" onclick="clearWarRoomData()">Clear Planning Data</button></div></div>
+    <div class="cardBody"><div class="list">${renderSavedRoutes()}</div></div>
+  </div>
+  <div class="card">
+    <div class="cardHead"><h2>Simple Hour Preview</h2><div class="sub">Screenshot-friendly view</div></div>
+    <div class="cardBody">${renderHourCards()}</div>
   </div>`;
-  if(!routePeriods.length) addPeriod();
-  else drawPeriods();
+  drawAssignments();
 }
-function renderRouteList(){
-  if(!state.routes?.length) return '<div class="item">No routes saved yet.</div>';
-  return state.routes.map(r=>`<div class="item">
+function renderSavedRoutes(){
+  if(!state.routes?.length) return '<div class="item">No plans yet.</div>';
+  return state.routes.slice().reverse().map(r=>`<div class="item ${r['Route ID']===lastSavedRouteId?'new':''}">
     <div><span class="tag ${r.Alliance==='PRO'?'pro':'amt'}">${esc(r.Alliance)}</span><strong>${esc(r.Leader==='Other'?r['Leader Other']:r.Leader)}</strong> · ${esc(r.From)} - ${esc(r.To)} · ${esc(r.Team)}</div>
-    <div class="miniPreview">Pets: ${esc(r['Pet Activation']||'No Pets')} · Rally: ${esc([r['Rally Hero 1'],r['Rally Hero 2'],r['Rally Hero 3']].filter(Boolean).join(' / '))}</div>
+    <div class="mini">Pets: ${esc(r['Pet Activation']||'No Pets')} · Rally: ${esc([r['Rally Hero 1'],r['Rally Hero 2'],r['Rally Hero 3']].filter(Boolean).join(' / '))}</div>
     <div class="btns"><button class="btn small danger" onclick="deleteRoute('${esc(r['Route ID'])}')">Delete</button></div>
   </div>`).join('');
 }
-function periodTemplate(data={}, idx=0){
-  const alliance=data.alliance||'AMT';
-  const id = data.localId || ('p'+Date.now()+Math.random().toString(16).slice(2));
-  data.localId=id;
-  return `<div class="period" data-pid="${id}">
-    <div class="periodTitle"><strong>Period ${idx+1}</strong><div><button class="btn small" onclick="duplicatePeriod('${id}')">Duplicate</button> <button class="btn small danger" onclick="removePeriod('${id}')">Remove</button></div></div>
-    <div class="grid">
-      <div><label>From</label><select data-field="from">${options(state.lists.timeOptions||[], data.from||'12:00 UTC')}</select></div>
-      <div><label>To</label><select data-field="to">${options(state.lists.timeOptions||[], data.to||'14:00 UTC')}</select></div>
-      <div><label>Alliance</label><select data-field="alliance" onchange="periodAllianceChanged('${id}')">${options(state.lists.alliances||['AMT','PRO'], alliance)}</select></div>
-      <div><label>Team</label><select data-field="team">${options(teamOptions(alliance), data.team||teamOptions(alliance)[0])}</select></div>
-      <div><label>Pet Activation</label><select data-field="petActivation">${options(state.lists.petOptions||['No Pets'], data.petActivation||'No Pets')}</select><div class="hint">No Pets will not appear in Simple Brief or messages.</div></div>
-      <div><label>Joiner Group</label><select data-field="joinerPresetId">${presetOptions()}</select><div class="hint">Heroes + joiner formation only. Castle Row is separate in Joiner Message.</div></div>
-    </div>
-    <div class="periodTitle" style="margin-top:14px"><strong>Rally Heroes</strong></div>
-    <div class="grid3">
-      <div><label>Hero 1</label><select data-field="rallyHero1">${options(state.lists.heroes||[], data.rallyHero1||'Gatot')}</select></div>
-      <div><label>Hero 2</label><select data-field="rallyHero2">${options(state.lists.heroes||[], data.rallyHero2||'Sonya')}</select></div>
-      <div><label>Hero 3</label><select data-field="rallyHero3">${options(state.lists.heroes||[], data.rallyHero3||'Bradley')}</select></div>
-    </div>
-    <div class="periodTitle" style="margin-top:14px"><strong>Rally Formation</strong><span class="hint">Total must be 100</span></div>
-    <div class="grid3">
-      <div><label>INF</label><input data-field="rallyInf" type="number" value="${data.rallyInf??60}"></div>
-      <div><label>LAN</label><input data-field="rallyLan" type="number" value="${data.rallyLan??40}"></div>
-      <div><label>MM</label><input data-field="rallyMm" type="number" value="${data.rallyMm??0}"></div>
-    </div>
-    <div style="margin-top:12px">
-      <label>Instruction Note</label>
-      <textarea data-field="instructionNote" placeholder="Optional note. Appears in detailed message / simple brief.">${esc(data.instructionNote||'')}</textarea>
-    </div>
-  </div>`;
+function renderHourCards(){
+  const rows=(state.simpleBrief?.en||[]);
+  if(!rows.length) return '<div class="hourCard"><div class="hourTop"><strong>—</strong><span>No plans yet.</span></div><div class="hourGrid"><div class="col"><h4>AMT</h4>No AMT plans yet.</div><div class="col"><h4>PRO</h4>No PRO plans yet.</div></div></div>';
+  return rows.map(row=>{
+    const time=row['Time Slot']||row.Time||'—';
+    return `<div class="hourCard">
+      <div class="hourTop"><strong>${esc(time)}</strong><span><span class="tag gold">Pets Active</span> ${esc(row['Pets Active']||'—')}</span></div>
+      <div class="hourGrid">
+        <div class="col"><h4>AMT</h4>${esc(row.AMT||'—')}</div>
+        <div class="col"><h4>PRO</h4>${esc(row.PRO||'—')}</div>
+      </div>
+      <div class="battlePlan"><strong>Battle Plan</strong><br>${esc(row['Battle Plan']||'—')}</div>
+    </div>`
+  }).join('');
 }
-function drawPeriods(){
-  $('periods').innerHTML = routePeriods.map((p,i)=>periodTemplate(p,i)).join('');
+function readSetup(id){
+  const f=formation(id);
+  return {from:val(id+'_from'),to:val(id+'_to'),alliance:val(id+'_alliance'),team:val(id+'_team'),petActivation:val(id+'_pet'),rallyHero1:val(id+'_h1'),rallyHero2:val(id+'_h2'),rallyHero3:val(id+'_h3'),rallyInf:f.inf,rallyLan:f.lan,rallyMm:f.mm,joinerPresetId:val(id+'_preset'),instructionNote:val(id+'_note'),customJoiners:'No'};
 }
-function readPeriodCard(card){
-  const o={};
-  card.querySelectorAll('[data-field]').forEach(el=>o[el.dataset.field]=el.value);
-  o.periodNo = [...document.querySelectorAll('.period')].indexOf(card)+1;
-  o.customJoiners='No';
-  return o;
+function readProSetup(from,to,note){
+  const f=formation('pro');
+  return {from,to,alliance:'PRO',team:val('pro_team'),petActivation:'No Pets',rallyHero1:val('pro_h1'),rallyHero2:val('pro_h2'),rallyHero3:val('pro_h3'),rallyInf:f.inf,rallyLan:f.lan,rallyMm:f.mm,joinerPresetId:val('pro_preset'),instructionNote:note||'',customJoiners:'No'};
 }
-function readPeriodsFromDom(){
-  return [...document.querySelectorAll('.period')].map(readPeriodCard);
+function buildPeriods(){
+  if(currentStyle==='one') return [readSetup('a1')];
+  if(currentStyle==='two') return [readSetup('a1'),readSetup('a2')];
+  if(currentStyle==='proamtpro'){
+    const periods=[];
+    if(val('pro_before_on')==='Yes') periods.push(readProSetup(val('pro_before_from'),val('pro_before_to'),'Before pets'));
+    periods.push(readSetup('amtpets'));
+    if(val('pro_after_on')==='Yes') periods.push(readProSetup(val('pro_after_from'),val('pro_after_to'),'After pets'));
+    return periods;
+  }
+  return [];
 }
-function addPeriod(data={}){
-  routePeriods = readPeriodsFromDom();
-  routePeriods.push({...data});
-  drawPeriods();
+function validatePeriods(periods){
+  if(val('leader')==='Other'&&!val('leader_other')) throw new Error('Write leader name.');
+  periods.forEach((p,i)=>{const s=Number(p.rallyInf)+Number(p.rallyLan)+Number(p.rallyMm); if(s!==100) throw new Error('Formation total in assignment '+(i+1)+' is '+s+'. It must be 100.');});
 }
-function duplicatePeriod(pid){
-  routePeriods = readPeriodsFromDom();
-  const found = routePeriods[[...document.querySelectorAll('.period')].findIndex(x=>x.dataset.pid===pid)] || routePeriods[routePeriods.length-1] || {};
-  routePeriods.push({...found, localId:null});
-  drawPeriods();
-}
-function duplicateLastPeriod(){
-  routePeriods = readPeriodsFromDom();
-  if(!routePeriods.length) return addPeriod();
-  routePeriods.push({...routePeriods[routePeriods.length-1], localId:null});
-  drawPeriods();
-}
-function removePeriod(pid){
-  routePeriods = readPeriodsFromDom().filter((_,i)=>document.querySelectorAll('.period')[i].dataset.pid!==pid);
-  drawPeriods();
-}
-function periodAllianceChanged(pid){
-  const card=[...document.querySelectorAll('.period')].find(x=>x.dataset.pid===pid);
-  const alliance=card.querySelector('[data-field="alliance"]').value;
-  const team=card.querySelector('[data-field="team"]');
-  team.innerHTML=options(teamOptions(alliance), teamOptions(alliance)[0]);
-}
-function clearRouteForm(){
-  routePeriods=[]; renderRoutes();
-}
-async function saveLeaderRoute(){
+function generateRallyPreview(){
   try{
-    const leader=val('leader'), leaderOther=val('leader_other');
-    if(leader==='Other' && !leaderOther) throw new Error('Write leader name.');
-    const periods=readPeriodsFromDom();
-    if(!periods.length) throw new Error('Add at least one period.');
-    periods.forEach((p,i)=>{
-      const total=Number(p.rallyInf||0)+Number(p.rallyLan||0)+Number(p.rallyMm||0);
-      if(total!==100) throw new Error('Period '+(i+1)+' rally formation total is '+total+'. It must equal 100.');
-    });
-    toast('Saving route...');
-    const j=await apiPost('saveLeaderRoute',{route:{leader,leaderOther,periods}});
-    state.routes=j.routes||state.routes; state.messages=j.messages||state.messages; state.simpleBrief=j.simpleBrief||state.simpleBrief;
-    toast('Leader route saved.');
-    routePeriods=[]; renderAll();
+    const periods=buildPeriods(); validatePeriods(periods);
+    const p=periods[0]; const f={inf:p.rallyInf,lan:p.rallyLan,mm:p.rallyMm};
+    const pet = p.petActivation && p.petActivation!=='No Pets' ? `\nPet Activation: ${p.petActivation}` : '';
+    $('rallyPreview').classList.remove('rtl');
+    $('rallyPreview').textContent = `Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${p.rallyHero1} / ${p.rallyHero2} / ${p.rallyHero3}\nFormation: ${formationText(f)}${pet}\n\nJoiners:\n${joinerLine(p.joinerPresetId)}\n\nPlease save presets early and follow Discord instructions.`;
+    $('joinerPreview').classList.remove('rtl');
+    $('joinerPreview').textContent = localJoinerMessage(p.joinerPresetId,p.alliance,'No rules','English');
   }catch(e){toast(e.message)}
 }
-async function deleteRoute(id){
-  if(!confirm('Delete this route period?')) return;
-  try{await apiPost('deleteRoute',{routeId:id}); toast('Deleted.'); await init();}catch(e){toast(e.message)}
+function joinerLine(pid){
+  const p=state.presets.find(x=>x['Preset ID']===pid); if(!p) return 'No joiner group selected';
+  return [p['Hero 1'],p['Hero 2'],p['Hero 3'],p['Hero 4']].filter(Boolean).join(' or ');
 }
+function localJoinerMessage(pid,alliance,row,lang){
+  const p=state.presets.find(x=>x['Preset ID']===pid);
+  if(!p) return 'No joiner group selected.';
+  const heroes=[p['Hero 1'],p['Hero 2'],p['Hero 3'],p['Hero 4']];
+  return `Assigned as JOINER\nAlliance: ${alliance}\nSave these presets early:\n${heroes.map(h=>h+' + any 2 heroes').join('\n')}\nFormation: ${p.INF} INF / ${p.LAN} LAN / ${p.MM} MM\nFollow Discord instructions.`;
+}
+async function saveRally(){
+  try{
+    const periods=buildPeriods(); validatePeriods(periods);
+    toast('Saving plan...');
+    const route={leader:val('leader'),leaderOther:val('leader_other'),periods};
+    const j=await apiPost('saveLeaderRoute',{route});
+    state.routes=j.routes||state.routes; state.messages=j.messages||state.messages; state.simpleBrief=j.simpleBrief||state.simpleBrief;
+    lastSavedRouteId=(state.routes[state.routes.length-1]||{})['Route ID']||'';
+    toast('Plan saved.');
+    renderAll();
+  }catch(e){toast(e.message)}
+}
+function clearRally(){currentStyle='one'; renderRally();}
+async function deleteRoute(id){if(!confirm('Delete this plan?'))return; try{await apiPost('deleteRoute',{routeId:id});toast('Deleted.');await init();}catch(e){toast(e.message)}}
 
 function renderJoiners(){
-  $('joiners').innerHTML = `
-  <div class="card"><div class="cardHead"><h2>Joiner Groups</h2><button class="btn small ghost" onclick="clearPresetForm()">Clear</button></div>
-  <div class="cardBody">
+  $('joiners').innerHTML = `<div class="card"><div class="cardHead"><h2>Joiner Groups</h2><div class="sub">Heroes + formation only</div></div><div class="cardBody">
     <input id="presetId" type="hidden">
     <div class="grid"><div><label>Group Name</label><input id="presetName" value="Default Joiners"></div><div><label>Notes</label><input id="presetNotes" placeholder="Optional"></div></div>
-    <div class="periodTitle" style="margin-top:14px"><strong>Joiner Heroes</strong></div>
-    <div class="grid4">
-      <div><label>Hero 1</label><select id="jp_h1">${options(state.lists.heroes||[], 'Jessie')}</select></div>
-      <div><label>Hero 2</label><select id="jp_h2">${options(state.lists.heroes||[], 'Jasser')}</select></div>
-      <div><label>Hero 3</label><select id="jp_h3">${options(state.lists.heroes||[], 'Norah')}</select></div>
-      <div><label>Hero 4</label><select id="jp_h4">${options(state.lists.heroes||[], 'Hector')}</select></div>
+    <div class="sectionBox">
+      <div class="sectionTitle"><strong>Joiner Heroes</strong></div>
+      <div class="grid4">
+        <div><label>Hero 1</label><select id="jp_h1">${options(state.lists.heroes||[],'Jessie')}</select></div>
+        <div><label>Hero 2</label><select id="jp_h2">${options(state.lists.heroes||[],'Jasser')}</select></div>
+        <div><label>Hero 3</label><select id="jp_h3">${options(state.lists.heroes||[],'Norah')}</select></div>
+        <div><label>Hero 4</label><select id="jp_h4">${options(state.lists.heroes||[],'Hector')}</select></div>
+      </div>
+      <div class="sectionTitle" style="margin-top:14px"><strong>Joiner Formation</strong></div>
+      <div class="grid3"><div><label>INF</label><input id="jp_inf" type="number" value="60"></div><div><label>LAN</label><input id="jp_lan" type="number" value="40"></div><div><label>MM</label><input id="jp_mm" type="number" value="0"></div></div>
     </div>
-    <div class="periodTitle" style="margin-top:14px"><strong>Joiner Formation</strong><span class="hint">Castle Row is not part of the group.</span></div>
-    ${formationInputs('jp',60,40,0)}
-    <div class="btns"><button class="btn primary" onclick="savePreset()">Save Joiner Group</button></div>
+    <div class="btns"><button class="btn green" onclick="savePreset()">Save Joiner Group</button><button class="btn ghost" onclick="renderJoiners()">Clear</button></div>
   </div></div>
-  <div class="card"><div class="cardHead"><h2>Saved Groups</h2><button class="btn small" onclick="init()">Refresh</button></div><div class="cardBody"><div class="list">${renderPresetList()}</div></div></div>`;
-}
-function renderPresetList(){
-  if(!state.presets?.length) return '<div class="item">No groups yet.</div>';
-  return state.presets.map(p=>`<div class="item">
-    <strong>${esc(p['Preset Name'])}</strong>
-    <div class="miniPreview">${esc([p['Hero 1'],p['Hero 2'],p['Hero 3'],p['Hero 4']].filter(Boolean).join(' / '))} · ${p.INF} INF / ${p.LAN} LAN / ${p.MM} MM</div>
-    <div class="btns"><button class="btn small" onclick="loadPreset('${esc(p['Preset ID'])}')">Edit</button><button class="btn small danger" onclick="deletePreset('${esc(p['Preset ID'])}')">Delete</button></div>
-  </div>`).join('');
-}
-function loadPreset(id){
-  const p=state.presets.find(x=>x['Preset ID']===id); if(!p) return;
-  $('presetId').value=p['Preset ID']; $('presetName').value=p['Preset Name']; $('presetNotes').value=p.Notes||'';
-  $('jp_h1').value=p['Hero 1']; $('jp_h2').value=p['Hero 2']; $('jp_h3').value=p['Hero 3']; $('jp_h4').value=p['Hero 4'];
-  $('jp_inf').value=p.INF; $('jp_lan').value=p.LAN; $('jp_mm').value=p.MM;
-  toast('Loaded for edit.');
-}
-function clearPresetForm(){renderJoiners()}
-async function savePreset(){
-  try{
-    const total=totalFormation('jp'); if(total!==100) throw new Error('Joiner formation total is '+total+'. It must equal 100.');
-    const preset={presetId:val('presetId'),presetName:val('presetName'),hero1:val('jp_h1'),hero2:val('jp_h2'),hero3:val('jp_h3'),hero4:val('jp_h4'),inf:val('jp_inf'),lan:val('jp_lan'),mm:val('jp_mm'),notes:val('presetNotes')};
-    const j=await apiPost('saveJoinerPreset',{preset});
-    state.presets=j.presets||state.presets; toast('Joiner group saved.'); renderAll();
-  }catch(e){toast(e.message)}
-}
-async function deletePreset(id){
-  if(!confirm('Delete this joiner group?')) return;
-  try{await apiPost('deleteJoinerPreset',{presetId:id}); toast('Deleted.'); await init();}catch(e){toast(e.message)}
-}
-
-function renderJoinerMessage(){
-  $('joinerMsg').innerHTML = `<div class="card"><div class="cardHead"><h2>Generate Joiner Message</h2></div><div class="cardBody">
+  <div class="card"><div class="cardHead"><h2>Joiner Message</h2><div class="sub">Castle Row is separate</div></div><div class="cardBody">
     <div class="grid">
       <div><label>Alliance</label><select id="jm_alliance">${options(state.lists.alliances||['AMT','PRO'],'AMT')}</select></div>
       <div><label>Joiner Group</label><select id="jm_preset">${presetOptions()}</select></div>
-      <div><label>Castle Row</label><select id="jm_row">${options(state.lists.castleRowAr||['صف ثاني','صف ثالث','بدون قوانين'],'صف ثاني')}</select><div class="hint">If No rules / بدون قوانين, the row line is removed from the message.</div></div>
+      <div><label>Castle Row</label><select id="jm_row">${options(state.lists.castleRowAr||['صف ثاني','صف ثالث','بدون قوانين'],'صف ثاني')}</select></div>
     </div>
-    <div class="btns"><button class="btn primary" onclick="generateJoinerMsg()">Generate</button></div>
-    <div id="joinerMsgResult" class="grid" style="margin-top:14px"></div>
-  </div></div>`;
+    <div class="btns"><button class="btn primary" onclick="generateJoinerMsg()">Generate Message</button></div>
+    <div class="grid" style="margin-top:14px"><div><label>Arabic</label><div class="preview rtl" id="jm_ar">Generate first.</div><button class="btn small" onclick="copyEl('jm_ar')">Copy Arabic</button></div><div><label>English</label><div class="preview" id="jm_en">Generate first.</div><button class="btn small" onclick="copyEl('jm_en')">Copy English</button></div></div>
+  </div></div>
+  <div class="card"><div class="cardHead"><h2>Saved Joiner Groups</h2></div><div class="cardBody"><div class="list">${renderPresetList()}</div></div></div>`;
 }
+function renderPresetList(){
+  if(!state.presets?.length) return '<div class="item">No groups yet.</div>';
+  return state.presets.map(p=>`<div class="item"><strong>${esc(p['Preset Name'])}</strong><div class="mini">${esc([p['Hero 1'],p['Hero 2'],p['Hero 3'],p['Hero 4']].join(' / '))} · ${p.INF} INF / ${p.LAN} LAN / ${p.MM} MM</div><div class="btns"><button class="btn small" onclick="loadPreset('${esc(p['Preset ID'])}')">Edit</button><button class="btn small danger" onclick="deletePreset('${esc(p['Preset ID'])}')">Delete</button></div></div>`).join('');
+}
+function loadPreset(id){const p=state.presets.find(x=>x['Preset ID']===id); if(!p)return; $('presetId').value=p['Preset ID']; $('presetName').value=p['Preset Name']; $('presetNotes').value=p.Notes||''; $('jp_h1').value=p['Hero 1']; $('jp_h2').value=p['Hero 2']; $('jp_h3').value=p['Hero 3']; $('jp_h4').value=p['Hero 4']; $('jp_inf').value=p.INF; $('jp_lan').value=p.LAN; $('jp_mm').value=p.MM; toast('Loaded.');}
+async function savePreset(){
+  try{
+    const f=formation('jp'); if(total(f)!==100) throw new Error('Joiner formation must equal 100.');
+    const preset={presetId:val('presetId'),presetName:val('presetName'),hero1:val('jp_h1'),hero2:val('jp_h2'),hero3:val('jp_h3'),hero4:val('jp_h4'),inf:f.inf,lan:f.lan,mm:f.mm,notes:val('presetNotes')};
+    const j=await apiPost('saveJoinerPreset',{preset}); state.presets=j.presets||state.presets; toast('Joiner group saved.'); renderAll();
+  }catch(e){toast(e.message)}
+}
+async function deletePreset(id){if(!confirm('Delete this group?'))return; try{await apiPost('deleteJoinerPreset',{presetId:id});toast('Deleted.');await init();}catch(e){toast(e.message)}}
 async function generateJoinerMsg(){
   try{
     const j=await apiPost('generateJoinerMessage',{presetId:val('jm_preset'),alliance:val('jm_alliance'),castleRow:val('jm_row')});
-    $('joinerMsgResult').innerHTML = `
-      <div><label>Arabic</label><div class="msg rtl" id="msg_ar">${esc(j.arabic)}</div><button class="btn small" onclick="copyEl('msg_ar')">Copy Arabic</button></div>
-      <div><label>English</label><div class="msg" id="msg_en">${esc(j.english)}</div><button class="btn small" onclick="copyEl('msg_en')">Copy English</button></div>`;
-    state.messages=j.messages||state.messages;
-    renderMessages();
+    $('jm_ar').textContent=j.arabic; $('jm_en').textContent=j.english; state.messages=j.messages||state.messages; toast('Message generated.');
   }catch(e){toast(e.message)}
-}
-
-function renderBattle(){
-  $('battle').innerHTML = `<div class="card"><div class="cardHead"><h2>Battle Plan by Time</h2></div><div class="cardBody">
-    <div class="grid">
-      <div><label>Time Slot</label><select id="bp_time">${options(state.lists.timeOptions||[], '12:00 UTC')}</select></div>
-      <div><label>Notes</label><input id="bp_notes" placeholder="Optional"></div>
-      <div><label>Battle Plan EN</label><textarea id="bp_en" placeholder="Do not launch before Discord call."></textarea></div>
-      <div><label>Battle Plan AR</label><textarea id="bp_ar" placeholder="لا أحد يطلق قبل نداء الديسكورد."></textarea></div>
-    </div>
-    <div class="btns"><button class="btn primary" onclick="saveBattle()">Save Battle Plan</button></div>
-  </div></div>
-  <div class="card"><div class="cardHead"><h2>Saved Battle Plans</h2></div><div class="cardBody"><div class="list">${renderBattleList()}</div></div></div>`;
-}
-function renderBattleList(){
-  if(!state.battlePlans?.length) return '<div class="item">No battle plans yet.</div>';
-  return state.battlePlans.map(p=>`<div class="item"><strong>${esc(p['Time Slot'])}</strong><div class="miniPreview">${esc(p['Battle Plan EN']||'—')}</div><div class="miniPreview" dir="rtl">${esc(p['Battle Plan AR']||'—')}</div></div>`).join('');
-}
-async function saveBattle(){
-  try{
-    const plan={timeSlot:val('bp_time'),battlePlanEn:val('bp_en'),battlePlanAr:val('bp_ar'),notes:val('bp_notes')};
-    const j=await apiPost('saveBattlePlan',{plan});
-    state.battlePlans=j.battlePlans||state.battlePlans; state.simpleBrief=j.simpleBrief||state.simpleBrief;
-    toast('Battle plan saved.'); renderAll();
-  }catch(e){toast(e.message)}
-}
-
-function renderMessages(){
-  const msgs=state.messages||[];
-  $('messages').innerHTML = `<div class="card"><div class="cardHead"><h2>Generated Messages</h2><button class="btn small" onclick="init()">Refresh</button></div><div class="cardBody"><div class="list">${
-    msgs.length?msgs.slice().reverse().map((m,i)=>`<div class="item">
-      <div><span class="tag gold">${esc(m.Language)}</span><span class="tag">${esc(m.Style)}</span><strong>${esc(m['Leader/Preset'])}</strong></div>
-      <div class="msg ${m.Language==='Arabic'?'rtl':''}" id="genmsg_${i}">${esc(m['Message Text'])}</div>
-      <div class="btns"><button class="btn small" onclick="copyEl('genmsg_${i}')">Copy</button></div>
-    </div>`).join(''):'<div class="item">No messages yet. Save a route or generate joiner message.</div>'
-  }</div></div></div>`;
 }
 
 function renderBrief(){
-  const en=state.simpleBrief?.en||[], ar=state.simpleBrief?.ar||[];
-  $('brief').innerHTML = `<div class="card"><div class="cardHead"><h2>Simple Brief</h2><div class="btns" style="margin:0"><button class="btn small" onclick="init()">Refresh</button><button class="btn small gold" onclick="downloadPlan('downloadSimpleBrief')">Download</button></div></div>
-  <div class="cardBody">
-    <h3>English</h3>${briefTable(en,false)}
-    <h3>Arabic</h3>${briefTable(ar,true)}
-  </div></div>`;
+  $('brief').innerHTML = `<div class="card"><div class="cardHead"><h2>Battle Plan by Time</h2><div class="sub">Appears in hourly brief</div></div><div class="cardBody">
+    <div class="grid"><div><label>Time Slot</label><select id="bp_time">${options(state.lists.timeOptions||[],'12:00 UTC')}</select></div><div><label>Notes</label><input id="bp_notes" placeholder="Optional"></div><div><label>Battle Plan EN</label><textarea id="bp_en"></textarea></div><div><label>Battle Plan AR</label><textarea id="bp_ar"></textarea></div></div>
+    <div class="btns"><button class="btn primary" onclick="saveBattle()">Save Battle Plan</button><button class="btn" onclick="init()">Refresh</button><button class="btn green" onclick="downloadPlan('downloadFullPlan')">Download Full Plan</button><button class="btn gold" onclick="downloadPlan('downloadSimpleBrief')">Download Simple Plan</button><button class="btn danger" onclick="clearWarRoomData()">Clear Planning Data</button></div>
+  </div></div>
+  <div class="card"><div class="cardHead"><h2>Vertical Simple Brief</h2><div class="sub">Screenshot-friendly</div></div><div class="cardBody">${renderHourCards()}</div></div>
+  <div class="card"><div class="cardHead"><h2>Generated Messages</h2></div><div class="cardBody"><div class="list">${renderMessages()}</div></div></div>`;
 }
-function briefTable(rows, ar){
-  if(!rows.length) return '<div class="item">No brief yet.</div>';
-  const keys=Object.keys(rows[0]);
-  return `<div class="tableWrap ${ar?'briefAR':''}"><table><thead><tr>${keys.map(k=>`<th>${esc(k)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${keys.map(k=>`<td>${esc(r[k]||'—')}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+function renderMessages(){
+  const msgs=state.messages||[]; if(!msgs.length) return '<div class="item">No messages yet.</div>';
+  return msgs.slice().reverse().map((m,i)=>`<div class="item"><div><span class="tag gold">${esc(m.Language)}</span><span class="tag">${esc(m.Style)}</span><strong>${esc(m['Leader/Preset'])}</strong></div><div id="gm_${i}" class="preview ${m.Language==='Arabic'?'rtl':''}">${esc(m['Message Text'])}</div><div class="btns"><button class="btn small" onclick="copyEl('gm_${i}')">Copy</button></div></div>`).join('');
+}
+async function saveBattle(){
+  try{const plan={timeSlot:val('bp_time'),battlePlanEn:val('bp_en'),battlePlanAr:val('bp_ar'),notes:val('bp_notes')}; const j=await apiPost('saveBattlePlan',{plan}); state.battlePlans=j.battlePlans||state.battlePlans; state.simpleBrief=j.simpleBrief||state.simpleBrief; toast('Battle plan saved.'); renderAll();}catch(e){toast(e.message)}
 }
 async function downloadPlan(action){
-  try{
-    toast('Preparing download...');
-    const j=await apiPost(action);
-    const bin=atob(j.base64); const bytes=new Uint8Array(bin.length);
-    for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
-    const blob=new Blob([bytes],{type:j.mimeType||'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=j.filename||'State2099_WAR_ROOM.xlsx';
-    document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),3000);
-    toast('Download ready.');
-  }catch(e){toast(e.message)}
+  try{toast('Preparing download...'); const j=await apiPost(action); const bin=atob(j.base64); const bytes=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i); const blob=new Blob([bytes],{type:j.mimeType||'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=j.filename||'State2099_WAR_ROOM.xlsx'; document.body.appendChild(a); a.click(); a.remove(); toast('Download ready.');}catch(e){toast(e.message)}
 }
-function copyEl(id){
-  const text=$(id)?.innerText || '';
-  navigator.clipboard?.writeText(text).then(()=>toast('Copied')).catch(()=>{toast('Copy failed. Select manually.')});
+async function clearWarRoomData(){
+  const ok=confirm('Clear current war plan only?\n\nThis will NOT delete Lists, Message Templates, or Joiner Groups.'); if(!ok)return;
+  if(prompt('Type CLEAR to confirm:')!=='CLEAR') return toast('Clear cancelled.');
+  try{const j=await apiPost('clearWarRoomData'); state.routes=j.routes||[]; state.battlePlans=j.battlePlans||[]; state.messages=j.messages||[]; state.simpleBrief=j.simpleBrief||{en:[],ar:[]}; toast('Cleared safely.'); renderAll();}catch(e){toast(e.message)}
 }
+function copyEl(id){const text=$(id)?.innerText||''; navigator.clipboard?.writeText(text).then(()=>toast('Copied')).catch(()=>toast('Copy failed.'))}
 </script>
 </body>
 </html>
