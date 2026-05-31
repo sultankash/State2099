@@ -103,7 +103,6 @@
         </div>
         <div class="install-actions">
           <button class="install-btn primary-mini" id="installShowBtn" onclick="openInstallSteps()">Show steps</button>
-          <button class="install-btn install-later" id="installLaterBtn" onclick="dismissInstallCard(false)">Later</button>
         </div>
       </div>
       <div class="announce">
@@ -149,7 +148,7 @@
       <div class="install-step-card"><div class="install-device" id="installAndroidTitle">Android / Chrome</div><div id="installAndroidSteps"></div></div>
     </div>
   </div>
-  <div class="actions"><button class="primary" id="installGotBtn" onclick="closeInstallSteps()">Got it</button><button class="ghost" id="installNeverBtn" onclick="dismissInstallCard(true)">Don't show again</button></div>
+  <div class="actions"><button class="primary" id="installGotBtn" onclick="closeInstallSteps()">Got it</button></div>
 </div></div>
 
 <div class="modal" id="planningModal"><div class="sheet"><div class="sheet-head"><h2>Planning 🔒</h2><button class="close" onclick="closePlanning()"><i class="fa-solid fa-xmark"></i></button></div>
@@ -173,12 +172,11 @@ const INSTALL_I18N={
   ko:{title:'📲 2099 포털 설치하기',desc:'다음에는 홈 화면에서 더 빠르게 열 수 있습니다.',show:'방법 보기',later:'나중에',modal:'2099 포털을 휴대폰 홈 화면에 추가하세요',ios:'iPhone / Safari',android:'Android / Chrome',got:'확인',never:'다시 보지 않기',iosSteps:['공유 버튼을 누르세요','Add to Home Screen을 선택하세요','Add를 누르세요'],androidSteps:['브라우저 메뉴 ⋮ 를 누르세요','Add to Home screen 또는 Install App을 선택하세요','Add를 누르세요']}
 };
 function installCopy(){return INSTALL_I18N[lang]||INSTALL_I18N.en}
-function installVisible(){return !localStorage.getItem('state2099_install_never')&&!sessionStorage.getItem('state2099_install_later')}
-function renderInstallCard(){const card=$('installCard');if(!card)return;const c=installCopy();card.dir=lang==='ar'?'rtl':'ltr';$('installTitle').textContent=c.title;$('installDesc').textContent=c.desc;$('installShowBtn').textContent=c.show;$('installLaterBtn').textContent=c.later;card.classList.toggle('hidden',!installVisible())}
+function installVisible(){return true}
+function renderInstallCard(){const card=$('installCard');if(!card)return;const c=installCopy();card.dir=lang==='ar'?'rtl':'ltr';$('installTitle').textContent=c.title;$('installDesc').textContent=c.desc;$('installShowBtn').textContent=c.show;card.classList.toggle('hidden',!installVisible())}
 function stepHtml(arr){return arr.map((x,i)=>`<div class="install-step"><span class="install-step-ico">${['📤','➕','✅'][i]||'•'}</span><span>${x}</span></div>`).join('')}
 function openInstallSteps(){const c=installCopy();$('installModalTitle').textContent=c.modal;$('installModalBody').dir=lang==='ar'?'rtl':'ltr';$('installIosTitle').textContent=c.ios;$('installAndroidTitle').textContent=c.android;$('installIosSteps').innerHTML=stepHtml(c.iosSteps);$('installAndroidSteps').innerHTML=stepHtml(c.androidSteps);$('installGotBtn').textContent=c.got;$('installNeverBtn').textContent=c.never;$('installModal').classList.add('show')}
 function closeInstallSteps(){$('installModal').classList.remove('show')}
-function dismissInstallCard(never){if(never)localStorage.setItem('state2099_install_never','1');else sessionStorage.setItem('state2099_install_later','1');closeInstallSteps();renderInstallCard()}
 
 const API='https://script.google.com/macros/s/AKfycbxyYX74LDul-qjH2qAVTsMXqlAVAp6msvGNxVaUSPjFg9ZKkcDNvD6Rzr9YoVPbBIud7w/exec';
 const LANGS=[['ar','https://flagcdn.com/w40/sa.png','العربية'],['en','https://flagcdn.com/w40/us.png','English'],['id','https://flagcdn.com/w40/id.png','Indonesia'],['ru','https://flagcdn.com/w40/kz.png','Русский'],['ko','https://flagcdn.com/w40/kr.png','한국어']];
