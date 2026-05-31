@@ -175,7 +175,7 @@ function installCopy(){return INSTALL_I18N[lang]||INSTALL_I18N.en}
 function installVisible(){return true}
 function renderInstallCard(){const card=$('installCard');if(!card)return;const c=installCopy();card.dir=lang==='ar'?'rtl':'ltr';$('installTitle').textContent=c.title;$('installDesc').textContent=c.desc;$('installShowBtn').textContent=c.show;card.classList.toggle('hidden',!installVisible())}
 function stepHtml(arr){return arr.map((x,i)=>`<div class="install-step"><span class="install-step-ico">${['📤','➕','✅'][i]||'•'}</span><span>${x}</span></div>`).join('')}
-function openInstallSteps(){const c=installCopy();$('installModalTitle').textContent=c.modal;$('installModalBody').dir=lang==='ar'?'rtl':'ltr';$('installIosTitle').textContent=c.ios;$('installAndroidTitle').textContent=c.android;$('installIosSteps').innerHTML=stepHtml(c.iosSteps);$('installAndroidSteps').innerHTML=stepHtml(c.androidSteps);$('installGotBtn').textContent=c.got;$('installNeverBtn').textContent=c.never;$('installModal').classList.add('show')}
+function openInstallSteps(){const c=installCopy();$('installModalTitle').textContent=c.modal;$('installModalBody').dir=lang==='ar'?'rtl':'ltr';$('installIosTitle').textContent=c.ios;$('installAndroidTitle').textContent=c.android;$('installIosSteps').innerHTML=stepHtml(c.iosSteps);$('installAndroidSteps').innerHTML=stepHtml(c.androidSteps);$('installGotBtn').textContent=c.got;$('installModal').classList.add('show')}
 function closeInstallSteps(){$('installModal').classList.remove('show')}
 
 const API='https://script.google.com/macros/s/AKfycbxyYX74LDul-qjH2qAVTsMXqlAVAp6msvGNxVaUSPjFg9ZKkcDNvD6Rzr9YoVPbBIud7w/exec';
