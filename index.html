@@ -53,6 +53,17 @@
     @media(max-width:940px){.tools-dock{left:10px;right:10px;top:auto;bottom:10px;transform:none;grid-template-columns:repeat(5,1fr);max-width:none;gap:7px}.tool-btn{width:100%;min-height:50px;border-radius:14px;padding:6px 3px}.tool-btn i{font-size:1.05rem}.tool-btn span{font-size:.42rem}.footer{padding-bottom:58px}.resource-grid{grid-template-columns:1fr 1fr}}
     @media(max-width:430px){.resource-grid{grid-template-columns:1fr}.tools-dock{grid-template-columns:repeat(5,1fr);bottom:8px}.tool-btn{min-height:48px;padding:5px 2px}.tool-btn i{font-size:.95rem}.tool-btn span{display:block;font-size:.30rem;line-height:1.05;letter-spacing:.01em;margin-top:2px;white-space:normal}.footer{padding-bottom:90px}}
 
+    /* 2099 Social HQ — safe add-on: live ticker + announcement reactions + panic center */
+    .social-ticker-wrap{position:relative;border:1px solid rgba(255,210,106,.34);border-radius:18px;background:linear-gradient(90deg,rgba(5,24,51,.82),rgba(2,12,30,.76));box-shadow:inset 0 0 22px rgba(114,217,255,.08);margin:0 0 12px;overflow:hidden}
+    .social-ticker-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;border-bottom:1px solid rgba(126,216,255,.14);color:var(--gold);font-weight:900;letter-spacing:.1em;font-size:.72rem;text-transform:uppercase}.social-ticker-head i{color:var(--ice2);margin-right:6px}
+    .social-mini{border:1px solid rgba(126,216,255,.38);border-radius:999px;background:rgba(13,55,100,.72);color:#eafaff;padding:7px 12px;font-size:.66rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}.social-mini:hover{border-color:var(--gold);box-shadow:0 0 18px rgba(255,210,106,.12)}
+    .social-ticker-line{height:42px;display:flex;align-items:center;overflow:hidden;white-space:nowrap;background:rgba(0,6,18,.30)}
+    .social-ticker-move{display:inline-block;min-width:100%;animation:socialTickerMove 34s linear infinite;color:#e8f8ff;font-weight:800;font-size:.92rem}.social-ticker-line:hover .social-ticker-move{animation-play-state:paused}.social-ticker-item{display:inline-block;margin:0 18px;text-shadow:0 0 10px rgba(114,217,255,.22)}.social-ticker-dot{color:var(--gold);opacity:.8;margin:0 8px}@keyframes socialTickerMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .announce-reactions{border:1px solid rgba(126,216,255,.22);border-radius:18px;background:rgba(2,13,31,.42);padding:10px 12px;margin:-6px 0 12px}.reaction-title{color:var(--gold);font-size:.74rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px}.reaction-buttons{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.reaction-btn{border:1px solid rgba(126,216,255,.35);border-radius:999px;background:rgba(7,31,63,.74);color:#eafaff;padding:9px 12px;font-size:.82rem;font-weight:900;display:flex;align-items:center;gap:6px;transition:.18s}.reaction-btn:hover{transform:translateY(-1px);border-color:rgba(255,210,106,.7)}.reaction-btn.active{border-color:var(--gold);background:linear-gradient(180deg,rgba(255,210,106,.19),rgba(16,65,105,.85));box-shadow:0 0 18px rgba(255,210,106,.12)}.reaction-count{color:#fff;font-weight:900;min-width:14px;text-align:center}.reaction-note{min-height:18px;margin-top:8px;color:#bcd2e8;font-size:.78rem;font-family:'Cairo',var(--font-ar),sans-serif}.panic-entry{display:flex;justify-content:center;margin:-2px 0 14px}.panic-entry .panic-launch{border:1px solid rgba(255,210,106,.45);border-radius:999px;background:linear-gradient(90deg,rgba(131,32,41,.68),rgba(13,55,100,.72));color:#fff;padding:10px 18px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 0 22px rgba(255,76,86,.10)}
+    .social-output{display:none;margin-top:14px;border:1px solid rgba(255,210,106,.36);border-radius:18px;background:rgba(0,8,22,.78);padding:14px;color:#eafaff;white-space:pre-wrap;line-height:1.55;font-weight:800}.social-output.show{display:block}.social-status{min-height:20px;color:#bcd2e8;font-size:.84rem;margin-top:8px}.social-status.good{color:var(--green)}.social-status.bad{color:#ffd2d6}.social-check{display:flex;align-items:center;gap:9px;color:#d8eaff;font-weight:800;margin-top:8px}.social-check input{width:18px;height:18px;accent-color:#2a93dc}
+    @media(max-width:940px){.social-ticker-head{padding:8px 10px;font-size:.62rem}.social-ticker-line{height:38px}.social-ticker-move{font-size:.78rem;animation-duration:28s}.social-mini{font-size:.56rem;padding:7px 9px}.reaction-btn{font-size:.74rem;padding:8px 10px}.announce-reactions{padding:9px;margin:-6px 0 10px}.panic-entry .panic-launch{font-size:.72rem;padding:9px 14px}}
+    @media(max-width:430px){.social-ticker-head{letter-spacing:.06em}.social-ticker-item{margin:0 12px}.reaction-buttons{gap:6px}.reaction-btn{font-size:.68rem;padding:7px 9px}}
+
 
   </style>
 </head>
@@ -88,10 +99,22 @@
         <div class="stat"><div class="stat-icon gold"><i class="fa-solid fa-trophy"></i></div><div><div class="label" data-i18n="leagueTitles">League Titles</div><div class="value big" id="v-league">0</div></div></div>
         <div class="stat"><div class="stat-icon"><i class="fa-solid fa-star gold"></i></div><div><div class="label" data-i18n="playerMonth">Player of the Month</div><div class="value" id="v-pom">---</div></div></div>
       </div>
+
+      <div class="social-ticker-wrap" id="socialTickerWrap">
+        <div class="social-ticker-head"><span><i class="fa-solid fa-satellite-dish"></i>2099 Live Feed</span><button class="social-mini" onclick="openTickerPost()">Add Message</button></div>
+        <div class="social-ticker-line"><div class="social-ticker-move" id="socialTickerMove"><span class="social-ticker-item">🧳 2099 is saving for SvS</span><span class="social-ticker-dot">•</span><span class="social-ticker-item">🚨 Panic Control Center is standing by</span><span class="social-ticker-dot">•</span><span class="social-ticker-item">💚 United we stand</span></div></div>
+      </div>
       <div class="announce">
         <div class="ann-icon"><i class="fa-solid fa-bullhorn"></i></div>
         <div style="flex:1"><div class="ann-title" data-i18n="announcement">State Announcement</div><div class="ann-body" id="v-ann">Long live 2099</div></div>
       </div>
+
+      <div class="announce-reactions" id="announceReactions">
+        <div class="reaction-title">React to this announcement</div>
+        <div class="reaction-buttons" id="reactionButtons"></div>
+        <div class="reaction-note" id="reactionNote"></div>
+      </div>
+      <div class="panic-entry"><button class="panic-launch" onclick="openPanicCenter()">🚨 Panic Control Center</button></div>
       <div class="cards" id="cards"></div>
       <footer class="footer">
         <div class="line"></div><div class="brand">2099 STATE PORTAL</div><div style="font-family:'Cairo',sans-serif;margin-top:4px" data-i18n="footer">United We Stand. Legends Never Fall.</div>
@@ -108,6 +131,35 @@
   <button class="tool-btn" onclick="openTool('sim')"><i class="fa-solid fa-burst"></i><span>Battle Sim</span></button>
   <button class="tool-btn" onclick="window.location.href='https://state2099.vercel.app/warroom'"><i class="fa-solid fa-map-location-dot"></i><span>War Room</span></button>
 </aside>
+
+
+<div class="modal" id="tickerPostModal"><div class="sheet"><div class="sheet-head"><h2>2099 Live Feed</h2><button class="close" onclick="closeTickerPost()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="form-grid">
+    <div class="admin-grid">
+      <div class="field"><label>Name</label><input id="tickerName" maxlength="24" placeholder="Your name"></div>
+      <div class="field"><label>Alliance</label><input id="tickerAlliance" maxlength="6" placeholder="AMT"></div>
+    </div>
+    <div class="field"><label>Message Type</label><select id="tickerType"><option value="saving">🧳 I am saving</option><option value="ready">🔥 Ready for war</option><option value="love">💚 2099 love</option><option value="panic">🚨 Panic report</option><option value="thanks">👏 Thanks</option><option value="funny">😂 Funny</option><option value="general">📢 General</option></select></div>
+    <div class="field"><label>Short Message — max 70 characters</label><input id="tickerMessage" maxlength="70" placeholder="Saving for SvS and trying not to panic"></div>
+    <div class="social-status" id="tickerStatus"></div>
+    <div class="actions"><button class="ghost" onclick="closeTickerPost()">Cancel</button><button class="primary" id="tickerSubmitBtn" onclick="submitTickerPost()">Post to Feed</button></div>
+  </div>
+</div></div>
+
+<div class="modal" id="panicModal"><div class="sheet"><div class="sheet-head"><h2>🚨 Panic Control Center</h2><button class="close" onclick="closePanicCenter()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="form-grid">
+    <div class="admin-grid">
+      <div class="field"><label>Name</label><input id="panicName" maxlength="24" placeholder="Optional"></div>
+      <div class="field"><label>Alliance</label><input id="panicAlliance" maxlength="6" placeholder="Optional"></div>
+    </div>
+    <div class="field"><label>Why are you panicking today?</label><select id="panicReason"><option>Sultan posted an announcement again</option><option>SvS is near</option><option>I upgraded by mistake</option><option>I don’t know what is happening but I support 2099</option><option>I accidentally scored more than I expected</option></select></div>
+    <div class="field"><label>How serious is it?</label><select id="panicSeverity"><option>Minor panic</option><option>Medium panic</option><option>Full collapse</option><option>I am calm but suspicious</option></select></div>
+    <label class="social-check"><input id="panicPostTicker" type="checkbox"> Post my panic to the Live Feed</label>
+    <div class="social-output" id="panicResult"></div>
+    <div class="social-status" id="panicStatus"></div>
+    <div class="actions"><button class="ghost" onclick="closePanicCenter()">Close</button><button class="ghost" onclick="copyPanicReport()">Copy Report</button><button class="primary" onclick="submitPanicReport()">Diagnose Panic</button></div>
+  </div>
+</div></div>
 
 <div class="modal" id="formModal"><div class="sheet"><div class="sheet-head"><h2 id="formTitle">Protocol</h2><button class="close" onclick="closeForm()"><i class="fa-solid fa-xmark"></i></button></div><div id="formArea"></div><div class="success" id="successView"><i class="fa-solid fa-circle-check"></i><h2 data-i18n="secured">Mission Secured</h2><p data-i18n="securedText">Your response has been submitted.</p><button class="primary" onclick="closeForm()" data-i18n="returnHome">Return</button></div></div></div>
 
@@ -137,6 +189,7 @@
 
 <script>
 const API='https://script.google.com/macros/s/AKfycbxyYX74LDul-qjH2qAVTsMXqlAVAp6msvGNxVaUSPjFg9ZKkcDNvD6Rzr9YoVPbBIud7w/exec';
+const SOCIAL_API='https://script.google.com/macros/s/AKfycbyFMdzKqUelMNPtZOTnrE6ytTz_E1ErZ79MzdWQAtufQ5LuB9aTVlaqw1mT8Y6Z59vWfw/exec';
 const LANGS=[['ar','https://flagcdn.com/w40/sa.png','العربية'],['en','https://flagcdn.com/w40/us.png','English'],['id','https://flagcdn.com/w40/id.png','Indonesia'],['ru','https://flagcdn.com/w40/kz.png','Русский'],['ko','https://flagcdn.com/w40/kr.png','한국어']];
 const I18N={
  en:{choose:'Choose your language',portalTitle:'STATE PORTAL',slogan:'Lead. Defend. Conquer.',president:'Current President',svsWins:'SVS Wins',leagueTitles:'League Titles',playerMonth:'Player of the Month',announcement:'State Announcement',footer:'United We Stand. Legends Never Fall.',ministries:'SVS Ministries',svs:'SVS Survey',fdt:'FDT Survey',league:'League Survey',enter:'Enter Portal',name:'Player Name',gameId:'Your Game ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'Speedups Days',timings:'Preferable Timings UTC - 3 Picks Only',availability:'Are you available for the entire event?',troops:'Troops Type',helios:'Helios Troops',discord:'Are you able to join the Discord?',rotation:'You are aware that the state will rotate joiners and prioritize what helps the state the most. It is not personal at all.',leagueAvail:'Are you available for the entire league?',submit:'Submit',back:'Back',secured:'Mission Secured',securedText:'Your response has been submitted.',returnHome:'Return',locked:'Section Closed',meat:'Meat Resources',wood:'Wood Resources',coal:'Coal Resources',iron:'Iron Resources',notes:'Notes',leagueNotes:'Notes if you are unavailable for certain matches',discord:'Can you join Discord if needed?',externalGift:'You will open the official gift-code website in a new tab. Continue?',externalTool:'You will open a helpful game tool in a new tab. Continue?'},
@@ -153,7 +206,7 @@ function selectLang(c){lang=c;localStorage.setItem('state2099_lang',c);document.
 function applyLang(){document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n))}
 function boot(){lang=localStorage.getItem('state2099_lang')||'en';document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.classList.toggle('lang-ar',lang==='ar');initLangButtons();applyLang();loadData()} window.onload=boot;
 function loadData(){fetch(API).then(r=>r.json()).then(d=>{hq=d||hq;syncHQ()}).catch(()=>{hq.settings={president:'Sultan',svs_wins:'0',league_wins:'0',player_of_the_month:'---',announcement:'Long live 2099'};syncHQ()})}
-function syncHQ(){const s=hq.settings||{};$('v-president').textContent=s.president||'---';$('v-svs').textContent=s.svs_wins||'0';$('v-league').textContent=s.league_wins||'0';$('v-pom').textContent=s.player_of_the_month||'---';$('v-ann').textContent=s.announcement||'Long live 2099';renderCards();if(sessionStorage.getItem('state2099_admin'))fillAdmin()}
+function syncHQ(){const s=hq.settings||{};$('v-president').textContent=s.president||'---';$('v-svs').textContent=s.svs_wins||'0';$('v-league').textContent=s.league_wins||'0';$('v-pom').textContent=s.player_of_the_month||'---';$('v-ann').textContent=s.announcement||'Long live 2099';renderCards();initSocial();if(sessionStorage.getItem('state2099_admin'))fillAdmin()}
 function renderCards(){const s=hq.settings||{};const data=[['ministries',t('ministries'),'Appoint Ministers. Strengthen the State.','assets/ministries.jpg','fa-landmark',s.ministries_lock],['svs_survey',t('svs'),'Strategy. Valor. Victory.','assets/svs-battle.jpg','fa-shield-halved',s.svs_survey_lock],['fdt_survey',t('fdt'),'Face the Frost Dragon. Earn Glory.','assets/fdt-dragon.jpg','fa-dragon',s.fdt_survey_lock],['league_survey',t('league'),'Compete. Dominate. Become Champion.','assets/league.jpg','fa-trophy',s.league_survey_lock]];$('cards').innerHTML=data.map(([type,title,desc,img,icon,lock])=>`<button class="portal-card ${lock==='TRUE'?'locked':''}" onclick="openForm('${type}')"><div class="bg" style="background-image:url('${img}')"></div><div class="locked-cover"><div><i class="fa-solid fa-lock"></i><br>${t('locked')}</div></div><div class="card-content"><div class="crest"><i class="fa-solid ${icon}"></i></div><div class="card-title">${title}</div><div class="card-desc">${desc}</div><div class="enter">${t('enter')} <i class="fa-solid fa-chevron-right"></i></div></div></button>`).join('')}
 function openForm(type){const lock=(hq.settings||{})[{ministries:'ministries_lock',svs_survey:'svs_survey_lock',fdt_survey:'fdt_survey_lock',league_survey:'league_survey_lock'}[type]];if(lock==='TRUE')return;activeType=type;selectedTimings=[];selectedTroops=[];selectedHelios=[];$('successView').style.display='none';$('formArea').style.display='block';$('formTitle').textContent={ministries:t('ministries'),svs_survey:t('svs'),fdt_survey:t('fdt'),league_survey:t('league')}[type];$('formArea').innerHTML=buildForm(type);$('formModal').classList.add('show')}
 function closeForm(){$('formModal').classList.remove('show')}
@@ -475,6 +528,34 @@ function copyPlanningMessage(){const out=$('planningOutput');if(!out||!out.value
 
 const TOOL_LINKS={gift:'https://wos-giftcode.centurygame.com/',charms:'https://www.quackulator.com/chiefcharm.php',building:'https://www.quackulator.com/building.php',sim:'https://sim.tundra.land/'};
 function openTool(key){const msg=key==='gift'?t('externalGift'):t('externalTool');if(confirm(msg)){window.open(TOOL_LINKS[key],'_blank','noopener,noreferrer')}}
+
+
+/* -------------------- 2099 SOCIAL HQ ADD-ON -------------------- */
+const SOCIAL_ANNOUNCEMENT_ID='main';
+const SOCIAL_REACTION_OPTIONS=[
+  ['saving','🧳','I am saving'],
+  ['understood','✅','Understood'],
+  ['scared','💀','Scared'],
+  ['laugh','😂',''],
+  ['heart','💚',''],
+  ['thumbs','👍🏻','']
+];
+let socialState={ticker:[],reactions:{counts:{}}};
+function socialUserKey(){let key=localStorage.getItem('state2099_social_key');if(!key){key='u_'+Math.random().toString(36).slice(2)+Date.now().toString(36);localStorage.setItem('state2099_social_key',key)}return key}
+function socialEscape(value){return String(value===null||value===undefined?'':value).replace(/[&<>'"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]})}
+function initSocial(){if(initSocial.done)return;initSocial.done=true;renderReactions({counts:{}});loadSocialState();setInterval(loadSocialState,60000)}
+function loadSocialState(){if(!window.SOCIAL_API)return;fetch(SOCIAL_API+'?action=state&announcementId='+encodeURIComponent(SOCIAL_ANNOUNCEMENT_ID)+'&t='+Date.now()).then(r=>r.json()).then(d=>{if(!d||!d.ok)throw new Error('bad social state');socialState=d;renderTicker(d.ticker||[]);renderReactions(d.reactions||{counts:{}})}).catch(()=>{renderTicker(socialState.ticker||[]);renderReactions(socialState.reactions||{counts:{}})})}
+function renderTicker(items){const el=$('socialTickerMove');if(!el)return;let list=Array.isArray(items)?items.filter(x=>x&&x.text):[];if(!list.length){list=[{text:'🧳 2099 is saving for SvS'},{text:'🚨 Panic Control Center is standing by'},{text:'💚 United we stand'}]}let parts=list.map(x=>'<span class="social-ticker-item">'+socialEscape(x.text)+'</span>').join('<span class="social-ticker-dot">•</span>');el.innerHTML=parts+'<span class="social-ticker-dot">•</span>'+parts+'<span class="social-ticker-dot">•</span>'}
+function renderReactions(reactions){const box=$('reactionButtons');if(!box)return;const counts=(reactions&&reactions.counts)||{};const selected=localStorage.getItem('state2099_reaction_'+SOCIAL_ANNOUNCEMENT_ID)||'';box.innerHTML=SOCIAL_REACTION_OPTIONS.map(([key,emoji,label])=>`<button class="reaction-btn ${selected===key?'active':''}" onclick="sendAnnouncementReaction('${key}')"><span>${emoji}</span>${label?`<span>${label}</span>`:''}<span class="reaction-count">${Number(counts[key]||0)}</span></button>`).join('')}
+function sendAnnouncementReaction(reaction){localStorage.setItem('state2099_reaction_'+SOCIAL_ANNOUNCEMENT_ID,reaction);renderReactions((socialState&&socialState.reactions)||{counts:{}});const note=$('reactionNote');if(note)note.textContent='Your reaction has been counted. 2099 appreciates your emotional compliance.';fetch(SOCIAL_API,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'reaction_add',payload:{announcementId:SOCIAL_ANNOUNCEMENT_ID,reaction,userKey:socialUserKey(),language:lang}})}).finally(()=>setTimeout(loadSocialState,1200))}
+function openTickerPost(){$('tickerPostModal').classList.add('show');$('tickerStatus').textContent='';$('tickerStatus').className='social-status';$('tickerMessage').focus()}
+function closeTickerPost(){$('tickerPostModal').classList.remove('show')}
+function submitTickerPost(){const btn=$('tickerSubmitBtn');const status=$('tickerStatus');const payload={name:$('tickerName').value.trim()||'Anonymous',alliance:$('tickerAlliance').value.trim(),messageType:$('tickerType').value,message:$('tickerMessage').value.trim(),userKey:socialUserKey(),language:lang};if(!payload.message){status.textContent='Write a short message first.';status.className='social-status bad';return}btn.disabled=true;status.textContent='Posting...';status.className='social-status';fetch(SOCIAL_API,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'ticker_add',payload})}).then(()=>{status.textContent='Posted. It will appear shortly.';status.className='social-status good';$('tickerMessage').value='';setTimeout(()=>{btn.disabled=false;closeTickerPost();loadSocialState()},1300)}).catch(()=>{btn.disabled=false;status.textContent='Could not post right now.';status.className='social-status bad'})}
+function openPanicCenter(){$('panicModal').classList.add('show');$('panicResult').classList.remove('show');$('panicResult').textContent='';$('panicStatus').textContent='';$('panicStatus').className='social-status'}
+function closePanicCenter(){$('panicModal').classList.remove('show')}
+function socialBuildPanic(reason,severity){const r=String(reason||'').toLowerCase(),s=String(severity||'').toLowerCase();let base=45;if(r.includes('announcement'))base+=18;if(r.includes('svs'))base+=22;if(r.includes('upgraded')||r.includes('upgrade'))base+=26;if(r.includes('support 2099')||r.includes('happening'))base+=10;if(r.includes('scored')||r.includes('expected'))base+=30;if(s.includes('minor'))base-=15;if(s.includes('medium'))base+=5;if(s.includes('collapse'))base+=24;if(s.includes('suspicious'))base+=12;const panicLevel=Math.max(7,Math.min(99,base+Math.floor(Math.random()*9)-4));let shortDiagnosis='Normal 2099 Confusion',diagnosis='Normal 2099 Confusion.',treatment=['Pretend you understood the plan.','Wait for Discord instructions.','Drink water.','Save for SvS.'];if(r.includes('announcement')){shortDiagnosis='Sultan Announcement Trauma';diagnosis='Leaderboard Anxiety with mild Sultan Announcement Trauma.';treatment=['Read the announcement twice before panicking.','Drink water.','Save for SvS.','Do not ask if we are winning until further notice.']}if(r.includes('svs')){shortDiagnosis='SvS Proximity Disorder';diagnosis='SvS Proximity Disorder with early symptoms of leaderboard watching.';treatment=['Close the leaderboard.','Hide your speedups from yourself.','Drink water.','Save for SvS.']}if(r.includes('upgraded')||r.includes('upgrade')){shortDiagnosis='Accidental Upgrade Syndrome';diagnosis='Accidental Upgrade Syndrome with possible shiny-button exposure.';treatment=['Apologize for the wrong upgrade.','Report to Poopy for emotional supervision.','Avoid all shiny buttons.','Save harder in SvS.']}if(r.includes('support 2099')||r.includes('happening')){shortDiagnosis='Confused Loyalty Condition';diagnosis='Confused Loyalty Condition. The patient has no idea what is happening but remains emotionally committed to 2099.';treatment=['Stay calm and look useful.','Follow Discord instructions.','Do not open random menus.','Support 2099 loudly but safely.']}if(r.includes('scored')||r.includes('expected')){shortDiagnosis='Unexpected High Score Emergency';diagnosis='Unexpected High Score Emergency. Congratulations, you are now financially responsible.';treatment=['Prepare to double it in SvS.','Do not blame the calculator.','Drink water.','The state will remember your name.']}if(s.includes('collapse'))treatment.push('Request adult supervision from Panic Control Center.');return {panicLevel,shortDiagnosis,diagnosis,treatment:treatment.join('\n'),copyText:'Panic Level: '+panicLevel+'%\n\nDiagnosis:\n'+diagnosis+'\n\nTreatment:\n'+treatment.join('\n')}}
+function submitPanicReport(){const reason=$('panicReason').value,severity=$('panicSeverity').value;const result=socialBuildPanic(reason,severity);$('panicResult').textContent=result.copyText;$('panicResult').classList.add('show');$('panicStatus').textContent='Panic diagnosed. Copy it or post it to the Live Feed.';$('panicStatus').className='social-status good';const payload={name:$('panicName').value.trim()||'Anonymous',alliance:$('panicAlliance').value.trim(),reason,severity,postToTicker:$('panicPostTicker').checked,userKey:socialUserKey(),language:lang};fetch(SOCIAL_API,{method:'POST',mode:'no-cors',body:JSON.stringify({type:'panic_report_add',payload})}).finally(()=>{if(payload.postToTicker)setTimeout(loadSocialState,1300)})}
+function copyPanicReport(){const text=$('panicResult').textContent;if(!text){alert('Diagnose panic first');return}navigator.clipboard?.writeText(text).then(()=>alert('Copied')).catch(()=>alert('Copy failed'))}
 
 </script>
 </body>
