@@ -54,6 +54,11 @@
     @media(max-width:430px){.resource-grid{grid-template-columns:1fr}.tools-dock{grid-template-columns:repeat(5,1fr);bottom:8px}.tool-btn{min-height:48px;padding:5px 2px}.tool-btn i{font-size:.95rem}.tool-btn span{display:block;font-size:.30rem;line-height:1.05;letter-spacing:.01em;margin-top:2px;white-space:normal}.footer{padding-bottom:90px}}
 
 
+    /* Gentle Add-to-Home Card - tiny, multilingual, no API */
+    .install-card{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;border:1px solid rgba(129,220,255,.25);border-radius:16px;background:linear-gradient(90deg,rgba(7,33,68,.60),rgba(2,12,30,.50));box-shadow:inset 0 0 22px rgba(114,217,255,.05);padding:9px 11px;margin:-2px 0 12px;color:#eafaff;overflow:hidden}.install-card:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,210,106,.05),transparent 32%,rgba(114,217,255,.05));pointer-events:none}.install-left{display:flex;align-items:center;gap:10px;min-width:0;position:relative}.install-icon{width:34px;height:34px;border-radius:12px;display:grid;place-items:center;background:rgba(114,217,255,.10);border:1px solid rgba(126,216,255,.25);font-size:1.15rem;flex:0 0 auto}.install-copy{min-width:0}.install-title{font-weight:900;color:#f3fcff;font-size:.88rem;letter-spacing:.03em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.install-desc{color:rgba(216,234,255,.78);font-size:.72rem;line-height:1.25;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.install-actions{display:flex;align-items:center;gap:7px;position:relative;flex:0 0 auto}.install-btn{border:1px solid rgba(126,216,255,.32);border-radius:999px;background:rgba(8,31,62,.68);color:#eafaff;min-height:34px;padding:0 12px;font-size:.68rem;font-weight:900;letter-spacing:.04em}.install-btn.primary-mini{border-color:rgba(255,210,106,.50);background:linear-gradient(90deg,rgba(42,147,220,.55),rgba(13,79,154,.58))}.install-btn.install-later{color:rgba(216,234,255,.62)}.install-sheet{width:min(520px,100%)}.install-steps{display:grid;gap:10px}.install-step-card{border:1px solid rgba(126,216,255,.20);border-radius:16px;background:rgba(0,8,22,.38);padding:12px}.install-device{color:var(--gold);font-weight:900;letter-spacing:.05em;margin-bottom:8px}.install-step{display:flex;align-items:center;gap:10px;color:#eafaff;padding:7px 0;border-bottom:1px solid rgba(126,216,255,.10)}.install-step:last-child{border-bottom:0}.install-step-ico{width:30px;height:30px;border-radius:10px;background:rgba(114,217,255,.10);display:grid;place-items:center;flex:0 0 auto}.install-card[dir='rtl'] .install-step,.install-card[dir='rtl'] .install-left{flex-direction:row-reverse}.install-modal-body[dir='rtl'] .install-step{flex-direction:row-reverse;text-align:right}.install-modal-body[dir='rtl'] .install-device{text-align:right}
+    @media(max-width:520px){.install-card{align-items:flex-start}.install-actions{flex-direction:column;align-items:stretch}.install-btn{min-height:30px;padding:0 9px;font-size:.62rem}.install-icon{width:31px;height:31px}.install-title{font-size:.80rem}.install-desc{font-size:.64rem;max-width:200px}}
+
+
   </style>
 </head>
 <body>
@@ -87,6 +92,19 @@
         <div class="stat"><div class="stat-icon"><i class="fa-solid fa-shield-halved"></i></div><div><div class="label" data-i18n="svsWins">SVS Wins</div><div class="value big" id="v-svs">0</div></div></div>
         <div class="stat"><div class="stat-icon gold"><i class="fa-solid fa-trophy"></i></div><div><div class="label" data-i18n="leagueTitles">League Titles</div><div class="value big" id="v-league">0</div></div></div>
         <div class="stat"><div class="stat-icon"><i class="fa-solid fa-star gold"></i></div><div><div class="label" data-i18n="playerMonth">Player of the Month</div><div class="value" id="v-pom">---</div></div></div>
+      </div>
+      <div class="install-card hidden" id="installCard" dir="ltr">
+        <div class="install-left">
+          <div class="install-icon">📲</div>
+          <div class="install-copy">
+            <div class="install-title" id="installTitle">Install 2099 Portal</div>
+            <div class="install-desc" id="installDesc">Open faster next time from your home screen.</div>
+          </div>
+        </div>
+        <div class="install-actions">
+          <button class="install-btn primary-mini" id="installShowBtn" onclick="openInstallSteps()">Show steps</button>
+          <button class="install-btn install-later" id="installLaterBtn" onclick="dismissInstallCard(false)">Later</button>
+        </div>
       </div>
       <div class="announce">
         <div class="ann-icon"><i class="fa-solid fa-bullhorn"></i></div>
@@ -124,6 +142,16 @@
   <div class="actions"><button class="primary" onclick="saveAdmin()">Save Dashboard</button><button class="ghost" onclick="exitAdmin()">Exit</button></div>
 </div></div>
 
+<div class="modal" id="installModal"><div class="sheet install-sheet"><div class="sheet-head"><h2 id="installModalTitle">Add to Home Screen</h2><button class="close" onclick="closeInstallSteps()"><i class="fa-solid fa-xmark"></i></button></div>
+  <div class="install-modal-body" id="installModalBody" dir="ltr">
+    <div class="install-steps">
+      <div class="install-step-card"><div class="install-device" id="installIosTitle">iPhone / Safari</div><div id="installIosSteps"></div></div>
+      <div class="install-step-card"><div class="install-device" id="installAndroidTitle">Android / Chrome</div><div id="installAndroidSteps"></div></div>
+    </div>
+  </div>
+  <div class="actions"><button class="primary" id="installGotBtn" onclick="closeInstallSteps()">Got it</button><button class="ghost" id="installNeverBtn" onclick="dismissInstallCard(true)">Don't show again</button></div>
+</div></div>
+
 <div class="modal" id="planningModal"><div class="sheet"><div class="sheet-head"><h2>Planning 🔒</h2><button class="close" onclick="closePlanning()"><i class="fa-solid fa-xmark"></i></button></div>
   <div class="planning-tabs">
     <button class="planning-tab active" id="tab-rally" onclick="setPlanningTab('rally')">Rally Leader</button>
@@ -136,6 +164,22 @@
 
 
 <script>
+
+const INSTALL_I18N={
+  en:{title:'📲 Install 2099 Portal',desc:'Open faster next time from your home screen.',show:'Show steps',later:'Later',modal:'Add 2099 Portal to your phone',ios:'iPhone / Safari',android:'Android / Chrome',got:'Got it',never:"Don't show again",iosSteps:['Tap the Share button','Choose Add to Home Screen','Tap Add'],androidSteps:['Tap the browser menu ⋮','Choose Add to Home screen or Install App','Tap Add']},
+  ar:{title:'📲 أضف بوابة 2099 لجوالك',desc:'افتح الموقع بسرعة من الشاشة الرئيسية.',show:'عرض الخطوات',later:'لاحقًا',modal:'أضف بوابة 2099 للشاشة الرئيسية',ios:'iPhone / Safari',android:'Android / Chrome',got:'فهمت',never:'لا تظهر مرة أخرى',iosSteps:['اضغط زر المشاركة','اختر إضافة إلى الشاشة الرئيسية','اضغط إضافة'],androidSteps:['اضغط قائمة المتصفح ⋮','اختر Add to Home screen أو Install App','اضغط Add']},
+  id:{title:'📲 Pasang Portal 2099',desc:'Buka lebih cepat dari layar utama ponsel Anda.',show:'Lihat langkah',later:'Nanti',modal:'Tambahkan Portal 2099 ke ponsel Anda',ios:'iPhone / Safari',android:'Android / Chrome',got:'Mengerti',never:'Jangan tampilkan lagi',iosSteps:['Ketuk tombol Share','Pilih Add to Home Screen','Ketuk Add'],androidSteps:['Ketuk menu browser ⋮','Pilih Add to Home screen atau Install App','Ketuk Add']},
+  ru:{title:'📲 Установить портал 2099',desc:'Открывайте быстрее с главного экрана телефона.',show:'Показать шаги',later:'Позже',modal:'Добавьте портал 2099 на телефон',ios:'iPhone / Safari',android:'Android / Chrome',got:'Понятно',never:'Больше не показывать',iosSteps:['Нажмите кнопку Поделиться','Выберите Add to Home Screen','Нажмите Add'],androidSteps:['Нажмите меню браузера ⋮','Выберите Add to Home screen или Install App','Нажмите Add']},
+  ko:{title:'📲 2099 포털 설치하기',desc:'다음에는 홈 화면에서 더 빠르게 열 수 있습니다.',show:'방법 보기',later:'나중에',modal:'2099 포털을 휴대폰 홈 화면에 추가하세요',ios:'iPhone / Safari',android:'Android / Chrome',got:'확인',never:'다시 보지 않기',iosSteps:['공유 버튼을 누르세요','Add to Home Screen을 선택하세요','Add를 누르세요'],androidSteps:['브라우저 메뉴 ⋮ 를 누르세요','Add to Home screen 또는 Install App을 선택하세요','Add를 누르세요']}
+};
+function installCopy(){return INSTALL_I18N[lang]||INSTALL_I18N.en}
+function installVisible(){return !localStorage.getItem('state2099_install_never')&&!sessionStorage.getItem('state2099_install_later')}
+function renderInstallCard(){const card=$('installCard');if(!card)return;const c=installCopy();card.dir=lang==='ar'?'rtl':'ltr';$('installTitle').textContent=c.title;$('installDesc').textContent=c.desc;$('installShowBtn').textContent=c.show;$('installLaterBtn').textContent=c.later;card.classList.toggle('hidden',!installVisible())}
+function stepHtml(arr){return arr.map((x,i)=>`<div class="install-step"><span class="install-step-ico">${['📤','➕','✅'][i]||'•'}</span><span>${x}</span></div>`).join('')}
+function openInstallSteps(){const c=installCopy();$('installModalTitle').textContent=c.modal;$('installModalBody').dir=lang==='ar'?'rtl':'ltr';$('installIosTitle').textContent=c.ios;$('installAndroidTitle').textContent=c.android;$('installIosSteps').innerHTML=stepHtml(c.iosSteps);$('installAndroidSteps').innerHTML=stepHtml(c.androidSteps);$('installGotBtn').textContent=c.got;$('installNeverBtn').textContent=c.never;$('installModal').classList.add('show')}
+function closeInstallSteps(){$('installModal').classList.remove('show')}
+function dismissInstallCard(never){if(never)localStorage.setItem('state2099_install_never','1');else sessionStorage.setItem('state2099_install_later','1');closeInstallSteps();renderInstallCard()}
+
 const API='https://script.google.com/macros/s/AKfycbxyYX74LDul-qjH2qAVTsMXqlAVAp6msvGNxVaUSPjFg9ZKkcDNvD6Rzr9YoVPbBIud7w/exec';
 const LANGS=[['ar','https://flagcdn.com/w40/sa.png','العربية'],['en','https://flagcdn.com/w40/us.png','English'],['id','https://flagcdn.com/w40/id.png','Indonesia'],['ru','https://flagcdn.com/w40/kz.png','Русский'],['ko','https://flagcdn.com/w40/kr.png','한국어']];
 const I18N={
@@ -149,9 +193,9 @@ const options={alliances:['SOS','XCR','ASL','L99'],ministries:['Education','VP -
 let lang='en', hq={settings:{},bt:[]}, activeType='', selectedTimings=[], selectedTroops=[], selectedHelios=[];
 const $=id=>document.getElementById(id), t=k=>(I18N[lang]&&I18N[lang][k])||I18N.en[k]||k;
 function initLangButtons(){const make=(where,small=false)=>{$(where).innerHTML=LANGS.map(([c,f,n])=>`<button class="${small?'chip':'lang-btn'} ${c===lang?'active':''}" onclick="selectLang('${c}')"><img class="flag" src="${f}" alt="${n}" loading="lazy"><span>${n}</span></button>`).join('')};make('gateLangs');make('topLangs',true)}
-function selectLang(c){lang=c;localStorage.setItem('state2099_lang',c);document.documentElement.lang=c;document.documentElement.dir=c==='ar'?'rtl':'ltr';document.body.classList.toggle('lang-ar',c==='ar');$('languageGate').classList.add('hidden');$('app').classList.remove('hidden');$('toolsDock').classList.remove('hidden');initLangButtons();applyLang();renderCards()}
+function selectLang(c){lang=c;localStorage.setItem('state2099_lang',c);document.documentElement.lang=c;document.documentElement.dir=c==='ar'?'rtl':'ltr';document.body.classList.toggle('lang-ar',c==='ar');$('languageGate').classList.add('hidden');$('app').classList.remove('hidden');$('toolsDock').classList.remove('hidden');initLangButtons();applyLang();renderInstallCard();renderCards()}
 function applyLang(){document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n))}
-function boot(){lang=localStorage.getItem('state2099_lang')||'en';document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.classList.toggle('lang-ar',lang==='ar');initLangButtons();applyLang();loadData()} window.onload=boot;
+function boot(){lang=localStorage.getItem('state2099_lang')||'en';document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.classList.toggle('lang-ar',lang==='ar');initLangButtons();applyLang();renderInstallCard();loadData()} window.onload=boot;
 function loadData(){fetch(API).then(r=>r.json()).then(d=>{hq=d||hq;syncHQ()}).catch(()=>{hq.settings={president:'Sultan',svs_wins:'0',league_wins:'0',player_of_the_month:'---',announcement:'Long live 2099'};syncHQ()})}
 function syncHQ(){const s=hq.settings||{};$('v-president').textContent=s.president||'---';$('v-svs').textContent=s.svs_wins||'0';$('v-league').textContent=s.league_wins||'0';$('v-pom').textContent=s.player_of_the_month||'---';$('v-ann').textContent=s.announcement||'Long live 2099';renderCards();if(sessionStorage.getItem('state2099_admin'))fillAdmin()}
 function renderCards(){const s=hq.settings||{};const data=[['ministries',t('ministries'),'Appoint Ministers. Strengthen the State.','assets/ministries.jpg','fa-landmark',s.ministries_lock],['svs_survey',t('svs'),'Strategy. Valor. Victory.','assets/svs-battle.jpg','fa-shield-halved',s.svs_survey_lock],['fdt_survey',t('fdt'),'Face the Frost Dragon. Earn Glory.','assets/fdt-dragon.jpg','fa-dragon',s.fdt_survey_lock],['league_survey',t('league'),'Compete. Dominate. Become Champion.','assets/league.jpg','fa-trophy',s.league_survey_lock]];$('cards').innerHTML=data.map(([type,title,desc,img,icon,lock])=>`<button class="portal-card ${lock==='TRUE'?'locked':''}" onclick="openForm('${type}')"><div class="bg" style="background-image:url('${img}')"></div><div class="locked-cover"><div><i class="fa-solid fa-lock"></i><br>${t('locked')}</div></div><div class="card-content"><div class="crest"><i class="fa-solid ${icon}"></i></div><div class="card-title">${title}</div><div class="card-desc">${desc}</div><div class="enter">${t('enter')} <i class="fa-solid fa-chevron-right"></i></div></div></button>`).join('')}
