@@ -2,125 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>State 2099 — WAR ROOM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>State2099 War Room Lite</title>
   <style>
     :root{
-      --bg:#06101d; --panel:#0d2238; --panel2:#102b47; --card:#071827;
-      --line:#294b6c; --line2:#3d6b93; --text:#eff8ff; --muted:#9db4cc;
-      --blue:#38a9ff; --blueSoft:rgba(56,169,255,.15);
-      --green:#35d07f; --greenSoft:rgba(53,208,127,.14);
-      --gold:#f3c86b; --goldSoft:rgba(243,200,107,.14);
-      --red:#ef4444; --purple:#9b87ff; --shadow:0 16px 50px rgba(0,0,0,.34);
+      --bg:#07111f; --panel:#0f1b2d; --panel2:#13243b; --line:#263954; --text:#eaf2ff; --muted:#9fb1ca;
+      --blue:#38bdf8; --green:#22c55e; --greenSoft:#143625; --purpleSoft:#2a2045; --red:#ef4444; --amber:#f59e0b;
+      --shadow:0 24px 80px rgba(0,0,0,.35); --radius:22px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;min-height:100%;width:100%;overflow-x:hidden;background:#050b14;color:var(--text);font-family:Inter,Segoe UI,Arial,Tahoma,sans-serif}
-    body{
-      background:
-        radial-gradient(circle at 15% -8%,rgba(56,169,255,.22),transparent 30%),
-        radial-gradient(circle at 95% 0%,rgba(243,200,107,.10),transparent 28%),
-        linear-gradient(180deg,#132842,#07111f 58%,#040912);
-      padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)
-    }
-    button,input,select,textarea{font:inherit}
-    button{cursor:pointer}
-    .hidden{display:none!important}
-    .wrap{width:min(100%,880px);margin:0 auto;padding:12px 10px 84px}
-    .top{position:sticky;top:0;z-index:30;margin:0 -10px 12px;padding:10px 10px 12px;background:linear-gradient(180deg,rgba(6,16,29,.99),rgba(6,16,29,.90));backdrop-filter:blur(14px);border-bottom:1px solid rgba(130,215,255,.12)}
-    .brand{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
-    .brand h1{margin:0;font-size:20px;letter-spacing:.04em}
-    .brand small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
-    .status{font-size:12px;color:var(--muted);text-align:right;white-space:nowrap}
-    .ok{color:#86efac}.bad{color:#fecaca}.warn{color:#fde68a}
-    .tabs{display:flex;gap:9px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 0 2px}
-    .tabs::-webkit-scrollbar{display:none}
-    .tab{flex:0 0 auto;border:1px solid var(--line);background:#09182b;color:#dcecff;border-radius:999px;padding:12px 18px;font-weight:900;font-size:15px;white-space:nowrap}
-    .tab.active{background:linear-gradient(135deg,#1887e2,#50c9ff);border:0;color:#fff}
-    .card{background:linear-gradient(180deg,rgba(16,42,70,.96),rgba(8,24,43,.98));border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);margin:12px 0;overflow:hidden}
-    .cardHead{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 16px;border-bottom:1px solid var(--line)}
-    .cardHead h2{margin:0;font-size:22px;line-height:1.05}
-    .cardHead .sub{color:var(--muted);font-size:13px;text-align:right}
-    .cardBody{padding:15px}
-    label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;color:#bfd7ee;margin:0 0 7px}
-    input,select,textarea{width:100%;border:1px solid var(--line2);background:#071527;color:var(--text);border-radius:16px;padding:13px 14px;outline:none;min-height:52px;font-size:16px}
-    textarea{min-height:92px;resize:vertical;line-height:1.45}
-    input:focus,select:focus,textarea:focus{border-color:#82d7ff;box-shadow:0 0 0 3px rgba(130,215,255,.10)}
-    select option{background:#071527;color:white}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-    .grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-    .span2{grid-column:span 2}
-    .sectionBox{border:1px solid rgba(130,215,255,.25);border-radius:20px;background:rgba(7,21,39,.58);padding:14px;margin:12px 0}
-    .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
-    .sectionTitle strong{font-size:18px;letter-spacing:.03em}
-    .hint{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
-    .guide{border:1px solid rgba(243,200,107,.28);background:rgba(243,200,107,.08);border-radius:18px;padding:12px;color:#eaf6ff;line-height:1.45}
-    .guide strong{color:#fde68a}
-    .infoGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
-    .infoBox{border:1px solid rgba(130,215,255,.24);border-radius:16px;padding:10px;background:rgba(56,169,255,.075);font-size:13px;line-height:1.35;color:#dff3ff}
-    .infoBox.gold{background:rgba(243,200,107,.08);border-color:rgba(243,200,107,.25)}
-    .selectedGroupPreview{border:1px solid rgba(53,208,127,.28);background:rgba(53,208,127,.08);border-radius:14px;padding:9px;margin-top:8px;color:#dfffe9;font-size:13px;line-height:1.35}
-    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-    .btn{border:1px solid var(--line2);background:#122a45;color:var(--text);border-radius:15px;padding:11px 14px;font-weight:900;min-height:45px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
-    .btn.primary{background:linear-gradient(135deg,#187ee0,#49c7ff);border:0;color:white}
-    .btn.green{background:linear-gradient(135deg,#16a34a,#4ade80);border:0;color:#05120a}
-    .btn.gold{background:linear-gradient(135deg,#9a6a15,#f1c76a);border:0;color:#191006}
-    .btn.danger{background:#3a1018;color:#fecaca;border-color:#7f1d1d}
-    .btn.ghost{background:transparent}
-    .btn.small{font-size:12px;min-height:35px;padding:8px 10px;border-radius:11px}
-    .choiceRow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-    .choice{border:1px solid var(--line2);background:#071527;border-radius:16px;min-height:62px;color:#dcecff;font-weight:900;padding:8px 10px;line-height:1.15}
-    .choice span{display:block;margin-top:4px;font-size:11px;color:#cfe8ff;font-weight:700}
-    .choice.active{background:linear-gradient(135deg,#1887e2,#50c9ff);border:0;color:white}
-    .routeChoice{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
-    .routeBtn{border:1px solid var(--line2);background:#071527;border-radius:14px;color:#dcecff;min-height:48px;font-weight:900}
-    .routeBtn.active{background:linear-gradient(135deg,#6d5df5,#9b87ff);border:0;color:#fff}
-    .preview{white-space:pre-wrap;background:#061224;border:1px dashed #46688a;border-radius:18px;padding:13px;line-height:1.45;color:#eff8ff;direction:ltr;text-align:left}
-    textarea.preview{width:100%;min-height:210px;resize:vertical}
-    .editBadge{display:none;margin-top:7px;color:#fde68a;font-size:12px;font-weight:900}
-    .editBadge.show{display:block}
-    .preview.rtl{direction:rtl;text-align:right;font-family:Tahoma,Arial,sans-serif}
-    .list{display:grid;gap:10px}
-    .item{border:1px solid rgba(130,215,255,.22);border-radius:17px;background:rgba(5,18,34,.62);padding:12px;line-height:1.45}
-    .item.new{border-color:rgba(74,222,128,.78);box-shadow:0 0 0 1px rgba(74,222,128,.18),inset 0 0 24px rgba(74,222,128,.06)}
-    .tag{display:inline-flex;border-radius:999px;padding:3px 8px;font-size:12px;font-weight:900;margin:2px 5px 2px 0}
-    .tag.amt{background:var(--blueSoft);color:#9de3ff}.tag.pro{background:var(--greenSoft);color:#bbf7d0}.tag.gold{background:var(--goldSoft);color:#fde68a}
-    .mini{color:#d8e9f7;font-size:13px;margin-top:6px}
-    .hourCard{border:1px solid rgba(130,215,255,.25);border-radius:22px;background:#071527;margin:12px 0;overflow:hidden}
-    .hourTop{background:linear-gradient(90deg,#132744,#102238);padding:13px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
-    .hourTop strong{font-size:19px}
-    .hourGrid{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--line)}
-    .col{padding:12px;border-right:1px solid var(--line);min-height:92px;white-space:pre-wrap}
-    .col:last-child{border-right:0}
-    .col.amt{background:rgba(56,169,255,.055)}
-    .col.pro{background:rgba(53,208,127,.050)}
-    .col h4{margin:0 0 10px;font-size:16px;color:#e0f2fe}
-    .battlePlan{padding:12px;border-top:1px solid var(--line);background:rgba(243,200,107,.08);white-space:pre-wrap}
-    .filters{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-    .toast{position:fixed;right:12px;left:12px;bottom:18px;margin:auto;max-width:420px;background:#0b1728;border:1px solid var(--line2);box-shadow:var(--shadow);border-radius:16px;padding:13px 14px;z-index:80;display:none}
-    .toast.show{display:block}
-    .lock{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:18px;background:radial-gradient(circle at top,#143c66,#050b14 60%)}
-    .lockBox{width:min(94vw,430px);border:1px solid var(--line2);border-radius:28px;background:rgba(9,27,47,.96);box-shadow:var(--shadow);padding:22px}
-    .lockBox h2{margin:0 0 8px;font-size:27px}.lockBox p{color:var(--muted);margin:0 0 16px}
-    @media(max-width:680px){
-      .infoGrid{grid-template-columns:1fr}
-      .wrap{width:100%;padding-left:10px;padding-right:10px}
-      .top{margin-left:-10px;margin-right:-10px}
-      .brand h1{font-size:18px}.brand small{font-size:11px}.status{font-size:11px}
-      .grid,.grid3,.grid4,.filters,.hourGrid{grid-template-columns:1fr}
-      .span2{grid-column:span 1}
-      .choiceRow,.routeChoice{grid-template-columns:1fr}
-      .btn{width:100%}.btn.small{width:auto}
-      .cardHead{padding:14px}.cardBody{padding:12px}
-      .col{border-right:0;border-bottom:1px solid var(--line)}.col:last-child{border-bottom:0}
-    }
+    body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at top left,#16365f 0,#07111f 40%,#050914 100%);color:var(--text);min-height:100vh}
+    .wrap{max-width:1220px;margin:auto;padding:22px}
+    .top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:14px}.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#38bdf8,#22c55e);display:grid;place-items:center;font-weight:950;color:#04101d;box-shadow:0 12px 28px rgba(56,189,248,.18)}
+    h1{font-size:26px;margin:0}.sub{color:var(--muted);font-size:13px;margin-top:4px}.pill{border:1px solid var(--line);background:rgba(15,27,45,.72);border-radius:999px;padding:8px 12px;color:#bae6fd;font-size:12px;font-weight:800}
+    .grid{display:grid;grid-template-columns:1fr;gap:16px}.card{background:linear-gradient(180deg,rgba(19,36,59,.96),rgba(12,24,42,.96));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}.cardHead{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}.cardHead h2{font-size:17px;margin:0}.cardBody{padding:18px}
+    .formGrid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px}.field{grid-column:span 3}.field.small{grid-column:span 2}.field.wide{grid-column:span 4}.span4{grid-column:span 4}.span6{grid-column:span 6}.span12{grid-column:1/-1}
+    .lineGroup{grid-column:1/-1;border:1px solid var(--line);background:rgba(7,19,38,.42);border-radius:18px;padding:12px}.lineTitle{font-size:12px;color:#bae6fd;font-weight:900;letter-spacing:.03em;margin-bottom:10px;text-transform:uppercase}.inlineGrid{display:grid;gap:10px}.inlineGrid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.inlineGrid.four{grid-template-columns:repeat(4,minmax(0,1fr))}.ratioGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.miniField{position:relative}.miniField span{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--muted);font-weight:900;pointer-events:none}.miniField input{padding-left:52px}
+    label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}input,select,textarea{width:100%;border:1px solid var(--line);background:#09182a;color:var(--text);border-radius:14px;padding:11px 12px;outline:none;font-size:14px}select option{background:#09182a;color:#eaf2ff}textarea{min-height:120px;resize:vertical;line-height:1.45}input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(56,189,248,.1)}
+    .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.btn{border:1px solid var(--line);background:#13243b;color:var(--text);border-radius:14px;padding:10px 14px;font-weight:800;cursor:pointer;transition:.15s}.btn:hover{transform:translateY(-1px);border-color:#3f5d82}.btn.primary{background:linear-gradient(135deg,#2563eb,#38bdf8);color:white;border:0}.btn.green{background:linear-gradient(135deg,#16a34a,#22c55e);color:#04100a;border:0}.btn.danger{background:#3b1119;color:#fecaca;border-color:#7f1d1d}.btn.ghost{background:transparent}.btn.small{padding:7px 10px;border-radius:10px;font-size:12px}.btn.active{background:#0ea5e9;color:white;border-color:#38bdf8}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.hint{color:var(--muted);font-size:12px;margin-top:8px}.splitLine{height:1px;background:var(--line);margin:16px 0}.status{font-size:12px;color:var(--muted)}.rtl{direction:rtl;text-align:right}
+    .tableWrap{overflow:auto;border:1px solid var(--line);border-radius:18px}table{border-collapse:collapse;width:100%;min-width:980px;background:#0a1728}th,td{border-bottom:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top}th{background:#0f172a;color:#dbeafe;font-size:12px;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0;z-index:1}td{font-size:13px;color:#e5eefc}.tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:900}.tag.a1{background:rgba(34,197,94,.16);color:#86efac}.tag.a2{background:rgba(167,139,250,.16);color:#c4b5fd}.tag.warn{background:rgba(245,158,11,.14);color:#fcd34d}
+    .simpleToolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}.simpleGrid{display:grid;grid-template-columns:126px 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}.simpleHead,.simpleTime,.simpleCell{background:#0a1728;padding:12px;white-space:pre-wrap}.simpleHead{background:#0f172a;font-weight:950;color:#dbeafe;text-align:center}.simpleTime{background:#0f172a;color:#bae6fd;font-weight:950;text-align:center;display:flex;align-items:center;justify-content:center}.simpleCell.a1{background:rgba(20,54,37,.55)}.simpleCell.a2{background:rgba(42,32,69,.55)}.planBlock{padding:8px 9px;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:rgba(5,13,26,.22);margin-bottom:10px}.planBlock:last-child{margin-bottom:0}.leaderName{font-weight:950;color:#fff;font-size:15px}.teamName{font-weight:800;color:#dbeafe;margin-top:2px}.heroesLine{color:#eaf2ff;margin-top:5px}.formationLine{color:#d5e6ff;margin-top:5px}.petsLine{display:inline-block;margin-top:7px;color:#fecaca;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.35);border-radius:999px;padding:3px 8px;font-size:12px;font-weight:950}.emptyCell{color:#7f91aa;text-align:center;padding:18px 6px}
+    .lock{position:fixed;inset:0;background:radial-gradient(circle at top,#14345d,#050914 55%);display:grid;place-items:center;z-index:99}.lockBox{width:min(420px,92vw);background:rgba(15,27,45,.95);border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow)}.lockBox h2{margin:14px 0 6px}.hidden{display:none!important}.toast{position:fixed;right:18px;bottom:18px;background:#0f172a;border:1px solid var(--line);color:white;padding:13px 15px;border-radius:14px;box-shadow:var(--shadow);display:none;z-index:200}
+    .copyNote{color:#bae6fd;font-size:12px;margin-top:8px}.autoBadge{font-size:11px;color:#a7f3d0;margin-left:6px}.dangerText{color:#fecaca}.successText{color:#86efac}
+    @media(max-width:900px){.formGrid{grid-template-columns:1fr}.field,.field.small,.field.wide,.span4,.span6{grid-column:1/-1}.inlineGrid.three,.inlineGrid.four,.ratioGrid{grid-template-columns:1fr}.two{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.simpleGrid{grid-template-columns:92px 1fr 1fr}.simpleHead,.simpleTime,.simpleCell{padding:9px}.wrap{padding:14px}table{min-width:760px}}
+    @media(max-width:640px){.simpleGrid{grid-template-columns:82px 1fr}.simpleHead.a2,.simpleCell.a2{grid-column:1/-1}.simpleCell.a2:before{content:attr(data-alliance);display:block;font-weight:950;color:#c4b5fd;margin-bottom:8px}.simpleHead.a2{display:none}.leaderName{font-size:14px}}
   </style>
 </head>
 <body>
 <div class="lock" id="lock">
   <div class="lockBox">
-    <h2>State 2099 — WAR ROOM</h2>
-    <p>Planning access required</p>
+    <div class="logo">2099</div>
+    <h2>War Room Lite</h2>
+    <p class="sub">Planning access required.</p>
     <input id="pass" type="password" placeholder="Password" onkeydown="if(event.key==='Enter') unlock()" />
     <div class="btns"><button class="btn primary" onclick="unlock()">Enter</button></div>
     <div class="hint">Ask R4 for access.</div>
@@ -129,491 +44,234 @@
 
 <div class="wrap">
   <div class="top">
-    <div class="brand">
-      <div>
-        <h1>State 2099 — WAR ROOM</h1>
-        <small>Dual role flow · smooth copy · hourly brief</small>
-      </div>
-      <div class="status" id="apiStatus">Connecting...</div>
-    </div>
-    <div class="tabs">
-      <button class="tab active" onclick="showTab('rally')">Rally Leaders</button>
-      <button class="tab" onclick="showTab('brief')">Brief & Download</button>
-    </div>
+    <div class="brand"><div class="logo">2099</div><div><h1>War Room Lite</h1><div class="sub">Fast rally planning · timeline simple plan · Arabic / English copy messages</div></div></div>
+    <div class="pill" id="topPill">War Room · Smooth Mode</div>
   </div>
 
-  <section id="rally" class="pane"></section>
-  <section id="brief" class="pane hidden"></section>
+  <div class="grid">
+    <section class="card">
+      <div class="cardHead"><h2 id="formTitle">Add Rally Plan</h2><div class="status" id="apiStatus">Locked</div></div>
+      <div class="cardBody">
+        <div class="formGrid">
+          <input id="planId" type="hidden" />
+          <input id="createdAt" type="hidden" />
+
+          <div class="field"><label>Alliance</label><select id="alliance" onchange="updateTeamOptions(); generatePreview();"></select></div>
+          <div class="field"><label>Team Name</label><select id="team" onchange="generatePreview();"></select></div>
+          <div class="field"><label>Rally Leader</label><select id="rallyLeader" onchange="toggleOther(); generatePreview();"></select></div>
+          <div class="field" id="otherBox"><label>Other Leader Name</label><input id="otherLeader" placeholder="Write leader name" /></div>
+
+          <div class="field"><label>Plan Time</label><select id="planTime" onchange="generatePreview();"></select></div>
+          <div class="field"><label>Pets</label><select id="petTime" onchange="generatePreview();"></select></div>
+          <div class="field"><label>Language</label><select id="language" onchange="generatePreview();"><option>English</option><option>Arabic</option></select></div>
+          <div class="field"><label>Quick Status</label><div class="pill" id="quickStatus">Ready</div></div>
+
+          <div class="lineGroup">
+            <div class="lineTitle">Rally Heroes</div>
+            <div class="inlineGrid three">
+              <select id="hero1" onchange="generatePreview();"></select>
+              <select id="hero2" onchange="generatePreview();"></select>
+              <select id="hero3" onchange="generatePreview();"></select>
+            </div>
+          </div>
+
+          <div class="lineGroup">
+            <div class="lineTitle">Formation — total must be 100%</div>
+            <div class="ratioGrid">
+              <div class="miniField"><span>INF</span><input id="inf" type="number" min="0" max="100" value="60" /></div>
+              <div class="miniField"><span>LAN</span><input id="lan" type="number" min="0" max="100" value="40" /></div>
+              <div class="miniField"><span>MM</span><input id="mm" type="number" min="0" max="100" value="0" /></div>
+            </div>
+          </div>
+
+          <div class="lineGroup">
+            <div class="lineTitle">Joiners — in order</div>
+            <div class="inlineGrid four">
+              <select id="joiner1" onchange="generatePreview();"></select>
+              <select id="joiner2" onchange="generatePreview();"></select>
+              <select id="joiner3" onchange="generatePreview();"></select>
+              <select id="joiner4" onchange="generatePreview();"></select>
+            </div>
+          </div>
+
+          <div class="span12"><label>Organizer Notes</label><textarea id="notes" placeholder="For organizer only. This will not appear in game messages."></textarea></div>
+        </div>
+
+        <div class="btns">
+          <button class="btn green" onclick="savePlan()" id="saveBtn">Save Plan</button>
+          <button class="btn" onclick="copyCurrent('rally')">Copy Rally Message</button>
+          <button class="btn" onclick="copyCurrent('joiner')">Copy Joiner Message</button>
+          <button class="btn ghost" onclick="resetAutoMessages()">Reset Auto Messages</button>
+          <button class="btn danger" onclick="clearFormHard()">Clear Form</button>
+        </div>
+        <div class="copyNote">After Save, the form stays filled. Change only the next rally leader and save again.</div>
+
+        <div class="splitLine"></div>
+        <div class="two">
+          <div><label>Rally Message Preview <span class="autoBadge">editable before copy</span></label><textarea id="rallyPreview"></textarea></div>
+          <div><label>Joiner Message Preview <span class="autoBadge">editable before copy</span></label><textarea id="joinerPreview"></textarea></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="cardHead"><h2>Simple Timeline Plan</h2><div class="btns" style="margin:0"><button class="btn small active" id="simpleBtnEn" onclick="setSimpleLang('English')">English</button><button class="btn small" id="simpleBtnAr" onclick="setSimpleLang('Arabic')">عربي</button><button class="btn small" onclick="loadPlans(false)">Refresh</button><button class="btn small" onclick="downloadPlan('downloadSimplePlan')">Download Simple</button></div></div>
+      <div class="cardBody">
+        <div class="simpleToolbar"><div class="status">Screenshot-friendly · grouped by time</div><div class="status" id="planCount">0 plans</div></div>
+        <div class="simpleGrid" id="simplePreview"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="cardHead"><h2>Saved Plans</h2><div class="btns" style="margin:0"><button class="btn small" onclick="downloadPlan('downloadFullPlan')">Download Full</button><button class="btn small danger" onclick="clearPlanningData()">Clear War Room</button></div></div>
+      <div class="cardBody">
+        <div class="tableWrap"><table><thead><tr><th>Time</th><th>Alliance</th><th>Team</th><th>Rally Leader</th><th>Pets</th><th>Formation</th><th>Heroes</th><th>Actions</th></tr></thead><tbody id="savedBody"><tr><td colspan="8">No plans yet.</td></tr></tbody></table></div>
+      </div>
+    </section>
+  </div>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbwjDlFMi2ghN2qGnLHr6pDIoKnaulE_vuhdDJQCSYSoean46H8a7YWcRHup8Ds4T-HodA/exec";
-const PASSWORD = "StateOf2099";
-let state = {lists:{}, presets:[], routes:[], battlePlans:[], messages:[], simpleBrief:{en:[], ar:[]}};
-let currentStyle = 'amt';
-let dualPattern = 'proAmtPro';
-let lastSavedRouteId = '';
-let autoRallyMessage = '';
-let autoJoinerMessage = '';
+const WAR_API = 'https://script.google.com/macros/s/AKfycbwRBis5c7z5Sk1GwuWIytVQQ9XxBYQjmbkcHP1fdDmMz-JBEvOpRqBT4Og9JupggKYBGg/exec';
+const PASSWORD = 'StateOf2099';
+
+const fallbackConfig = {
+  settings:{alliance1:'AMT', alliance2:'PRO', defaultLanguage:'English'}, alliances:['AMT','PRO'],
+  leaders:['Zero','KSA Abu Sanad','FAS','Final Option','Kaki','Kanis','Maher','Anas','Fahad','Tusi','Bu3ajeel','Monster','NightKing','777','Maximus','Sultan','Other'],
+  heroes:['Sergey','Jessie','Patrick','Lumak Bokan','Ling Xue','Gina','Bahiti','Jasser','Seo-yoon','Natalia','Jeronimo','Molly','Zinman','Flint','Philly','Alonso','Logan','Mia','Greg','Ahmose','Reina','Lynn','Hector','Norah','Gwen','Wu Ming','Renee','Wayne','Edith','Gordon','Bradley','Gatot','Sonya','Hendrik','Magnus','Fred','Xura','Gregory','Freya','Blanchette','Eleonora','Lloyd','Rufus','Hervor','Karol','Ligeia','Gisela','Flora','Vulcanus','Elif','Dominic','Cara','Hank','Estrella','Viveca','Seigel','Ursar','Aisling'],
+  heroAr:{'Sergey':'سيرجي','Jessie':'جيسي','Patrick':'باتريك','Lumak Bokan':'بوكان','Ling Xue':'لينغ شو','Gina':'جينا','Bahiti':'باهيتي','Jasser':'جاسر','Seo-yoon':'سو يون','Natalia':'ناتاليا','Jeronimo':'جيرونيمو','Molly':'مولي','Zinman':'زينمان','Flint':'فلينت','Philly':'فيلي','Alonso':'ألونسو','Logan':'لوغان','Mia':'ميا','Greg':'قريق','Ahmose':'أحمس','Reina':'رينا','Lynn':'لين','Hector':'هيكتور','Norah':'نورا','Gwen':'جوين','Wu Ming':'وو مين','Renee':'رينيه','Wayne':'واين','Edith':'إديث','Gordon':'غوردون','Bradley':'برادلي','Gatot':'قاتوت','Sonya':'سونيا','Hendrik':'هندريك','Magnus':'ماغنوس','Fred':'فريد','Xura':'زورا','Gregory':'غريغوري','Freya':'فريا','Blanchette':'بلانشيت','Eleonora':'إليونورا','Lloyd':'لويد','Rufus':'روفوس','Hervor':'هيرفور','Karol':'كارول','Ligeia':'ليجيا','Gisela':'جيزيلا','Flora':'فلورا','Vulcanus':'فولكانوس','Elif':'إليف','Dominic':'دومينيك','Cara':'كارا','Hank':'هانك','Estrella':'إستريلا','Viveca':'فيفيكا','Seigel':'سيغل','Ursar':'أورسار','Aisling':'آيسلينغ'},
+  languages:['English','Arabic'], timeOptions:Array.from({length:48},(_,i)=>`${String(Math.floor(i/2)).padStart(2,'0')}:${i%2?'30':'00'}`), petOptions:[], teams:{AMT:Array.from({length:12},(_,i)=>`TEAM AMT${i+1}`), PRO:Array.from({length:12},(_,i)=>`TEAM PRO${i+1}`)}
+};
+fallbackConfig.petOptions = ['No Pets'].concat(fallbackConfig.timeOptions);
+
+let config = structuredClone ? structuredClone(fallbackConfig) : JSON.parse(JSON.stringify(fallbackConfig));
+let plans = [];
+let simpleLang = 'English';
+let autoMessages = {rally:'', joiner:''};
+let autoRefreshTimer = null;
 
 const $ = id => document.getElementById(id);
-const esc = s => String(s ?? '').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-const val = id => ($(id)?.value || '').trim();
-function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window._toast);window._toast=setTimeout(()=>t.classList.remove('show'),3000)}
-function unlock(){if(val('pass')!==PASSWORD)return toast('Wrong password');sessionStorage.setItem('warroom_ok','1');$('lock').classList.add('hidden');init()}
-window.addEventListener('load',()=>{if(sessionStorage.getItem('warroom_ok')==='1')$('lock').classList.add('hidden');init()});
-
-async function apiGet(action){
-  const r=await fetch(API+'?action='+encodeURIComponent(action)+'&ts='+Date.now());
-  const j=await r.json(); if(!j.ok)throw new Error(j.error||'API error'); return j;
+function toast(msg){const t=$('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',2600);} 
+function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function fillSelect(id, arr){ const el=$(id); el.innerHTML=(arr||[]).map(x=>`<option>${escapeHtml(x)}</option>`).join(''); }
+function fillConfig(){
+  fillSelect('alliance', config.alliances); fillSelect('rallyLeader', config.leaders); fillSelect('language', config.languages || ['English','Arabic']);
+  ['hero1','hero2','hero3','joiner1','joiner2','joiner3','joiner4'].forEach(id=>fillSelect(id, config.heroes));
+  fillSelect('planTime', config.timeOptions); fillSelect('petTime', config.petOptions || ['No Pets'].concat(config.timeOptions));
+  updateTeamOptions(false);
+  setDefaults(false);
 }
-async function apiPost(action,payload={}){
-  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...payload})});
-  const txt=await r.text(); let j; try{j=JSON.parse(txt)}catch(e){throw new Error('Bad API response')}
-  if(!j.ok)throw new Error(j.error||'API error'); return j;
+function setDefaults(keepAlliance=true){
+  if(!keepAlliance){ $('alliance').value = config.alliances[0] || 'AMT'; updateTeamOptions(false); }
+  $('team').value = (config.teams[$('alliance').value]||[])[0] || '';
+  $('rallyLeader').value='Zero'; $('otherLeader').value=''; $('planTime').value='14:00'; $('petTime').value='No Pets'; $('language').value=config.settings.defaultLanguage || 'English';
+  $('hero1').value='Gatot'; $('hero2').value='Sonya'; $('hero3').value='Bradley';
+  $('joiner1').value='Jessie'; $('joiner2').value='Jasser'; $('joiner3').value='Norah'; $('joiner4').value='Hector';
+  $('inf').value=60; $('lan').value=40; $('mm').value=0; $('notes').value=''; toggleOther(); generatePreview();
 }
-async function init(){
-  try{
-    const j=await apiGet('getConfig');
-    state.lists=j.lists||{}; state.presets=j.presets||[]; state.routes=j.routes||[];
-    state.battlePlans=j.battlePlans||[]; state.messages=j.messages||[]; state.simpleBrief=j.simpleBrief||{en:[],ar:[]};
-    $('apiStatus').innerHTML='<span class="ok">Connected · dual role</span>'; renderAll();
-  }catch(e){$('apiStatus').innerHTML='<span class="bad">API not connected</span>';toast(e.message);renderAll()}
+function updateTeamOptions(keepValue=true){
+  const old=$('team').value; const arr=config.teams[$('alliance').value] || [];
+  $('team').innerHTML=arr.map(x=>`<option>${escapeHtml(x)}</option>`).join('');
+  $('team').value = keepValue && arr.includes(old) ? old : (arr[0] || '');
 }
-function renderAll(){renderRally();renderBrief()}
-function showTab(id){
-  document.querySelectorAll('.pane').forEach(p=>p.classList.add('hidden')); $(id).classList.remove('hidden');
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  [...document.querySelectorAll('.tab')].find(t=>t.getAttribute('onclick')?.includes("'"+id+"'"))?.classList.add('active');
+function toggleOther(){ $('otherBox').classList.toggle('hidden', $('rallyLeader').value !== 'Other'); }
+function unlock(){
+  if($('pass').value !== PASSWORD){toast('Wrong password');return;}
+  $('lock').classList.add('hidden');
+  boot();
 }
-function options(arr,selected=''){return (arr||[]).map(x=>`<option value="${esc(x)}" ${String(x)===String(selected)?'selected':''}>${esc(x)}</option>`).join('')}
-function teamList(alliance){return alliance==='PRO'?(state.lists.teamsPro||[]):(state.lists.teamsAmt||[])}
-function presetOptions(){return (state.presets||[]).map(p=>`<option value="${esc(p['Preset ID'])}">${esc(p['Preset Name'])}</option>`).join('')||'<option value="">No groups yet</option>'}
-function maybeOtherLeader(){$('leaderOtherWrap')?.classList.toggle('hidden',val('leader')!=='Other')}
-function styleBtn(style){
-  currentStyle=style; document.querySelectorAll('.choice').forEach(b=>b.classList.remove('active')); $(`style_${style}`).classList.add('active'); drawAssignments();
+async function boot(){
+  try{ $('apiStatus').textContent='Loading config...'; const r=await api('getConfig'); config = {...config, ...r}; config.settings = {...fallbackConfig.settings, ...(r.settings||{})}; $('topPill').textContent = `${config.settings.alliance1 || 'AMT'} / ${config.settings.alliance2 || 'PRO'} · War Room`; fillConfig(); await loadPlans(false); if(!autoRefreshTimer) autoRefreshTimer=setInterval(()=>loadPlans(true),30000); }
+  catch(e){ $('apiStatus').textContent='Config failed · using fallback'; fillConfig(); renderSaved(); renderSimple(); toast(e.message); }
 }
-function routeBtn(pattern){
-  dualPattern=pattern; document.querySelectorAll('.routeBtn').forEach(b=>b.classList.remove('active')); $(`route_${pattern}`).classList.add('active'); drawAssignments();
+function setBusy(btn, text){ if(!btn)return()=>{}; const old=btn.textContent; btn.disabled=true; btn.textContent=text; return()=>{btn.disabled=false; btn.textContent=old;}; }
+async function api(action, data={}){
+  const res = await fetch(WAR_API,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...data})});
+  const json = await res.json(); if(!json.ok) throw new Error(json.error || 'Request failed'); return json;
 }
-function formation(prefix){return {inf:Number(val(prefix+'_inf')||0),lan:Number(val(prefix+'_lan')||0),mm:Number(val(prefix+'_mm')||0)}}
-function formationText(f){return `${f.inf} INF / ${f.lan} LAN / ${f.mm} MM`}
-function total(f){return Number(f.inf)+Number(f.lan)+Number(f.mm)}
-function parseTime(t){const m=String(t||'').match(/(\d{1,2}):(\d{2})/);return m?Number(m[1])*60+Number(m[2]):null}
-function timeInWindow(time,from,to){const x=parseTime(time),a=parseTime(from),b=parseTime(to); if(x==null||a==null||b==null)return false; return a<=b ? (x>=a&&x<b) : (x>=a||x<b)}
-function petForWindow(pet,from,to){return pet&&pet!=='No Pets'&&timeInWindow(pet,from,to)?pet:'No Pets'}
-
-function roleBlock(id,alliance,title,defaults={}){
-  return `<div class="sectionBox" id="${id}">
-    <div class="sectionTitle"><strong>${title}</strong></div>
-    <div class="grid">
-      <div><label>Team</label><select id="${id}_team">${options(teamList(alliance),defaults.team||teamList(alliance)[0])}</select></div>
-      <div><label>Pet Activation</label><select id="${id}_pet">${options(state.lists.petOptions||['No Pets'],defaults.pet??'No Pets')}</select><div class="hint">Choose No Pets if this role does not activate pets.</div></div>
-      <div><label>From</label><select id="${id}_from">${options(state.lists.timeOptions||[],defaults.from||'12:00 UTC')}</select></div>
-      <div><label>To</label><select id="${id}_to">${options(state.lists.timeOptions||[],defaults.to||'14:00 UTC')}</select></div>
-      <div><label>Joiner Group</label><select id="${id}_preset" onchange="updatePresetPreview('${id}_preset','${id}_preset_preview')">${presetOptions()}</select><div id="${id}_preset_preview" class="selectedGroupPreview"></div></div>
-      <div><label>Alliance</label><input id="${id}_alliance" value="${alliance}" readonly></div>
-    </div>
-    <div class="sectionTitle" style="margin-top:14px"><strong>Rally Heroes</strong></div>
-    <div class="grid3">
-      <div><label>Hero 1</label><select id="${id}_h1">${options(state.lists.heroes||[],defaults.h1||'Gatot')}</select></div>
-      <div><label>Hero 2</label><select id="${id}_h2">${options(state.lists.heroes||[],defaults.h2||'Sonya')}</select></div>
-      <div><label>Hero 3</label><select id="${id}_h3">${options(state.lists.heroes||[],defaults.h3||'Bradley')}</select></div>
-    </div>
-    <div class="sectionTitle" style="margin-top:14px"><strong>Formation — total must be 100%</strong></div>
-    <div class="grid3">
-      <div><label>INF</label><input id="${id}_inf" type="number" value="${defaults.inf??60}"></div>
-      <div><label>LAN</label><input id="${id}_lan" type="number" value="${defaults.lan??40}"></div>
-      <div><label>MM</label><input id="${id}_mm" type="number" value="${defaults.mm??0}"></div>
-    </div>
-    <div style="margin-top:12px"><label>Organizer Note</label><textarea id="${id}_note" placeholder="Optional. Appears in detailed message / brief.">${esc(defaults.note||'')}</textarea></div>
-  </div>`;
+function normalizePet(v){ return !v || String(v).toLowerCase()==='no pets' ? 'No Pets' : String(v); }
+function formPlan(){
+  const p={planId:$('planId').value, createdAt:$('createdAt').value, alliance:$('alliance').value, team:$('team').value.trim(), rallyLeader:$('rallyLeader').value, otherLeader:$('otherLeader').value.trim(), planTime:$('planTime').value, petTime:normalizePet($('petTime').value), hero1:$('hero1').value, hero2:$('hero2').value, hero3:$('hero3').value, inf:Number($('inf').value||0), lan:Number($('lan').value||0), mm:Number($('mm').value||0), joiner1:$('joiner1').value, joiner2:$('joiner2').value, joiner3:$('joiner3').value, joiner4:$('joiner4').value, language:$('language').value, notes:$('notes').value.trim()};
+  p.displayLeader = p.rallyLeader==='Other' ? p.otherLeader : p.rallyLeader; p.total=p.inf+p.lan+p.mm; p.hasPets=p.petTime!=='No Pets'; return p;
 }
-function dualRoleBlock(){
-  return `<div class="sectionBox">
-    <div class="sectionTitle"><strong>Route Pattern</strong><span class="hint">Choose the movement order.</span></div>
-    <div class="routeChoice">
-      <button class="routeBtn ${dualPattern==='proAmt'?'active':''}" id="route_proAmt" onclick="routeBtn('proAmt')">PRO → AMT</button>
-      <button class="routeBtn ${dualPattern==='amtPro'?'active':''}" id="route_amtPro" onclick="routeBtn('amtPro')">AMT → PRO</button>
-      <button class="routeBtn ${dualPattern==='proAmtPro'?'active':''}" id="route_proAmtPro" onclick="routeBtn('proAmtPro')">PRO → AMT → PRO</button>
-    </div>
-    <div class="hint">AMT and PRO data are filled once. PRO can be used before and/or after AMT depending on the route.</div>
-  </div>` + roleBlock('amtRole','AMT','Role in AMT',{from:'14:00 UTC',to:'16:00 UTC',pet:'14:00 UTC'}) + roleBlock('proRole','PRO','Role in PRO',{from:'12:00 UTC',to:'14:00 UTC',pet:'No Pets',h1:'Jeronimo',h2:'Hector',h3:'Mia',inf:50,lan:40,mm:10});
-}
-function drawAssignments(){
-  const box=$('assignments'); if(!box)return;
-  if(currentStyle==='amt') box.innerHTML=roleBlock('singleRole','AMT','Role in AMT',{from:'12:00 UTC',to:'14:00 UTC',pet:'12:00 UTC'});
-  if(currentStyle==='pro') box.innerHTML=roleBlock('singleRole','PRO','Role in PRO',{from:'12:00 UTC',to:'14:00 UTC',pet:'No Pets',h1:'Jeronimo',h2:'Hector',h3:'Mia',inf:50,lan:40,mm:10});
-  if(currentStyle==='dual') box.innerHTML=dualRoleBlock();
-}
-
-function renderRally(){
-  $('rally').innerHTML=`<div id="joinerGroupsBox"></div>
-  <div class="card">
-    <div class="cardHead"><h2>Create Rally Leader</h2><button class="btn small ghost" onclick="clearRally()">Clear</button></div>
-    <div class="cardBody">
-      <div class="guide"><strong>Simple steps:</strong> choose leader → choose play type → fill AMT/PRO role → preview → save → copy from Saved Plans.</div>
-      <div class="grid" style="margin-top:12px">
-        <div><label>Rally Leader</label><select id="leader" onchange="maybeOtherLeader()">${options(state.lists.leaders||[],'Kaki')}</select></div>
-        <div id="leaderOtherWrap" class="hidden"><label>Other Leader Name</label><input id="leader_other" placeholder="Write leader name"></div>
-      </div>
-      <div style="margin-top:14px"><label>How will rally leader play?</label>
-        <div class="choiceRow">
-          <button class="choice active" id="style_amt" onclick="styleBtn('amt')">AMT Only<span>only AMT role</span></button>
-          <button class="choice" id="style_pro" onclick="styleBtn('pro')">PRO Only<span>can activate pets</span></button>
-          <button class="choice" id="style_dual" onclick="styleBtn('dual')">Dual Role<span>AMT + PRO</span></button>
-        </div>
-      </div>
-      <div id="assignments"></div>
-      <div class="btns">
-        <button class="btn primary" onclick="generateRallyPreview()">Generate Preview</button>
-        <button class="btn green" onclick="saveRally()">Save Plan</button>
-        <button class="btn" onclick="copyEl('rallyPreview')">Copy Rally Message</button>
-        <button class="btn" onclick="copyEl('joinerPreview')">Copy Joiner Message</button>
-      </div>
-      <div class="sectionBox">
-        <label>Rally Message Preview</label>
-        <textarea id="rallyPreview" class="preview messageEdit" oninput="markEdited('rally')" placeholder="Auto message appears here. You can edit it before copying."></textarea>
-        <div id="rallyEdited" class="editBadge">Edited manually — copy will use your edited text.</div>
-        <div class="btns"><button class="btn small" onclick="resetAutoMessage('rally')">Reset to Auto</button></div>
-        <label style="margin-top:14px">Joiner Message Preview</label>
-        <textarea id="joinerPreview" class="preview messageEdit" oninput="markEdited('joiner')" placeholder="Auto joiner message appears here. You can edit it before copying."></textarea>
-        <div id="joinerEdited" class="editBadge">Edited manually — copy will use your edited text.</div>
-        <div class="btns"><button class="btn small" onclick="resetAutoMessage('joiner')">Reset to Auto</button></div>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="cardHead"><h2>Saved Plans</h2><button class="btn small" onclick="init()">Refresh</button></div>
-    <div class="cardBody"><div class="list">${renderSavedRoutes()}</div></div>
-  </div>`;
-  renderJoinerGroupsBox(); drawAssignments(); setupLivePreview(); updateAllPresetPreviews();
-}
-function renderJoinerGroupsBox(){
-  const box=$('joinerGroupsBox'); if(!box)return;
-  box.innerHTML=`<div class="card">
-    <div class="cardHead"><h2>Joiner Groups</h2><div class="sub">heroes + formation only</div></div>
-    <div class="cardBody">
-      <div class="guide"><strong>Joiner Group:</strong> save heroes and formation once, then select it for any rally leader.</div>
-      <div class="infoGrid">
-        <div class="infoBox"><strong>Stored here</strong><br>Heroes + formation only.</div>
-        <div class="infoBox gold"><strong>Not stored here</strong><br>Castle Row is chosen later in Joiner Message.</div>
-      </div>
-      <div class="sectionBox">
-        <div class="grid"><div><label>Group Name</label><input id="jg_name" value="Default Joiners"></div><div><label>Notes</label><input id="jg_notes" placeholder="Optional"></div></div>
-        <div class="grid4" style="margin-top:12px">
-          <div><label>Hero 1</label><select id="jg_h1">${options(state.lists.heroes||[],'Jessie')}</select></div>
-          <div><label>Hero 2</label><select id="jg_h2">${options(state.lists.heroes||[],'Jasser')}</select></div>
-          <div><label>Hero 3</label><select id="jg_h3">${options(state.lists.heroes||[],'Norah')}</select></div>
-          <div><label>Hero 4</label><select id="jg_h4">${options(state.lists.heroes||[],'Hector')}</select></div>
-        </div>
-        <div class="grid3" style="margin-top:12px">
-          <div><label>INF</label><input id="jg_inf" type="number" value="60"></div>
-          <div><label>LAN</label><input id="jg_lan" type="number" value="40"></div>
-          <div><label>MM</label><input id="jg_mm" type="number" value="0"></div>
-        </div>
-        <div class="btns"><button class="btn green" onclick="saveJoinerGroup()">Save Joiner Group</button></div>
-      </div>
-      <div class="list">${renderJoinerGroupsList()}</div>
-    </div>
-  </div>`;
-}
-function renderJoinerGroupsList(){
-  if(!state.presets?.length)return '<div class="item">No joiner groups yet.</div>';
-  return state.presets.map(p=>`<div class="item">
-    <strong>${esc(p['Preset Name'])}</strong>
-    <div class="mini">${esc([p['Hero 1'],p['Hero 2'],p['Hero 3'],p['Hero 4']].filter(Boolean).join(' / '))} · ${p.INF} INF / ${p.LAN} LAN / ${p.MM} MM</div>
-    <div class="btns"><button class="btn small danger" onclick="deletePreset('${esc(p['Preset ID'])}')">Delete</button></div>
-  </div>`).join('');
-}
-async function saveJoinerGroup(){
-  try{
-    const f={inf:Number(val('jg_inf')||0),lan:Number(val('jg_lan')||0),mm:Number(val('jg_mm')||0)};
-    if(total(f)!==100)throw new Error('Joiner Group formation must equal 100.');
-    const preset={presetName:val('jg_name')||'Default Joiners',hero1:val('jg_h1'),hero2:val('jg_h2'),hero3:val('jg_h3'),hero4:val('jg_h4'),inf:f.inf,lan:f.lan,mm:f.mm,notes:val('jg_notes')};
-    const j=await apiPost('saveJoinerPreset',{preset});
-    state.presets=j.presets||state.presets; toast('Joiner Group saved.'); renderAll();
-  }catch(e){toast(e.message)}
-}
-async function deletePreset(id){
-  if(!confirm('Delete this Joiner Group?'))return;
-  try{await apiPost('deleteJoinerPreset',{presetId:id});toast('Deleted.');await init()}catch(e){toast(e.message)}
-}
-
-function readRole(id, override={}){
-  const f=formation(id);
-  return {from:override.from??val(id+'_from'),to:override.to??val(id+'_to'),alliance:val(id+'_alliance'),team:val(id+'_team'),petActivation:override.petActivation??val(id+'_pet'),rallyHero1:val(id+'_h1'),rallyHero2:val(id+'_h2'),rallyHero3:val(id+'_h3'),rallyInf:f.inf,rallyLan:f.lan,rallyMm:f.mm,joinerPresetId:val(id+'_preset'),instructionNote:val(id+'_note'),customJoiners:'No'};
-}
-function buildPeriods(){
-  if(currentStyle==='amt'||currentStyle==='pro')return [readRole('singleRole')];
-  const amt=readRole('amtRole');
-  const proBase=readRole('proRole');
-  const proPet=val('proRole_pet');
-  if(dualPattern==='proAmt'){
-    const pro=readRole('proRole',{petActivation:petForWindow(proPet,proBase.from,proBase.to)});
-    return [pro,amt];
+function validate(p){ if(!p.team)return 'Team is required'; if(!p.displayLeader)return 'Rally Leader is required'; if(!p.planTime)return 'Plan Time is required'; if(p.total!==100)return 'Formation must equal 100'; return ''; }
+const arNums=['صفر','واحد','اثنان','ثلاثة','أربعة','خمسة','ستة','سبعة','ثمانية','تسعة','عشرة','أحد عشر','اثنا عشر','ثلاثة عشر','أربعة عشر','خمسة عشر','ستة عشر','سبعة عشر','ثمانية عشر','تسعة عشر'];
+const arTens={20:'عشرون',30:'ثلاثون',40:'أربعون',50:'خمسون',60:'ستون',70:'سبعون',80:'ثمانون',90:'تسعون',100:'مئة'};
+function arNum(n){n=Number(n||0); if(n<=19)return arNums[n]; if(arTens[n])return arTens[n]; const u=n%10,t=n-u; return arNums[u]+' و'+arTens[t];}
+function hAr(h){return (config.heroAr && config.heroAr[h]) || h;}
+function arabicFormation(p){return `النسبة: ${arNum(p.inf)} مشاة، ${arNum(p.lan)} رماح، ${arNum(p.mm)} رماة`;}
+function buildRally(p, lang=p.language, compact=false){
+  const hs=[p.hero1,p.hero2,p.hero3].filter(Boolean), js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean);
+  const hasPets=p.petTime && p.petTime !== 'No Pets';
+  if(lang==='Arabic'){
+    const pet = hasPets ? `\n\nتفعيل الحيوانات:\nالساعة ${p.petTime} بتوقيت اللعبة` : '';
+    return `تم تعيينك كقائد حشد.\n\nالتحالف: ${p.alliance}\nاسم الفريق: ${p.team}\n\nأبطال الحشد:\n${hs.map(hAr).join(' - ')}\n\n${arabicFormation(p)}${pet}\n\nالجوينرز:\n${js.map(hAr).join(' - ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\nاتبع تعليمات الديسكورد.`;
   }
-  if(dualPattern==='amtPro'){
-    const pro=readRole('proRole',{petActivation:petForWindow(proPet,proBase.from,proBase.to)});
-    return [amt,pro];
-  }
-  const first=readRole('proRole',{from:val('proRole_from'),to:val('proRole_to'),petActivation:petForWindow(proPet,val('proRole_from'),val('proRole_to'))});
-  // final PRO window is inferred as AMT To -> two hours after if possible, but user can change by using PRO role time if needed.
-  const finalFrom=val('amtRole_to');
-  const finalTo=nextTime(finalFrom,120);
-  const final=readRole('proRole',{from:finalFrom,to:finalTo,petActivation:petForWindow(proPet,finalFrom,finalTo)});
-  final.instructionNote=(final.instructionNote?final.instructionNote+' · ':'')+'Final PRO window';
-  first.instructionNote=(first.instructionNote?first.instructionNote+' · ':'')+'First PRO window';
-  return [first,amt,final];
+  const pet = hasPets ? `\nPet Activation: ${p.petTime} UTC` : '';
+  return `Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}${pet}\n\nJoiners:\n${js.join(' > ')}\n\nPlease save presets early and follow Discord instructions.`;
 }
-function nextTime(t,add){
-  const x=parseTime(t); if(x==null)return t;
-  const y=(x+add)%1440; return String(Math.floor(y/60)).padStart(2,'0')+':'+String(y%60).padStart(2,'0')+' UTC';
+function buildJoiner(p, lang=p.language){
+  const js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean);
+  if(lang==='Arabic') return `تم تعيينك جوينر في تحالف ${p.alliance}.\n\nاحفظ مسبقًا التشكيلات التالية:\n${js.map(h=>hAr(h)+' + أي بطلين').join('\n')}\n\n${arabicFormation(p)}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\nاتبع الترتيب وتعليمات الديسكورد.`;
+  return `Assigned as JOINER\nAlliance: ${p.alliance}\nSave these presets early:\n${js.map(h=>h+' + any 2 heroes').join('\n')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}\nFollow Discord instructions.`;
 }
-function validatePeriods(periods){
-  if(val('leader')==='Other'&&!val('leader_other'))throw new Error('Write leader name.');
-  if(!state.presets.length)throw new Error('Create a Joiner Group first.');
-  periods.forEach((p,i)=>{const s=Number(p.rallyInf)+Number(p.rallyLan)+Number(p.rallyMm); if(s!==100)throw new Error('Formation total in assignment '+(i+1)+' is '+s+'. It must be 100.'); if(!p.joinerPresetId)throw new Error('Select Joiner Group in assignment '+(i+1));});
+function generatePreview(){
+  const p=formPlan(); autoMessages.rally=buildRally(p,p.language); autoMessages.joiner=buildJoiner(p,p.language);
+  if($('rallyPreview').dataset.dirty !== 'yes') $('rallyPreview').value=autoMessages.rally;
+  if($('joinerPreview').dataset.dirty !== 'yes') $('joinerPreview').value=autoMessages.joiner;
+  $('rallyPreview').classList.toggle('rtl',p.language==='Arabic'); $('joinerPreview').classList.toggle('rtl',p.language==='Arabic');
+  const err=validate(p); $('quickStatus').textContent = err ? err : 'Ready'; $('quickStatus').classList.toggle('dangerText', !!err); $('quickStatus').classList.toggle('successText', !err);
 }
-function generateRallyPreview(){
-  try{
-    const periods=buildPeriods(); validatePeriods(periods);
-    const p=periods[0]; const f={inf:p.rallyInf,lan:p.rallyLan,mm:p.rallyMm};
-    const pet=p.petActivation&&p.petActivation!=='No Pets'?`\nPet Activation: ${p.petActivation}`:'';
-    $('rallyPreview').classList.remove('rtl');
-    autoRallyMessage=`Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${p.rallyHero1} / ${p.rallyHero2} / ${p.rallyHero3}\nFormation: ${formationText(f)}${pet}\n\nJoiners:\n${joinerLine(p.joinerPresetId)}\nPlease save presets early and follow Discord instructions.`;
-    $('rallyPreview').value=autoRallyMessage;
-    $('rallyEdited').classList.remove('show');
-    $('joinerPreview').classList.remove('rtl');
-    autoJoinerMessage=localJoinerMessage(p.joinerPresetId,p.alliance);
-    $('joinerPreview').value=autoJoinerMessage;
-    $('joinerEdited').classList.remove('show');
-  }catch(e){toast(e.message)}
+function resetAutoMessages(){ $('rallyPreview').dataset.dirty=''; $('joinerPreview').dataset.dirty=''; generatePreview(); toast('Auto messages restored'); }
+async function copyText(text){ try{ await navigator.clipboard.writeText(text); toast('Copied'); }catch(e){ toast('Copy failed'); } }
+function copyCurrent(kind){ copyText(kind==='rally' ? $('rallyPreview').value : $('joinerPreview').value); }
+async function savePlan(){
+  const p=formPlan(); const err=validate(p); if(err){toast(err);return;} resetAutoMessages();
+  const done=setBusy($('saveBtn'), $('planId').value ? 'Updating...' : 'Saving...'); $('apiStatus').textContent='Saving plan...';
+  try{ const r=await api('savePlan',{plan:p}); plans=r.plans||[]; renderSaved(); renderSimple(); $('apiStatus').textContent='Saved · Ready for next leader'; toast('Saved. Ready for next leader.'); $('planId').value=''; $('createdAt').value=''; $('formTitle').textContent='Add Rally Plan'; $('saveBtn').textContent='Save Plan'; }
+  catch(e){ toast(e.message); $('apiStatus').textContent=e.message; }
+  finally{ done(); }
 }
-function joinerLine(pid){
-  const p=state.presets.find(x=>x['Preset ID']===pid); if(!p)return 'No joiner group selected';
-  return [p['Hero 1'],p['Hero 2'],p['Hero 3'],p['Hero 4']].filter(Boolean).join(' or ');
+async function loadPlans(silent=false){
+  try{ if(!silent)$('apiStatus').textContent='Refreshing...'; const r=await api('listPlans'); plans=r.plans||[]; if(r.settings){config.settings={...config.settings,...r.settings};} renderSaved(); renderSimple(); $('apiStatus').textContent='Connected · '+new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}); }
+  catch(e){ if(!silent){toast(e.message); $('apiStatus').textContent=e.message;} }
 }
-function localJoinerMessage(pid,alliance){
-  const p=state.presets.find(x=>x['Preset ID']===pid);
-  if(!p)return 'No joiner group selected.';
-  const heroes=[p['Hero 1'],p['Hero 2'],p['Hero 3'],p['Hero 4']];
-  return `Assigned as JOINER\nAlliance: ${alliance}\nSave these presets early:\n${heroes.map(h=>h+' + any 2 heroes').join('\n')}\nFormation: ${p.INF} INF / ${p.LAN} LAN / ${p.MM} MM\nFollow Discord instructions.`;
+function clearFormHard(){ if(!confirm('Clear the form only? Saved plans will stay.'))return; $('planId').value=''; $('createdAt').value=''; $('formTitle').textContent='Add Rally Plan'; $('saveBtn').textContent='Save Plan'; setDefaults(false); $('rallyPreview').dataset.dirty=''; $('joinerPreview').dataset.dirty=''; generatePreview(); }
+function editPlan(id){
+  const p=plans.find(x=>x.planId===id); if(!p)return;
+  $('planId').value=p.planId; $('createdAt').value=p.createdAt||''; $('alliance').value=p.alliance; updateTeamOptions(false); $('team').value=p.team; $('rallyLeader').value=p.rallyLeader||p.displayLeader; $('otherLeader').value=p.otherLeader||''; $('planTime').value=p.planTime; $('petTime').value=p.petTime||'No Pets'; $('hero1').value=p.hero1; $('hero2').value=p.hero2; $('hero3').value=p.hero3; $('inf').value=p.inf; $('lan').value=p.lan; $('mm').value=p.mm; $('joiner1').value=p.joiner1; $('joiner2').value=p.joiner2; $('joiner3').value=p.joiner3; $('joiner4').value=p.joiner4; $('language').value=p.language||'English'; $('notes').value=p.notes||'';
+  $('rallyPreview').dataset.dirty=''; $('joinerPreview').dataset.dirty=''; toggleOther(); $('formTitle').textContent='Edit Existing Plan'; $('saveBtn').textContent='Update Plan'; generatePreview(); window.scrollTo({top:0,behavior:'smooth'});
 }
-async function saveRally(){
-  try{
-    try{generateRallyPreview()}catch(e){}
-    const periods=buildPeriods(); validatePeriods(periods);
-    toast('Saving plan...');
-    const route={leader:val('leader'),leaderOther:val('leader_other'),periods};
-    const j=await apiPost('saveLeaderRoute',{route});
-    state.routes=j.routes||state.routes; state.messages=j.messages||state.messages; state.simpleBrief=j.simpleBrief||state.simpleBrief;
-    lastSavedRouteId=(state.routes[state.routes.length-1]||{})['Route ID']||'';
-    toast('Plan saved.'); renderAll();
-  }catch(e){toast(e.message)}
+async function deletePlan(id){ if(!confirm('Delete this plan only?'))return; try{ await api('deletePlan',{planId:id}); await loadPlans(true); toast('Deleted'); }catch(e){toast(e.message);} }
+async function clearPlanningData(){ if(!confirm('This will clear all War Room plans. Continue?'))return; try{ await api('clearPlans'); plans=[]; renderSaved(); renderSimple(); toast('War Room cleared'); }catch(e){toast(e.message);} }
+async function downloadPlan(action){ try{ const r=await api(action); const bytes=atob(r.base64); const buf=new Uint8Array(bytes.length); for(let i=0;i<bytes.length;i++)buf[i]=bytes.charCodeAt(i); const blob=new Blob([buf],{type:r.mimeType}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=r.filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1000); toast('Download started'); }catch(e){toast(e.message);} }
+function renderSaved(){
+  $('planCount').textContent = `${plans.length} plan${plans.length===1?'':'s'}`;
+  const body=$('savedBody'); if(!plans.length){body.innerHTML='<tr><td colspan="8">No plans yet.</td></tr>';return;}
+  const s=config.settings||fallbackConfig.settings;
+  const sorted=[...plans].sort((a,b)=>minutes(a.planTime)-minutes(b.planTime)||rankAlliance(a.alliance)-rankAlliance(b.alliance)||String(a.team).localeCompare(String(b.team)));
+  body.innerHTML=sorted.map(p=>`<tr><td>${escapeHtml(p.planTime||'')}</td><td><span class="tag ${same(p.alliance,s.alliance1)?'a1':'a2'}">${escapeHtml(p.alliance||'')}</span></td><td>${escapeHtml(p.team||'')}</td><td><b>${escapeHtml(p.displayLeader||'')}</b></td><td>${p.hasPets||p.petTime!=='No Pets'?`<span class="tag warn">${escapeHtml(p.petTime)}</span>`:'—'}</td><td>${escapeHtml(p.inf)}/${escapeHtml(p.lan)}/${escapeHtml(p.mm)}</td><td>${escapeHtml([p.hero1,p.hero2,p.hero3].filter(Boolean).join(' / '))}</td><td><button class="btn small" onclick="copyText(buildRally(plans.find(x=>x.planId==='${p.planId}'), plans.find(x=>x.planId==='${p.planId}').language))">Copy Rally</button> <button class="btn small" onclick="copyText(buildJoiner(plans.find(x=>x.planId==='${p.planId}'), plans.find(x=>x.planId==='${p.planId}').language))">Copy Joiner</button> <button class="btn small" onclick="editPlan('${p.planId}')">Edit</button> <button class="btn small danger" onclick="deletePlan('${p.planId}')">Delete</button></td></tr>`).join('');
 }
-function clearRally(){currentStyle='amt';dualPattern='proAmtPro';renderRally();}
-async function deleteRoute(id){if(!confirm('Delete this plan?'))return;try{await apiPost('deleteRoute',{routeId:id});toast('Deleted.');await init()}catch(e){toast(e.message)}}
-
-function renderSavedRoutes(){
-  if(!state.routes?.length)return '<div class="item">No plans yet.</div>';
-  const groups={};
-  state.routes.forEach(r=>{const k=r.Leader==='Other'?r['Leader Other']:r.Leader; (groups[k]=groups[k]||[]).push(r);});
-  return Object.entries(groups).reverse().map(([leader,rows])=>`<div class="item ${rows.some(r=>r['Route ID']===lastSavedRouteId)?'new':''}">
-    <strong>${esc(leader)}</strong>
-    ${rows.map(r=>`<div class="mini"><span class="tag ${r.Alliance==='PRO'?'pro':'amt'}">${esc(r.Alliance)}</span>${esc(r.From)} - ${esc(r.To)} · ${esc(r.Team)} · Pets: ${esc(r['Pet Activation']||'No Pets')} <button class="btn small danger" onclick="deleteRoute('${esc(r['Route ID'])}')">Delete</button></div>`).join('')}
-    <div class="btns">
-      <button class="btn small" onclick="copyLeaderMsg('${esc(leader)}','Arabic','Short')">AR Short</button>
-      <button class="btn small" onclick="copyLeaderMsg('${esc(leader)}','Arabic','Full')">AR Full</button>
-      <button class="btn small" onclick="copyLeaderMsg('${esc(leader)}','English','Short')">EN Short</button>
-      <button class="btn small" onclick="copyLeaderMsg('${esc(leader)}','English','Full')">EN Full</button>
-      <button class="btn small gold" onclick="copyAllLeaderMsgs('${esc(leader)}')">Copy All</button>
-    </div>
-  </div>`).join('');
+function minutes(t){ const m=String(t||'0:0').match(/(\d{1,2}):(\d{2})/); return m?Number(m[1])*60+Number(m[2]):0; }
+function same(a,b){return String(a||'').trim().toUpperCase()===String(b||'').trim().toUpperCase();}
+function rankAlliance(a){const s=config.settings||fallbackConfig.settings; return same(a,s.alliance1)?1:same(a,s.alliance2)?2:9;}
+function setSimpleLang(lang){ simpleLang=lang; $('simpleBtnEn').classList.toggle('active',lang==='English'); $('simpleBtnAr').classList.toggle('active',lang==='Arabic'); renderSimple(); }
+function renderSimple(){
+  const s=config.settings||fallbackConfig.settings; const a1=s.alliance1||'AMT', a2=s.alliance2||'PRO'; const box=$('simplePreview');
+  box.classList.toggle('rtl', simpleLang==='Arabic');
+  box.innerHTML=`<div class="simpleHead">Time UTC</div><div class="simpleHead a1">${escapeHtml(a1)}</div><div class="simpleHead a2">${escapeHtml(a2)}</div>`;
+  const grouped={};
+  [...plans].sort((a,b)=>minutes(a.planTime)-minutes(b.planTime)||rankAlliance(a.alliance)-rankAlliance(b.alliance)||String(a.team).localeCompare(String(b.team))).forEach(p=>{const key=p.planTime||'--:--'; if(!grouped[key]) grouped[key]={a1:[],a2:[]}; if(same(p.alliance,a2)) grouped[key].a2.push(p); else grouped[key].a1.push(p);});
+  const times=Object.keys(grouped).sort((a,b)=>minutes(a)-minutes(b));
+  if(!times.length){ box.innerHTML+=`<div class="simpleTime">—</div><div class="simpleCell a1"><div class="emptyCell">No ${escapeHtml(a1)} plans yet.</div></div><div class="simpleCell a2" data-alliance="${escapeHtml(a2)}"><div class="emptyCell">No ${escapeHtml(a2)} plans yet.</div></div>`; return; }
+  times.forEach(t=>{ const g=grouped[t]; box.innerHTML+=`<div class="simpleTime">${escapeHtml(t)} UTC</div><div class="simpleCell a1">${renderPlanBlocks(g.a1,simpleLang)}</div><div class="simpleCell a2" data-alliance="${escapeHtml(a2)}">${renderPlanBlocks(g.a2,simpleLang)}</div>`; });
 }
-function copyLeaderMsg(leader,language,style){
-  let msgs=(state.messages||[]).filter(m=>String(m['Leader/Preset']||'').toLowerCase()===String(leader||'').toLowerCase()&&m.Language===language);
-  let exact=msgs.filter(m=>String(m.Style||'').toLowerCase().includes(style.toLowerCase()));
-  if(!exact.length) exact=msgs;
-  if(!exact.length)return toast('No '+language+' message found for '+leader+'.');
-  const text=exact[exact.length-1]['Message Text']||'';
-  navigator.clipboard?.writeText(text).then(()=>toast('Copied '+language+' '+style)).catch(()=>toast('Copy failed.'));
-}
-function copyAllLeaderMsgs(leader){
-  const msgs=(state.messages||[]).filter(m=>String(m['Leader/Preset']||'').toLowerCase()===String(leader||'').toLowerCase());
-  if(!msgs.length)return toast('No messages found for '+leader+'.');
-  const text=msgs.map(m=>`[${m.Language} - ${m.Style}]\n${m['Message Text']}`).join('\n\n----------------\n\n');
-  navigator.clipboard?.writeText(text).then(()=>toast('Copied all messages for '+leader)).catch(()=>toast('Copy failed.'));
-}
-
-
-function setupLivePreview(){
-  const pane=$('rally');
-  if(!pane) return;
-  pane.querySelectorAll('input,select,textarea').forEach(el=>{
-    if(el.classList.contains('messageEdit')) return;
-    el.removeEventListener('input', livePreviewHandler);
-    el.removeEventListener('change', livePreviewHandler);
-    el.addEventListener('input', livePreviewHandler);
-    el.addEventListener('change', livePreviewHandler);
-  });
-}
-function livePreviewHandler(){
-  clearTimeout(window._livePreviewTimer);
-  window._livePreviewTimer=setTimeout(()=>{
-    try{ generateRallyPreview(); }catch(e){}
-    updateAllPresetPreviews();
-  },120);
-}
-function updateAllPresetPreviews(){
-  document.querySelectorAll('[id$="_preset_preview"]').forEach(box=>{
-    const selectId=box.id.replace('_preview','');
-    updatePresetPreview(selectId, box.id);
-  });
-}
-function updatePresetPreview(selectId, boxId){
-  const sel=$(selectId), box=$(boxId);
-  if(!sel||!box) return;
-  const p=state.presets.find(x=>x['Preset ID']===sel.value);
-  if(!p){ box.textContent='No Joiner Group selected.'; return; }
-  const heroes=[p['Hero 1'],p['Hero 2'],p['Hero 3'],p['Hero 4']].filter(Boolean).join(' / ');
-  box.textContent=`${heroes} — ${p.INF} INF / ${p.LAN} LAN / ${p.MM} MM`;
-}
-
-
-function markEdited(type){
-  const badge=$(type+'Edited');
-  if(badge) badge.classList.add('show');
-}
-function resetAutoMessage(type){
-  if(type==='rally'){
-    if(!autoRallyMessage) {
-      try{ generateRallyPreview(); }catch(e){}
-    }
-    $('rallyPreview').value=autoRallyMessage||'';
-    $('rallyEdited')?.classList.remove('show');
-    toast('Rally message reset to auto.');
-  }else{
-    if(!autoJoinerMessage) {
-      try{ generateRallyPreview(); }catch(e){}
-    }
-    $('joinerPreview').value=autoJoinerMessage||'';
-    $('joinerEdited')?.classList.remove('show');
-    toast('Joiner message reset to auto.');
-  }
-}
-
-function renderBrief(){
-  $('brief').innerHTML=`<div class="card">
-    <div class="cardHead"><h2>Brief & Download</h2><div class="sub">battle plan · simple view · messages</div></div>
-    <div class="cardBody">
-      <div class="grid">
-        <div><label>Time Slot</label><select id="bp_time">${options(state.lists.timeOptions||[],'12:00 UTC')}</select></div>
-        <div><label>Notes</label><input id="bp_notes" placeholder="Optional"></div>
-        <div><label>Battle Plan EN</label><textarea id="bp_en"></textarea></div>
-        <div><label>Battle Plan AR</label><textarea id="bp_ar"></textarea></div>
-      </div>
-      <div class="btns">
-        <button class="btn primary" onclick="saveBattle()">Save Battle Plan</button>
-        <button class="btn" onclick="init()">Refresh</button>
-        <button class="btn green" onclick="downloadPlan('downloadFullPlan')">Download Full Plan</button>
-        <button class="btn gold" onclick="downloadPlan('downloadSimpleBrief')">Download Simple Plan</button>
-        <button class="btn danger" onclick="clearWarRoomData()">Clear Planning Data</button>
-      </div>
-    </div>
-  </div>
-  <div class="card"><div class="cardHead"><h2>Simple View</h2><div class="sub">vertical hourly screenshot view</div></div><div class="cardBody">${renderHourCards()}</div></div>
-  <div class="card"><div class="cardHead"><h2>Messages Center</h2><div class="sub">review and copy</div></div><div class="cardBody">${renderMessageCenter()}</div></div>
-  <div class="card"><div class="cardHead"><h2>Joiner Message</h2><div class="sub">Castle Row is separate</div></div><div class="cardBody">${renderJoinerMessageBox()}</div></div>`;
-}
-function renderHourCards(){
-  const rows=(state.simpleBrief?.en||[]);
-  if(!rows.length)return '<div class="hourCard"><div class="hourTop"><strong>—</strong><span>No plans yet.</span></div><div class="hourGrid"><div class="col amt"><h4>AMT</h4>No AMT plans yet.</div><div class="col pro"><h4>PRO</h4>No PRO plans yet.</div></div></div>';
-  return rows.map(row=>{
-    const time=row['Time Slot']||row.Time||'—';
-    return `<div class="hourCard">
-      <div class="hourTop"><strong>${esc(time)}</strong><span><span class="tag gold">Pets Active</span> ${esc(row['Pets Active']||'—')}</span></div>
-      <div class="hourGrid">
-        <div class="col amt"><h4>AMT</h4>${esc(row.AMT||'—')}</div>
-        <div class="col pro"><h4>PRO</h4>${esc(row.PRO||'—')}</div>
-      </div>
-      <div class="battlePlan"><strong>Battle Plan</strong><br>${esc(row['Battle Plan']||'—')}</div>
-    </div>`
-  }).join('');
-}
-function renderMessageCenter(){
-  const leaders=[...new Set((state.messages||[]).map(m=>m['Leader/Preset']).filter(Boolean))];
-  const selected=leaders[0]||'';
-  return `<div class="filters">
-    <div><label>Leader / Preset</label><select id="mc_leader" onchange="updateMessageCenter()">${options(leaders,selected)}</select></div>
-    <div><label>Language</label><select id="mc_lang" onchange="updateMessageCenter()"><option>Arabic</option><option>English</option></select></div>
-    <div><label>Style</label><select id="mc_style" onchange="updateMessageCenter()"><option>Short</option><option>Full</option><option>All</option></select></div>
-    <div><label>Action</label><button class="btn" onclick="copyEl('mc_output')">Copy Shown</button></div>
-  </div>
-  <div style="margin-top:12px"><div id="mc_output" class="preview">No messages yet.</div></div>
-  <div class="btns"><button class="btn" onclick="copyAllLeaderMsgs(val('mc_leader'))">Copy All For Selected</button></div>`;
-}
-function updateMessageCenter(){
-  const out=$('mc_output'); if(!out)return;
-  const leader=val('mc_leader'),lang=val('mc_lang'),style=val('mc_style');
-  let msgs=(state.messages||[]).filter(m=>m['Leader/Preset']===leader&&m.Language===lang);
-  if(style!=='All')msgs=msgs.filter(m=>String(m.Style||'').toLowerCase().includes(style.toLowerCase()));
-  out.classList.toggle('rtl',lang==='Arabic');
-  out.textContent=msgs.length?msgs.map(m=>m['Message Text']).join('\n\n----------------\n\n'):'No matching message.';
-}
-function renderJoinerMessageBox(){
-  return `<div class="grid">
-    <div><label>Alliance</label><select id="jm_alliance">${options(state.lists.alliances||['AMT','PRO'],'AMT')}</select></div>
-    <div><label>Joiner Group</label><select id="jm_preset">${presetOptions()}</select></div>
-    <div><label>Castle Row</label><select id="jm_row">${options(state.lists.castleRowAr||['صف ثاني','صف ثالث','بدون قوانين'],'صف ثاني')}</select></div>
-  </div>
-  <div class="btns"><button class="btn primary" onclick="generateJoinerMsg()">Generate Joiner Message</button></div>
-  <div class="grid" style="margin-top:14px">
-    <div><label>Arabic</label><div class="preview rtl" id="jm_ar">Generate first.</div><button class="btn small" onclick="copyEl('jm_ar')">Copy Arabic</button></div>
-    <div><label>English</label><div class="preview" id="jm_en">Generate first.</div><button class="btn small" onclick="copyEl('jm_en')">Copy English</button></div>
-  </div>`;
-}
-async function generateJoinerMsg(){
-  try{
-    const j=await apiPost('generateJoinerMessage',{presetId:val('jm_preset'),alliance:val('jm_alliance'),castleRow:val('jm_row')});
-    $('jm_ar').textContent=j.arabic; $('jm_en').textContent=j.english; state.messages=j.messages||state.messages; toast('Joiner message generated.');
-  }catch(e){toast(e.message)}
-}
-async function saveBattle(){
-  try{
-    const plan={timeSlot:val('bp_time'),battlePlanEn:val('bp_en'),battlePlanAr:val('bp_ar'),notes:val('bp_notes')};
-    const j=await apiPost('saveBattlePlan',{plan});
-    state.battlePlans=j.battlePlans||state.battlePlans; state.simpleBrief=j.simpleBrief||state.simpleBrief;
-    toast('Battle plan saved.'); renderAll();
-  }catch(e){toast(e.message)}
-}
-async function downloadPlan(action){
-  try{
-    toast('Preparing download...');
-    const j=await apiPost(action);
-    const bin=atob(j.base64); const bytes=new Uint8Array(bin.length);
-    for(let i=0;i<bin.length;i++)bytes[i]=bin.charCodeAt(i);
-    const blob=new Blob([bytes],{type:j.mimeType||'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=j.filename||'State2099_WAR_ROOM.xlsx';
-    document.body.appendChild(a); a.click(); a.remove(); toast('Download ready.');
-  }catch(e){toast(e.message)}
-}
-async function clearWarRoomData(){
-  const ok=confirm('Clear current planning data?\n\nSaved routes, battle plans, messages, and simple brief will be cleared.\nJoiner Groups and templates will stay.');
-  if(!ok)return;
-  try{
-    toast('Clearing planning data...');
-    await apiPost('clearPlanningData');
-    toast('Planning data cleared.');
-    await init();
-  }catch(e){toast(e.message)}
-}
-function copyEl(id){
-  const el=$(id);
-  const text=(el && 'value' in el) ? el.value : (el?.innerText||'');
-  navigator.clipboard?.writeText(text).then(()=>toast('Copied')).catch(()=>toast('Copy failed.'));
-}
+function renderPlanBlocks(arr, lang){ if(!arr||!arr.length)return '<div class="emptyCell">—</div>'; return arr.map(p=>{ const heroes=[p.hero1,p.hero2,p.hero3].filter(Boolean); const heroLine=lang==='Arabic'?heroes.map(hAr).join(' / '):heroes.join(' / '); const formation=lang==='Arabic'?arabicFormation(p):`INF/LAN/MM: ${p.inf}/${p.lan}/${p.mm}`; const pet=(p.hasPets||p.petTime!=='No Pets')?`<div class="petsLine">🔥 ${lang==='Arabic'?'الحيوانات':'PETS'} ${escapeHtml(p.petTime)}</div>`:''; return `<div class="planBlock"><div class="leaderName">${escapeHtml(p.displayLeader||'')}</div><div class="teamName">${escapeHtml(p.team||'')}</div><div class="heroesLine">${escapeHtml(heroLine)}</div><div class="formationLine">${escapeHtml(formation)}</div>${pet}</div>`; }).join(''); }
+['inf','lan','mm','otherLeader','notes'].forEach(id=>document.addEventListener('input',e=>{ if(e.target && e.target.id===id) generatePreview(); }));
+['rallyPreview','joinerPreview'].forEach(id=>document.addEventListener('input',e=>{ if(e.target && e.target.id===id) e.target.dataset.dirty='yes'; }));
+fillConfig();
 </script>
 </body>
 </html>
