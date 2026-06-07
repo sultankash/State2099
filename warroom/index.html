@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -25,11 +25,25 @@
     .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.threeCols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.hint{color:var(--muted);font-size:12px;margin-top:8px}.splitLine{height:1px;background:var(--line);margin:16px 0}.status{font-size:12px;color:var(--muted)}.rtl{direction:rtl;text-align:right}.hidden{display:none!important}
     .slot{border:1px solid rgba(56,189,248,.22);background:rgba(5,13,26,.25);border-radius:18px;padding:12px}.slotHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.slotTitle{font-size:13px;font-weight:950;color:#bae6fd}.slotGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.slot.optional{border-style:dashed}.slotToggle{display:flex;align-items:center;gap:8px;color:#dbeafe;font-size:12px;font-weight:800}.slotToggle input{width:auto}
     .tableWrap{overflow:auto;border:1px solid var(--line);border-radius:18px}table{border-collapse:collapse;width:100%;min-width:980px;background:#0a1728}th,td{border-bottom:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top}th{background:#0f172a;color:#dbeafe;font-size:12px;text-transform:uppercase;letter-spacing:.04em;position:sticky;top:0;z-index:1}td{font-size:13px;color:#e5eefc}.tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 8px;font-size:12px;font-weight:900}.tag.a1{background:rgba(34,197,94,.16);color:#86efac}.tag.a2{background:rgba(167,139,250,.16);color:#c4b5fd}.tag.warn{background:rgba(245,158,11,.14);color:#fcd34d}
-    .simpleToolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}.simpleGrid{display:grid;grid-template-columns:126px 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}.simpleHead,.simpleTime,.simpleCell{background:#0a1728;padding:12px;white-space:pre-wrap}.simpleHead{background:#0f172a;font-weight:950;color:#dbeafe;text-align:center}.simpleTime{background:#0f172a;color:#bae6fd;font-weight:950;text-align:center;display:flex;align-items:center;justify-content:center}.simpleCell.a1{background:rgba(20,54,37,.55)}.simpleCell.a2{background:rgba(42,32,69,.55)}.planBlock{padding:8px 9px;border:1px solid rgba(255,255,255,.07);border-radius:14px;background:rgba(5,13,26,.22);margin-bottom:10px}.planBlock:last-child{margin-bottom:0}.leaderName{font-weight:950;color:#fff;font-size:15px}.teamName{font-weight:800;color:#dbeafe;margin-top:2px}.heroesLine{color:#eaf2ff;margin-top:5px}.formationLine{color:#d5e6ff;margin-top:5px}.petsLine{display:inline-block;margin-top:7px;color:#fecaca;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.35);border-radius:999px;padding:3px 8px;font-size:12px;font-weight:950}.emptyCell{color:#7f91aa;text-align:center;padding:18px 6px}
+    .simpleToolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+    .simpleBoard{display:flex;flex-direction:column;gap:14px}
+    .timeSlot{position:relative;overflow:hidden;border:1px solid rgba(148,163,184,.20);border-radius:22px;background:linear-gradient(180deg,rgba(15,27,45,.96),rgba(7,19,38,.94));box-shadow:0 18px 52px rgba(0,0,0,.26)}
+    .timeSlot:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 0,var(--slotGlow,rgba(56,189,248,.14)),transparent 38%);pointer-events:none;opacity:.95}
+    .timeSlotInner{position:relative;z-index:1;padding:12px}
+    .slotHeader{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;padding:2px 2px 8px;border-bottom:1px solid rgba(148,163,184,.16)}
+    .slotTime{display:inline-flex;align-items:center;gap:8px;font-weight:950;color:#f8fbff;font-size:18px;letter-spacing:.02em}.slotTime small{color:#9fb1ca;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+    .slotCount{color:#9fb1ca;font-size:11px;font-weight:900;border:1px solid rgba(148,163,184,.16);background:rgba(2,8,23,.28);padding:5px 8px;border-radius:999px}
+    .slotColumns{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
+    .slotLane{border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:10px;min-width:0;background:rgba(2,8,23,.20)}
+    .slotLane.a1{background:linear-gradient(180deg,rgba(20,83,45,.32),rgba(8,25,22,.32));border-color:rgba(74,222,128,.18)}
+    .slotLane.a2{background:linear-gradient(180deg,rgba(49,46,129,.34),rgba(22,18,48,.34));border-color:rgba(196,181,253,.18)}
+    .laneHead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.laneTitle{font-weight:950;letter-spacing:.04em;font-size:13px}.slotLane.a1 .laneTitle{color:#86efac}.slotLane.a2 .laneTitle{color:#c4b5fd}.laneBadge{font-size:10px;color:#b9c7db;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:3px 7px;font-weight:900;white-space:nowrap}
+    .laneBody{display:flex;flex-direction:column;gap:8px}.planBlock{padding:10px 10px;border:1px solid rgba(255,255,255,.08);border-radius:15px;background:rgba(3,10,23,.34);box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}.planBlock+.planBlock{margin-top:0}.leaderName{font-weight:950;color:#fff;font-size:16px;line-height:1.15}.teamName{font-weight:900;color:#dbeafe;margin-top:4px;font-size:13px;letter-spacing:.02em}.heroesLine{color:#eaf2ff;margin-top:7px;font-size:13px;line-height:1.35}.formationLine{color:#cfe1fb;margin-top:5px;font-size:12px;font-weight:800;line-height:1.35}.petsLine{display:inline-flex;align-items:center;gap:5px;margin-top:8px;color:#ffe4e6;background:linear-gradient(135deg,rgba(220,38,38,.32),rgba(245,158,11,.18));border:1px solid rgba(248,113,113,.34);border-radius:999px;padding:4px 9px;font-size:11px;font-weight:950;box-shadow:0 0 18px rgba(239,68,68,.10)}.emptyCell{height:100%;min-height:96px;color:#718199;text-align:center;border:1px dashed rgba(148,163,184,.16);border-radius:15px;display:grid;place-items:center;background:rgba(2,8,23,.18);font-weight:900}
+    .slotTone0{--slotGlow:rgba(56,189,248,.15)}.slotTone1{--slotGlow:rgba(34,197,94,.13)}.slotTone2{--slotGlow:rgba(167,139,250,.14)}.slotTone3{--slotGlow:rgba(245,158,11,.13)}.slotTone4{--slotGlow:rgba(14,165,233,.13)}.slotTone5{--slotGlow:rgba(236,72,153,.11)}
     .lock{position:fixed;inset:0;background:radial-gradient(circle at top,#14345d,#050914 55%);display:grid;place-items:center;z-index:99}.lockBox{width:min(420px,92vw);background:rgba(15,27,45,.95);border:1px solid var(--line);border-radius:26px;padding:24px;box-shadow:var(--shadow)}.lockBox h2{margin:14px 0 6px}.toast{position:fixed;right:18px;bottom:18px;background:#0f172a;border:1px solid var(--line);color:white;padding:13px 15px;border-radius:14px;box-shadow:var(--shadow);display:none;z-index:200}.copyNote{color:#bae6fd;font-size:12px;margin-top:8px}.dangerText{color:#fecaca}.successText{color:#86efac}
     .messagePanel{border:1px solid rgba(34,197,94,.22);background:rgba(20,54,37,.18);border-radius:18px;padding:12px;margin-top:14px}.messagePanel h3{margin:0 0 10px;font-size:15px}.slotMsg{margin-top:10px;border-top:1px solid rgba(255,255,255,.08);padding-top:10px}
-    @media(max-width:900px){.formGrid{grid-template-columns:1fr}.field,.field.small,.field.wide,.span4,.span6{grid-column:1/-1}.inlineGrid.three,.inlineGrid.four,.ratioGrid,.threeCols,.slotGrid{grid-template-columns:1fr}.two{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.simpleGrid{grid-template-columns:92px 1fr 1fr}.simpleHead,.simpleTime,.simpleCell{padding:9px}.wrap{padding:14px}table{min-width:760px}}
-    @media(max-width:640px){.simpleGrid{grid-template-columns:82px 1fr}.simpleHead.a2,.simpleCell.a2{grid-column:1/-1}.simpleCell.a2:before{content:attr(data-alliance);display:block;font-weight:950;color:#c4b5fd;margin-bottom:8px}.simpleHead.a2{display:none}.leaderName{font-size:14px}}
+    @media(max-width:900px){.formGrid{grid-template-columns:1fr}.field,.field.small,.field.wide,.span4,.span6{grid-column:1/-1}.inlineGrid.three,.inlineGrid.four,.ratioGrid,.threeCols,.slotGrid{grid-template-columns:1fr}.two{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.slotColumns{gap:8px}.timeSlotInner{padding:10px}.leaderName{font-size:15px}.heroesLine{font-size:12.5px}.formationLine{font-size:11.5px}.wrap{padding:14px}table{min-width:760px}}
+    @media(max-width:640px){.slotColumns{grid-template-columns:1fr 1fr;gap:7px}.timeSlotInner{padding:9px}.slotHeader{margin-bottom:8px}.slotTime{font-size:15px}.slotTime small{font-size:9px}.slotCount{display:none}.slotLane{padding:8px;border-radius:15px}.laneTitle{font-size:11px}.laneBadge{font-size:9px;padding:2px 5px}.planBlock{padding:8px;border-radius:13px}.leaderName{font-size:14px}.teamName{font-size:11.5px}.heroesLine{font-size:11.5px}.formationLine{font-size:10.5px}.petsLine{font-size:10px;padding:3px 7px}.emptyCell{min-height:84px;font-size:12px}}
   </style>
 </head>
 <body>
@@ -197,7 +211,7 @@ const fallbackConfig = {
   petOptions:['No Pets'].concat(Array.from({length:48},(_,i)=>`${String(Math.floor(i/2)).padStart(2,'0')}:${i%2?'30':'00'}`)),
   teams:{AMT:Array.from({length:12},(_,i)=>`TEAM AMT${i+1}`),PRO:Array.from({length:12},(_,i)=>`TEAM PRO${i+1}`)}
 };
-let config = (typeof structuredClone !== 'undefined') ? structuredClone(fallbackConfig) : JSON.parse(JSON.stringify(fallbackConfig));
+let config = structuredClone ? structuredClone(fallbackConfig) : JSON.parse(JSON.stringify(fallbackConfig));
 let plans = [];
 let simpleLang = 'English';
 let currentMode = 'normal';
@@ -389,14 +403,32 @@ function renderSaved(){
 function setSimpleLang(lang){ simpleLang=lang; $('simpleBtnEn').classList.toggle('active',lang==='English'); $('simpleBtnAr').classList.toggle('active',lang==='Arabic'); renderSimple(); }
 function renderSimple(){
   const s=config.settings||fallbackConfig.settings; const box=$('simplePreview');
-  box.innerHTML=`<div class="simpleHead">Time UTC</div><div class="simpleHead a1">${escapeHtml(s.alliance1)}</div><div class="simpleHead a2">${escapeHtml(s.alliance2)}</div>`;
+  const ar=simpleLang==='Arabic';
+  box.className='simpleBoard';
   const active=[...plans].filter(p=>p.active!==false).sort((a,b)=>minutes(a.planTime)-minutes(b.planTime)||rankAlliance(a.alliance)-rankAlliance(b.alliance)||String(a.team).localeCompare(String(b.team)));
-  if(!active.length){box.innerHTML+=`<div class="simpleTime">—</div><div class="simpleCell a1"><div class="emptyCell">No ${escapeHtml(s.alliance1)} plans yet.</div></div><div class="simpleCell a2" data-alliance="${escapeHtml(s.alliance2)}"><div class="emptyCell">No ${escapeHtml(s.alliance2)} plans yet.</div></div>`; return;}
+  if(!active.length){
+    box.innerHTML=`<div class="timeSlot slotTone0"><div class="timeSlotInner"><div class="slotHeader"><div class="slotTime">— <small>UTC</small></div><div class="slotCount">${ar?'لا توجد خطط':'No plans yet'}</div></div><div class="slotColumns"><div class="slotLane a1"><div class="laneHead"><span class="laneTitle">${escapeHtml(s.alliance1)}</span><span class="laneBadge">—</span></div><div class="emptyCell">—</div></div><div class="slotLane a2"><div class="laneHead"><span class="laneTitle">${escapeHtml(s.alliance2)}</span><span class="laneBadge">—</span></div><div class="emptyCell">—</div></div></div></div></div>`;
+    return;
+  }
   const times=[...new Set(active.map(p=>p.planTime))].sort((a,b)=>minutes(a)-minutes(b));
-  times.forEach(t=>{
-    const a1=active.filter(p=>p.planTime===t && same(p.alliance,s.alliance1)); const a2=active.filter(p=>p.planTime===t && same(p.alliance,s.alliance2));
-    box.innerHTML+=`<div class="simpleTime">${escapeHtml(t)} UTC</div><div class="simpleCell a1">${renderPlanBlocks(a1,s.alliance1)}</div><div class="simpleCell a2" data-alliance="${escapeHtml(s.alliance2)}">${renderPlanBlocks(a2,s.alliance2)}</div>`;
-  });
+  box.innerHTML=times.map((t,i)=>{
+    const a1=active.filter(p=>p.planTime===t && same(p.alliance,s.alliance1));
+    const a2=active.filter(p=>p.planTime===t && same(p.alliance,s.alliance2));
+    const total=a1.length+a2.length;
+    const totalText=ar?`${total} قائد${total>1?'':' '}`:`${total} leader${total===1?'':'s'}`;
+    return `<div class="timeSlot slotTone${i%6}"><div class="timeSlotInner">
+      <div class="slotHeader"><div class="slotTime">${escapeHtml(t)} <small>UTC</small></div><div class="slotCount">${totalText}</div></div>
+      <div class="slotColumns">
+        ${renderSlotLane(a1,s.alliance1,'a1')}
+        ${renderSlotLane(a2,s.alliance2,'a2')}
+      </div>
+    </div></div>`;
+  }).join('');
+}
+function renderSlotLane(arr, alliance, cls){
+  const ar=simpleLang==='Arabic';
+  const count=arr.length? (ar?`${arr.length}`:`${arr.length}`) : '—';
+  return `<div class="slotLane ${cls}"><div class="laneHead"><span class="laneTitle">${escapeHtml(alliance)}</span><span class="laneBadge">${count}</span></div><div class="laneBody">${renderPlanBlocks(arr,alliance)}</div></div>`;
 }
 function renderPlanBlocks(arr, alliance){ if(!arr.length)return `<div class="emptyCell">—</div>`; return arr.map(p=>renderPlanBlock(p)).join(''); }
 function renderPlanBlock(p){
