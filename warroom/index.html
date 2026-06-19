@@ -554,8 +554,8 @@
 
           <div class="field" id="normalTimeBox"><label>Plan Time</label><select id="planTime" onchange="generatePreview();"></select></div>
           <div class="field" id="normalPetsBox"><label>Pets</label><select id="petTime" onchange="generatePreview();"></select></div>
-          <div class="field"><label>Language</label><select id="language" onchange="generatePreview();"><option>English</option><option>Arabic</option></select></div>
-          <div class="field"><label>Castle Row</label><select id="castleRow" onchange="generatePreview();"></select></div>
+          <div class="field"><label>Language</label><select id="language" onchange="resetAutoMessagesSilent();"><option>English</option><option>Arabic</option></select></div>
+          <div class="field"><label>Castle Row</label><select id="castleRow" onchange="resetAutoMessagesSilent();"></select></div>
           <div class="field"><label>Quick Status</label><div class="pill" id="quickStatus">Ready</div></div>
 
           <div class="lineGroup hidden" id="flexBox">
@@ -861,7 +861,9 @@ function generatePreview(){
   }
 }
 function setStatus(err){ $('quickStatus').textContent=err||'Ready'; $('quickStatus').classList.toggle('dangerText',!!err); $('quickStatus').classList.toggle('successText',!err); }
-function resetAutoMessages(){ $('rallyPreview').dataset.dirty=''; $('joinerPreview').dataset.dirty=''; $('flexSummaryPreview').dataset.dirty=''; generatePreview(); toast('Auto messages restored'); }
+function clearPreviewDirty(){ $('rallyPreview').dataset.dirty=''; $('joinerPreview').dataset.dirty=''; $('flexSummaryPreview').dataset.dirty=''; }
+function resetAutoMessagesSilent(){ clearPreviewDirty(); generatePreview(); }
+function resetAutoMessages(){ clearPreviewDirty(); generatePreview(); toast('Auto messages restored'); }
 async function copyText(text){ try{ await navigator.clipboard.writeText(text); toast('Copied'); }catch(e){ toast('Copy failed'); } }
 function copyCurrent(kind){ copyText(kind==='rally' ? $('rallyPreview').value : $('joinerPreview').value); }
 function saveActive(){ currentMode==='flex' ? saveFlex() : savePlan(); }
