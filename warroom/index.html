@@ -669,7 +669,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const WAR_API = 'https://script.google.com/macros/s/AKfycbwRBis5c7z5Sk1GwuWIytVQQ9XxBYQjmbkcHP1fdDmMz-JBEvOpRqBT4Og9JupggKYBGg/exec';
+const WAR_API = 'https://script.google.com/macros/s/AKfycbywxa1b6wIVodm9kShb-lAGAdQ2O4dZ-5Go2-flB2xjw6xMFzdbZmG4aVKhgvIniVDY/exec';
 const PASSWORD = 'StateOf2099';
 const fallbackConfig = {
   settings:{alliance1:'AMT', alliance2:'PRO', defaultLanguage:'English'},
@@ -796,21 +796,41 @@ function flexSlots(){
 function validateCommon(p){ if(!p.displayLeader)return 'Rally Leader is required'; if(p.inf+p.lan+p.mm!==100)return 'Formation must equal 100'; if(!p.hero1||!p.hero2||!p.hero3)return 'Rally heroes are required'; if(!p.joiner1||!p.joiner2||!p.joiner3||!p.joiner4)return 'Four joiner heroes are required'; return ''; }
 function validate(p){ const e=validateCommon(p); if(e)return e; if(!p.team)return 'Team is required'; if(!p.planTime)return 'Plan Time is required'; return ''; }
 function validateFlex(){ const b=commonBase(); const e=validateCommon(b); if(e)return e; const slots=flexSlots(); if(slots.length<2)return 'Flex needs at least two slots'; for(const s of slots){ if(!s.alliance||!s.team||!s.planTime)return 'Each Flex slot needs alliance, team, and time'; } return ''; }
+function castleLineEn(p, isLeader) {
+  const a = String(p.alliance || '').toUpperCase();
+  if (isLeader) return '1ST';
+  return a === 'PRO' ? '3RD' : '2ND';
+}
+
+function castleLineAr(p, isLeader) {
+  const a = String(p.alliance || '').toUpperCase();
+  if (isLeader) return 'أول';
+  return a === 'PRO' ? 'ثالث' : 'ثاني';
+}
+
+function castleLineMessageEn(p, isLeader) {
+  return `Teleport your city to ${castleLineEn(p, isLeader)} line of castle`;
+}
+
+function castleLineMessageAr(p, isLeader) {
+  return `انقل مدينتك صف ${castleLineAr(p, isLeader)} بالقلعة`;
+}
+
 function buildRally(p, lang=p.language){
   const hs=[p.hero1,p.hero2,p.hero3].filter(Boolean), js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); const hasPets=p.petTime&&p.petTime!=='No Pets';
-  if(lang==='Arabic'){ const pet=hasPets?`\n\nتفعيل الحيوانات:\nالساعة ${p.petTime} بتوقيت اللعبة`:''; return `تم تعيينك كقائد حشد.\n\nالتحالف: ${p.alliance}\nاسم الفريق: ${p.team}\n\nأبطال الحشد:\n${hs.map(hAr).join(' - ')}\n\n${arabicFormation(p)}${pet}\n\nالجوينرز:\n${js.map(hAr).join(' - ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\nاتبع تعليمات الديسكورد.`; }
-  const pet=hasPets?`\nPet Activation: ${p.petTime} UTC`:''; return `Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}${pet}\n\nJoiners:\n${js.join(' > ')}\n\nPlease save presets early and follow Discord instructions.`;
+  if(lang==='Arabic'){ const pet=hasPets?`\n\nتفعيل الحيوانات:\nالساعة ${p.petTime} بتوقيت اللعبة`:''; return `تم تعيينك كقائد حشد.\n\nالتحالف: ${p.alliance}\nاسم الفريق: ${p.team}\n\nأبطال الحشد:\n${hs.map(hAr).join(' - ')}\n\n${arabicFormation(p)}${pet}\n\nالجوينرز:\n${js.map(hAr).join(' - ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${castleLineMessageAr(p, true)}`; }
+  const pet=hasPets?`\nPet Activation: ${p.petTime} UTC`:''; return `Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}${pet}\n\nJoiners:\n${js.join(' > ')}\n\nPlease save presets early.\n${castleLineMessageEn(p, true)}`;
 }
-function buildJoiner(p, lang=p.language){ const js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); if(lang==='Arabic') return `تم تعيينك جوينر في تحالف ${p.alliance}.\n\nاحفظ مسبقًا التشكيلات التالية:\n${js.map(h=>hAr(h)+' + أي بطلين').join('\n')}\n\n${arabicFormation(p)}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\nاتبع الترتيب وتعليمات الديسكورد.`; return `Assigned as JOINER\nAlliance: ${p.alliance}\nSave these presets early:\n${js.map(h=>h+' + any 2 heroes').join('\n')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}\nFollow Discord instructions.`; }
+function buildJoiner(p, lang=p.language){ const js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); if(lang==='Arabic') return `تم تعيينك جوينر في تحالف ${p.alliance}.\n\nاحفظ مسبقًا التشكيلات التالية:\n${js.map(h=>hAr(h)+' + أي بطلين').join('\n')}\n\n${arabicFormation(p)}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${castleLineMessageAr(p, false)}`; return `Assigned as JOINER\nAlliance: ${p.alliance}\nSave these presets early:\n${js.map(h=>h+' + any 2 heroes').join('\n')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}\n${castleLineMessageEn(p, false)}`; }
 function buildFlexSummaryLocal(lang=$('language').value){
   const base=commonBase(); const slots=flexSlots(); const hs=[base.hero1,base.hero2,base.hero3].filter(Boolean); const js=[base.joiner1,base.joiner2,base.joiner3,base.joiner4].filter(Boolean);
   if(lang==='Arabic'){
     const labels=['الأولى','الثانية','الثالثة'];
     const lines=slots.map((s,i)=>`${labels[i]}:\nتحالف ${s.alliance} | فريق ${s.team}\nالوقت: ${s.planTime} بتوقيت اللعبة\n${s.petTime!=='No Pets'?`تفعيل الحيوانات: ${s.petTime} بتوقيت اللعبة`:'الحيوانات: بدون'}`).join('\n\n');
-    return `تم تعيينك كقائد حشد مرن.\n\nالقائد: ${base.displayLeader}\n\n${lines}\n\nأبطال الحشد: ${hs.map(hAr).join('، ')}\n${arabicFormation(base)}\nالجوينرز: ${js.map(hAr).join('، ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، واتبع تعليمات الديسكورد.`;
+    return `تم تعيينك كقائد حشد مرن.\n\nالقائد: ${base.displayLeader}\n\n${lines}\n\nأبطال الحشد: ${hs.map(hAr).join('، ')}\n${arabicFormation(base)}\nالجوينرز: ${js.map(hAr).join('، ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية.\n${castleLineMessageAr(base, true)}`;
   }
   const lines=slots.map((s,i)=>`${i+1}) ${s.alliance} | ${s.team}\nStart: ${s.planTime} UTC\n${s.petTime!=='No Pets'?`Pets: ${s.petTime} UTC`:'Pets: No Pets'}`).join('\n\n');
-  return `Assigned as FLEX RALLY LEADER\n\nLeader: ${base.displayLeader}\n\n${lines}\n\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${base.inf} / LAN ${base.lan} / MM ${base.mm}\nJoiners: ${js.join(' > ')}\n\nPlease save presets early and follow Discord instructions.`;
+  return `Assigned as FLEX RALLY LEADER\n\nLeader: ${base.displayLeader}\n\n${lines}\n\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${base.inf} / LAN ${base.lan} / MM ${base.mm}\nJoiners: ${js.join(' > ')}\n\nPlease save presets early.\n${castleLineMessageEn(base, true)}`;
 }
 function generatePreview(){
   if(currentMode==='normal'){
