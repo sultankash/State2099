@@ -555,7 +555,7 @@
           <div class="field" id="normalTimeBox"><label>Plan Time</label><select id="planTime" onchange="generatePreview();"></select></div>
           <div class="field" id="normalPetsBox"><label>Pets</label><select id="petTime" onchange="generatePreview();"></select></div>
           <div class="field"><label>Language</label><select id="language" onchange="resetAutoMessagesSilent();"><option>English</option><option>Arabic</option></select></div>
-          <div class="field"><label>Castle Row</label><select id="castleRow" onchange="resetAutoMessagesSilent();"></select></div>
+          <div class="field" id="castleRowBox"><label>Castle Row</label><select id="castleRow" onchange="resetAutoMessagesSilent();"></select></div>
           <div class="field"><label>Quick Status</label><div class="pill" id="quickStatus">Ready</div></div>
 
           <div class="lineGroup hidden" id="flexBox">
@@ -568,6 +568,9 @@
                   <div><label>Team</label><select id="slot1Team" onchange="generatePreview();"></select></div>
                   <div><label>At</label><select id="slot1Time" onchange="generatePreview();"></select></div>
                   <div><label>Pets</label><select id="slot1Pets" onchange="generatePreview();"></select></div>
+                  <div><label>Hero 1</label><select id="slot1Hero1" onchange="generatePreview();"></select></div>
+                  <div><label>Hero 2</label><select id="slot1Hero2" onchange="generatePreview();"></select></div>
+                  <div><label>Hero 3</label><select id="slot1Hero3" onchange="generatePreview();"></select></div>
                 </div>
               </div>
               <div class="slot" id="slot2Box">
@@ -577,6 +580,9 @@
                   <div><label>Team</label><select id="slot2Team" onchange="generatePreview();"></select></div>
                   <div><label>At</label><select id="slot2Time" onchange="generatePreview();"></select></div>
                   <div><label>Pets</label><select id="slot2Pets" onchange="generatePreview();"></select></div>
+                  <div><label>Hero 1</label><select id="slot2Hero1" onchange="generatePreview();"></select></div>
+                  <div><label>Hero 2</label><select id="slot2Hero2" onchange="generatePreview();"></select></div>
+                  <div><label>Hero 3</label><select id="slot2Hero3" onchange="generatePreview();"></select></div>
                 </div>
               </div>
               <div class="slot optional" id="slot3Box">
@@ -586,13 +592,16 @@
                   <div><label>Team</label><select id="slot3Team" onchange="generatePreview();"></select></div>
                   <div><label>At</label><select id="slot3Time" onchange="generatePreview();"></select></div>
                   <div><label>Pets</label><select id="slot3Pets" onchange="generatePreview();"></select></div>
+                  <div><label>Hero 1</label><select id="slot3Hero1" onchange="generatePreview();"></select></div>
+                  <div><label>Hero 2</label><select id="slot3Hero2" onchange="generatePreview();"></select></div>
+                  <div><label>Hero 3</label><select id="slot3Hero3" onchange="generatePreview();"></select></div>
                 </div>
               </div>
             </div>
             <div class="hint">Flex saves each slot as a normal timeline row. Simple Plan stays clean by time.</div>
           </div>
 
-          <div class="lineGroup">
+          <div class="lineGroup" id="normalHeroesBox">
             <div class="lineTitle">Rally Heroes</div>
             <div class="inlineGrid three">
               <select id="hero1" onchange="generatePreview();"></select>
@@ -638,9 +647,9 @@
           <div><label>Joiner Message Preview <span class="copyNote">editable before copy</span></label><textarea id="joinerPreview"></textarea></div>
         </div>
         <div id="flexPreviewBox" class="hidden">
-          <label>Flex Summary Preview <span class="copyNote">editable before copy</span></label>
+          <label>Flex Slot Messages Preview <span class="copyNote">editable before copy</span></label>
           <textarea id="flexSummaryPreview"></textarea>
-          <div class="btns"><button class="btn" onclick="copyText($('flexSummaryPreview').value)">Copy Flex Summary</button></div>
+          <div class="btns"><button class="btn" onclick="copyText($('flexSummaryPreview').value)">Copy Flex Messages</button></div>
         </div>
         <div id="lastFlexMessages" class="messagePanel hidden"></div>
       </div>
@@ -670,7 +679,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const WAR_API = 'https://script.google.com/macros/s/AKfycbynlw5-kaopdZOVhbadPFiudBnuU40t-My81mVdg2lJa-qBO9eELSZMuTmAUlv1bkia/exec';
+const WAR_API = 'https://script.google.com/macros/s/AKfycbwfXuVQdfl_vmHA2Xxq5ATZZ2c-qWcELIwmnklCwCkbpZLbrdBRhbQvhH-YPruumHUOgg/exec';
 const PASSWORD = 'StateOf2099';
 const fallbackConfig = {
   settings:{alliance1:'AMT', alliance2:'PRO', defaultLanguage:'English'},
@@ -682,14 +691,14 @@ const fallbackConfig = {
   petOptions:['No Pets'].concat(Array.from({length:48},(_,i)=>`${String(Math.floor(i/2)).padStart(2,'0')}:${i%2?'30':'00'}`)),
   castleRowOptions:['Whales - 1ST Row','AMT - 2ND/3RD Row','PRO - 4TH+ Row'],
   castleRowMessagesEn:{
-    'Whales - 1ST Row':'Teleport your city to 1ST row of castle | Be there before 11:30 UTC',
-    'AMT - 2ND/3RD Row':'Teleport your city to 2ND or 3RD row of castle | Be there before 11:30 UTC',
-    'PRO - 4TH+ Row':'Teleport your city to 4TH+ row of castle | Be there before 11:30 UTC'
+    'Whales - 1ST Row':'Teleport your city to 1ST row of castle | By 11 AM UTC',
+    'AMT - 2ND/3RD Row':'Teleport your city to 2ND or 3RD row of castle | By 11 AM UTC',
+    'PRO - 4TH+ Row':'Teleport your city to 4TH+ row of castle | By 11 AM UTC'
   },
   castleRowMessagesAr:{
-    'Whales - 1ST Row':'انقل مدينتك صف أول بالقلعة | كن هناك قبل الحرب بنصف ساعة',
-    'AMT - 2ND/3RD Row':'انقل مدينتك صف ثاني أو ثالث بالقلعة | كن هناك قبل الحرب بنصف ساعة',
-    'PRO - 4TH+ Row':'انقل مدينتك صف رابع وما بعده بالقلعة | كن هناك قبل الحرب بنصف ساعة'
+    'Whales - 1ST Row':'انقل مدينتك صف أول بالقلعة | تواجد هناك الساعة الحادية عشر صباحا بتوقيت اللعبة',
+    'AMT - 2ND/3RD Row':'انقل مدينتك صف ثاني أو ثالث بالقلعة | تواجد هناك الساعة الحادية عشر صباحا بتوقيت اللعبة',
+    'PRO - 4TH+ Row':'انقل مدينتك صف رابع وما بعده بالقلعة | تواجد هناك الساعة الحادية عشر صباحا بتوقيت اللعبة'
   },
   teams:{AMT:Array.from({length:12},(_,i)=>`TEAM AMT${i+1}`),PRO:Array.from({length:12},(_,i)=>`TEAM PRO${i+1}`)}
 };
@@ -765,7 +774,7 @@ function initForm(){
   fillSelect('alliance', config.alliances); fillSelect('rallyLeader', config.leaders); fillSelect('language', config.languages||['English','Arabic']); fillSelect('castleRow', castleRowOptions());
   ['planTime','slot1Time','slot2Time','slot3Time'].forEach(id=>fillSelect(id, config.timeOptions));
   ['petTime','slot1Pets','slot2Pets','slot3Pets'].forEach(id=>fillSelect(id, config.petOptions));
-  ['hero1','hero2','hero3','joiner1','joiner2','joiner3','joiner4'].forEach(id=>fillSelect(id,config.heroes));
+  ['hero1','hero2','hero3','slot1Hero1','slot1Hero2','slot1Hero3','slot2Hero1','slot2Hero2','slot2Hero3','slot3Hero1','slot3Hero2','slot3Hero3','joiner1','joiner2','joiner3','joiner4'].forEach(id=>fillSelect(id,config.heroes));
   ['slot1Alliance','slot2Alliance','slot3Alliance'].forEach(id=>fillSelect(id,config.alliances));
   updateTeamOptions(false); [1,2,3].forEach(updateSlotTeamOptions);
   setDefaults(true);
@@ -787,15 +796,15 @@ function setDefaults(first){
   $('hero1').value='Gatot'; $('hero2').value='Sonya'; $('hero3').value='Bradley';
   $('joiner1').value='Jessie'; $('joiner2').value='Jasser'; $('joiner3').value='Norah'; $('joiner4').value='Hector';
   $('inf').value=60; $('lan').value=40; $('mm').value=0; $('notes').value='';
-  $('slot1Alliance').value=s.alliance1; updateSlotTeamOptions(1); $('slot1Time').value='14:00'; $('slot1Pets').value='14:00';
-  $('slot2Alliance').value=s.alliance2; updateSlotTeamOptions(2); $('slot2Time').value='16:00'; $('slot2Pets').value='16:00';
-  $('slot3Alliance').value=s.alliance1; updateSlotTeamOptions(3); $('slot3Time').value='18:00'; $('slot3Pets').value='No Pets'; $('slot3Enabled').checked=false;
+  $('slot1Alliance').value=s.alliance1; updateSlotTeamOptions(1); $('slot1Time').value='14:00'; $('slot1Pets').value='14:00'; $('slot1Hero1').value='Gatot'; $('slot1Hero2').value='Sonya'; $('slot1Hero3').value='Bradley';
+  $('slot2Alliance').value=s.alliance2; updateSlotTeamOptions(2); $('slot2Time').value='16:00'; $('slot2Pets').value='16:00'; $('slot2Hero1').value='Hendrik'; $('slot2Hero2').value='Magnus'; $('slot2Hero3').value='Fred';
+  $('slot3Alliance').value=s.alliance1; updateSlotTeamOptions(3); $('slot3Time').value='18:00'; $('slot3Pets').value='No Pets'; $('slot3Hero1').value='Flora'; $('slot3Hero2').value='Gatot'; $('slot3Hero3').value='Sonya'; $('slot3Enabled').checked=false;
   if(!first){ $('planId').value=''; $('createdAt').value=''; }
 }
 function setMode(mode){
   currentMode=mode;
   $('normalModeBtn').classList.toggle('active', mode==='normal'); $('flexModeBtn').classList.toggle('active', mode==='flex');
-  ['normalAllianceBox','normalTeamBox','normalTimeBox','normalPetsBox'].forEach(id=>$(id).classList.toggle('hidden', mode==='flex'));
+  ['normalAllianceBox','normalTeamBox','normalTimeBox','normalPetsBox','castleRowBox','normalHeroesBox'].forEach(id=>$(id).classList.toggle('hidden', mode==='flex'));
   $('flexBox').classList.toggle('hidden', mode!=='flex');
   $('normalPreviewBox').classList.toggle('hidden', mode!=='normal');
   $('flexPreviewBox').classList.toggle('hidden', mode!=='flex');
@@ -818,14 +827,27 @@ function commonBase(){
   return {planId:$('planId').value, createdAt:$('createdAt').value, rallyLeader:$('rallyLeader').value, otherLeader:$('otherLeader').value.trim(), displayLeader:displayLeader(), hero1:$('hero1').value, hero2:$('hero2').value, hero3:$('hero3').value, inf:Number($('inf').value||0), lan:Number($('lan').value||0), mm:Number($('mm').value||0), joiner1:$('joiner1').value, joiner2:$('joiner2').value, joiner3:$('joiner3').value, joiner4:$('joiner4').value, language:$('language').value, castleRow:$('castleRow').value, notes:$('notes').value.trim()};
 }
 function formPlan(){ const p={...commonBase(), alliance:$('alliance').value, team:$('team').value, planTime:$('planTime').value, petTime:normalizePet($('petTime').value)}; p.total=p.inf+p.lan+p.mm; p.hasPets=p.petTime!=='No Pets'; return p; }
+function flexSlot(n){
+  return {
+    alliance:$(`slot${n}Alliance`).value,
+    team:$(`slot${n}Team`).value,
+    planTime:$(`slot${n}Time`).value,
+    petTime:normalizePet($(`slot${n}Pets`).value),
+    hero1:$(`slot${n}Hero1`).value,
+    hero2:$(`slot${n}Hero2`).value,
+    hero3:$(`slot${n}Hero3`).value,
+    castleRow:n===1?'Whales - 1ST Row':defaultCastleRow({alliance:$(`slot${n}Alliance`).value}, false),
+    slotNumber:n
+  };
+}
 function flexSlots(){
-  const slots=[1,2].map(n=>({alliance:$(`slot${n}Alliance`).value, team:$(`slot${n}Team`).value, planTime:$(`slot${n}Time`).value, petTime:normalizePet($(`slot${n}Pets`).value)}));
-  if($('slot3Enabled').checked) slots.push({alliance:$('slot3Alliance').value, team:$('slot3Team').value, planTime:$('slot3Time').value, petTime:normalizePet($('slot3Pets').value)});
+  const slots=[flexSlot(1), flexSlot(2)];
+  if($('slot3Enabled').checked) slots.push(flexSlot(3));
   return slots;
 }
 function validateCommon(p){ if(!p.displayLeader)return 'Rally Leader is required'; if(p.inf+p.lan+p.mm!==100)return 'Formation must equal 100'; if(!p.hero1||!p.hero2||!p.hero3)return 'Rally heroes are required'; if(!p.joiner1||!p.joiner2||!p.joiner3||!p.joiner4)return 'Four joiner heroes are required'; return ''; }
 function validate(p){ const e=validateCommon(p); if(e)return e; if(!p.team)return 'Team is required'; if(!p.planTime)return 'Plan Time is required'; return ''; }
-function validateFlex(){ const b=commonBase(); const e=validateCommon(b); if(e)return e; const slots=flexSlots(); if(slots.length<2)return 'Flex needs at least two slots'; for(const s of slots){ if(!s.alliance||!s.team||!s.planTime)return 'Each Flex slot needs alliance, team, and time'; } return ''; }
+function validateFlex(){ const b=commonBase(); if(!b.displayLeader)return 'Rally Leader is required'; if(b.inf+b.lan+b.mm!==100)return 'Formation must equal 100'; if(!b.joiner1||!b.joiner2||!b.joiner3||!b.joiner4)return 'Four joiner heroes are required'; const slots=flexSlots(); if(slots.length<2)return 'Flex needs at least two slots'; for(const s of slots){ if(!s.alliance||!s.team||!s.planTime)return 'Each Flex slot needs alliance, team, and time'; if(!s.hero1||!s.hero2||!s.hero3)return 'Each Flex slot needs three rally heroes'; } return ''; }
 function buildRally(p, lang=p.language){
   const hs=[p.hero1,p.hero2,p.hero3].filter(Boolean), js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); const hasPets=p.petTime&&p.petTime!=='No Pets'; const rowLine=castleRowMessage(p,lang,true);
   if(lang==='Arabic'){ const pet=hasPets?`\n\nتفعيل الحيوانات:\nالساعة ${p.petTime} بتوقيت اللعبة`:''; return `تم تعيينك كقائد حشد.\n\nالتحالف: ${p.alliance}\nاسم الفريق: ${p.team}\n\nأبطال الحشد:\n${hs.map(hAr).join(' - ')}\n\n${arabicFormation(p)}${pet}\n\nالجوينرز:\n${js.map(hAr).join(' - ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${rowLine}`; }
@@ -836,15 +858,68 @@ function buildJoiner(p, lang=p.language){
   if(lang==='Arabic') return `تم تعيينك جوينر في تحالف ${p.alliance}.\n\nاحفظ مسبقًا التشكيلات التالية:\n${js.map(h=>hAr(h)+' + أي بطلين').join('\n')}\n\n${arabicFormation(p)}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${rowLine}`;
   return `Assigned as JOINER\nAlliance: ${p.alliance}\nSave these presets early:\n${js.map(h=>h+' + any 2 heroes').join('\n')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}\n${rowLine}`;
 }
-function buildFlexSummaryLocal(lang=$('language').value){
-  const base=commonBase(); const slots=flexSlots(); const hs=[base.hero1,base.hero2,base.hero3].filter(Boolean); const js=[base.joiner1,base.joiner2,base.joiner3,base.joiner4].filter(Boolean); const rowLine=castleRowMessage(base,lang,true);
+
+function flexLineLabelLocal(n, lang){
+  if(lang==='Arabic') return ['','المسار الأول','المسار الثاني','المسار الثالث'][n]||'';
+  return `Line ${n}`;
+}
+function buildFlexSlotMessageLocal(slot, lineNo, lang=$('language').value){
+  const base=commonBase();
+  const p={...base,...slot,total:base.inf+base.lan+base.mm,hasPets:slot.petTime&&slot.petTime!=='No Pets'};
+  const heroes=[p.hero1,p.hero2,p.hero3].filter(Boolean);
+  const joiners=[base.joiner1,base.joiner2,base.joiner3,base.joiner4].filter(Boolean);
+  const lineLabel=flexLineLabelLocal(lineNo,lang);
+  const isLater=lineNo>1;
   if(lang==='Arabic'){
-    const labels=['الأولى','الثانية','الثالثة'];
-    const lines=slots.map((s,i)=>`${labels[i]}:\nتحالف ${s.alliance} | فريق ${s.team}\nالوقت: ${s.planTime} بتوقيت اللعبة\n${s.petTime!=='No Pets'?`تفعيل الحيوانات: ${s.petTime} بتوقيت اللعبة`:'الحيوانات: بدون'}`).join('\n\n');
-    return `تم تعيينك كقائد حشد مرن.\n\nالقائد: ${base.displayLeader}\n\n${lines}\n\nأبطال الحشد: ${hs.map(hAr).join('، ')}\n${arabicFormation(base)}\nالجوينرز: ${js.map(hAr).join('، ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية.\n${rowLine}`;
+    const intro=isLater?'':`تم تعيينك كقائد حشد.
+
+`;
+    const pet=p.hasPets?`تفعيل الحيوانات:
+الساعة ${p.petTime} بتوقيت اللعبة
+
+`:'';
+    const rowLine=lineNo===1?`\n${castleRowMessage({castleRow:'Whales - 1ST Row',alliance:p.alliance},lang,true)}`:'';
+    return `${intro}${lineLabel}
+
+التحالف: ${p.alliance}
+اسم الفريق: ${p.team}
+الوقت: ${p.planTime} بتوقيت اللعبة
+
+${pet}أبطال الحشد:
+${heroes.map(hAr).join(' - ')}
+
+${arabicFormation(base)}
+
+الجوينرز:
+${joiners.map(hAr).join(' - ')}
+
+نأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.${rowLine}`;
   }
-  const lines=slots.map((s,i)=>`${i+1}) ${s.alliance} | ${s.team}\nStart: ${s.planTime} UTC\n${s.petTime!=='No Pets'?`Pets: ${s.petTime} UTC`:'Pets: No Pets'}`).join('\n\n');
-  return `Assigned as FLEX RALLY LEADER\n\nLeader: ${base.displayLeader}\n\n${lines}\n\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${base.inf} / LAN ${base.lan} / MM ${base.mm}\nJoiners: ${js.join(' > ')}\n\nPlease save presets early.\n${rowLine}`;
+  const intro=isLater?'':`Assigned as RALLY LEADER
+
+`;
+  const pet=p.hasPets?`Pet Activation: ${p.petTime} UTC
+
+`:'';
+  const rowLine=lineNo===1?`\n${castleRowMessage({castleRow:'Whales - 1ST Row',alliance:p.alliance},lang,true)}`:'';
+  return `${intro}${lineLabel}
+
+Alliance: ${p.alliance}
+Team Name: ${p.team}
+Start: ${p.planTime} UTC
+
+${pet}Rally Heroes:
+${heroes.join(' / ')}
+
+Formation: INF ${base.inf} / LAN ${base.lan} / MM ${base.mm}
+
+Joiners:
+${joiners.join(' > ')}
+
+Please save presets early.${rowLine}`;
+}
+function buildFlexSummaryLocal(lang=$('language').value){
+  return flexSlots().map((s,i)=>buildFlexSlotMessageLocal(s,i+1,lang)).join('\n\n---\n\n');
 }
 function generatePreview(){
   if(currentMode==='normal'){
@@ -884,8 +959,12 @@ function renderFlexMessages(r){
   const box=$('lastFlexMessages');
   const lang=$('language').value;
   const summary=lang==='Arabic' ? (r.flexSummaryAr||'') : (r.flexSummaryEn||'');
-  const slotMsgs=(r.slotRallyMessages||[]).map((m,i)=>`<div class="slotMsg"><b>Slot ${i+1}: ${escapeHtml(m.planTime)} | ${escapeHtml(m.alliance)} | ${escapeHtml(m.team)}</b><div class="btns"><button class="btn small" onclick="copyText(${JSON.stringify(lang==='Arabic'?m.arabic:m.english).replace(/</g,'\\u003c')})">Copy Rally</button></div></div>`).join('');
-  box.innerHTML=`<h3>Flex messages ready</h3><div class="btns"><button class="btn small green" onclick="copyText(${JSON.stringify(summary).replace(/</g,'\\u003c')})">Copy Flex Summary</button></div>${slotMsgs}`;
+  const slotMsgs=(r.slotRallyMessages||r.flexSlotMessages||[]).map((m,i)=>{
+    const msg=lang==='Arabic'?m.arabic:m.english;
+    const label=lang==='Arabic'?(m.labelAr||`المسار ${i+1}`):(m.labelEn||`Line ${i+1}`);
+    return `<div class="slotMsg"><b>${escapeHtml(label)}: ${escapeHtml(m.planTime)} | ${escapeHtml(m.alliance)} | ${escapeHtml(m.team)}</b><div class="btns"><button class="btn small" onclick="copyText(${JSON.stringify(msg).replace(/</g,'\u003c')})">Copy ${escapeHtml(label)}</button></div></div>`;
+  }).join('');
+  box.innerHTML=`<h3>Flex line messages ready</h3><div class="btns"><button class="btn small green" onclick="copyText(${JSON.stringify(summary).replace(/</g,'\u003c')})">Copy All Flex Messages</button></div>${slotMsgs}`;
   box.classList.remove('hidden');
 }
 async function loadPlans(silent=false){
