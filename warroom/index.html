@@ -571,6 +571,9 @@
                   <div><label>Hero 1</label><select id="slot1Hero1" onchange="generatePreview();"></select></div>
                   <div><label>Hero 2</label><select id="slot1Hero2" onchange="generatePreview();"></select></div>
                   <div><label>Hero 3</label><select id="slot1Hero3" onchange="generatePreview();"></select></div>
+                  <div class="miniField"><span>INF</span><input id="slot1Inf" type="number" min="0" max="100" value="60" /></div>
+                  <div class="miniField"><span>LAN</span><input id="slot1Lan" type="number" min="0" max="100" value="40" /></div>
+                  <div class="miniField"><span>MM</span><input id="slot1Mm" type="number" min="0" max="100" value="0" /></div>
                 </div>
               </div>
               <div class="slot" id="slot2Box">
@@ -583,6 +586,9 @@
                   <div><label>Hero 1</label><select id="slot2Hero1" onchange="generatePreview();"></select></div>
                   <div><label>Hero 2</label><select id="slot2Hero2" onchange="generatePreview();"></select></div>
                   <div><label>Hero 3</label><select id="slot2Hero3" onchange="generatePreview();"></select></div>
+                  <div class="miniField"><span>INF</span><input id="slot2Inf" type="number" min="0" max="100" value="60" /></div>
+                  <div class="miniField"><span>LAN</span><input id="slot2Lan" type="number" min="0" max="100" value="40" /></div>
+                  <div class="miniField"><span>MM</span><input id="slot2Mm" type="number" min="0" max="100" value="0" /></div>
                 </div>
               </div>
               <div class="slot optional" id="slot3Box">
@@ -595,6 +601,9 @@
                   <div><label>Hero 1</label><select id="slot3Hero1" onchange="generatePreview();"></select></div>
                   <div><label>Hero 2</label><select id="slot3Hero2" onchange="generatePreview();"></select></div>
                   <div><label>Hero 3</label><select id="slot3Hero3" onchange="generatePreview();"></select></div>
+                  <div class="miniField"><span>INF</span><input id="slot3Inf" type="number" min="0" max="100" value="60" /></div>
+                  <div class="miniField"><span>LAN</span><input id="slot3Lan" type="number" min="0" max="100" value="40" /></div>
+                  <div class="miniField"><span>MM</span><input id="slot3Mm" type="number" min="0" max="100" value="0" /></div>
                 </div>
               </div>
             </div>
@@ -610,7 +619,7 @@
             </div>
           </div>
 
-          <div class="lineGroup">
+          <div class="lineGroup" id="normalFormationBox">
             <div class="lineTitle">Formation — Total must be 100%</div>
             <div class="ratioGrid">
               <div class="miniField"><span>INF</span><input id="inf" type="number" min="0" max="100" value="60" /></div>
@@ -796,15 +805,15 @@ function setDefaults(first){
   $('hero1').value='Gatot'; $('hero2').value='Sonya'; $('hero3').value='Bradley';
   $('joiner1').value='Jessie'; $('joiner2').value='Jasser'; $('joiner3').value='Norah'; $('joiner4').value='Hector';
   $('inf').value=60; $('lan').value=40; $('mm').value=0; $('notes').value='';
-  $('slot1Alliance').value=s.alliance1; updateSlotTeamOptions(1); $('slot1Time').value='14:00'; $('slot1Pets').value='14:00'; $('slot1Hero1').value='Gatot'; $('slot1Hero2').value='Sonya'; $('slot1Hero3').value='Bradley';
-  $('slot2Alliance').value=s.alliance2; updateSlotTeamOptions(2); $('slot2Time').value='16:00'; $('slot2Pets').value='16:00'; $('slot2Hero1').value='Hendrik'; $('slot2Hero2').value='Magnus'; $('slot2Hero3').value='Fred';
-  $('slot3Alliance').value=s.alliance1; updateSlotTeamOptions(3); $('slot3Time').value='18:00'; $('slot3Pets').value='No Pets'; $('slot3Hero1').value='Flora'; $('slot3Hero2').value='Gatot'; $('slot3Hero3').value='Sonya'; $('slot3Enabled').checked=false;
+  $('slot1Alliance').value=s.alliance1; updateSlotTeamOptions(1); $('slot1Time').value='14:00'; $('slot1Pets').value='14:00'; $('slot1Hero1').value='Gatot'; $('slot1Hero2').value='Sonya'; $('slot1Hero3').value='Bradley'; $('slot1Inf').value=60; $('slot1Lan').value=40; $('slot1Mm').value=0;
+  $('slot2Alliance').value=s.alliance2; updateSlotTeamOptions(2); $('slot2Time').value='16:00'; $('slot2Pets').value='16:00'; $('slot2Hero1').value='Hendrik'; $('slot2Hero2').value='Magnus'; $('slot2Hero3').value='Fred'; $('slot2Inf').value=60; $('slot2Lan').value=40; $('slot2Mm').value=0;
+  $('slot3Alliance').value=s.alliance1; updateSlotTeamOptions(3); $('slot3Time').value='18:00'; $('slot3Pets').value='No Pets'; $('slot3Hero1').value='Flora'; $('slot3Hero2').value='Gatot'; $('slot3Hero3').value='Sonya'; $('slot3Inf').value=60; $('slot3Lan').value=40; $('slot3Mm').value=0; $('slot3Enabled').checked=false;
   if(!first){ $('planId').value=''; $('createdAt').value=''; }
 }
 function setMode(mode){
   currentMode=mode;
   $('normalModeBtn').classList.toggle('active', mode==='normal'); $('flexModeBtn').classList.toggle('active', mode==='flex');
-  ['normalAllianceBox','normalTeamBox','normalTimeBox','normalPetsBox','castleRowBox','normalHeroesBox'].forEach(id=>$(id).classList.toggle('hidden', mode==='flex'));
+  ['normalAllianceBox','normalTeamBox','normalTimeBox','normalPetsBox','castleRowBox','normalHeroesBox','normalFormationBox'].forEach(id=>$(id).classList.toggle('hidden', mode==='flex'));
   $('flexBox').classList.toggle('hidden', mode!=='flex');
   $('normalPreviewBox').classList.toggle('hidden', mode!=='normal');
   $('flexPreviewBox').classList.toggle('hidden', mode!=='flex');
@@ -836,6 +845,9 @@ function flexSlot(n){
     hero1:$(`slot${n}Hero1`).value,
     hero2:$(`slot${n}Hero2`).value,
     hero3:$(`slot${n}Hero3`).value,
+    inf:Number($(`slot${n}Inf`).value||0),
+    lan:Number($(`slot${n}Lan`).value||0),
+    mm:Number($(`slot${n}Mm`).value||0),
     castleRow:n===1?'Whales - 1ST Row':defaultCastleRow({alliance:$(`slot${n}Alliance`).value}, false),
     slotNumber:n
   };
@@ -847,7 +859,7 @@ function flexSlots(){
 }
 function validateCommon(p){ if(!p.displayLeader)return 'Rally Leader is required'; if(p.inf+p.lan+p.mm!==100)return 'Formation must equal 100'; if(!p.hero1||!p.hero2||!p.hero3)return 'Rally heroes are required'; if(!p.joiner1||!p.joiner2||!p.joiner3||!p.joiner4)return 'Four joiner heroes are required'; return ''; }
 function validate(p){ const e=validateCommon(p); if(e)return e; if(!p.team)return 'Team is required'; if(!p.planTime)return 'Plan Time is required'; return ''; }
-function validateFlex(){ const b=commonBase(); if(!b.displayLeader)return 'Rally Leader is required'; if(b.inf+b.lan+b.mm!==100)return 'Formation must equal 100'; if(!b.joiner1||!b.joiner2||!b.joiner3||!b.joiner4)return 'Four joiner heroes are required'; const slots=flexSlots(); if(slots.length<2)return 'Flex needs at least two slots'; for(const s of slots){ if(!s.alliance||!s.team||!s.planTime)return 'Each Flex slot needs alliance, team, and time'; if(!s.hero1||!s.hero2||!s.hero3)return 'Each Flex slot needs three rally heroes'; } return ''; }
+function validateFlex(){ const b=commonBase(); if(!b.displayLeader)return 'Rally Leader is required'; if(!b.joiner1||!b.joiner2||!b.joiner3||!b.joiner4)return 'Four joiner heroes are required'; const slots=flexSlots(); if(slots.length<2)return 'Flex needs at least two slots'; for(const s of slots){ if(!s.alliance||!s.team||!s.planTime)return 'Each Flex slot needs alliance, team, and time'; if(!s.hero1||!s.hero2||!s.hero3)return 'Each Flex slot needs three rally heroes'; if(s.inf+s.lan+s.mm!==100)return `Line ${s.slotNumber} formation must equal 100`; } return ''; }
 function buildRally(p, lang=p.language){
   const hs=[p.hero1,p.hero2,p.hero3].filter(Boolean), js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); const hasPets=p.petTime&&p.petTime!=='No Pets'; const rowLine=castleRowMessage(p,lang,true);
   if(lang==='Arabic'){ const pet=hasPets?`\n\nتفعيل الحيوانات:\nالساعة ${p.petTime} بتوقيت اللعبة`:''; return `تم تعيينك كقائد حشد.\n\nالتحالف: ${p.alliance}\nاسم الفريق: ${p.team}\n\nأبطال الحشد:\n${hs.map(hAr).join(' - ')}\n\n${arabicFormation(p)}${pet}\n\nالجوينرز:\n${js.map(hAr).join(' - ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${rowLine}`; }
@@ -865,7 +877,7 @@ function flexLineLabelLocal(n, lang){
 }
 function buildFlexSlotMessageLocal(slot, lineNo, lang=$('language').value){
   const base=commonBase();
-  const p={...base,...slot,total:base.inf+base.lan+base.mm,hasPets:slot.petTime&&slot.petTime!=='No Pets'};
+  const p={...base,...slot,total:(Number(slot.inf||0)+Number(slot.lan||0)+Number(slot.mm||0)),hasPets:slot.petTime&&slot.petTime!=='No Pets'};
   const heroes=[p.hero1,p.hero2,p.hero3].filter(Boolean);
   const joiners=[base.joiner1,base.joiner2,base.joiner3,base.joiner4].filter(Boolean);
   const lineLabel=flexLineLabelLocal(lineNo,lang);
@@ -888,7 +900,7 @@ function buildFlexSlotMessageLocal(slot, lineNo, lang=$('language').value){
 ${pet}أبطال الحشد:
 ${heroes.map(hAr).join(' - ')}
 
-${arabicFormation(base)}
+${arabicFormation(p)}
 
 الجوينرز:
 ${joiners.map(hAr).join(' - ')}
@@ -911,7 +923,7 @@ Start: ${p.planTime} UTC
 ${pet}Rally Heroes:
 ${heroes.join(' / ')}
 
-Formation: INF ${base.inf} / LAN ${base.lan} / MM ${base.mm}
+Formation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}
 
 Joiners:
 ${joiners.join(' > ')}
