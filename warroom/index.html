@@ -555,6 +555,7 @@
           <div class="field" id="normalTimeBox"><label>Plan Time</label><select id="planTime" onchange="generatePreview();"></select></div>
           <div class="field" id="normalPetsBox"><label>Pets</label><select id="petTime" onchange="generatePreview();"></select></div>
           <div class="field"><label>Language</label><select id="language" onchange="generatePreview();"><option>English</option><option>Arabic</option></select></div>
+          <div class="field"><label>Castle Row</label><select id="castleRow" onchange="generatePreview();"></select></div>
           <div class="field"><label>Quick Status</label><div class="pill" id="quickStatus">Ready</div></div>
 
           <div class="lineGroup hidden" id="flexBox">
@@ -669,7 +670,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const WAR_API = 'https://script.google.com/macros/s/AKfycbywxa1b6wIVodm9kShb-lAGAdQ2O4dZ-5Go2-flB2xjw6xMFzdbZmG4aVKhgvIniVDY/exec';
+const WAR_API = 'https://script.google.com/macros/s/AKfycbynlw5-kaopdZOVhbadPFiudBnuU40t-My81mVdg2lJa-qBO9eELSZMuTmAUlv1bkia/exec';
 const PASSWORD = 'StateOf2099';
 const fallbackConfig = {
   settings:{alliance1:'AMT', alliance2:'PRO', defaultLanguage:'English'},
@@ -679,6 +680,17 @@ const fallbackConfig = {
   heroAr:{'Sergey':'سيرجي','Jessie':'جيسي','Patrick':'باتريك','Lumak Bokan':'بوكان','Ling Xue':'لينغ شو','Gina':'جينا','Bahiti':'باهيتي','Jasser':'جاسر','Seo-yoon':'سو يون','Natalia':'ناتاليا','Jeronimo':'جيرونيمو','Molly':'مولي','Zinman':'زينمان','Flint':'فلينت','Philly':'فيلي','Alonso':'ألونسو','Logan':'لوغان','Mia':'ميا','Greg':'قريق','Ahmose':'أحمس','Reina':'رينا','Lynn':'لين','Hector':'هيكتور','Norah':'نورا','Gwen':'جوين','Wu Ming':'وو مين','Renee':'رينيه','Wayne':'واين','Edith':'إديث','Gordon':'غوردون','Bradley':'برادلي','Gatot':'قاتوت','Sonya':'سونيا','Hendrik':'هندريك','Magnus':'ماغنوس','Fred':'فريد','Xura':'زورا','Gregory':'غريغوري','Freya':'فريا','Blanchette':'بلانشيت','Eleonora':'إليونورا','Lloyd':'لويد','Rufus':'روفوس','Hervor':'هيرفور','Karol':'كارول','Ligeia':'ليجيا','Gisela':'جيزيلا','Flora':'فلورا','Vulcanus':'فولكانوس','Elif':'إليف','Dominic':'دومينيك','Cara':'كارا','Hank':'هانك','Estrella':'إستريلا','Viveca':'فيفيكا','Seigel':'سيغل','Ursar':'أورسار','Aisling':'آيسلينغ'},
   timeOptions:Array.from({length:48},(_,i)=>`${String(Math.floor(i/2)).padStart(2,'0')}:${i%2?'30':'00'}`),
   petOptions:['No Pets'].concat(Array.from({length:48},(_,i)=>`${String(Math.floor(i/2)).padStart(2,'0')}:${i%2?'30':'00'}`)),
+  castleRowOptions:['Whales - 1ST Row','AMT - 2ND/3RD Row','PRO - 4TH+ Row'],
+  castleRowMessagesEn:{
+    'Whales - 1ST Row':'Teleport your city to 1ST row of castle | Be there before 11:30 UTC',
+    'AMT - 2ND/3RD Row':'Teleport your city to 2ND or 3RD row of castle | Be there before 11:30 UTC',
+    'PRO - 4TH+ Row':'Teleport your city to 4TH+ row of castle | Be there before 11:30 UTC'
+  },
+  castleRowMessagesAr:{
+    'Whales - 1ST Row':'انقل مدينتك صف أول بالقلعة | كن هناك قبل الحرب بنصف ساعة',
+    'AMT - 2ND/3RD Row':'انقل مدينتك صف ثاني أو ثالث بالقلعة | كن هناك قبل الحرب بنصف ساعة',
+    'PRO - 4TH+ Row':'انقل مدينتك صف رابع وما بعده بالقلعة | كن هناك قبل الحرب بنصف ساعة'
+  },
   teams:{AMT:Array.from({length:12},(_,i)=>`TEAM AMT${i+1}`),PRO:Array.from({length:12},(_,i)=>`TEAM PRO${i+1}`)}
 };
 
@@ -709,6 +721,23 @@ const arNums=['صفر','واحد','اثنان','ثلاثة','أربعة','خمس
 const arTens={20:'عشرون',30:'ثلاثون',40:'أربعون',50:'خمسون',60:'ستون',70:'سبعون',80:'ثمانون',90:'تسعون',100:'مئة'};
 function arNum(n){n=Number(n||0); if(n<=19)return arNums[n]; if(arTens[n])return arTens[n]; const u=n%10,t=n-u; return arNums[u]+' و'+arTens[t];}
 function arabicFormation(p){return `النسبة: ${arNum(p.inf)} مشاة، ${arNum(p.lan)} رماح، ${arNum(p.mm)} رماة`;}
+function castleRowOptions(){ return config.castleRowOptions || fallbackConfig.castleRowOptions; }
+function defaultCastleRow(p, isLeader){ if(isLeader) return 'Whales - 1ST Row'; const a=String(p&&p.alliance||'').toUpperCase(); return a==='PRO' ? 'PRO - 4TH+ Row' : 'AMT - 2ND/3RD Row'; }
+function normalizeCastleRow(value, p, isLeader){
+  const opts=castleRowOptions(); const raw=String(value||'').trim();
+  if(opts.includes(raw)){ if(!isLeader && raw==='Whales - 1ST Row') return defaultCastleRow(p,false); return raw; }
+  const v=raw.toUpperCase();
+  if(v.includes('PRO')||v.includes('4TH')||v==='4'||v.includes('4 ')) return 'PRO - 4TH+ Row';
+  if(v.includes('AMT')||v.includes('2ND')||v.includes('3RD')||v.includes('2')||v.includes('3')) return 'AMT - 2ND/3RD Row';
+  if(v.includes('WHALE')||v.includes('1ST')||v.includes('1')) return isLeader ? 'Whales - 1ST Row' : defaultCastleRow(p,false);
+  return defaultCastleRow(p,isLeader);
+}
+function castleRowMessage(p, lang, isLeader){
+  const opt=normalizeCastleRow(isLeader?'Whales - 1ST Row':(p&&p.castleRow), p, isLeader);
+  const en=(config.castleRowMessagesEn||fallbackConfig.castleRowMessagesEn)[opt];
+  const ar=(config.castleRowMessagesAr||fallbackConfig.castleRowMessagesAr)[opt];
+  return lang==='Arabic' ? ar : en;
+}
 
 function unlock(){
   if($('pass').value!==PASSWORD){toast('Wrong password');return;}
@@ -733,7 +762,7 @@ async function boot(){
 function initForm(){
   const s=config.settings||fallbackConfig.settings;
   $('simpleA1').textContent=s.alliance1; $('simpleA2').textContent=s.alliance2;
-  fillSelect('alliance', config.alliances); fillSelect('rallyLeader', config.leaders); fillSelect('language', config.languages||['English','Arabic']);
+  fillSelect('alliance', config.alliances); fillSelect('rallyLeader', config.leaders); fillSelect('language', config.languages||['English','Arabic']); fillSelect('castleRow', castleRowOptions());
   ['planTime','slot1Time','slot2Time','slot3Time'].forEach(id=>fillSelect(id, config.timeOptions));
   ['petTime','slot1Pets','slot2Pets','slot3Pets'].forEach(id=>fillSelect(id, config.petOptions));
   ['hero1','hero2','hero3','joiner1','joiner2','joiner3','joiner4'].forEach(id=>fillSelect(id,config.heroes));
@@ -754,7 +783,7 @@ function setDefaults(first){
   const s=config.settings||fallbackConfig.settings;
   $('alliance').value=s.alliance1; updateTeamOptions(false); $('team').value=(config.teams[s.alliance1]||[])[0]||`TEAM ${s.alliance1}1`;
   $('rallyLeader').value=(config.leaders||[])[0]||'Zero'; $('otherLeader').value='';
-  $('planTime').value='14:00'; $('petTime').value='No Pets'; $('language').value=s.defaultLanguage||'English';
+  $('planTime').value='14:00'; $('petTime').value='No Pets'; $('language').value=s.defaultLanguage||'English'; $('castleRow').value=defaultCastleRow({alliance:$('alliance').value}, false);
   $('hero1').value='Gatot'; $('hero2').value='Sonya'; $('hero3').value='Bradley';
   $('joiner1').value='Jessie'; $('joiner2').value='Jasser'; $('joiner3').value='Norah'; $('joiner4').value='Hector';
   $('inf').value=60; $('lan').value=40; $('mm').value=0; $('notes').value='';
@@ -779,13 +808,14 @@ function toggleSlot3(){ $('slot3Fields').style.opacity = $('slot3Enabled').check
 function toggleOther(){ $('otherBox').classList.toggle('hidden', $('rallyLeader').value!=='Other'); }
 function updateTeamOptions(keepValue=true){
   const alliance=$('alliance').value; const old=$('team').value; const arr=config.teams[alliance]||[]; fillSelect('team',arr); if(keepValue&&arr.includes(old)) $('team').value=old; else $('team').value=arr[0]||'';
+  if($('castleRow')) $('castleRow').value=defaultCastleRow({alliance}, false);
 }
 function updateSlotTeamOptions(n){
   const a=$(`slot${n}Alliance`).value; const old=$(`slot${n}Team`).value; const arr=config.teams[a]||[]; fillSelect(`slot${n}Team`,arr); if(arr.includes(old)) $(`slot${n}Team`).value=old; else $(`slot${n}Team`).value=arr[0]||'';
 }
 function displayLeader(){ return $('rallyLeader').value==='Other' ? $('otherLeader').value.trim() : $('rallyLeader').value; }
 function commonBase(){
-  return {planId:$('planId').value, createdAt:$('createdAt').value, rallyLeader:$('rallyLeader').value, otherLeader:$('otherLeader').value.trim(), displayLeader:displayLeader(), hero1:$('hero1').value, hero2:$('hero2').value, hero3:$('hero3').value, inf:Number($('inf').value||0), lan:Number($('lan').value||0), mm:Number($('mm').value||0), joiner1:$('joiner1').value, joiner2:$('joiner2').value, joiner3:$('joiner3').value, joiner4:$('joiner4').value, language:$('language').value, notes:$('notes').value.trim()};
+  return {planId:$('planId').value, createdAt:$('createdAt').value, rallyLeader:$('rallyLeader').value, otherLeader:$('otherLeader').value.trim(), displayLeader:displayLeader(), hero1:$('hero1').value, hero2:$('hero2').value, hero3:$('hero3').value, inf:Number($('inf').value||0), lan:Number($('lan').value||0), mm:Number($('mm').value||0), joiner1:$('joiner1').value, joiner2:$('joiner2').value, joiner3:$('joiner3').value, joiner4:$('joiner4').value, language:$('language').value, castleRow:$('castleRow').value, notes:$('notes').value.trim()};
 }
 function formPlan(){ const p={...commonBase(), alliance:$('alliance').value, team:$('team').value, planTime:$('planTime').value, petTime:normalizePet($('petTime').value)}; p.total=p.inf+p.lan+p.mm; p.hasPets=p.petTime!=='No Pets'; return p; }
 function flexSlots(){
@@ -796,41 +826,25 @@ function flexSlots(){
 function validateCommon(p){ if(!p.displayLeader)return 'Rally Leader is required'; if(p.inf+p.lan+p.mm!==100)return 'Formation must equal 100'; if(!p.hero1||!p.hero2||!p.hero3)return 'Rally heroes are required'; if(!p.joiner1||!p.joiner2||!p.joiner3||!p.joiner4)return 'Four joiner heroes are required'; return ''; }
 function validate(p){ const e=validateCommon(p); if(e)return e; if(!p.team)return 'Team is required'; if(!p.planTime)return 'Plan Time is required'; return ''; }
 function validateFlex(){ const b=commonBase(); const e=validateCommon(b); if(e)return e; const slots=flexSlots(); if(slots.length<2)return 'Flex needs at least two slots'; for(const s of slots){ if(!s.alliance||!s.team||!s.planTime)return 'Each Flex slot needs alliance, team, and time'; } return ''; }
-function castleLineEn(p, isLeader) {
-  const a = String(p.alliance || '').toUpperCase();
-  if (isLeader) return '1ST';
-  return a === 'PRO' ? '3RD' : '2ND';
-}
-
-function castleLineAr(p, isLeader) {
-  const a = String(p.alliance || '').toUpperCase();
-  if (isLeader) return 'أول';
-  return a === 'PRO' ? 'ثالث' : 'ثاني';
-}
-
-function castleLineMessageEn(p, isLeader) {
-  return `Teleport your city to ${castleLineEn(p, isLeader)} line of castle`;
-}
-
-function castleLineMessageAr(p, isLeader) {
-  return `انقل مدينتك صف ${castleLineAr(p, isLeader)} بالقلعة`;
-}
-
 function buildRally(p, lang=p.language){
-  const hs=[p.hero1,p.hero2,p.hero3].filter(Boolean), js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); const hasPets=p.petTime&&p.petTime!=='No Pets';
-  if(lang==='Arabic'){ const pet=hasPets?`\n\nتفعيل الحيوانات:\nالساعة ${p.petTime} بتوقيت اللعبة`:''; return `تم تعيينك كقائد حشد.\n\nالتحالف: ${p.alliance}\nاسم الفريق: ${p.team}\n\nأبطال الحشد:\n${hs.map(hAr).join(' - ')}\n\n${arabicFormation(p)}${pet}\n\nالجوينرز:\n${js.map(hAr).join(' - ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${castleLineMessageAr(p, true)}`; }
-  const pet=hasPets?`\nPet Activation: ${p.petTime} UTC`:''; return `Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}${pet}\n\nJoiners:\n${js.join(' > ')}\n\nPlease save presets early.\n${castleLineMessageEn(p, true)}`;
+  const hs=[p.hero1,p.hero2,p.hero3].filter(Boolean), js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); const hasPets=p.petTime&&p.petTime!=='No Pets'; const rowLine=castleRowMessage(p,lang,true);
+  if(lang==='Arabic'){ const pet=hasPets?`\n\nتفعيل الحيوانات:\nالساعة ${p.petTime} بتوقيت اللعبة`:''; return `تم تعيينك كقائد حشد.\n\nالتحالف: ${p.alliance}\nاسم الفريق: ${p.team}\n\nأبطال الحشد:\n${hs.map(hAr).join(' - ')}\n\n${arabicFormation(p)}${pet}\n\nالجوينرز:\n${js.map(hAr).join(' - ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${rowLine}`; }
+  const pet=hasPets?`\nPet Activation: ${p.petTime} UTC`:''; return `Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}${pet}\n\nJoiners:\n${js.join(' > ')}\n\nPlease save presets early.\n${rowLine}`;
 }
-function buildJoiner(p, lang=p.language){ const js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); if(lang==='Arabic') return `تم تعيينك جوينر في تحالف ${p.alliance}.\n\nاحفظ مسبقًا التشكيلات التالية:\n${js.map(h=>hAr(h)+' + أي بطلين').join('\n')}\n\n${arabicFormation(p)}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${castleLineMessageAr(p, false)}`; return `Assigned as JOINER\nAlliance: ${p.alliance}\nSave these presets early:\n${js.map(h=>h+' + any 2 heroes').join('\n')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}\n${castleLineMessageEn(p, false)}`; }
+function buildJoiner(p, lang=p.language){
+  const js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); const rowLine=castleRowMessage(p,lang,false);
+  if(lang==='Arabic') return `تم تعيينك جوينر في تحالف ${p.alliance}.\n\nاحفظ مسبقًا التشكيلات التالية:\n${js.map(h=>hAr(h)+' + أي بطلين').join('\n')}\n\n${arabicFormation(p)}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${rowLine}`;
+  return `Assigned as JOINER\nAlliance: ${p.alliance}\nSave these presets early:\n${js.map(h=>h+' + any 2 heroes').join('\n')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}\n${rowLine}`;
+}
 function buildFlexSummaryLocal(lang=$('language').value){
-  const base=commonBase(); const slots=flexSlots(); const hs=[base.hero1,base.hero2,base.hero3].filter(Boolean); const js=[base.joiner1,base.joiner2,base.joiner3,base.joiner4].filter(Boolean);
+  const base=commonBase(); const slots=flexSlots(); const hs=[base.hero1,base.hero2,base.hero3].filter(Boolean); const js=[base.joiner1,base.joiner2,base.joiner3,base.joiner4].filter(Boolean); const rowLine=castleRowMessage(base,lang,true);
   if(lang==='Arabic'){
     const labels=['الأولى','الثانية','الثالثة'];
     const lines=slots.map((s,i)=>`${labels[i]}:\nتحالف ${s.alliance} | فريق ${s.team}\nالوقت: ${s.planTime} بتوقيت اللعبة\n${s.petTime!=='No Pets'?`تفعيل الحيوانات: ${s.petTime} بتوقيت اللعبة`:'الحيوانات: بدون'}`).join('\n\n');
-    return `تم تعيينك كقائد حشد مرن.\n\nالقائد: ${base.displayLeader}\n\n${lines}\n\nأبطال الحشد: ${hs.map(hAr).join('، ')}\n${arabicFormation(base)}\nالجوينرز: ${js.map(hAr).join('، ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية.\n${castleLineMessageAr(base, true)}`;
+    return `تم تعيينك كقائد حشد مرن.\n\nالقائد: ${base.displayLeader}\n\n${lines}\n\nأبطال الحشد: ${hs.map(hAr).join('، ')}\n${arabicFormation(base)}\nالجوينرز: ${js.map(hAr).join('، ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية.\n${rowLine}`;
   }
   const lines=slots.map((s,i)=>`${i+1}) ${s.alliance} | ${s.team}\nStart: ${s.planTime} UTC\n${s.petTime!=='No Pets'?`Pets: ${s.petTime} UTC`:'Pets: No Pets'}`).join('\n\n');
-  return `Assigned as FLEX RALLY LEADER\n\nLeader: ${base.displayLeader}\n\n${lines}\n\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${base.inf} / LAN ${base.lan} / MM ${base.mm}\nJoiners: ${js.join(' > ')}\n\nPlease save presets early.\n${castleLineMessageEn(base, true)}`;
+  return `Assigned as FLEX RALLY LEADER\n\nLeader: ${base.displayLeader}\n\n${lines}\n\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${base.inf} / LAN ${base.lan} / MM ${base.mm}\nJoiners: ${js.join(' > ')}\n\nPlease save presets early.\n${rowLine}`;
 }
 function generatePreview(){
   if(currentMode==='normal'){
@@ -879,7 +893,7 @@ async function loadPlans(silent=false){
 function clearFormHard(){ if(!confirm('Clear the form only? Saved plans will stay.'))return; $('planId').value=''; $('createdAt').value=''; setDefaults(false); resetAutoMessages(); $('lastFlexMessages').classList.add('hidden'); toggleOther(); generatePreview(); }
 function editPlan(id){
   const p=plans.find(x=>x.planId===id); if(!p)return; setMode('normal');
-  $('planId').value=p.planId; $('createdAt').value=p.createdAt||''; $('alliance').value=p.alliance; updateTeamOptions(false); $('team').value=p.team; $('rallyLeader').value=p.rallyLeader||p.displayLeader; $('otherLeader').value=p.otherLeader||''; $('planTime').value=p.planTime; $('petTime').value=p.petTime||'No Pets'; $('hero1').value=p.hero1; $('hero2').value=p.hero2; $('hero3').value=p.hero3; $('inf').value=p.inf; $('lan').value=p.lan; $('mm').value=p.mm; $('joiner1').value=p.joiner1; $('joiner2').value=p.joiner2; $('joiner3').value=p.joiner3; $('joiner4').value=p.joiner4; $('language').value=p.language||'English'; $('notes').value=p.notes||'';
+  $('planId').value=p.planId; $('createdAt').value=p.createdAt||''; $('alliance').value=p.alliance; updateTeamOptions(false); $('team').value=p.team; $('rallyLeader').value=p.rallyLeader||p.displayLeader; $('otherLeader').value=p.otherLeader||''; $('planTime').value=p.planTime; $('petTime').value=p.petTime||'No Pets'; $('hero1').value=p.hero1; $('hero2').value=p.hero2; $('hero3').value=p.hero3; $('inf').value=p.inf; $('lan').value=p.lan; $('mm').value=p.mm; $('joiner1').value=p.joiner1; $('joiner2').value=p.joiner2; $('joiner3').value=p.joiner3; $('joiner4').value=p.joiner4; $('language').value=p.language||'English'; $('castleRow').value=normalizeCastleRow(p.castleRow||'',p,false); $('notes').value=p.notes||'';
   $('rallyPreview').dataset.dirty=''; $('joinerPreview').dataset.dirty=''; toggleOther(); $('formTitle').textContent='Edit Existing Plan'; $('saveBtn').textContent='Update Plan'; generatePreview(); window.scrollTo({top:0,behavior:'smooth'});
 }
 async function deletePlan(id){ if(!confirm('Delete this plan only?'))return; try{ await api('deletePlan',{planId:id}); await loadPlans(true); toast('Deleted'); }catch(e){toast(e.message);} }
