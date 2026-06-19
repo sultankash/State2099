@@ -571,9 +571,9 @@
                   <div><label>Hero 1</label><select id="slot1Hero1" onchange="generatePreview();"></select></div>
                   <div><label>Hero 2</label><select id="slot1Hero2" onchange="generatePreview();"></select></div>
                   <div><label>Hero 3</label><select id="slot1Hero3" onchange="generatePreview();"></select></div>
-                  <div class="miniField"><span>INF</span><input id="slot1Inf" type="number" min="0" max="100" value="60" /></div>
-                  <div class="miniField"><span>LAN</span><input id="slot1Lan" type="number" min="0" max="100" value="40" /></div>
-                  <div class="miniField"><span>MM</span><input id="slot1Mm" type="number" min="0" max="100" value="0" /></div>
+                  <div class="miniField"><span>INF</span><input id="slot1Inf" oninput="generatePreview();" type="number" min="0" max="100" value="60" /></div>
+                  <div class="miniField"><span>LAN</span><input id="slot1Lan" oninput="generatePreview();" type="number" min="0" max="100" value="40" /></div>
+                  <div class="miniField"><span>MM</span><input id="slot1Mm" oninput="generatePreview();" type="number" min="0" max="100" value="0" /></div>
                 </div>
               </div>
               <div class="slot" id="slot2Box">
@@ -586,9 +586,9 @@
                   <div><label>Hero 1</label><select id="slot2Hero1" onchange="generatePreview();"></select></div>
                   <div><label>Hero 2</label><select id="slot2Hero2" onchange="generatePreview();"></select></div>
                   <div><label>Hero 3</label><select id="slot2Hero3" onchange="generatePreview();"></select></div>
-                  <div class="miniField"><span>INF</span><input id="slot2Inf" type="number" min="0" max="100" value="60" /></div>
-                  <div class="miniField"><span>LAN</span><input id="slot2Lan" type="number" min="0" max="100" value="40" /></div>
-                  <div class="miniField"><span>MM</span><input id="slot2Mm" type="number" min="0" max="100" value="0" /></div>
+                  <div class="miniField"><span>INF</span><input id="slot2Inf" oninput="generatePreview();" type="number" min="0" max="100" value="60" /></div>
+                  <div class="miniField"><span>LAN</span><input id="slot2Lan" oninput="generatePreview();" type="number" min="0" max="100" value="40" /></div>
+                  <div class="miniField"><span>MM</span><input id="slot2Mm" oninput="generatePreview();" type="number" min="0" max="100" value="0" /></div>
                 </div>
               </div>
               <div class="slot optional" id="slot3Box">
@@ -601,9 +601,9 @@
                   <div><label>Hero 1</label><select id="slot3Hero1" onchange="generatePreview();"></select></div>
                   <div><label>Hero 2</label><select id="slot3Hero2" onchange="generatePreview();"></select></div>
                   <div><label>Hero 3</label><select id="slot3Hero3" onchange="generatePreview();"></select></div>
-                  <div class="miniField"><span>INF</span><input id="slot3Inf" type="number" min="0" max="100" value="60" /></div>
-                  <div class="miniField"><span>LAN</span><input id="slot3Lan" type="number" min="0" max="100" value="40" /></div>
-                  <div class="miniField"><span>MM</span><input id="slot3Mm" type="number" min="0" max="100" value="0" /></div>
+                  <div class="miniField"><span>INF</span><input id="slot3Inf" oninput="generatePreview();" type="number" min="0" max="100" value="60" /></div>
+                  <div class="miniField"><span>LAN</span><input id="slot3Lan" oninput="generatePreview();" type="number" min="0" max="100" value="40" /></div>
+                  <div class="miniField"><span>MM</span><input id="slot3Mm" oninput="generatePreview();" type="number" min="0" max="100" value="0" /></div>
                 </div>
               </div>
             </div>
@@ -628,7 +628,7 @@
             </div>
           </div>
 
-          <div class="lineGroup">
+          <div class="lineGroup" id="joinersBox">
             <div class="lineTitle">Joiners — in order</div>
             <div class="inlineGrid four">
               <select id="joiner1" onchange="generatePreview();"></select>
@@ -813,7 +813,7 @@ function setDefaults(first){
 function setMode(mode){
   currentMode=mode;
   $('normalModeBtn').classList.toggle('active', mode==='normal'); $('flexModeBtn').classList.toggle('active', mode==='flex');
-  ['normalAllianceBox','normalTeamBox','normalTimeBox','normalPetsBox','castleRowBox','normalHeroesBox','normalFormationBox'].forEach(id=>$(id).classList.toggle('hidden', mode==='flex'));
+  ['normalAllianceBox','normalTeamBox','normalTimeBox','normalPetsBox','castleRowBox','normalHeroesBox','normalFormationBox','joinersBox'].forEach(id=>$(id).classList.toggle('hidden', mode==='flex'));
   $('flexBox').classList.toggle('hidden', mode!=='flex');
   $('normalPreviewBox').classList.toggle('hidden', mode!=='normal');
   $('flexPreviewBox').classList.toggle('hidden', mode!=='flex');
@@ -859,12 +859,42 @@ function flexSlots(){
 }
 function validateCommon(p){ if(!p.displayLeader)return 'Rally Leader is required'; if(p.inf+p.lan+p.mm!==100)return 'Formation must equal 100'; if(!p.hero1||!p.hero2||!p.hero3)return 'Rally heroes are required'; if(!p.joiner1||!p.joiner2||!p.joiner3||!p.joiner4)return 'Four joiner heroes are required'; return ''; }
 function validate(p){ const e=validateCommon(p); if(e)return e; if(!p.team)return 'Team is required'; if(!p.planTime)return 'Plan Time is required'; return ''; }
-function validateFlex(){ const b=commonBase(); if(!b.displayLeader)return 'Rally Leader is required'; if(!b.joiner1||!b.joiner2||!b.joiner3||!b.joiner4)return 'Four joiner heroes are required'; const slots=flexSlots(); if(slots.length<2)return 'Flex needs at least two slots'; for(const s of slots){ if(!s.alliance||!s.team||!s.planTime)return 'Each Flex slot needs alliance, team, and time'; if(!s.hero1||!s.hero2||!s.hero3)return 'Each Flex slot needs three rally heroes'; if(s.inf+s.lan+s.mm!==100)return `Line ${s.slotNumber} formation must equal 100`; } return ''; }
-function buildRally(p, lang=p.language){
-  const hs=[p.hero1,p.hero2,p.hero3].filter(Boolean), js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); const hasPets=p.petTime&&p.petTime!=='No Pets'; const rowLine=castleRowMessage(p,lang,true);
-  if(lang==='Arabic'){ const pet=hasPets?`\n\nتفعيل الحيوانات:\nالساعة ${p.petTime} بتوقيت اللعبة`:''; return `تم تعيينك كقائد حشد.\n\nالتحالف: ${p.alliance}\nاسم الفريق: ${p.team}\n\nأبطال الحشد:\n${hs.map(hAr).join(' - ')}\n\n${arabicFormation(p)}${pet}\n\nالجوينرز:\n${js.map(hAr).join(' - ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${rowLine}`; }
-  const pet=hasPets?`\nPet Activation: ${p.petTime} UTC`:''; return `Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}${pet}\n\nJoiners:\n${js.join(' > ')}\n\nPlease save presets early.\n${rowLine}`;
+function validateFlex(){ const b=commonBase(); if(!b.displayLeader)return 'Rally Leader is required'; const slots=flexSlots(); if(slots.length<2)return 'Flex needs at least two slots'; for(const s of slots){ if(!s.alliance||!s.team||!s.planTime)return 'Each Flex slot needs alliance, team, and time'; if(!s.hero1||!s.hero2||!s.hero3)return 'Each Flex slot needs three rally heroes'; if(s.inf+s.lan+s.mm!==100)return `Line ${s.slotNumber} formation must equal 100`; } return ''; }
+function flexLineNumberLocal(p){
+  const direct=Number((p&&(p.flexLineNumber||p.flexLine||p.slotNumber||p.slot))||0);
+  if(direct>=1&&direct<=3)return direct;
+  const id=String((p&&p.planId)||'');
+  const m=id.match(/-S([1-3])(?:-|$)/);
+  return m?Number(m[1]):0;
 }
+function buildRally(p, lang=p.language){
+  const hs=[p.hero1,p.hero2,p.hero3].filter(Boolean), js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean);
+  const hasPets=p.petTime&&p.petTime!=='No Pets';
+  const lineNo=flexLineNumberLocal(p);
+  const isFlex=lineNo>0;
+  const isLater=lineNo>1;
+  if(isFlex){
+    const label=flexLineLabelLocal(lineNo,lang);
+    if(lang==='Arabic'){
+      const intro=isLater?'':`تم تعيينك كقائد حشد.\n\n`;
+      const pet=hasPets?`تفعيل الحيوانات:\nالساعة ${p.petTime} بتوقيت اللعبة\n\n`:'';
+      const rowLine=lineNo===1?`\n${castleRowMessage({castleRow:'Whales - 1ST Row',alliance:p.alliance},lang,true)}`:'';
+      return `${intro}${label}\n\nالتحالف: ${p.alliance}\nاسم الفريق: ${p.team}\nالوقت: ${p.planTime} بتوقيت اللعبة\n\n${pet}أبطال الحشد:\n${hs.map(hAr).join(' - ')}\n\n${arabicFormation(p)}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.${rowLine}`;
+    }
+    const intro=isLater?'':`Assigned as RALLY LEADER\n\n`;
+    const pet=hasPets?`Pet Activation: ${p.petTime} UTC\n\n`:'';
+    const rowLine=lineNo===1?`\n${castleRowMessage({castleRow:'Whales - 1ST Row',alliance:p.alliance},lang,true)}`:'';
+    return `${intro}${label}\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nStart: ${p.planTime} UTC\n\n${pet}Rally Heroes:\n${hs.join(' / ')}\n\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}\n\nPlease save presets early.${rowLine}`;
+  }
+  const rowLine=castleRowMessage(p,lang,true);
+  if(lang==='Arabic'){
+    const pet=hasPets?`\n\nتفعيل الحيوانات:\nالساعة ${p.petTime} بتوقيت اللعبة`:'';
+    return `تم تعيينك كقائد حشد.\n\nالتحالف: ${p.alliance}\nاسم الفريق: ${p.team}\n\nأبطال الحشد:\n${hs.map(hAr).join(' - ')}\n\n${arabicFormation(p)}${pet}\n\nالجوينرز:\n${js.map(hAr).join(' - ')}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${rowLine}`;
+  }
+  const pet=hasPets?`\nPet Activation: ${p.petTime} UTC`:'';
+  return `Assigned as RALLY LEADER\n\nAlliance: ${p.alliance}\nTeam Name: ${p.team}\nRally Heroes: ${hs.join(' / ')}\nFormation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}${pet}\n\nJoiners:\n${js.join(' > ')}\n\nPlease save presets early.\n${rowLine}`;
+}
+
 function buildJoiner(p, lang=p.language){
   const js=[p.joiner1,p.joiner2,p.joiner3,p.joiner4].filter(Boolean); const rowLine=castleRowMessage(p,lang,false);
   if(lang==='Arabic') return `تم تعيينك جوينر في تحالف ${p.alliance}.\n\nاحفظ مسبقًا التشكيلات التالية:\n${js.map(h=>hAr(h)+' + أي بطلين').join('\n')}\n\n${arabicFormation(p)}\n\nنأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.\n${rowLine}`;
@@ -879,7 +909,6 @@ function buildFlexSlotMessageLocal(slot, lineNo, lang=$('language').value){
   const base=commonBase();
   const p={...base,...slot,total:(Number(slot.inf||0)+Number(slot.lan||0)+Number(slot.mm||0)),hasPets:slot.petTime&&slot.petTime!=='No Pets'};
   const heroes=[p.hero1,p.hero2,p.hero3].filter(Boolean);
-  const joiners=[base.joiner1,base.joiner2,base.joiner3,base.joiner4].filter(Boolean);
   const lineLabel=flexLineLabelLocal(lineNo,lang);
   const isLater=lineNo>1;
   if(lang==='Arabic'){
@@ -890,7 +919,8 @@ function buildFlexSlotMessageLocal(slot, lineNo, lang=$('language').value){
 الساعة ${p.petTime} بتوقيت اللعبة
 
 `:'';
-    const rowLine=lineNo===1?`\n${castleRowMessage({castleRow:'Whales - 1ST Row',alliance:p.alliance},lang,true)}`:'';
+    const rowLine=lineNo===1?`
+${castleRowMessage({castleRow:'Whales - 1ST Row',alliance:p.alliance},lang,true)}`:'';
     return `${intro}${lineLabel}
 
 التحالف: ${p.alliance}
@@ -902,9 +932,6 @@ ${heroes.map(hAr).join(' - ')}
 
 ${arabicFormation(p)}
 
-الجوينرز:
-${joiners.map(hAr).join(' - ')}
-
 نأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.${rowLine}`;
   }
   const intro=isLater?'':`Assigned as RALLY LEADER
@@ -913,7 +940,8 @@ ${joiners.map(hAr).join(' - ')}
   const pet=p.hasPets?`Pet Activation: ${p.petTime} UTC
 
 `:'';
-  const rowLine=lineNo===1?`\n${castleRowMessage({castleRow:'Whales - 1ST Row',alliance:p.alliance},lang,true)}`:'';
+  const rowLine=lineNo===1?`
+${castleRowMessage({castleRow:'Whales - 1ST Row',alliance:p.alliance},lang,true)}`:'';
   return `${intro}${lineLabel}
 
 Alliance: ${p.alliance}
@@ -925,11 +953,9 @@ ${heroes.join(' / ')}
 
 Formation: INF ${p.inf} / LAN ${p.lan} / MM ${p.mm}
 
-Joiners:
-${joiners.join(' > ')}
-
 Please save presets early.${rowLine}`;
 }
+
 function buildFlexSummaryLocal(lang=$('language').value){
   return flexSlots().map((s,i)=>buildFlexSlotMessageLocal(s,i+1,lang)).join('\n\n---\n\n');
 }
