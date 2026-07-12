@@ -587,10 +587,51 @@ function submitForm(e){
 }
 function showSuccess(){$('formArea').style.display='none';$('successView').style.display='block'}
 
-function loginAdmin(){
+async function verifyAdminCode(code){
+  try{
+    const response=await fetch(
+      API+
+      '?action=download_data'+
+      '&report='+encodeURIComponent('__admin_verification__')+
+      '&adminCode='+encodeURIComponent(code)+
+      '&_='+Date.now(),
+      {
+        method:'GET',
+        cache:'no-store',
+        headers:{Accept:'application/json'}
+      }
+    );
+
+    if(!response.ok)return false;
+
+    const data=await response.json();
+    const error=String(data?.error||'');
+
+    /*
+      A correct code passes server authentication, then the intentionally
+      invalid report name returns "Invalid report key". A wrong code returns
+      "Unauthorized admin request" before reaching report validation.
+    */
+    return /Invalid report key/i.test(error);
+  }catch(err){
+    console.error('Admin verification error:',err);
+    return false;
+  }
+}
+
+async function loginAdmin(){
   const code=(prompt('ACCESS CODE:')||'').trim();
   if(!code)return;
+
   sessionStorage.removeItem('state2099_admin');
+
+  const verified=await verifyAdminCode(code);
+
+  if(!verified){
+    alert('Incorrect access code.');
+    return;
+  }
+
   sessionStorage.setItem('state2099_admin',code);
   fillAdmin();
   $('adminModal').classList.add('show');
@@ -696,61 +737,39 @@ async function downloadReport(report){
     return;
   }
 
+  /* Open the tab immediately so mobile browsers do not block it after await. */
+  const downloadTab=window.open('about:blank','_blank');
+
   try{
+    const verified=await verifyAdminCode(code);
+
+    if(!verified){
+      if(downloadTab)downloadTab.close();
+      sessionStorage.removeItem('state2099_admin');
+      $('adminModal').classList.remove('show');
+      alert('Your admin session is invalid. Please login again with the correct access code.');
+      return;
+    }
+
     const url=
       API+
-      '?action=download_data'+
+      '?action=download'+
       '&report='+encodeURIComponent(report)+
       '&adminCode='+encodeURIComponent(code)+
       '&_='+Date.now();
 
-    const response=await fetch(url,{
-      method:'GET',
-      cache:'no-store',
-      headers:{Accept:'application/json'}
-    });
-
-    if(!response.ok){
-      throw new Error('HTTP '+response.status);
+    if(downloadTab){
+      downloadTab.location.replace(url);
+    }else{
+      window.location.href=url;
     }
-
-    const data=await response.json();
-
-    if(!data||data.ok!==true||!data.base64){
-      throw new Error((data&&data.error)||'The server did not return the Excel file.');
-    }
-
-    const binary=atob(data.base64);
-    const bytes=new Uint8Array(binary.length);
-
-    for(let i=0;i<binary.length;i++){
-      bytes[i]=binary.charCodeAt(i);
-    }
-
-    const blob=new Blob([bytes],{
-      type:data.mimeType||'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    });
-
-    const blobUrl=URL.createObjectURL(blob);
-    const link=document.createElement('a');
-
-    link.href=blobUrl;
-    link.download=data.filename||('2099_Report_'+Date.now()+'.xlsx');
-    link.style.display='none';
-
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-
-    setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);
-
-    alert('Excel report downloaded successfully.');
-
   }catch(err){
     console.error('Excel download error:',err);
 
+    if(downloadTab)downloadTab.close();
+
     const useCsv=confirm(
-      'Excel download failed on this browser.\n\n' +
+      'Excel download could not be opened on this browser.\n\n' +
       'Download the same report as CSV instead? It opens normally in Excel.'
     );
 
@@ -766,10 +785,24 @@ async function downloadReport(report){
 }
 
 async function clearReport(sheetName){
-  let code=(sessionStorage.getItem('state2099_admin')||'').trim();
-  if(!code)code=(prompt('ACCESS CODE:')||'').trim();
-  if(!code)return;
+  const code=(sessionStorage.getItem('state2099_admin')||'').trim();
+
+  if(!code){
+    alert('Admin session is missing. Close the panel and login again.');
+    return;
+  }
+
+  const verified=await verifyAdminCode(code);
+
+  if(!verified){
+    sessionStorage.removeItem('state2099_admin');
+    $('adminModal').classList.remove('show');
+    alert('Your admin session is invalid. Please login again.');
+    return;
+  }
+
   if(!confirm('Clear '+sheetName+' data?'))return;
+
   try{
     await fetch(freshApiUrl(),{
       method:'POST',
