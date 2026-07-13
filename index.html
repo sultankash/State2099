@@ -100,8 +100,8 @@
     .lang-menu-toggle .flag{width:24px;height:17px}
     .lang-menu-toggle i{font-size:.68rem;color:var(--gold);transition:.2s}
     .lang-menu-wrap.open .lang-menu-toggle i{transform:rotate(180deg)}
-    .lang-menu{position:absolute;top:calc(100% + 8px);right:0;width:min(390px,calc(100vw - 28px));max-height:min(520px,70vh);overflow:auto;display:none;grid-template-columns:repeat(2,minmax(145px,1fr));gap:7px;padding:9px;border:1px solid rgba(126,216,255,.28);border-radius:18px;background:rgba(3,13,30,.98);box-shadow:0 24px 70px rgba(0,0,0,.58);backdrop-filter:blur(20px)}
-    html[dir='rtl'] .lang-menu{right:auto;left:0}
+    .lang-menu{position:absolute;top:calc(100% + 8px);left:50%;right:auto;transform:translateX(-50%);width:min(290px,calc(100vw - 44px));max-height:min(520px,70vh);overflow:auto;display:none;grid-template-columns:1fr;gap:7px;padding:9px;border:1px solid rgba(126,216,255,.28);border-radius:18px;background:rgba(3,13,30,.98);box-shadow:0 24px 70px rgba(0,0,0,.58);backdrop-filter:blur(20px)}
+    html[dir='rtl'] .lang-menu{left:50%;right:auto;transform:translateX(-50%)}
     .lang-menu-wrap.open .lang-menu{display:grid}
     .lang-menu .chip{min-width:0;width:100%;justify-content:flex-start;padding:9px 10px;font-size:.72rem;touch-action:manipulation}
 
