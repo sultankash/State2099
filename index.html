@@ -829,14 +829,10 @@ async function downloadReport(report){
     return;
   }
 
-  /* Open the tab immediately so mobile browsers do not block it after await. */
-  const downloadTab=window.open('about:blank','_blank');
-
   try{
     const verified=await verifyAdminCode(code);
 
     if(!verified){
-      if(downloadTab)downloadTab.close();
       sessionStorage.removeItem('state2099_admin');
       $('adminModal').classList.remove('show');
       alert('Your admin session is invalid. Please login again with the correct access code.');
@@ -845,23 +841,57 @@ async function downloadReport(report){
 
     const url=
       API+
-      '?action=download'+
+      '?action=download_data'+
       '&report='+encodeURIComponent(report)+
       '&adminCode='+encodeURIComponent(code)+
       '&_='+Date.now();
 
-    if(downloadTab){
-      downloadTab.location.replace(url);
-    }else{
-      window.location.href=url;
+    const response=await fetch(url,{
+      method:'GET',
+      cache:'no-store',
+      headers:{Accept:'application/json'}
+    });
+
+    if(!response.ok){
+      throw new Error('HTTP '+response.status);
     }
+
+    const data=await response.json();
+
+    if(!data||data.ok!==true||!data.base64){
+      throw new Error((data&&data.error)||'The server did not return the Excel file.');
+    }
+
+    const binary=atob(data.base64);
+    const bytes=new Uint8Array(binary.length);
+
+    for(let i=0;i<binary.length;i++){
+      bytes[i]=binary.charCodeAt(i);
+    }
+
+    const blob=new Blob([bytes],{
+      type:data.mimeType||'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    });
+
+    const blobUrl=URL.createObjectURL(blob);
+    const link=document.createElement('a');
+
+    link.href=blobUrl;
+    link.download=data.filename||('2099_Report_'+Date.now()+'.xlsx');
+    link.style.display='none';
+
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+
+    setTimeout(()=>URL.revokeObjectURL(blobUrl),60000);
+    alert('Excel report downloaded successfully.');
+
   }catch(err){
     console.error('Excel download error:',err);
 
-    if(downloadTab)downloadTab.close();
-
     const useCsv=confirm(
-      'Excel download could not be opened on this browser.\n\n' +
+      'Excel download failed.\n\n' +
       'Download the same report as CSV instead? It opens normally in Excel.'
     );
 
