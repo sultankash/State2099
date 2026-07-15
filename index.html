@@ -137,7 +137,7 @@
     .stat .big{font-size:2rem;line-height:1}
     .gold{color:var(--gold)}
     .portrait{background:linear-gradient(145deg,#1d578f,#0a1d36);overflow:hidden}
-    .portrait:before{content:"♛";font-size:2rem;color:var(--gold);text-shadow:0 0 20px rgba(255,211,107,.42)}
+    .portrait:before{content:"â™›";font-size:2rem;color:var(--gold);text-shadow:0 0 20px rgba(255,211,107,.42)}
 
     /* Announcement */
     .announce{position:relative;display:grid;grid-template-columns:68px 1fr;align-items:center;gap:16px;border:1px solid rgba(255,211,107,.23);border-radius:22px;background:linear-gradient(90deg,rgba(16,47,83,.76),rgba(5,16,37,.82));padding:12px 18px;margin:8px 0 16px;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 18px 38px rgba(0,0,0,.20)}
@@ -145,6 +145,146 @@
     .ann-icon{width:58px;height:58px;border:1px solid rgba(255,211,107,.22);border-radius:18px;display:grid;place-items:center;color:var(--gold);font-size:1.45rem;flex:0 0 auto;background:rgba(255,211,107,.05);box-shadow:0 0 24px rgba(255,211,107,.07)}
     .ann-title{color:var(--gold);font-size:.70rem;letter-spacing:.18em;text-transform:uppercase;font-family:var(--font-display)}
     .ann-body{color:#e2f1ff;font-size:.96rem;line-height:1.55;font-family:'Cairo',sans-serif;white-space:pre-wrap;overflow-wrap:break-word;max-height:450px;overflow-y:auto;padding-right:8px;margin-top:3px}
+
+    /* State resources: isolated add-on (Guidelines + Discord) */
+    .community-hub{
+      position:relative;
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 148px;
+      gap:14px;
+      align-items:stretch;
+      margin:8px 0 16px;
+      padding:16px;
+      border:1px solid rgba(126,216,255,.22);
+      border-radius:24px;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 92% 18%,rgba(88,101,242,.24),transparent 30%),
+        linear-gradient(135deg,rgba(10,42,80,.78),rgba(3,13,30,.90));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 18px 42px rgba(0,0,0,.24);
+    }
+    .community-hub:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background:linear-gradient(105deg,transparent 8%,rgba(118,230,255,.055) 38%,transparent 62%);
+    }
+    .community-main{position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;min-width:0;padding:2px 4px}
+    .community-badge{
+      width:max-content;
+      max-width:100%;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border:1px solid rgba(118,230,255,.20);
+      border-radius:999px;
+      padding:6px 11px;
+      background:rgba(4,20,43,.48);
+      color:var(--ice2);
+      font-family:var(--font-display);
+      font-size:.54rem;
+      font-weight:900;
+      letter-spacing:.18em;
+    }
+    .community-badge i{color:var(--ice);text-shadow:0 0 12px rgba(118,230,255,.65)}
+    .community-title{
+      margin-top:10px;
+      color:#f3fcff;
+      font-family:var(--font-display);
+      font-size:clamp(1rem,2vw,1.45rem);
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .community-desc{
+      margin-top:5px;
+      color:#b9d0e4;
+      font-family:'Cairo',var(--font-ar),sans-serif;
+      font-size:.82rem;
+      line-height:1.55;
+    }
+    .community-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:13px}
+    .community-action{
+      min-height:46px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      border:1px solid rgba(146,224,255,.27);
+      border-radius:14px;
+      padding:0 16px;
+      color:#fff;
+      text-decoration:none;
+      font-size:.72rem;
+      font-weight:900;
+      letter-spacing:.055em;
+      transition:.22s;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 10px 24px rgba(0,0,0,.18);
+    }
+    .community-action:hover{transform:translateY(-2px);border-color:rgba(255,211,107,.56)}
+    .guidelines-action{background:linear-gradient(100deg,rgba(27,116,198,.92),rgba(24,154,190,.86))}
+    .discord-action{background:linear-gradient(100deg,#5865f2,#7c55e8);border-color:rgba(184,180,255,.40)}
+    .community-action i{font-size:1.05rem}
+    .transfer-note{
+      margin-top:12px;
+      padding:10px 12px;
+      border:1px solid rgba(184,180,255,.20);
+      border-radius:13px;
+      background:rgba(88,101,242,.08);
+      color:#cfd9ee;
+      font-family:'Cairo',var(--font-ar),sans-serif;
+      font-size:.76rem;
+      line-height:1.55;
+    }
+    .transfer-note i{color:#aeb7ff;margin-inline-end:7px}
+    .discord-qr-card{
+      position:relative;
+      z-index:1;
+      min-width:0;
+      border:1px solid rgba(184,180,255,.30);
+      border-radius:19px;
+      padding:9px;
+      background:linear-gradient(180deg,rgba(88,101,242,.18),rgba(3,13,30,.76));
+      color:#dfe2ff;
+      text-decoration:none;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      transition:.22s;
+    }
+    .discord-qr-card:hover{transform:translateY(-2px);border-color:rgba(203,199,255,.60);box-shadow:0 0 28px rgba(88,101,242,.16)}
+    .discord-qr-card img{
+      width:112px;
+      height:112px;
+      max-width:100%;
+      border-radius:12px;
+      padding:5px;
+      background:#fff;
+      box-shadow:0 10px 24px rgba(0,0,0,.27);
+    }
+    .discord-qr-card span{
+      font-family:var(--font-display);
+      font-size:.50rem;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      text-align:center;
+    }
+    @media(max-width:720px){
+      .community-hub{grid-template-columns:1fr;padding:13px;border-radius:19px}
+      .community-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+      .community-action{padding:0 10px;font-size:.60rem}
+      .discord-qr-card{flex-direction:row;justify-content:flex-start;padding:9px 12px}
+      .discord-qr-card img{width:72px;height:72px;flex:0 0 auto}
+      .discord-qr-card span{font-size:.52rem;text-align:start}
+    }
+    @media(max-width:430px){
+      .community-actions{grid-template-columns:1fr}
+      .community-action{font-size:.65rem}
+    }
 
     /* Portal cards: premium bento */
     .cards{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:162px;gap:13px;position:relative}
@@ -216,8 +356,8 @@
     .success i{font-size:4rem;color:var(--green);text-shadow:0 0 28px rgba(99,255,183,.50)}
     .success h2{margin:17px 0 8px}
     .resource-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-    .field.optional label:after{content:'  · optional';color:rgba(201,244,255,.48);font-size:.74em;font-weight:600;text-transform:none;letter-spacing:0}
-    html[dir='rtl'] .field.optional label:after{content:'  · اختياري'}
+    .field.optional label:after{content:'  Â· optional';color:rgba(201,244,255,.48);font-size:.74em;font-weight:600;text-transform:none;letter-spacing:0}
+    html[dir='rtl'] .field.optional label:after{content:'  Â· Ø§Ø®ØªÙŠØ§Ø±ÙŠ'}
 
     /* Admin */
     .admin-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
@@ -295,10 +435,85 @@
     <div class="gate-title">2099</div>
     <div class="portal-title">STATE PORTAL</div>
     <div class="gate-subtitle">Lead. Defend. Conquer.</div>
-    <div class="language-grid" id="gateLangs"></div>
-    <div class="gate-note">اختر لغتك أولًا، ثم ستظهر لك البوابة كاملة بنفس اللغة</div>
+    <div class="language-grid" id="gateLangs">
+<button type="button" class="lang-btn" data-lang-code="ar" onclick="window.open2099Portal('ar');return false;"><img class="flag" src="https://flagcdn.com/w40/sa.png" alt=""><span>Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</span></button>
+      <button type="button" class="lang-btn" data-lang-code="en" onclick="window.open2099Portal('en');return false;"><img class="flag" src="https://flagcdn.com/w40/us.png" alt=""><span>English</span></button>
+      <button type="button" class="lang-btn" data-lang-code="id" onclick="window.open2099Portal('id');return false;"><img class="flag" src="https://flagcdn.com/w40/id.png" alt=""><span>Indonesia</span></button>
+      <button type="button" class="lang-btn" data-lang-code="ru" onclick="window.open2099Portal('ru');return false;"><img class="flag" src="https://flagcdn.com/w40/kz.png" alt=""><span>Ð ÑƒÑÑÐºÐ¸Ð¹</span></button>
+      <button type="button" class="lang-btn" data-lang-code="ko" onclick="window.open2099Portal('ko');return false;"><img class="flag" src="https://flagcdn.com/w40/kr.png" alt=""><span>í•œêµ­ì–´</span></button>
+      <button type="button" class="lang-btn" data-lang-code="tr" onclick="window.open2099Portal('tr');return false;"><img class="flag" src="https://flagcdn.com/w40/tr.png" alt=""><span>TÃ¼rkÃ§e</span></button>
+      <button type="button" class="lang-btn" data-lang-code="es" onclick="window.open2099Portal('es');return false;"><img class="flag" src="https://flagcdn.com/w40/es.png" alt=""><span>EspaÃ±ol</span></button>
+      <button type="button" class="lang-btn" data-lang-code="pt" onclick="window.open2099Portal('pt');return false;"><img class="flag" src="https://flagcdn.com/w40/pt.png" alt=""><span>PortuguÃªs</span></button>
+      <button type="button" class="lang-btn" data-lang-code="pl" onclick="window.open2099Portal('pl');return false;"><img class="flag" src="https://flagcdn.com/w40/pl.png" alt=""><span>Polski</span></button>
+      <button type="button" class="lang-btn" data-lang-code="de" onclick="window.open2099Portal('de');return false;"><img class="flag" src="https://flagcdn.com/w40/de.png" alt=""><span>Deutsch</span></button>
+      <button type="button" class="lang-btn" data-lang-code="zh-CN" onclick="window.open2099Portal('zh-CN');return false;"><img class="flag" src="https://flagcdn.com/w40/cn.png" alt=""><span>ç®€ä½“ä¸­æ–‡</span></button>
+    </div>
+    <div class="gate-note">Ø§Ø®ØªØ± Ù„ØºØªÙƒ Ø£ÙˆÙ„Ù‹Ø§ØŒ Ø«Ù… Ø³ØªØ¸Ù‡Ø± Ù„Ùƒ Ø§Ù„Ø¨ÙˆØ§Ø¨Ø© ÙƒØ§Ù…Ù„Ø© Ø¨Ù†ÙØ³ Ø§Ù„Ù„ØºØ©</div>
   </div>
 </section>
+
+<script>
+(function(){
+  window.open2099Portal=function(code){
+    try{
+      document.documentElement.lang=code||'en';
+      document.documentElement.dir=code==='ar'?'rtl':'ltr';
+
+      if(document.body){
+        document.body.classList.toggle('lang-ar',code==='ar');
+        document.body.classList.toggle('lang-zh',code==='zh-CN');
+      }
+
+      try{localStorage.setItem('state2099_lang',code||'en')}catch(e){}
+
+      var gate=document.getElementById('languageGate');
+      var app=document.getElementById('app');
+      var tools=document.getElementById('toolsDock');
+
+      if(gate){
+        gate.classList.add('hidden');
+        gate.style.display='none';
+      }
+      if(app){
+        app.classList.remove('hidden');
+        app.style.display='block';
+      }
+      if(tools){
+        tools.classList.remove('hidden');
+      }
+
+      window.scrollTo(0,0);
+
+      setTimeout(function(){
+        try{
+          if(typeof window.selectLang==='function'){
+            window.selectLang(code||'en');
+          }
+        }catch(e){
+          console.error('Full language application failed, portal remains open:',e);
+        }
+      },0);
+    }catch(e){
+      console.error('Portal opening fallback failed:',e);
+      var gate=document.getElementById('languageGate');
+      var app=document.getElementById('app');
+      if(gate)gate.style.display='none';
+      if(app){
+        app.classList.remove('hidden');
+        app.style.display='block';
+      }
+    }
+  };
+
+  document.addEventListener('click',function(event){
+    var button=event.target.closest && event.target.closest('#gateLangs [data-lang-code]');
+    if(!button)return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    window.open2099Portal(button.getAttribute('data-lang-code')||'en');
+  },true);
+})();
+</script>
 
 <main id="app" class="hidden">
   <div class="wrap">
@@ -320,7 +535,7 @@
       </div>
       <div class="install-card hidden" id="installCard" dir="ltr">
         <div class="install-left">
-          <div class="install-icon">📲</div>
+          <div class="install-icon">ðŸ“²</div>
           <div class="install-copy">
             <div class="install-title" id="installTitle">Install 2099 Portal</div>
             <div class="install-desc" id="installDesc">Open faster next time from your home screen.</div>
@@ -334,10 +549,33 @@
         <div class="ann-icon"><i class="fa-solid fa-bullhorn"></i></div>
         <div style="flex:1"><div class="ann-title" data-i18n="announcement">State Announcement</div><div class="ann-body" id="v-ann">Long live 2099</div></div>
       </div>
+      <section class="community-hub" aria-label="State 2099 resources">
+        <div class="community-main">
+          <div class="community-badge"><i class="fa-solid fa-snowflake"></i><span>STATE 2099</span></div>
+          <div class="community-title">STATE RESOURCES</div>
+          <div class="community-desc">Download the official State Guidelines or join the official Discord server.</div>
+          <div class="community-actions">
+            <a class="community-action guidelines-action" href="./2099_State_Guidelines.pdf" download="2099_State_Guidelines.pdf">
+              <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
+              <span>Download State Guidelines</span>
+            </a>
+            <a class="community-action discord-action" href="https://discord.gg/HKDcqgNqhD" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-discord" aria-hidden="true"></i>
+              <span>Join Our Discord</span>
+            </a>
+          </div>
+          <div class="transfer-note"><i class="fa-solid fa-right-left" aria-hidden="true"></i><span>Interested in joining State 2099? Please join our Discord and submit your request through Transfer Requests.</span></div>
+        </div>
+        <a class="discord-qr-card" href="https://discord.gg/HKDcqgNqhD" target="_blank" rel="noopener noreferrer" aria-label="Join State 2099 Discord">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZoAAAGaAQAAAAAefbjOAAADGElEQVR4nO2cUY6bMBCGvylIeQSpB8hRzA16pKpH2hvgo+QAK+HHSEZ/H4whu20f2l1BmgwPVgL+lLEYDf/M4Jj46yN++XsGHHLIIYcccsihx4RsOVqI/WzEHiCZEa3FhlQnDIeY59COEJIkgiRpagSdBF1GIyBNjZZhnTfe+Zoc+gwo1QAQLi0aU1tOm/VgA1AiyFHmObQb1P7hfJMtaG4Vv72aSJ/wSw79H9AvHhHPV1MQKPaTIP3GZ+58TQ59BKr3uxOQgPByktFNWLi0maC5TLmtZN35mhz6BCiamVlfz4ZL1RFDOskG5pJqHGWeQ3vHiC0AKJ6vVgbSXIYlghxhnkO7QyX7LPnlCBCUIUgi1JxTY5dvJ3v2+QRQKUl1ksZ0qgGhuxowmw2pRWMn2XCMeQ7tHiPGTpKmWrCCJWRswxI3PEY8OnTz1FhuN1vhUiJM1S22wz3ikaH1TmcIE1VHbPVsWC4UB3GPeHRorT81Ip5zCzSy2GPAvF3Nx5jn0EFQaVqsVYil55VaSvCI52uRlweZ59DuT40lzajCYflKs6jNEdDYZc8+nwC60RG1G55XtQnbULzEPeLhoTX7zLyJDEvqUR0kL27hyvLhoaINLFxOsvBiiO7VBLOVPCOMc5lo0GTb2zyHdodqXyPNppJrpBbocgvpa80w0tfSD93dPId2h1ZlmatmKH2NvErJbXAd8TxQ1Y6ZEiOinUop2waa2uZILTYcYp5DB9QjeqoflA7HbDYwm0Zmqw5ymHkOHdTXoCYcrJ2u9y1xzzUeHrrREeXuj5tbdGtaCt77fBZoe4dKQMboQDC3it/mVtDIwggWbW1u3PmaHPo4dLOnK0xvdml8n6CozaD8FtrPPIf2h0ItWwNrk+tSN/3R5frpGPMc2l1HlFcjth19b6rY9Vg15p2vyaFPheL5amb9bPrRQ2lzlDRj8hjxDND7HVuLskw9kNps4dJmCxOy2IOFcV/zHNoder83/KaKrS0ZLYHCq9jPAK0vXwNLXarR9ml5i0ZL1crrEY8Pmf8zmUMOOeSQQw459I/QT3Swg/+R6h4sAAAAAElFTkSuQmCC" alt="State 2099 Discord QR Code">
+          <span>Scan to join Discord</span>
+        </a>
+      </section>
+
       <div class="cards" id="cards"></div>
       <footer class="footer">
         <div class="line"></div><div class="brand">2099 STATE PORTAL</div><div style="font-family:'Cairo',sans-serif;margin-top:4px" data-i18n="footer">United We Stand. Legends Never Fall.</div>
-        <div class="footer-actions"><button class="admin-link" onclick="loginAdmin()">[ ADMIN HQ ]</button><button class="admin-link" onclick="window.location.href='planning.html'">[ PLANNING 🔒 ]</button></div>
+        <div class="footer-actions"><button class="admin-link" onclick="loginAdmin()">[ ADMIN HQ ]</button><button class="admin-link" onclick="window.location.href='planning.html'">[ PLANNING ðŸ”’ ]</button></div>
       </footer>
     </section>
   </div>
@@ -376,60 +614,51 @@
   <div class="actions"><button class="primary" id="installGotBtn" onclick="closeInstallSteps()">Got it</button></div>
 </div></div>
 
-<div class="modal" id="planningModal"><div class="sheet"><div class="sheet-head"><h2>Planning 🔒</h2><button class="close" onclick="closePlanning()"><i class="fa-solid fa-xmark"></i></button></div>
+<div class="modal" id="planningModal"><div class="sheet"><div class="sheet-head"><h2>Planning ðŸ”’</h2><button class="close" onclick="closePlanning()"><i class="fa-solid fa-xmark"></i></button></div>
   <div class="planning-tabs">
     <button class="planning-tab active" id="tab-rally" onclick="setPlanningTab('rally')">Rally Leader</button>
     <button class="planning-tab" id="tab-joiner" onclick="setPlanningTab('joiner')">Joiner</button>
   </div>
   <div class="planning-note">Simple SvS message generator. Select values, generate the compact message, then copy it for in-game use.</div>
-  <div class="planning-lang"><div class="field"><label for="p-msg-lang">Message Language</label><select id="p-msg-lang"><option value="en">🇺🇸 English</option><option value="ar">🇸🇦 العربية</option><option value="ru">🇰🇿 Русский</option><option value="id">🇮🇩 Indonesia</option><option value="ko">🇰🇷 한국어</option><option value="de">🇩🇪 Deutsch</option></select></div></div>
+  <div class="planning-lang"><div class="field"><label for="p-msg-lang">Message Language</label><select id="p-msg-lang"><option value="en">ðŸ‡ºðŸ‡¸ English</option><option value="ar">ðŸ‡¸ðŸ‡¦ Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©</option><option value="ru">ðŸ‡°ðŸ‡¿ Ð ÑƒÑÑÐºÐ¸Ð¹</option><option value="id">ðŸ‡®ðŸ‡© Indonesia</option><option value="ko">ðŸ‡°ðŸ‡· í•œêµ­ì–´</option><option value="de">ðŸ‡©ðŸ‡ª Deutsch</option></select></div></div>
   <div id="planningArea"></div>
 </div></div>
 
 <script>
 const INSTALL_I18N={
-  en:{title:'📲 Install 2099 Portal',desc:'Open faster next time from your home screen.',show:'Show steps',later:'Later',modal:'Add 2099 Portal to your phone',ios:'iPhone / Safari',android:'Android / Chrome',got:'Got it',never:"Don't show again",iosSteps:['Tap the Share button','Choose Add to Home Screen','Tap Add'],androidSteps:['Tap the browser menu ⋮','Choose Add to Home screen or Install App','Tap Add']},
-  ar:{title:'📲 أضف بوابة 2099 لجوالك',desc:'افتح الموقع بسرعة من الشاشة الرئيسية.',show:'عرض الخطوات',later:'لاحقًا',modal:'أضف بوابة 2099 للشاشة الرئيسية',ios:'iPhone / Safari',android:'Android / Chrome',got:'فهمت',never:'لا تظهر مرة أخرى',iosSteps:['اضغط زر المشاركة','اختر إضافة إلى الشاشة الرئيسية','اضغط إضافة'],androidSteps:['اضغط قائمة المتصفح ⋮','اختر Add to Home screen أو Install App','اضغط Add']},
-  id:{title:'📲 Pasang Portal 2099',desc:'Buka lebih cepat dari layar utama ponsel Anda.',show:'Lihat langkah',later:'Nanti',modal:'Tambahkan Portal 2099 ke ponsel Anda',ios:'iPhone / Safari',android:'Android / Chrome',got:'Mengerti',never:'Jangan tampilkan lagi',iosSteps:['Ketuk tombol Share','Pilih Add to Home Screen','Ketuk Add'],androidSteps:['Ketuk menu browser ⋮','Pilih Add to Home screen atau Install App','Ketuk Add']},
-  ru:{title:'📲 Установить портал 2099',desc:'Открывайте быстрее с главного экрана телефона.',show:'Показать шаги',later:'Позже',modal:'Добавьте портал 2099 на телефон',ios:'iPhone / Safari',android:'Android / Chrome',got:'Понятно',never:'Больше не показывать',iosSteps:['Нажмите кнопку Поделиться','Выберите Add to Home Screen','Нажмите Add'],androidSteps:['Нажмите меню браузера ⋮','Выберите Add to Home screen или Install App','Нажмите Add']},
-  ko:{title:'📲 2099 포털 설치하기',desc:'다음에는 홈 화면에서 더 빠르게 열 수 있습니다.',show:'방법 보기',later:'나중에',modal:'2099 포털을 휴대폰 홈 화면에 추가하세요',ios:'iPhone / Safari',android:'Android / Chrome',got:'확인',never:'다시 보지 않기',iosSteps:['공유 버튼을 누르세요','Add to Home Screen을 선택하세요','Add를 누르세요'],androidSteps:['브라우저 메뉴 ⋮ 를 누르세요','Add to Home screen 또는 Install App을 선택하세요','Add를 누르세요']},
-  "tr":{"title":"📲 2099 Portalını yükle","desc":"Bir dahaki sefere ana ekranınızdan daha hızlı açın.","show":"Adımları göster","later":"Daha sonra","modal":"2099 Portalını telefonunuza ekleyin","ios":"iPhone / Safari","android":"Android / Chrome","got":"Anladım","never":"Bir daha gösterme","iosSteps":["Paylaş düğmesine dokunun","Ana Ekrana Ekle seçeneğini seçin","Ekle’ye dokunun"],"androidSteps":["Tarayıcı menüsüne ⋮ dokunun","Ana ekrana ekle veya Uygulamayı yükle seçeneğini seçin","Ekle’ye dokunun"]},
-  "es":{"title":"📲 Instalar Portal 2099","desc":"Ábrelo más rápido la próxima vez desde la pantalla de inicio.","show":"Ver pasos","later":"Más tarde","modal":"Añade Portal 2099 a tu teléfono","ios":"iPhone / Safari","android":"Android / Chrome","got":"Entendido","never":"No volver a mostrar","iosSteps":["Pulsa el botón Compartir","Elige Añadir a pantalla de inicio","Pulsa Añadir"],"androidSteps":["Pulsa el menú del navegador ⋮","Elige Añadir a pantalla de inicio o Instalar aplicación","Pulsa Añadir"]},
-  "pt":{"title":"📲 Instalar o Portal 2099","desc":"Abra mais rapidamente da próxima vez a partir do ecrã principal.","show":"Ver passos","later":"Mais tarde","modal":"Adicione o Portal 2099 ao seu telefone","ios":"iPhone / Safari","android":"Android / Chrome","got":"Entendi","never":"Não mostrar novamente","iosSteps":["Toque no botão Partilhar","Escolha Adicionar ao ecrã principal","Toque em Adicionar"],"androidSteps":["Toque no menu do navegador ⋮","Escolha Adicionar ao ecrã principal ou Instalar aplicação","Toque em Adicionar"]},
-  "pl":{"title":"📲 Zainstaluj Portal 2099","desc":"Następnym razem otwórz go szybciej z ekranu głównego.","show":"Pokaż kroki","later":"Później","modal":"Dodaj Portal 2099 do telefonu","ios":"iPhone / Safari","android":"Android / Chrome","got":"Rozumiem","never":"Nie pokazuj ponownie","iosSteps":["Naciśnij przycisk Udostępnij","Wybierz Dodaj do ekranu początkowego","Naciśnij Dodaj"],"androidSteps":["Naciśnij menu przeglądarki ⋮","Wybierz Dodaj do ekranu głównego lub Zainstaluj aplikację","Naciśnij Dodaj"]},
-  "de":{"title":"📲 2099 Portal installieren","desc":"Öffne es beim nächsten Mal schneller über deinen Startbildschirm.","show":"Schritte anzeigen","later":"Später","modal":"Füge das 2099 Portal deinem Telefon hinzu","ios":"iPhone / Safari","android":"Android / Chrome","got":"Verstanden","never":"Nicht mehr anzeigen","iosSteps":["Tippe auf die Teilen-Schaltfläche","Wähle Zum Home-Bildschirm","Tippe auf Hinzufügen"],"androidSteps":["Tippe auf das Browsermenü ⋮","Wähle Zum Startbildschirm hinzufügen oder App installieren","Tippe auf Hinzufügen"]},
-  "zh-CN":{"title":"📲 安装 2099 门户","desc":"下次可从主屏幕更快打开。","show":"查看步骤","later":"稍后","modal":"将 2099 门户添加到您的手机","ios":"iPhone / Safari","android":"Android / Chrome","got":"知道了","never":"不再显示","iosSteps":["点击分享按钮","选择添加到主屏幕","点击添加"],"androidSteps":["点击浏览器菜单 ⋮","选择添加到主屏幕或安装应用","点击添加"]}
+  en:{title:'ðŸ“² Install 2099 Portal',desc:'Open faster next time from your home screen.',show:'Show steps',later:'Later',modal:'Add 2099 Portal to your phone',ios:'iPhone / Safari',android:'Android / Chrome',got:'Got it',never:"Don't show again",iosSteps:['Tap the Share button','Choose Add to Home Screen','Tap Add'],androidSteps:['Tap the browser menu â‹®','Choose Add to Home screen or Install App','Tap Add']},
+  ar:{title:'ðŸ“² Ø£Ø¶Ù Ø¨ÙˆØ§Ø¨Ø© 2099 Ù„Ø¬ÙˆØ§Ù„Ùƒ',desc:'Ø§ÙØªØ­ Ø§Ù„Ù…ÙˆÙ‚Ø¹ Ø¨Ø³Ø±Ø¹Ø© Ù…Ù† Ø§Ù„Ø´Ø§Ø´Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©.',show:'Ø¹Ø±Ø¶ Ø§Ù„Ø®Ø·ÙˆØ§Øª',later:'Ù„Ø§Ø­Ù‚Ù‹Ø§',modal:'Ø£Ø¶Ù Ø¨ÙˆØ§Ø¨Ø© 2099 Ù„Ù„Ø´Ø§Ø´Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©',ios:'iPhone / Safari',android:'Android / Chrome',got:'ÙÙ‡Ù…Øª',never:'Ù„Ø§ ØªØ¸Ù‡Ø± Ù…Ø±Ø© Ø£Ø®Ø±Ù‰',iosSteps:['Ø§Ø¶ØºØ· Ø²Ø± Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ©','Ø§Ø®ØªØ± Ø¥Ø¶Ø§ÙØ© Ø¥Ù„Ù‰ Ø§Ù„Ø´Ø§Ø´Ø© Ø§Ù„Ø±Ø¦ÙŠØ³ÙŠØ©','Ø§Ø¶ØºØ· Ø¥Ø¶Ø§ÙØ©'],androidSteps:['Ø§Ø¶ØºØ· Ù‚Ø§Ø¦Ù…Ø© Ø§Ù„Ù…ØªØµÙØ­ â‹®','Ø§Ø®ØªØ± Add to Home screen Ø£Ùˆ Install App','Ø§Ø¶ØºØ· Add']},
+  id:{title:'ðŸ“² Pasang Portal 2099',desc:'Buka lebih cepat dari layar utama ponsel Anda.',show:'Lihat langkah',later:'Nanti',modal:'Tambahkan Portal 2099 ke ponsel Anda',ios:'iPhone / Safari',android:'Android / Chrome',got:'Mengerti',never:'Jangan tampilkan lagi',iosSteps:['Ketuk tombol Share','Pilih Add to Home Screen','Ketuk Add'],androidSteps:['Ketuk menu browser â‹®','Pilih Add to Home screen atau Install App','Ketuk Add']},
+  ru:{title:'ðŸ“² Ð£ÑÑ‚Ð°Ð½Ð¾Ð²Ð¸Ñ‚ÑŒ Ð¿Ð¾Ñ€Ñ‚Ð°Ð» 2099',desc:'ÐžÑ‚ÐºÑ€Ñ‹Ð²Ð°Ð¹Ñ‚Ðµ Ð±Ñ‹ÑÑ‚Ñ€ÐµÐµ Ñ Ð³Ð»Ð°Ð²Ð½Ð¾Ð³Ð¾ ÑÐºÑ€Ð°Ð½Ð° Ñ‚ÐµÐ»ÐµÑ„Ð¾Ð½Ð°.',show:'ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ ÑˆÐ°Ð³Ð¸',later:'ÐŸÐ¾Ð·Ð¶Ðµ',modal:'Ð”Ð¾Ð±Ð°Ð²ÑŒÑ‚Ðµ Ð¿Ð¾Ñ€Ñ‚Ð°Ð» 2099 Ð½Ð° Ñ‚ÐµÐ»ÐµÑ„Ð¾Ð½',ios:'iPhone / Safari',android:'Android / Chrome',got:'ÐŸÐ¾Ð½ÑÑ‚Ð½Ð¾',never:'Ð‘Ð¾Ð»ÑŒÑˆÐµ Ð½Ðµ Ð¿Ð¾ÐºÐ°Ð·Ñ‹Ð²Ð°Ñ‚ÑŒ',iosSteps:['ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ ÐºÐ½Ð¾Ð¿ÐºÑƒ ÐŸÐ¾Ð´ÐµÐ»Ð¸Ñ‚ÑŒÑÑ','Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Add to Home Screen','ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Add'],androidSteps:['ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Ð¼ÐµÐ½ÑŽ Ð±Ñ€Ð°ÑƒÐ·ÐµÑ€Ð° â‹®','Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Add to Home screen Ð¸Ð»Ð¸ Install App','ÐÐ°Ð¶Ð¼Ð¸Ñ‚Ðµ Add']},
+  ko:{title:'ðŸ“² 2099 í¬í„¸ ì„¤ì¹˜í•˜ê¸°',desc:'ë‹¤ìŒì—ëŠ” í™ˆ í™”ë©´ì—ì„œ ë” ë¹ ë¥´ê²Œ ì—´ ìˆ˜ ìžˆìŠµë‹ˆë‹¤.',show:'ë°©ë²• ë³´ê¸°',later:'ë‚˜ì¤‘ì—',modal:'2099 í¬í„¸ì„ íœ´ëŒ€í° í™ˆ í™”ë©´ì— ì¶”ê°€í•˜ì„¸ìš”',ios:'iPhone / Safari',android:'Android / Chrome',got:'í™•ì¸',never:'ë‹¤ì‹œ ë³´ì§€ ì•Šê¸°',iosSteps:['ê³µìœ  ë²„íŠ¼ì„ ëˆ„ë¥´ì„¸ìš”','Add to Home Screenì„ ì„ íƒí•˜ì„¸ìš”','Addë¥¼ ëˆ„ë¥´ì„¸ìš”'],androidSteps:['ë¸Œë¼ìš°ì € ë©”ë‰´ â‹® ë¥¼ ëˆ„ë¥´ì„¸ìš”','Add to Home screen ë˜ëŠ” Install Appì„ ì„ íƒí•˜ì„¸ìš”','Addë¥¼ ëˆ„ë¥´ì„¸ìš”']},
+  "tr":{"title":"ðŸ“² 2099 PortalÄ±nÄ± yÃ¼kle","desc":"Bir dahaki sefere ana ekranÄ±nÄ±zdan daha hÄ±zlÄ± aÃ§Ä±n.","show":"AdÄ±mlarÄ± gÃ¶ster","later":"Daha sonra","modal":"2099 PortalÄ±nÄ± telefonunuza ekleyin","ios":"iPhone / Safari","android":"Android / Chrome","got":"AnladÄ±m","never":"Bir daha gÃ¶sterme","iosSteps":["PaylaÅŸ dÃ¼ÄŸmesine dokunun","Ana Ekrana Ekle seÃ§eneÄŸini seÃ§in","Ekleâ€™ye dokunun"],"androidSteps":["TarayÄ±cÄ± menÃ¼sÃ¼ne â‹® dokunun","Ana ekrana ekle veya UygulamayÄ± yÃ¼kle seÃ§eneÄŸini seÃ§in","Ekleâ€™ye dokunun"]},
+  "es":{"title":"ðŸ“² Instalar Portal 2099","desc":"Ãbrelo mÃ¡s rÃ¡pido la prÃ³xima vez desde la pantalla de inicio.","show":"Ver pasos","later":"MÃ¡s tarde","modal":"AÃ±ade Portal 2099 a tu telÃ©fono","ios":"iPhone / Safari","android":"Android / Chrome","got":"Entendido","never":"No volver a mostrar","iosSteps":["Pulsa el botÃ³n Compartir","Elige AÃ±adir a pantalla de inicio","Pulsa AÃ±adir"],"androidSteps":["Pulsa el menÃº del navegador â‹®","Elige AÃ±adir a pantalla de inicio o Instalar aplicaciÃ³n","Pulsa AÃ±adir"]},
+  "pt":{"title":"ðŸ“² Instalar o Portal 2099","desc":"Abra mais rapidamente da prÃ³xima vez a partir do ecrÃ£ principal.","show":"Ver passos","later":"Mais tarde","modal":"Adicione o Portal 2099 ao seu telefone","ios":"iPhone / Safari","android":"Android / Chrome","got":"Entendi","never":"NÃ£o mostrar novamente","iosSteps":["Toque no botÃ£o Partilhar","Escolha Adicionar ao ecrÃ£ principal","Toque em Adicionar"],"androidSteps":["Toque no menu do navegador â‹®","Escolha Adicionar ao ecrÃ£ principal ou Instalar aplicaÃ§Ã£o","Toque em Adicionar"]},
+  "pl":{"title":"ðŸ“² Zainstaluj Portal 2099","desc":"NastÄ™pnym razem otwÃ³rz go szybciej z ekranu gÅ‚Ã³wnego.","show":"PokaÅ¼ kroki","later":"PÃ³Åºniej","modal":"Dodaj Portal 2099 do telefonu","ios":"iPhone / Safari","android":"Android / Chrome","got":"Rozumiem","never":"Nie pokazuj ponownie","iosSteps":["NaciÅ›nij przycisk UdostÄ™pnij","Wybierz Dodaj do ekranu poczÄ…tkowego","NaciÅ›nij Dodaj"],"androidSteps":["NaciÅ›nij menu przeglÄ…darki â‹®","Wybierz Dodaj do ekranu gÅ‚Ã³wnego lub Zainstaluj aplikacjÄ™","NaciÅ›nij Dodaj"]},
+  "de":{"title":"ðŸ“² 2099 Portal installieren","desc":"Ã–ffne es beim nÃ¤chsten Mal schneller Ã¼ber deinen Startbildschirm.","show":"Schritte anzeigen","later":"SpÃ¤ter","modal":"FÃ¼ge das 2099 Portal deinem Telefon hinzu","ios":"iPhone / Safari","android":"Android / Chrome","got":"Verstanden","never":"Nicht mehr anzeigen","iosSteps":["Tippe auf die Teilen-SchaltflÃ¤che","WÃ¤hle Zum Home-Bildschirm","Tippe auf HinzufÃ¼gen"],"androidSteps":["Tippe auf das BrowsermenÃ¼ â‹®","WÃ¤hle Zum Startbildschirm hinzufÃ¼gen oder App installieren","Tippe auf HinzufÃ¼gen"]},
+  "zh-CN":{"title":"ðŸ“² å®‰è£… 2099 é—¨æˆ·","desc":"ä¸‹æ¬¡å¯ä»Žä¸»å±å¹•æ›´å¿«æ‰“å¼€ã€‚","show":"æŸ¥çœ‹æ­¥éª¤","later":"ç¨åŽ","modal":"å°† 2099 é—¨æˆ·æ·»åŠ åˆ°æ‚¨çš„æ‰‹æœº","ios":"iPhone / Safari","android":"Android / Chrome","got":"çŸ¥é“äº†","never":"ä¸å†æ˜¾ç¤º","iosSteps":["ç‚¹å‡»åˆ†äº«æŒ‰é’®","é€‰æ‹©æ·»åŠ åˆ°ä¸»å±å¹•","ç‚¹å‡»æ·»åŠ "],"androidSteps":["ç‚¹å‡»æµè§ˆå™¨èœå• â‹®","é€‰æ‹©æ·»åŠ åˆ°ä¸»å±å¹•æˆ–å®‰è£…åº”ç”¨","ç‚¹å‡»æ·»åŠ "]}
 };
 function installCopy(){return INSTALL_I18N[lang]||INSTALL_I18N.en}
 function installVisible(){return true}
 function renderInstallCard(){const card=$('installCard');if(!card)return;const c=installCopy();card.dir=lang==='ar'?'rtl':'ltr';$('installTitle').textContent=c.title;$('installDesc').textContent=c.desc;$('installShowBtn').textContent=c.show;card.classList.toggle('hidden',!installVisible())}
-function stepHtml(arr){return arr.map((x,i)=>`<div class="install-step"><span class="install-step-ico">${['📤','➕','✅'][i]||'•'}</span><span>${x}</span></div>`).join('')}
+function stepHtml(arr){return arr.map((x,i)=>`<div class="install-step"><span class="install-step-ico">${['ðŸ“¤','âž•','âœ…'][i]||'â€¢'}</span><span>${x}</span></div>`).join('')}
 function openInstallSteps(){const c=installCopy();$('installModalTitle').textContent=c.modal;$('installModalBody').dir=lang==='ar'?'rtl':'ltr';$('installIosTitle').textContent=c.ios;$('installAndroidTitle').textContent=c.android;$('installIosSteps').innerHTML=stepHtml(c.iosSteps);$('installAndroidSteps').innerHTML=stepHtml(c.androidSteps);$('installGotBtn').textContent=c.got;$('installModal').classList.add('show')}
 function closeInstallSteps(){$('installModal').classList.remove('show')}
 
 const API='https://script.google.com/macros/s/AKfycbz7T3wo9ZO9-2l8zgvA6yEvOfiWZVtOyd1n-0VOMWyTgeyA7gPcQ7wyewuZK8oGj-AO/exec';
-const LANGS=[['ar','https://flagcdn.com/w40/sa.png','العربية'],['en','https://flagcdn.com/w40/us.png','English'],['id','https://flagcdn.com/w40/id.png','Indonesia'],['ru','https://flagcdn.com/w40/kz.png','Русский'],['ko','https://flagcdn.com/w40/kr.png','한국어'],['tr','https://flagcdn.com/w40/tr.png','Türkçe'],['es','https://flagcdn.com/w40/es.png','Español'],['pt','https://flagcdn.com/w40/pt.png','Português'],['pl','https://flagcdn.com/w40/pl.png','Polski'],['de','https://flagcdn.com/w40/de.png','Deutsch'],['zh-CN','https://flagcdn.com/w40/cn.png','简体中文']];
+const LANGS=[['ar','https://flagcdn.com/w40/sa.png','Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©'],['en','https://flagcdn.com/w40/us.png','English'],['id','https://flagcdn.com/w40/id.png','Indonesia'],['ru','https://flagcdn.com/w40/kz.png','Ð ÑƒÑÑÐºÐ¸Ð¹'],['ko','https://flagcdn.com/w40/kr.png','í•œêµ­ì–´'],['tr','https://flagcdn.com/w40/tr.png','TÃ¼rkÃ§e'],['es','https://flagcdn.com/w40/es.png','EspaÃ±ol'],['pt','https://flagcdn.com/w40/pt.png','PortuguÃªs'],['pl','https://flagcdn.com/w40/pl.png','Polski'],['de','https://flagcdn.com/w40/de.png','Deutsch'],['zh-CN','https://flagcdn.com/w40/cn.png','ç®€ä½“ä¸­æ–‡']];
 const I18N={
- en:{choose:'Choose your language',portalTitle:'STATE PORTAL',slogan:'Lead. Defend. Conquer.',president:'Current President',svsWins:'SVS Wins',leagueTitles:'League Titles',playerMonth:'Player of the Month',announcement:'State Announcement',footer:'United We Stand. Legends Never Fall.',ministries:'SVS Ministries',svs:'SVS Survey',fdt:'FDT Survey',league:'TAL Survey',enter:'Enter Portal',name:'Player Name',gameId:'Your Game ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'Speedups Days',timings:'Preferable Timings UTC - 3 Picks Only',availability:'Are you available for the entire event?',troops:'Troops Type',helios:'Helios Troops',discord:'Can you join Discord if needed?',rotation:'You are aware that the state will rotate joiners and prioritize what helps the state the most. It is not personal at all.',leagueAvail:'Are you available for the entire TAL?',submit:'Submit',back:'Back',secured:'Mission Secured',securedText:'Your response has been submitted.',returnHome:'Return',locked:'Section Closed',meat:'Meat Resources',wood:'Wood Resources',coal:'Coal Resources',iron:'Iron Resources',notes:'Notes',svsNotes:'Any important notes you want us to know?',leagueNotes:'Notes if you are unavailable for certain matches',externalGift:'You will open the official gift-code website in a new tab. Continue?',externalTool:'You will open a helpful game tool in a new tab. Continue?',labyrinthRank:'What is your current Labyrinth rank?',labyrinthPoints:'What are your current Labyrinth points?',weekdayAvailability:'What times can you participate during weekdays?',weekdayDays:'Monday - Tuesday - Wednesday - Thursday - Friday',weekendAvailability:'What times can you participate during the weekend?',weekendDays:'Saturday - Sunday',availableAnytime:'Available at any time',talResourcesReady:'Participating in TAL requires sufficient Gems, Speedups, and Teleports. Are you ready?',teleportCount:'How many Teleports do you currently have?',teamPreference:'Which team(s) would you pref
-er to join for TAL?',teamPreferenceNote:'This selection is for planning purposes and to understand the available options only. It does not confirm or guarantee placement in a specific team. The organizers will do their best to assign players appropriately based on team needs and available spots.',teamAmtMain:'AMT Main',teamAmtSub:'AMT Substitute',teamProMain:'PRO Main',teamProSub:'PRO Substitute',teamNoPreference:'No preference — I can join any team',selectTime:'Select at least one time for each section.',selectTeam:'Select at least one team option.'},
- ar:{choose:'اختر لغتك',portalTitle:'بوابة المقاطعة',slogan:'قُد. دافع. انتصر.',president:'الرئيس الحالي',svsWins:'انتصارات SVS',leagueTitles:'ألقاب الدوري',playerMonth:'لاعب الشهر',announcement:'إعلانات المقاطعة',footer:'متحدون نقف. والأساطير لا تسقط.',ministries:'وزارات SVS',svs:'استبيان SVS',fdt:'استبيان FDT',league:'استبيان TAL',enter:'دخول البوابة',name:'اسم اللاعب باللعبة',gameId:'رقم يوزرك باللعبة',alliance:'التحالف',ministry:'الوزارة المطلوبة',speedups:'عدد أيام التسريعات',timings:'الأوقات المفضلة UTC - اختر 3 فقط',availability:'هل أنت متاح طوال الحدث؟',troops:'نوع القوات',helios:'قوات هيليوس',discord:'هل تستطيع دخول الديسكورد عند الحاجة؟',rotation:'أنت تعلم أن المقاطعة ستدوّر المشاركين وتختار ما يخدم المقاطعة أكثر، والأمر ليس شخصيًا إطلاقًا.',leagueAvail:'هل أنت متاح طوال بطولة TAL؟',submit:'إرسال',back:'رجوع',secured:'تم تأمين المهمة',securedText:'تم إرسال إجابتك بنجاح.',returnHome:'عودة',locked:'القسم مغلق',meat:'عدد موارد اللحم',wood:'عدد موارد الخشب',coal:'عدد موارد الفحم',iron:'عدد موارد الحديد',notes:'ملاحظات',svsNotes:'أي ملاحظة مهمة تحب نعرفها؟',leagueNotes:'ملاحظات في حال عدم التوفر في بعض المباريات',externalGift:'راح تفتح موقع أكواد الهدايا الرسمي في تبويب جديد. نكمل؟',externalTool:'راح تفتح أداة مساعدة للعبة في تبويب جديد. نكمل؟',labyrinthRank:'ما ترتيبك الحالي في المتاهة؟',labyrinthPoints:'ما نقاطك الحالية في المتاهة؟',weekdayAvailability:'ما الأوقات التي يمكنك المشاركة فيها خلال أيام الأسبوع؟',weekdayDays:'الاثنين - الثلاثاء - الأربعاء - الخميس - الجمعة',weekendAvailability:'ما الأوقات التي يمكنك المشاركة فيها خلال الويكند؟',weekendDays:'السبت - الأحد',availableAnytime:'متاح في أي وقت',talResourcesReady:'المشاركة في TAL تتطلب توفر مجوهرات وتسريعات وانتقالات كافية، هل أنت جاهز؟',teleportCount:'كم عدد الانتقالات (Teleports) المتوفرة لديك حاليًا؟',teamPreference:'ما الفريق أو الفرق التي تفضّل المشاركة معها في TAL؟',teamPreferenceNote:'هذا الاختيار لأغراض التنظيم ومعرفة الخيارات المتاحة فقط، ولا يُعد تسجيلًا أو ضمانًا للانضمام إلى فريق محدد. سيبذل 
-المنظمون قصارى جهدهم لتوزيع اللاعبين بالشكل الأنسب وفقًا لاحتياج الفرق والأماكن المتاحة.',teamAmtMain:'الفريق الأساسي لـ AMT',teamAmtSub:'فريق البدلاء لـ AMT',teamProMain:'الفريق الأساسي لـ PRO',teamProSub:'فريق البدلاء لـ PRO',teamNoPreference:'لا يوجد تفضيل — يمكنني المشاركة مع أي فريق',selectTime:'اختر وقتًا واحدًا على الأقل في كل قسم.',selectTeam:'اختر خيار فريق واحدًا على الأقل.'},
- id:{choose:'Pilih bahasa Anda',portalTitle:'PORTAL NEGARA',slogan:'Pimpin. Pertahankan. Taklukkan.',president:'Presiden Saat Ini',svsWins:'Kemenangan SVS',leagueTitles:'Gelar Liga',playerMonth:'Pemain Bulan Ini',announcement:'Pengumuman Negara',footer:'Bersatu Kita Berdiri. Legenda Tak Pernah Jatuh.',ministries:'SVS Ministries',svs:'Survei SVS',fdt:'Survei FDT',league:'Survei TAL',enter:'Masuk Portal',name:'Nama Pemain',gameId:'ID Game Anda',alliance:'Alliance',ministry:'Ministry Required',speedups:'Hari Speedups',timings:'Waktu Pilihan UTC - Maksimal 3',availability:'Apakah Anda tersedia sepanjang event?',troops:'Jenis Pasukan',helios:'Pasukan Helios',discord:'Bisakah Anda masuk Discord jika diperlukan?',rotation:'Anda memahami bahwa state akan melakukan rotasi joiner dan memprioritaskan yang paling membantu state. Ini sama sekali bukan masalah pribadi.',leagueAvail:'Apakah Anda tersedia sepanjang TAL?',submit:'Kirim',back:'Kembali',secured:'Misi Aman',securedText:'Jawaban Anda telah dikirim.',returnHome:'Kembali',locked:'Bagian Ditutup',meat:'Sumber Daya Meat',wood:'Sumber Daya Wood',coal:'Sumber Daya Coal',iron:'Sumber Daya Iron',notes:'Catatan',svsNotes:'Catatan penting yang ingin kamu sampaikan?',leagueNotes:'Catatan jika Anda tidak tersedia untuk beberapa pertandingan',externalGift:'Anda akan membuka situs resmi gift code di tab baru. Lanjutkan?',externalTool:'Anda akan membuka alat bantu game di tab baru. Lanjutkan?',labyrinthRank:'Berapa peringkat Labyrinth Anda saat ini?',labyrinthPoints:'Berapa poin Labyrinth Anda saat ini?',weekdayAvailability:'Pada jam berapa Anda dapat berpartisipasi di hari kerja?',weekdayDays:'Senin - Selasa - Rabu - Kamis - Jumat',weekendAvailability:'Pada jam berapa Anda dapat berpartisipasi saat akhir pekan?',weekendDays:'Sabtu - Minggu',availableAnytime:'Tersedia kapan saja',talResourcesReady:'TAL membutuhkan Gems, Speedups, dan Teleports yang cukup. Apakah Anda siap?',teleportCount:'Berapa jumlah Teleports yang Anda miliki saat 
-ini?',teamPreference:'Tim mana yang Anda pilih untuk bergabung di TAL?',teamPreferenceNote:'Pilihan ini hanya untuk perencanaan dan memahami opsi yang tersedia. Pilihan ini bukan pendaftaran atau jaminan penempatan di tim tertentu. Penyelenggara akan berusaha sebaik mungkin menempatkan pemain sesuai kebutuhan tim dan tempat yang tersedia.',teamAmtMain:'Tim Utama AMT',teamAmtSub:'Tim Cadangan AMT',teamProMain:'Tim Utama PRO',teamProSub:'Tim Cadangan PRO',teamNoPreference:'Tidak ada preferensi — saya dapat bergabung dengan tim mana pun',selectTime:'Pilih setidaknya satu waktu di setiap bagian.',selectTeam:'Pilih setidaknya satu opsi tim.'},
- ru:{choose:'Выберите язык',portalTitle:'ПОРТАЛ ШТАТА',slogan:'Веди. Защищай. Побеждай.',president:'Текущий президент',svsWins:'Победы SVS',leagueTitles:'Титулы лиги',playerMonth:'Игрок месяца',announcement:'Объявление штата',footer:'Мы едины. Легенды не падают.',ministries:'SVS Ministries',svs:'Опрос SVS',fdt:'Опрос FDT',league:'Опрос TAL',enter:'Войти',name:'Имя игрока',gameId:'Ваш игровой ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'Дни ускорений',timings:'Предпочтительное время UTC - только 3',availability:'Вы доступны на всё событие?',troops:'Тип войск',helios:'Войска Helios',discord:'Сможете зайти в Discord при необходимости?',rotation:'Вы понимаете, что штат будет ротировать участников и выбирать то, что лучше всего помогает штату. Это не личное.',leagueAvail:'Вы доступны на весь TAL?',submit:'Отправить',back:'Назад',secured:'Миссия принята',securedText:'Ваш ответ отправлен.',returnHome:'Вернуться',locked:'Раздел закрыт',meat:'Ресурсы Meat',wood:'Ресурсы Wood',coal:'Ресурсы Coal',iron:'Ресурсы Iron',notes:'Заметки',svsNotes:'Есть важные заметки, которые нам стоит знать?',leagueNotes:'Заметки, если вы недоступны для некоторых матчей',externalGift:'Откроется официальный сайт gift code в новой вкладке. Продолжить?',externalTool:'Откроется полезный игровой инструмент в новой вкладке. Продолжить?',labyrinthRank:'Какое у вас текущее место в Labyrinth?',labyrinthPoints:'Сколько у вас сейчас очков Labyrinth?',weekdayAvailability:'В какое время вы можете участвовать в будние дни?',weekdayDays:'Понедельник - Вторник - Среда - Четверг - Пятница',weekendAvailability:'В какое время вы можете участвовать в выходные?',weekendDays:'Суббота - Воскресенье',availableAnytime:'Доступен в любое время',talResourcesReady:'Для TAL нужны Gems, Speedups и Teleports в достаточном количестве. Вы готовы?',teleportCount:'Сколько Teleports у вас сейчас?',teamPreference:'К какой команде или командам вы предпочли бы присоединиться в TAL?',teamPreferenceNote:'Этот выбор нужен только для планирования и понимания доступных вариантов. Он не является регистрацией и не гарантирует место в определённой команде. Организаторы постараются распределить игроков наилучшим образом с учётом потребностей команд и свободных мест.',teamAmtMain:'Основной состав AMT',teamAmtSub:'Запасной состав AMT',teamProMain:'Основной состав PRO',teamProSub:'Запасной состав PRO',teamNoPreference:'Без предпочтений — могу присоединиться к любой команде',selectTime:'Выберите хотя бы одно время в каждом разделе.',selectTeam:'Выберите хотя бы один вариант команды.'},
- ko:{choose:'언어를 선택하세요',portalTitle:'스테이트 포털',slogan:'지휘하라. 방어하라. 정복하라.',president:'현재 대통령',svsWins:'SVS 승리',leagueTitles:'리그 타이틀',playerMonth:'이달의 플레이어',announcement:'스테이트 공지',footer:'우리는 함께 선다. 전설은 쓰러지지 않는다.',ministries:'SVS Ministries',svs:'SVS 설문',fdt:'FDT 설문',league:'TAL 설문',enter:'포털 입장',name:'플레이어 이름',gameId:'게임 ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'스피드업 일수',timings:'선호 시간 UTC - 3개만 선택',availability:'전체 이벤트에 참여 가능합니까?',troops:'병력 유형',helios:'Helios 병력',discord:'필요 시 Discord 참여가 가능합니까?',rotation:'스테이트는 조이너를 순환 배치하며 스테이트에 가장 도움이 되는 것을 우선합니다. 개인적인 이유가 아닙니다.',leagueAvail:'전체 TAL에 참여 가능합니까?',submit:'제출',back:'뒤로',secured:'임무 확보',securedText:'응답이 제출되었습니다.',returnHome:'돌아가기',locked:'섹션 닫힘',meat:'Meat 자원',wood:'Wood 자원',coal:'Coal 자원',iron:'Iron 자원',notes:'메모',svsNotes:'저희가 알아야 할 중요한 메모가 있나요?',leagueNotes:'일부 경기 참여가 어려운 경우 메모',externalGift:'공식 기프트 코드 사이트가 새 탭에서 열립니다. 계속할까요?',externalTool:'게임 보조 도구가 새 탭에서 열립니다. 계속할까요?',labyrinthRank:'현재 Labyrinth 순위는 몇 위입니까?',labyrinthPoints:'현재 Labyrinth 포인트는 얼마입니까?',weekdayAvailability:'평일에 참여 가능한 시간은 언제입니까?',weekdayDays:'월요일 - 화요일 - 수요일 - 목요일 - 금요일',weekendAvailability:'주말에 참여 가능한 시간은 언제입니까?',weekendDays:'토요일 - 일요일',availableAnytime:'언제든지 가능',talResourcesReady:'TAL 참여에는 충분한 Gems, Speedups, Teleports가 필요합니다. 준비되셨습니까?',teleportCount:'현재 보유한 Teleports는 몇 개입니까?',teamPreference:'TAL에서 어느 팀에 참여하기를 희망합니까?',teamPreferenceNote:'이 선택은 운영 계
-획과 가능한 선택지를 확인하기 위한 용도일 뿐이며, 특정 팀 등록이나 배정을 보장하지 않습니다. 운영진은 팀의 필요와 가능한 자리를 고려하여 최선을 다해 배정할 것입니다.',teamAmtMain:'AMT 메인 팀',teamAmtSub:'AMT 후보 팀',teamProMain:'PRO 메인 팀',teamProSub:'PRO 후보 팀',teamNoPreference:'선호 없음 — 어느 팀이든 참여 가능',selectTime:'각 구역에서 최소 한 개의 시간을 선택하세요.',selectTeam:'팀 옵션을 하나 이상 선택하세요.'},
- "tr":{"choose":"Dilinizi seçin","portalTitle":"EYALET PORTALI","slogan":"Liderlik et. Savun. Fethet.","president":"Mevcut Başkan","svsWins":"SVS Zaferleri","leagueTitles":"Lig Şampiyonlukları","playerMonth":"Ayın Oyuncusu","announcement":"Eyalet Duyurusu","footer":"Birlikte Ayaktayız. Efsaneler Asla Düşmez.","ministries":"SVS Bakanlıkları","svs":"SVS Anketi","fdt":"FDT Anketi","league":"TAL Anketi","enter":"Portala Gir","name":"Oyuncu Adı","gameId":"Oyun ID’niz","alliance":"İttifak","ministry":"Gerekli Bakanlık","speedups":"Hızlandırma Günleri","timings":"Tercih Edilen UTC Saatleri - Yalnızca 3 Seçim","availability":"Etkinliğin tamamında müsait misiniz?","troops":"Birlik Türü","helios":"Helios Birlikleri","discord":"Gerektiğinde Discord’a katılabilir misiniz?","rotation":"Eyaletin katılımcıları dönüşümlü kullanacağını ve eyalete en çok fayda sağlayan seçeneğe öncelik vereceğini biliyorsunuz. Bu kesinlikle kişisel değildir.","leagueAvail":"TAL’ın tamamında müsait misiniz?","submit":"Gönder","back":"Geri","secured":"Görev Tamamlandı","securedText":"Yanıtınız gönderildi.","returnHome":"Geri Dön","locked":"Bölüm Kapalı","meat":"Et Kaynakları","wood":"Odun Kaynakları","coal":"Kömür Kaynakları","iron":"Demir Kaynakları","notes":"Notlar","svsNotes":"Bilmemizi istediğiniz önemli bir not var mı?","leagueNotes":"Bazı maçlarda müsait değilseniz not ekleyin","externalGift":"Resmî hediye kodu sitesi yeni sekmede açılacak. Devam edilsin mi?","externalTool":"Yararlı bir oyun aracı yeni sekmede açılacak. Devam edilsin mi?","labyrinthRank":"Mevcut Labirent sıralamanız nedir?","labyrinthPoints":"Mevcut Labirent puanınız kaç?","weekdayAvailability":"Hafta içi hangi saatlerde katılabilirsiniz?","weekdayDays":"Pazartesi - Salı - Çarşamba - Perşembe - Cuma","weekendAvailability":"Hafta sonu hangi saatlerde katılabilirsiniz?","weekendDays":"Cumartesi - Pazar","availableAnytime":"Her zaman müsait","talResourcesReady":"TAL’a katılım için yeterli Mücevher, Hızlandırma ve Işınlanma gerekir. 
-Hazır mısınız?","teleportCount":"Şu anda kaç Işınlanmanız var?","teamPreference":"TAL’da hangi takım veya takımlara katılmayı tercih edersiniz?","teamPreferenceNote":"Bu seçim yalnızca planlama ve mevcut seçenekleri anlamak içindir. Belirli bir takıma kayıt veya yerleştirme garantisi değildir. Organizatörler takım ihtiyaçları ve boş yerlere göre oyuncuları en uygun şekilde yerleştirmeye çalışacaktır.","teamAmtMain":"AMT Ana Takım","teamAmtSub":"AMT Yedek Takım","teamProMain":"PRO Ana Takım","teamProSub":"PRO Yedek Takım","teamNoPreference":"Tercihim yok — herhangi bir takıma katılabilirim","selectTime":"Her bölüm için en az bir saat seçin.","selectTeam":"En az bir takım seçeneği seçin."},
- "es":{"choose":"Elige tu idioma","portalTitle":"PORTAL DEL ESTADO","slogan":"Lidera. Defiende. Conquista.","president":"Presidente actual","svsWins":"Victorias de SVS","leagueTitles":"Títulos de liga","playerMonth":"Jugador del mes","announcement":"Anuncio del estado","footer":"Unidos permanecemos. Las leyendas nunca caen.","ministries":"Ministerios de SVS","svs":"Encuesta de SVS","fdt":"Encuesta de FDT","league":"Encuesta de TAL","enter":"Entrar al portal","name":"Nombre del jugador","gameId":"Tu ID del juego","alliance":"Alianza","ministry":"Ministerio solicitado","speedups":"Días de aceleradores","timings":"Horarios UTC preferidos - Solo 3 opciones","availability":"¿Estás disponible durante todo el evento?","troops":"Tipo de tropas","helios":"Tropas Helios","discord":"¿Puedes entrar a Discord si es necesario?","rotation":"Entiendes que el estado rotará a los participantes y priorizará lo que más beneficie al estado. No es algo personal.","leagueAvail":"¿Estás disponible durante todo TAL?","submit":"Enviar","back":"Atrás","secured":"Misión asegurada","securedText":"Tu respuesta ha sido enviada.","returnHome":"Volver","locked":"Sección cerrada","meat":"Recursos de carne","wood":"Recursos de madera","coal":"Recursos de carbón","iron":"Recursos de hierro","notes":"Notas","svsNotes":"¿Hay alguna nota importante que debamos conocer?","leagueNotes":"Notas si no estás disponible para algunos combates","externalGift":"Se abrirá el sitio oficial de códigos de regalo en una pestaña nueva. ¿Continuar?","externalTool":"Se abrirá una herramienta útil del juego en una pestaña nueva. ¿Continuar?","labyrinthRank":"¿Cuál es tu clasificación actual en el Laberinto?","labyrinthPoints":"¿Cuántos puntos tienes actualmente en el Laberinto?","weekdayAvailability":"¿En qué horarios puedes participar entre semana?","weekdayDays":"Lunes - Martes - Miércoles - Jueves - Viernes","weekendAvailability":"¿En qué horarios puedes participar durante el fin de semana?","weekendDays":"Sábado - Domingo","availableAnytime":"Disponible a cualquier hora","talResourcesReady":"Participar en TAL requiere suficientes Gemas, Aceleradores y Teletransportes. ¿Estás preparado?","teleportCount":"¿Cuántos Teletransportes tienes actualmente?","teamPreference":"¿En qué equipo o equipos prefieres participar en TAL?","teamPreferenceNote":"Esta selección sirve únicamente para la planificación y para conocer las opciones disponibles. No confirma ni garantiza una plaza en un equipo específico. Los organizadores intentarán asignar a los jugadores de la mejor manera según las necesidades y los espacios disponibles.","teamAmtMain":"Equipo principal de AMT","teamAmtSub":"Equipo suplente de AMT","teamProMain":"Equipo principal de PRO","teamProSub":"Equipo suplente de PRO","teamNoPreference":"Sin preferencia — puedo unirme a cualquier equipo","selectTime":"Selecciona al menos un horario en cada sección.","selectTeam":"Selecciona al menos una opción de equipo."},
- "pt":{"choose":"Escolha o seu idioma","portalTitle":"PORTAL DO ESTADO","slogan":"Lidere. Defenda. Conquiste.","president":"Presidente atual","svsWins":"Vitórias de SVS","leagueTitles":"Títulos 
-da liga","playerMonth":"Jogador do mês","announcement":"Anúncio do estado","footer":"Unidos permanecemos. As lendas nunca caem.","ministries":"Ministérios de SVS","svs":"Questionário de SVS","fdt":"Questionário de FDT","league":"Questionário de TAL","enter":"Entrar no portal","name":"Nome do jogador","gameId":"O seu ID de jogo","alliance":"Aliança","ministry":"Ministério pretendido","speedups":"Dias de acelerações","timings":"Horários UTC preferidos - Apenas 3 escolhas","availability":"Está disponível durante todo o evento?","troops":"Tipo de tropas","helios":"Tropas Helios","discord":"Pode entrar no Discord se necessário?","rotation":"Tem conhecimento de que o estado fará rotação dos participantes e dará prioridade ao que mais beneficia o estado. Não é nada pessoal.","leagueAvail":"Está disponível durante todo o TAL?","submit":"Enviar","back":"Voltar","secured":"Missão concluída","securedText":"A sua resposta foi enviada.","returnHome":"Regressar","locked":"Secção fechada","meat":"Recursos de carne","wood":"Recursos de madeira","coal":"Recursos de carvão","iron":"Recursos de ferro","notes":"Notas","svsNotes":"Há alguma nota importante que queira partilhar?","leagueNotes":"Notas caso não esteja disponível para alguns combates","externalGift":"O site oficial de códigos de oferta será aberto num novo separador. Continuar?","externalTool":"Uma ferramenta útil do jogo será aberta num novo separador. Continuar?","labyrinthRank":"Qual é a sua classificação atual no Labirinto?","labyrinthPoints":"Quantos pontos tem atualmente no Labirinto?","weekdayAvailability":"Em que horários pode participar durante os dias úteis?","weekdayDays":"Segunda - Terça - Quarta - Quinta - Sexta","weekendAvailability":"Em que horários pode participar durante o fim de semana?","weekendDays":"Sábado - Domingo","availableAnytime":"Disponível a qualquer hora","talResourcesReady":"Participar no TAL requer Gemas, Acelerações e Teleportes suficientes. Está preparado?","teleportCount":"Quantos Teleport
-es tem atualmente?","teamPreference":"Em que equipa ou equipas prefere participar no TAL?","teamPreferenceNote":"Esta seleção serve apenas para planeamento e para compreender as opções disponíveis. Não confirma nem garante uma vaga numa equipa específica. Os organizadores procurarão distribuir os jogadores da melhor forma, de acordo com as necessidades das equipas e as vagas disponíveis.","teamAmtMain":"Equipa principal da AMT","teamAmtSub":"Equipa suplente da AMT","teamProMain":"Equipa principal da PRO","teamProSub":"Equipa suplente da PRO","teamNoPreference":"Sem preferência — posso entrar em qualquer equipa","selectTime":"Selecione pelo menos um horário em cada secção.","selectTeam":"Selecione pelo menos uma opção de equipa."},
- "pl":{"choose":"Wybierz język","portalTitle":"PORTAL STANU","slogan":"Prowadź. Broń. Podbijaj.","president":"Obecny prezydent","svsWins":"Zwycięstwa SVS","leagueTitles":"Tytuły ligowe","playerMonth":"Gracz miesiąca","announcement":"Ogłoszenie stanu","footer":"Razem trwamy. Legendy nigdy nie upadają.","ministries":"Ministerstwa SVS","svs":"Ankieta SVS","fdt":"Ankieta FDT","league":"Ankieta TAL","enter":"Wejdź do portalu","name":"Nazwa gracza","gameId":"Twój identyfikator w grze","alliance":"Sojusz","ministry":"Wymagane ministerstwo","speedups":"Liczba dni przyspieszeń","timings":"Preferowane godziny UTC - Tylko 3 wybory","availability":"Czy jesteś dostępny przez całe wydarzenie?","troops":"Typ wojsk","helios":"Wojska Helios","discord":"Czy możesz dołączyć do Discorda w razie potrzeby?","rotation":"Rozumiesz, że stan będzie rotować uczestników i wybierać rozwiązania najbardziej korzystne dla stanu. To nie jest nic osobistego.","leagueAvail":"Czy jesteś dostępny przez cały TAL?","submit":"Wyślij","back":"Wstecz","secured":"Misja zabezpieczona","securedText":"Twoja odpowiedź została wysłana.","returnHome":"Powrót","locked":"Sekcja zamknięta","meat":"Zasoby mięsa","wood":"Zasoby drewna","coal":"Zasoby węgla","iron":"Zasoby żelaza","notes":"Uwagi","svsNotes":"Czy masz ważne uwagi, o których powinniśmy wiedzieć?","leagueNotes":"Uwagi, jeśli nie możesz uczestniczyć w niektórych bitwach","externalGift":"Oficjalna strona kodów podarunkowych otworzy się w nowej karcie. Kontynuować?","externalTool":"Pomocne narzędzie do gry otworzy się w nowej karcie. Kontynuować?","labyrinthRank":"Jakie jest twoje aktualne miejsce w Labiryncie?","labyrinthPoints":"Ile masz obecnie punktów w Labiryncie?","weekdayAvailability":"W jakich godzinach możesz uczestniczyć w dni robocze?","weekdayDays":"Poniedziałek - Wtorek - Środa - Czwartek - Piątek","weekendAvailability":"W jakich godzinach możesz uczestniczyć w weekend?","weekendDays":"Sobota - Niedziela","availableAnytime":"Dostępny o dowolnej p
-orze","talResourcesReady":"Udział w TAL wymaga wystarczającej liczby Klejnotów, Przyspieszeń i Teleportów. Czy jesteś gotowy?","teleportCount":"Ile Teleportów masz obecnie?","teamPreference":"Do którego zespołu lub zespołów w TAL chcesz dołączyć?","teamPreferenceNote":"Ten wybór służy wyłącznie planowaniu i poznaniu dostępnych opcji. Nie jest rejestracją ani gwarancją miejsca w konkretnym zespole. Organizatorzy postarają się przydzielić graczy odpowiednio do potrzeb zespołów i dostępnych miejsc.","teamAmtMain":"Główny zespół AMT","teamAmtSub":"Rezerwowy zespół AMT","teamProMain":"Główny zespół PRO","teamProSub":"Rezerwowy zespół PRO","teamNoPreference":"Brak preferencji — mogę dołączyć do dowolnego zespołu","selectTime":"Wybierz co najmniej jedną godzinę w każdej sekcji.","selectTeam":"Wybierz co najmniej jedną opcję zespołu."},
- "de":{"choose":"Wähle deine Sprache","portalTitle":"STAATSPORTAL","slogan":"Führe. Verteidige. Erobere.","president":"Aktueller Präsident","svsWins":"SVS-Siege","leagueTitles":"Liga-Titel","playerMonth":"Spieler des Monats","announcement":"Staatsankündigung","footer":"Gemeinsam stehen wir. Legenden fallen nie.","ministries":"SVS-Ministerien","svs":"SVS-Umfrage","fdt":"FDT-Umfrage","league":"TAL-Umfrage","enter":"Portal öffnen","name":"Spielername","gameId":"Deine Spiel-ID","alliance":"Allianz","ministry":"Gewünschtes Ministerium","speedups":"Tage an Beschleunigungen","timings":"Bevorzugte UTC-Zeiten - Nur 3 auswählen","availability":"Bist du während des gesamten Events verfügbar?","troops":"Truppentyp","helios":"Helios-Truppen","discord":"Kannst du bei Bedarf Discord beitreten?","rotation":"Dir ist bewusst, dass der Staat Teilnehmer rotieren lässt und priorisiert, was dem Staat am meisten hilft. Es ist nicht persönlich gemeint.","leagueAvail":"Bist du während des gesamten TAL verfügbar?","submit":"Senden","back":"Zurück","secured":"Mission gesichert","securedText":"Deine Antwort wurde gesendet.","returnHome":"Zurückkehren","locked":"Bereich geschlossen","meat":"Fleischressourcen","wood":"Holzressourcen","coal":"Kohleressourcen","iron":"Eisenressourcen","notes":"Notizen","svsNotes":"Gibt es wichtige Hinweise, die wir kennen sollten?","leagueNotes":"Hinweise, falls du bei bestimmten Kämpfen nicht verfügbar bist","externalGift":"Die offizielle Geschenkcode-Seite wird in einem neuen Tab geöffnet. Fortfahren?","externalTool":"Ein hilfreiches Spielwerkzeug wird in einem neuen Tab geöffnet. Fortfahren?","labyrinthRank":"Wie ist dein aktueller Labyrinth-Rang?","labyrinthPoints":"Wie viele Labyrinth-Punkte hast du aktuell?","weekdayAvailability":"Zu welchen Zeiten kannst du an Werktagen teilnehmen?","weekdayDays":"Montag - Dienstag - Mittwoch - Donnerstag - Freitag","weekendAvailability":"Zu welchen Zeiten kannst du am Wochenende teilnehmen?","weekendDays":"Samstag - Sonntag","availableAnytime":"Jederzeit verfügbar","talResourcesReady":"Für die Teilnahme an TAL sind genügend Edelsteine, Beschleunigungen und Teleports erforderlich. Bist du bereit?","teleportCount":"Wie viele Teleports hast du aktuell?","teamPreference":"Welchem Team oder welchen Teams möchtest du bei TAL beitreten?","teamPreferenceNote":"Diese Auswahl dient nur der Planung und der Übersicht über verfügbare Optionen. Sie ist keine Anmeldung und garantiert keinen Platz in einem bestimmten Team. Die Organisatoren werden versuchen, die Spieler passend zum Teambedarf und zu den verfügbaren Plätzen einzuteilen.","teamAmtMain":"AMT-Hauptteam","teamAmtSub":"AMT-Ersatzteam","teamProMain":"PRO-Hauptteam","teamProSub":"PRO-Ersatzteam","teamNoPreference":"Keine Präferenz — ich kann jedem Team beitreten","selectTime":"Wähle in jedem Abschnitt mindestens eine Zeit aus.","selectTeam":"Wähle mindestens eine Teamoption aus."},
- "zh-CN":{"choose":"选择您的语言","portalTitle":"州门户","slogan":"领导。防守。征服。","president":"现任州长","svsWins":"SVS 胜利次数","leagueTitles":"联赛冠军次数","playerMonth":"本月最佳玩家","announcement":"州公告","footer":"团结一致，传奇永不倒下。","ministries":"SVS 部门","svs":"SVS 调查","fdt":"FDT 调查","league":"TAL 调查","enter":"进入门户","name":"玩家名称","gameId":"您的游戏 ID","alliance":"联盟","ministry":"所需部门","speedups":"加速天数","timings":"首选 UTC 时间 - 仅选 3 个","availability":"您能参加整个活动吗？","troops":"部队类型","helios":"Helios 部队","discord":"需要时您能加入 Discord 吗？","rotation":"您已了解州内会轮换参与者，并优先选择最有利于州发展的安排。这绝非针对个人。","leagueAvail":"您能参加整个 TAL 吗？","submit":"提交","back":"返回","secured":"任务已完成","securedText":"您的回复已提交。","returnHome":"返回主页","locked":"区域已关闭","meat":"肉类资源","wood":"木材资源","coal":"煤炭资源","iron":"
-铁矿资源","notes":"备注","svsNotes":"是否有需要我们了解的重要备注？","leagueNotes":"如果某些比赛无法参加，请填写备注","externalGift":"将在新标签页打开官方礼包码网站。是否继续？","externalTool":"将在新标签页打开实用的游戏工具。是否继续？","labyrinthRank":"您当前的迷宫排名是多少？","labyrinthPoints":"您当前有多少迷宫积分？","weekdayAvailability":"工作日您可以在哪些时间参加？","weekdayDays":"星期一 - 星期二 - 星期三 - 星期四 - 星期五","weekendAvailability":"周末您可以在哪些时间参加？","weekendDays":"星期六 - 星期日","availableAnytime":"任何时间都可以","talResourcesReady":"参加 TAL 需要足够的宝石、加速和传送道具。您准备好了吗？","teleportCount":"您目前有多少个传送道具？","teamPreference":"您希望在 TAL 中加入哪个或哪些队伍？","teamPreferenceNote":"此选择仅用于规划和了解可用选项，不代表报名，也不保证进入特定队伍。组织者会根据队伍需求和可用名额，尽力进行最合适的安排。","teamAmtMain":"AMT 主队","teamAmtSub":"AMT 替补队","teamProMain":"PRO 主队","teamProSub":"PRO 替补队","teamNoPreference":"无偏好 — 我可以加入任何队伍","selectTime":"请在每个部分至少选择一个时间。","selectTeam":"请至少选择一个队伍选项。"}
+ en:{choose:'Choose your language',portalTitle:'STATE PORTAL',slogan:'Lead. Defend. Conquer.',president:'Current President',svsWins:'SVS Wins',leagueTitles:'League Titles',playerMonth:'Player of the Month',announcement:'State Announcement',footer:'United We Stand. Legends Never Fall.',ministries:'SVS Ministries',svs:'SVS Survey',fdt:'FDT Survey',league:'TAL Survey',enter:'Enter Portal',name:'Player Name',gameId:'Your Game ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'Speedups Days',timings:'Preferable Timings UTC - 3 Picks Only',availability:'Are you available for the entire event?',troops:'Troops Type',helios:'Helios Troops',discord:'Can you join Discord if needed?',rotation:'You are aware that the state will rotate joiners and prioritize what helps the state the most. It is not personal at all.',leagueAvail:'Are you available for the entire TAL?',submit:'Submit',back:'Back',secured:'Mission Secured',securedText:'Your response has been submitted.',returnHome:'Return',locked:'Section Closed',meat:'Meat Resources',wood:'Wood Resources',coal:'Coal Resources',iron:'Iron Resources',notes:'Notes',svsNotes:'Any important notes you want us to know?',leagueNotes:'Notes if you are unavailable for certain matches',externalGift:'You will open the official gift-code website in a new tab. Continue?',externalTool:'You will open a helpful game tool in a new tab. Continue?',labyrinthRank:'What is your current Labyrinth rank?',labyrinthPoints:'What are your current Labyrinth points?',weekdayAvailability:'What times can you participate during weekdays?',weekdayDays:'Monday - Tuesday - Wednesday - Thursday - Friday',weekendAvailability:'What times can you participate during the weekend?',weekendDays:'Saturday - Sunday',availableAnytime:'Available at any time',talResourcesReady:'Participating in TAL requires sufficient Gems, Speedups, and Teleports. Are you ready?',teleportCount:'How many Teleports do you currently have?',teamPreference:'Which team(s) would you prefer to join for TAL?',teamPreferenceNote:'This selection is for planning purposes and to understand the available options only. It does not confirm or guarantee placement in a specific team. The organizers will do their best to assign players appropriately based on team needs and available spots.',teamAmtMain:'AMT Main',teamAmtSub:'AMT Substitute',teamProMain:'PRO Main',teamProSub:'PRO Substitute',teamNoPreference:'No preference â€” I can join any team',selectTime:'Select at least one time for each section.',selectTeam:'Select at least one team option.'},
+ ar:{choose:'Ø§Ø®ØªØ± Ù„ØºØªÙƒ',portalTitle:'Ø¨ÙˆØ§Ø¨Ø© Ø§Ù„Ù…Ù‚Ø§Ø·Ø¹Ø©',slogan:'Ù‚ÙØ¯. Ø¯Ø§ÙØ¹. Ø§Ù†ØªØµØ±.',president:'Ø§Ù„Ø±Ø¦ÙŠØ³ Ø§Ù„Ø­Ø§Ù„ÙŠ',svsWins:'Ø§Ù†ØªØµØ§Ø±Ø§Øª SVS',leagueTitles:'Ø£Ù„Ù‚Ø§Ø¨ Ø§Ù„Ø¯ÙˆØ±ÙŠ',playerMonth:'Ù„Ø§Ø¹Ø¨ Ø§Ù„Ø´Ù‡Ø±',announcement:'Ø¥Ø¹Ù„Ø§Ù†Ø§Øª Ø§Ù„Ù…Ù‚Ø§Ø·Ø¹Ø©',footer:'Ù…ØªØ­Ø¯ÙˆÙ† Ù†Ù‚Ù. ÙˆØ§Ù„Ø£Ø³Ø§Ø·ÙŠØ± Ù„Ø§ ØªØ³Ù‚Ø·.',ministries:'ÙˆØ²Ø§Ø±Ø§Øª SVS',svs:'Ø§Ø³ØªØ¨ÙŠØ§Ù† SVS',fdt:'Ø§Ø³ØªØ¨ÙŠØ§Ù† FDT',league:'Ø§Ø³ØªØ¨ÙŠØ§Ù† TAL',enter:'Ø¯Ø®ÙˆÙ„ Ø§Ù„Ø¨ÙˆØ§Ø¨Ø©',name:'Ø§Ø³Ù… Ø§Ù„Ù„Ø§Ø¹Ø¨ Ø¨Ø§Ù„Ù„Ø¹Ø¨Ø©',gameId:'Ø±Ù‚Ù… ÙŠÙˆØ²Ø±Ùƒ Ø¨Ø§Ù„Ù„Ø¹Ø¨Ø©',alliance:'Ø§Ù„ØªØ­Ø§Ù„Ù',ministry:'Ø§Ù„ÙˆØ²Ø§Ø±Ø© Ø§Ù„Ù…Ø·Ù„ÙˆØ¨Ø©',speedups:'Ø¹Ø¯Ø¯ Ø£ÙŠØ§Ù… Ø§Ù„ØªØ³Ø±ÙŠØ¹Ø§Øª',timings:'Ø§Ù„Ø£ÙˆÙ‚Ø§Øª Ø§Ù„Ù…ÙØ¶Ù„Ø© UTC - Ø§Ø®ØªØ± 3 ÙÙ‚Ø·',availability:'Ù‡Ù„ Ø£Ù†Øª Ù…ØªØ§Ø­ Ø·ÙˆØ§Ù„ Ø§Ù„Ø­Ø¯Ø«ØŸ',troops:'Ù†ÙˆØ¹ Ø§Ù„Ù‚ÙˆØ§Øª',helios:'Ù‚ÙˆØ§Øª Ù‡ÙŠÙ„ÙŠÙˆØ³',discord:'Ù‡Ù„ ØªØ³ØªØ·ÙŠØ¹ Ø¯Ø®ÙˆÙ„ Ø§Ù„Ø¯ÙŠØ³ÙƒÙˆØ±Ø¯ Ø¹Ù†Ø¯ Ø§Ù„Ø­Ø§Ø¬Ø©ØŸ',rotation:'Ø£Ù†Øª ØªØ¹Ù„Ù… Ø£Ù† Ø§Ù„Ù…Ù‚Ø§Ø·Ø¹Ø© Ø³ØªØ¯ÙˆÙ‘Ø± Ø§Ù„Ù…Ø´Ø§Ø±ÙƒÙŠÙ† ÙˆØªØ®ØªØ§Ø± Ù…Ø§ ÙŠØ®Ø¯Ù… Ø§Ù„Ù…Ù‚Ø§Ø·Ø¹Ø© Ø£ÙƒØ«Ø±ØŒ ÙˆØ§Ù„Ø£Ù…Ø± Ù„ÙŠØ³ Ø´Ø®ØµÙŠÙ‹Ø§ Ø¥Ø·Ù„Ø§Ù‚Ù‹Ø§.',leagueAvail:'Ù‡Ù„ Ø£Ù†Øª Ù…ØªØ§Ø­ Ø·ÙˆØ§Ù„ Ø¨Ø·ÙˆÙ„Ø© TALØŸ',submit:'Ø¥Ø±Ø³Ø§Ù„',back:'Ø±Ø¬ÙˆØ¹',secured:'ØªÙ… ØªØ£Ù…ÙŠÙ† Ø§Ù„Ù…Ù‡Ù…Ø©',securedText:'ØªÙ… Ø¥Ø±Ø³Ø§Ù„ Ø¥Ø¬Ø§Ø¨ØªÙƒ Ø¨Ù†Ø¬Ø§Ø­.',returnHome:'Ø¹ÙˆØ¯Ø©',locked:'Ø§Ù„Ù‚Ø³Ù… Ù…ØºÙ„Ù‚',meat:'Ø¹Ø¯Ø¯ Ù…ÙˆØ§Ø±Ø¯ Ø§Ù„Ù„Ø­Ù…',wood:'Ø¹Ø¯Ø¯ Ù…ÙˆØ§Ø±Ø¯ Ø§Ù„Ø®Ø´Ø¨',coal:'Ø¹Ø¯Ø¯ Ù…ÙˆØ§Ø±Ø¯ Ø§Ù„ÙØ­Ù…',iron:'Ø¹Ø¯Ø¯ Ù…ÙˆØ§Ø±Ø¯ Ø§Ù„Ø­Ø¯ÙŠØ¯',notes:'Ù…Ù„Ø§Ø­Ø¸Ø§Øª',svsNotes:'Ø£ÙŠ Ù…Ù„Ø§Ø­Ø¸Ø© Ù…Ù‡Ù…Ø© ØªØ­Ø¨ Ù†Ø¹Ø±ÙÙ‡Ø§ØŸ',leagueNotes:'Ù…Ù„Ø§Ø­Ø¸Ø§Øª ÙÙŠ Ø­Ø§Ù„ Ø¹Ø¯Ù… Ø§Ù„ØªÙˆÙØ± ÙÙŠ Ø¨Ø¹Ø¶ Ø§Ù„Ù…Ø¨Ø§Ø±ÙŠØ§Øª',externalGift:'Ø±Ø§Ø­ ØªÙØªØ­ Ù…ÙˆÙ‚Ø¹ Ø£ÙƒÙˆØ§Ø¯ Ø§Ù„Ù‡Ø¯Ø§ÙŠØ§ Ø§Ù„Ø±Ø³Ù…ÙŠ ÙÙŠ ØªØ¨ÙˆÙŠØ¨ Ø¬Ø¯ÙŠØ¯. Ù†ÙƒÙ…Ù„ØŸ',externalTool:'Ø±Ø§Ø­ ØªÙØªØ­ Ø£Ø¯Ø§Ø© Ù…Ø³Ø§Ø¹Ø¯Ø© Ù„Ù„Ø¹Ø¨Ø© ÙÙŠ ØªØ¨ÙˆÙŠØ¨ Ø¬Ø¯ÙŠØ¯. Ù†ÙƒÙ…Ù„ØŸ',labyrinthRank:'Ù…Ø§ ØªØ±ØªÙŠØ¨Ùƒ Ø§Ù„Ø­Ø§Ù„ÙŠ ÙÙŠ Ø§Ù„Ù…ØªØ§Ù‡Ø©ØŸ',labyrinthPoints:'Ù…Ø§ Ù†Ù‚Ø§Ø·Ùƒ Ø§Ù„Ø­Ø§Ù„ÙŠØ© ÙÙŠ Ø§Ù„Ù…ØªØ§Ù‡Ø©ØŸ',weekdayAvailability:'Ù…Ø§ Ø§Ù„Ø£ÙˆÙ‚Ø§Øª Ø§Ù„ØªÙŠ ÙŠÙ…ÙƒÙ†Ùƒ Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ© ÙÙŠÙ‡Ø§ Ø®Ù„Ø§Ù„ Ø£ÙŠØ§Ù… Ø§Ù„Ø£Ø³Ø¨ÙˆØ¹ØŸ',weekdayDays:'Ø§Ù„Ø§Ø«Ù†ÙŠÙ† - Ø§Ù„Ø«Ù„Ø§Ø«Ø§Ø¡ - Ø§Ù„Ø£Ø±Ø¨Ø¹Ø§Ø¡ - Ø§Ù„Ø®Ù…ÙŠØ³ - Ø§Ù„Ø¬Ù…Ø¹Ø©',weekendAvailability:'Ù…Ø§ Ø§Ù„Ø£ÙˆÙ‚Ø§Øª Ø§Ù„ØªÙŠ ÙŠÙ…ÙƒÙ†Ùƒ Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ© ÙÙŠÙ‡Ø§ Ø®Ù„Ø§Ù„ Ø§Ù„ÙˆÙŠÙƒÙ†Ø¯ØŸ',weekendDays:'Ø§Ù„Ø³Ø¨Øª - Ø§Ù„Ø£Ø­Ø¯',availableAnytime:'Ù…ØªØ§Ø­ ÙÙŠ Ø£ÙŠ ÙˆÙ‚Øª',talResourcesReady:'Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ© ÙÙŠ TAL ØªØªØ·Ù„Ø¨ ØªÙˆÙØ± Ù…Ø¬ÙˆÙ‡Ø±Ø§Øª ÙˆØªØ³Ø±ÙŠØ¹Ø§Øª ÙˆØ§Ù†ØªÙ‚Ø§Ù„Ø§Øª ÙƒØ§ÙÙŠØ©ØŒ Ù‡Ù„ Ø£Ù†Øª Ø¬Ø§Ù‡Ø²ØŸ',teleportCount:'ÙƒÙ… Ø¹Ø¯Ø¯ Ø§Ù„Ø§Ù†ØªÙ‚Ø§Ù„Ø§Øª (Teleports) Ø§Ù„Ù…ØªÙˆÙØ±Ø© Ù„Ø¯ÙŠÙƒ Ø­Ø§Ù„ÙŠÙ‹Ø§ØŸ',teamPreference:'Ù…Ø§ Ø§Ù„ÙØ±ÙŠÙ‚ Ø£Ùˆ Ø§Ù„ÙØ±Ù‚ Ø§Ù„ØªÙŠ ØªÙØ¶Ù‘Ù„ Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ© Ù…Ø¹Ù‡Ø§ ÙÙŠ TALØŸ',teamPreferenceNote:'Ù‡Ø°Ø§ Ø§Ù„Ø§Ø®ØªÙŠØ§Ø± Ù„Ø£ØºØ±Ø§Ø¶ Ø§Ù„ØªÙ†Ø¸ÙŠÙ… ÙˆÙ…Ø¹Ø±ÙØ© Ø§Ù„Ø®ÙŠØ§Ø±Ø§Øª Ø§Ù„Ù…ØªØ§Ø­Ø© ÙÙ‚Ø·ØŒ ÙˆÙ„Ø§ ÙŠÙØ¹Ø¯ ØªØ³Ø¬ÙŠÙ„Ù‹Ø§ Ø£Ùˆ Ø¶Ù…Ø§Ù†Ù‹Ø§ Ù„Ù„Ø§Ù†Ø¶Ù…Ø§Ù… Ø¥Ù„Ù‰ ÙØ±ÙŠÙ‚ Ù…Ø­Ø¯Ø¯. Ø³ÙŠØ¨Ø°Ù„ Ø§Ù„Ù…Ù†Ø¸Ù…ÙˆÙ† Ù‚ØµØ§Ø±Ù‰ Ø¬Ù‡Ø¯Ù‡Ù… Ù„ØªÙˆØ²ÙŠØ¹ Ø§Ù„Ù„Ø§Ø¹Ø¨ÙŠÙ† Ø¨Ø§Ù„Ø´ÙƒÙ„ Ø§Ù„Ø£Ù†Ø³Ø¨ ÙˆÙÙ‚Ù‹Ø§ Ù„Ø§Ø­ØªÙŠØ§Ø¬ Ø§Ù„ÙØ±Ù‚ ÙˆØ§Ù„Ø£Ù…Ø§ÙƒÙ† Ø§Ù„Ù…ØªØ§Ø­Ø©.',teamAmtMain:'Ø§Ù„ÙØ±ÙŠÙ‚ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ Ù„Ù€ AMT',teamAmtSub:'ÙØ±ÙŠÙ‚ Ø§Ù„Ø¨Ø¯Ù„Ø§Ø¡ Ù„Ù€ AMT',teamProMain:'Ø§Ù„ÙØ±ÙŠÙ‚ Ø§Ù„Ø£Ø³Ø§Ø³ÙŠ Ù„Ù€ PRO',teamProSub:'ÙØ±ÙŠÙ‚ Ø§Ù„Ø¨Ø¯Ù„Ø§Ø¡ Ù„Ù€ PRO',teamNoPreference:'Ù„Ø§ ÙŠÙˆØ¬Ø¯ ØªÙØ¶ÙŠÙ„ â€” ÙŠÙ…ÙƒÙ†Ù†ÙŠ Ø§Ù„Ù…Ø´Ø§Ø±ÙƒØ© Ù…Ø¹ Ø£ÙŠ ÙØ±ÙŠÙ‚',selectTime:'Ø§Ø®ØªØ± ÙˆÙ‚ØªÙ‹Ø§ ÙˆØ§Ø­Ø¯Ù‹Ø§ Ø¹Ù„Ù‰ Ø§Ù„Ø£Ù‚Ù„ ÙÙŠ ÙƒÙ„ Ù‚Ø³Ù….',selectTeam:'Ø§Ø®ØªØ± Ø®ÙŠØ§Ø± ÙØ±ÙŠÙ‚ ÙˆØ§Ø­Ø¯Ù‹Ø§ Ø¹Ù„Ù‰ Ø§Ù„Ø£Ù‚Ù„.'},
+ id:{choose:'Pilih bahasa Anda',portalTitle:'PORTAL NEGARA',slogan:'Pimpin. Pertahankan. Taklukkan.',president:'Presiden Saat Ini',svsWins:'Kemenangan SVS',leagueTitles:'Gelar Liga',playerMonth:'Pemain Bulan Ini',announcement:'Pengumuman Negara',footer:'Bersatu Kita Berdiri. Legenda Tak Pernah Jatuh.',ministries:'SVS Ministries',svs:'Survei SVS',fdt:'Survei FDT',league:'Survei TAL',enter:'Masuk Portal',name:'Nama Pemain',gameId:'ID Game Anda',alliance:'Alliance',ministry:'Ministry Required',speedups:'Hari Speedups',timings:'Waktu Pilihan UTC - Maksimal 3',availability:'Apakah Anda tersedia sepanjang event?',troops:'Jenis Pasukan',helios:'Pasukan Helios',discord:'Bisakah Anda masuk Discord jika diperlukan?',rotation:'Anda memahami bahwa state akan melakukan rotasi joiner dan memprioritaskan yang paling membantu state. Ini sama sekali bukan masalah pribadi.',leagueAvail:'Apakah Anda tersedia sepanjang TAL?',submit:'Kirim',back:'Kembali',secured:'Misi Aman',securedText:'Jawaban Anda telah dikirim.',returnHome:'Kembali',locked:'Bagian Ditutup',meat:'Sumber Daya Meat',wood:'Sumber Daya Wood',coal:'Sumber Daya Coal',iron:'Sumber Daya Iron',notes:'Catatan',svsNotes:'Catatan penting yang ingin kamu sampaikan?',leagueNotes:'Catatan jika Anda tidak tersedia untuk beberapa pertandingan',externalGift:'Anda akan membuka situs resmi gift code di tab baru. Lanjutkan?',externalTool:'Anda akan membuka alat bantu game di tab baru. Lanjutkan?',labyrinthRank:'Berapa peringkat Labyrinth Anda saat ini?',labyrinthPoints:'Berapa poin Labyrinth Anda saat ini?',weekdayAvailability:'Pada jam berapa Anda dapat berpartisipasi di hari kerja?',weekdayDays:'Senin - Selasa - Rabu - Kamis - Jumat',weekendAvailability:'Pada jam berapa Anda dapat berpartisipasi saat akhir pekan?',weekendDays:'Sabtu - Minggu',availableAnytime:'Tersedia kapan saja',talResourcesReady:'TAL membutuhkan Gems, Speedups, dan Teleports yang cukup. Apakah Anda siap?',teleportCount:'Berapa jumlah Teleports yang Anda miliki saat ini?',teamPreference:'Tim mana yang Anda pilih untuk bergabung di TAL?',teamPreferenceNote:'Pilihan ini hanya untuk perencanaan dan memahami opsi yang tersedia. Pilihan ini bukan pendaftaran atau jaminan penempatan di tim tertentu. Penyelenggara akan berusaha sebaik mungkin menempatkan pemain sesuai kebutuhan tim dan tempat yang tersedia.',teamAmtMain:'Tim Utama AMT',teamAmtSub:'Tim Cadangan AMT',teamProMain:'Tim Utama PRO',teamProSub:'Tim Cadangan PRO',teamNoPreference:'Tidak ada preferensi â€” saya dapat bergabung dengan tim mana pun',selectTime:'Pilih setidaknya satu waktu di setiap bagian.',selectTeam:'Pilih setidaknya satu opsi tim.'},
+ ru:{choose:'Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ ÑÐ·Ñ‹Ðº',portalTitle:'ÐŸÐžÐ Ð¢ÐÐ› Ð¨Ð¢ÐÐ¢Ð',slogan:'Ð’ÐµÐ´Ð¸. Ð—Ð°Ñ‰Ð¸Ñ‰Ð°Ð¹. ÐŸÐ¾Ð±ÐµÐ¶Ð´Ð°Ð¹.',president:'Ð¢ÐµÐºÑƒÑ‰Ð¸Ð¹ Ð¿Ñ€ÐµÐ·Ð¸Ð´ÐµÐ½Ñ‚',svsWins:'ÐŸÐ¾Ð±ÐµÐ´Ñ‹ SVS',leagueTitles:'Ð¢Ð¸Ñ‚ÑƒÐ»Ñ‹ Ð»Ð¸Ð³Ð¸',playerMonth:'Ð˜Ð³Ñ€Ð¾Ðº Ð¼ÐµÑÑÑ†Ð°',announcement:'ÐžÐ±ÑŠÑÐ²Ð»ÐµÐ½Ð¸Ðµ ÑˆÑ‚Ð°Ñ‚Ð°',footer:'ÐœÑ‹ ÐµÐ´Ð¸Ð½Ñ‹. Ð›ÐµÐ³ÐµÐ½Ð´Ñ‹ Ð½Ðµ Ð¿Ð°Ð´Ð°ÑŽÑ‚.',ministries:'SVS Ministries',svs:'ÐžÐ¿Ñ€Ð¾Ñ SVS',fdt:'ÐžÐ¿Ñ€Ð¾Ñ FDT',league:'ÐžÐ¿Ñ€Ð¾Ñ TAL',enter:'Ð’Ð¾Ð¹Ñ‚Ð¸',name:'Ð˜Ð¼Ñ Ð¸Ð³Ñ€Ð¾ÐºÐ°',gameId:'Ð’Ð°Ñˆ Ð¸Ð³Ñ€Ð¾Ð²Ð¾Ð¹ ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'Ð”Ð½Ð¸ ÑƒÑÐºÐ¾Ñ€ÐµÐ½Ð¸Ð¹',timings:'ÐŸÑ€ÐµÐ´Ð¿Ð¾Ñ‡Ñ‚Ð¸Ñ‚ÐµÐ»ÑŒÐ½Ð¾Ðµ Ð²Ñ€ÐµÐ¼Ñ UTC - Ñ‚Ð¾Ð»ÑŒÐºÐ¾ 3',availability:'Ð’Ñ‹ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹ Ð½Ð° Ð²ÑÑ‘ ÑÐ¾Ð±Ñ‹Ñ‚Ð¸Ðµ?',troops:'Ð¢Ð¸Ð¿ Ð²Ð¾Ð¹ÑÐº',helios:'Ð’Ð¾Ð¹ÑÐºÐ° Helios',discord:'Ð¡Ð¼Ð¾Ð¶ÐµÑ‚Ðµ Ð·Ð°Ð¹Ñ‚Ð¸ Ð² Discord Ð¿Ñ€Ð¸ Ð½ÐµÐ¾Ð±Ñ…Ð¾Ð´Ð¸Ð¼Ð¾ÑÑ‚Ð¸?',rotation:'Ð’Ñ‹ Ð¿Ð¾Ð½Ð¸Ð¼Ð°ÐµÑ‚Ðµ, Ñ‡Ñ‚Ð¾ ÑˆÑ‚Ð°Ñ‚ Ð±ÑƒÐ´ÐµÑ‚ Ñ€Ð¾Ñ‚Ð¸Ñ€Ð¾Ð²Ð°Ñ‚ÑŒ ÑƒÑ‡Ð°ÑÑ‚Ð½Ð¸ÐºÐ¾Ð² Ð¸ Ð²Ñ‹Ð±Ð¸Ñ€Ð°Ñ‚ÑŒ Ñ‚Ð¾, Ñ‡Ñ‚Ð¾ Ð»ÑƒÑ‡ÑˆÐµ Ð²ÑÐµÐ³Ð¾ Ð¿Ð¾Ð¼Ð¾Ð³Ð°ÐµÑ‚ ÑˆÑ‚Ð°Ñ‚Ñƒ. Ð­Ñ‚Ð¾ Ð½Ðµ Ð»Ð¸Ñ‡Ð½Ð¾Ðµ.',leagueAvail:'Ð’Ñ‹ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹ Ð½Ð° Ð²ÐµÑÑŒ TAL?',submit:'ÐžÑ‚Ð¿Ñ€Ð°Ð²Ð¸Ñ‚ÑŒ',back:'ÐÐ°Ð·Ð°Ð´',secured:'ÐœÐ¸ÑÑÐ¸Ñ Ð¿Ñ€Ð¸Ð½ÑÑ‚Ð°',securedText:'Ð’Ð°Ñˆ Ð¾Ñ‚Ð²ÐµÑ‚ Ð¾Ñ‚Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½.',returnHome:'Ð’ÐµÑ€Ð½ÑƒÑ‚ÑŒÑÑ',locked:'Ð Ð°Ð·Ð´ÐµÐ» Ð·Ð°ÐºÑ€Ñ‹Ñ‚',meat:'Ð ÐµÑÑƒÑ€ÑÑ‹ Meat',wood:'Ð ÐµÑÑƒÑ€ÑÑ‹ Wood',coal:'Ð ÐµÑÑƒÑ€ÑÑ‹ Coal',iron:'Ð ÐµÑÑƒÑ€ÑÑ‹ Iron',notes:'Ð—Ð°Ð¼ÐµÑ‚ÐºÐ¸',svsNotes:'Ð•ÑÑ‚ÑŒ Ð²Ð°Ð¶Ð½Ñ‹Ðµ Ð·Ð°Ð¼ÐµÑ‚ÐºÐ¸, ÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ðµ Ð½Ð°Ð¼ ÑÑ‚Ð¾Ð¸Ñ‚ Ð·Ð½Ð°Ñ‚ÑŒ?',leagueNotes:'Ð—Ð°Ð¼ÐµÑ‚ÐºÐ¸, ÐµÑÐ»Ð¸ Ð²Ñ‹ Ð½ÐµÐ´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹ Ð´Ð»Ñ Ð½ÐµÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ñ… Ð¼Ð°Ñ‚Ñ‡ÐµÐ¹',externalGift:'ÐžÑ‚ÐºÑ€Ð¾ÐµÑ‚ÑÑ Ð¾Ñ„Ð¸Ñ†Ð¸Ð°Ð»ÑŒÐ½Ñ‹Ð¹ ÑÐ°Ð¹Ñ‚ gift code Ð² Ð½Ð¾Ð²Ð¾Ð¹ Ð²ÐºÐ»Ð°Ð´ÐºÐµ. ÐŸÑ€Ð¾Ð´Ð¾Ð»Ð¶Ð¸Ñ‚ÑŒ?',externalTool:'ÐžÑ‚ÐºÑ€Ð¾ÐµÑ‚ÑÑ Ð¿Ð¾Ð»ÐµÐ·Ð½Ñ‹Ð¹ Ð¸Ð³Ñ€Ð¾Ð²Ð¾Ð¹ Ð¸Ð½ÑÑ‚Ñ€ÑƒÐ¼ÐµÐ½Ñ‚ Ð² Ð½Ð¾Ð²Ð¾Ð¹ Ð²ÐºÐ»Ð°Ð´ÐºÐµ. ÐŸÑ€Ð¾Ð´Ð¾Ð»Ð¶Ð¸Ñ‚ÑŒ?',labyrinthRank:'ÐšÐ°ÐºÐ¾Ðµ Ñƒ Ð²Ð°Ñ Ñ‚ÐµÐºÑƒÑ‰ÐµÐµ Ð¼ÐµÑÑ‚Ð¾ Ð² Labyrinth?',labyrinthPoints:'Ð¡ÐºÐ¾Ð»ÑŒÐºÐ¾ Ñƒ Ð²Ð°Ñ ÑÐµÐ¹Ñ‡Ð°Ñ Ð¾Ñ‡ÐºÐ¾Ð² Labyrinth?',weekdayAvailability:'Ð’ ÐºÐ°ÐºÐ¾Ðµ Ð²Ñ€ÐµÐ¼Ñ Ð²Ñ‹ Ð¼Ð¾Ð¶ÐµÑ‚Ðµ ÑƒÑ‡Ð°ÑÑ‚Ð²Ð¾Ð²Ð°Ñ‚ÑŒ Ð² Ð±ÑƒÐ´Ð½Ð¸Ðµ Ð´Ð½Ð¸?',weekdayDays:'ÐŸÐ¾Ð½ÐµÐ´ÐµÐ»ÑŒÐ½Ð¸Ðº - Ð’Ñ‚Ð¾Ñ€Ð½Ð¸Ðº - Ð¡Ñ€ÐµÐ´Ð° - Ð§ÐµÑ‚Ð²ÐµÑ€Ð³ - ÐŸÑÑ‚Ð½Ð¸Ñ†Ð°',weekendAvailability:'Ð’ ÐºÐ°ÐºÐ¾Ðµ Ð²Ñ€ÐµÐ¼Ñ Ð²Ñ‹ Ð¼Ð¾Ð¶ÐµÑ‚Ðµ ÑƒÑ‡Ð°ÑÑ‚Ð²Ð¾Ð²Ð°Ñ‚ÑŒ Ð² Ð²Ñ‹Ñ…Ð¾Ð´Ð½Ñ‹Ðµ?',weekendDays:'Ð¡ÑƒÐ±Ð±Ð¾Ñ‚Ð° - Ð’Ð¾ÑÐºÑ€ÐµÑÐµÐ½ÑŒÐµ',availableAnytime:'Ð”Ð¾ÑÑ‚ÑƒÐ¿ÐµÐ½ Ð² Ð»ÑŽÐ±Ð¾Ðµ Ð²Ñ€ÐµÐ¼Ñ',talResourcesReady:'Ð”Ð»Ñ TAL Ð½ÑƒÐ¶Ð½Ñ‹ Gems, Speedups Ð¸ Teleports Ð² Ð´Ð¾ÑÑ‚Ð°Ñ‚Ð¾Ñ‡Ð½Ð¾Ð¼ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ðµ. Ð’Ñ‹ Ð³Ð¾Ñ‚Ð¾Ð²Ñ‹?',teleportCount:'Ð¡ÐºÐ¾Ð»ÑŒÐºÐ¾ Teleports Ñƒ Ð²Ð°Ñ ÑÐµÐ¹Ñ‡Ð°Ñ?',teamPreference:'Ðš ÐºÐ°ÐºÐ¾Ð¹ ÐºÐ¾Ð¼Ð°Ð½Ð´Ðµ Ð¸Ð»Ð¸ ÐºÐ¾Ð¼Ð°Ð½Ð´Ð°Ð¼ Ð²Ñ‹ Ð¿Ñ€ÐµÐ´Ð¿Ð¾Ñ‡Ð»Ð¸ Ð±Ñ‹ Ð¿Ñ€Ð¸ÑÐ¾ÐµÐ´Ð¸Ð½Ð¸Ñ‚ÑŒÑÑ Ð² TAL?',teamPreferenceNote:'Ð­Ñ‚Ð¾Ñ‚ Ð²Ñ‹Ð±Ð¾Ñ€ Ð½ÑƒÐ¶ÐµÐ½ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ð´Ð»Ñ Ð¿Ð»Ð°Ð½Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ Ð¸ Ð¿Ð¾Ð½Ð¸Ð¼Ð°Ð½Ð¸Ñ Ð´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ñ… Ð²Ð°Ñ€Ð¸Ð°Ð½Ñ‚Ð¾Ð². ÐžÐ½ Ð½Ðµ ÑÐ²Ð»ÑÐµÑ‚ÑÑ Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸ÐµÐ¹ Ð¸ Ð½Ðµ Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ñ€ÑƒÐµÑ‚ Ð¼ÐµÑÑ‚Ð¾ Ð² Ð¾Ð¿Ñ€ÐµÐ´ÐµÐ»Ñ‘Ð½Ð½Ð¾Ð¹ ÐºÐ¾Ð¼Ð°Ð½Ð´Ðµ. ÐžÑ€Ð³Ð°Ð½Ð¸Ð·Ð°Ñ‚Ð¾Ñ€Ñ‹ Ð¿Ð¾ÑÑ‚Ð°Ñ€Ð°ÑŽÑ‚ÑÑ Ñ€Ð°ÑÐ¿Ñ€ÐµÐ´ÐµÐ»Ð¸Ñ‚ÑŒ Ð¸Ð³Ñ€Ð¾ÐºÐ¾Ð² Ð½Ð°Ð¸Ð»ÑƒÑ‡ÑˆÐ¸Ð¼ Ð¾Ð±Ñ€Ð°Ð·Ð¾Ð¼ Ñ ÑƒÑ‡Ñ‘Ñ‚Ð¾Ð¼ Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð½Ð¾ÑÑ‚ÐµÐ¹ ÐºÐ¾Ð¼Ð°Ð½Ð´ Ð¸ ÑÐ²Ð¾Ð±Ð¾Ð´Ð½Ñ‹Ñ… Ð¼ÐµÑÑ‚.',teamAmtMain:'ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ ÑÐ¾ÑÑ‚Ð°Ð² AMT',teamAmtSub:'Ð—Ð°Ð¿Ð°ÑÐ½Ð¾Ð¹ ÑÐ¾ÑÑ‚Ð°Ð² AMT',teamProMain:'ÐžÑÐ½Ð¾Ð²Ð½Ð¾Ð¹ ÑÐ¾ÑÑ‚Ð°Ð² PRO',teamProSub:'Ð—Ð°Ð¿Ð°ÑÐ½Ð¾Ð¹ ÑÐ¾ÑÑ‚Ð°Ð² PRO',teamNoPreference:'Ð‘ÐµÐ· Ð¿Ñ€ÐµÐ´Ð¿Ð¾Ñ‡Ñ‚ÐµÐ½Ð¸Ð¹ â€” Ð¼Ð¾Ð³Ñƒ Ð¿Ñ€Ð¸ÑÐ¾ÐµÐ´Ð¸Ð½Ð¸Ñ‚ÑŒÑÑ Ðº Ð»ÑŽÐ±Ð¾Ð¹ ÐºÐ¾Ð¼Ð°Ð½Ð´Ðµ',selectTime:'Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ñ…Ð¾Ñ‚Ñ Ð±Ñ‹ Ð¾Ð´Ð½Ð¾ Ð²Ñ€ÐµÐ¼Ñ Ð² ÐºÐ°Ð¶Ð´Ð¾Ð¼ Ñ€Ð°Ð·Ð´ÐµÐ»Ðµ.',selectTeam:'Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ñ…Ð¾Ñ‚Ñ Ð±Ñ‹ Ð¾Ð´Ð¸Ð½ Ð²Ð°Ñ€Ð¸Ð°Ð½Ñ‚ ÐºÐ¾Ð¼Ð°Ð½Ð´Ñ‹.'},
+ ko:{choose:'ì–¸ì–´ë¥¼ ì„ íƒí•˜ì„¸ìš”',portalTitle:'ìŠ¤í…Œì´íŠ¸ í¬í„¸',slogan:'ì§€íœ˜í•˜ë¼. ë°©ì–´í•˜ë¼. ì •ë³µí•˜ë¼.',president:'í˜„ìž¬ ëŒ€í†µë ¹',svsWins:'SVS ìŠ¹ë¦¬',leagueTitles:'ë¦¬ê·¸ íƒ€ì´í‹€',playerMonth:'ì´ë‹¬ì˜ í”Œë ˆì´ì–´',announcement:'ìŠ¤í…Œì´íŠ¸ ê³µì§€',footer:'ìš°ë¦¬ëŠ” í•¨ê»˜ ì„ ë‹¤. ì „ì„¤ì€ ì“°ëŸ¬ì§€ì§€ ì•ŠëŠ”ë‹¤.',ministries:'SVS Ministries',svs:'SVS ì„¤ë¬¸',fdt:'FDT ì„¤ë¬¸',league:'TAL ì„¤ë¬¸',enter:'í¬í„¸ ìž…ìž¥',name:'í”Œë ˆì´ì–´ ì´ë¦„',gameId:'ê²Œìž„ ID',alliance:'Alliance',ministry:'Ministry Required',speedups:'ìŠ¤í”¼ë“œì—… ì¼ìˆ˜',timings:'ì„ í˜¸ ì‹œê°„ UTC - 3ê°œë§Œ ì„ íƒ',availability:'ì „ì²´ ì´ë²¤íŠ¸ì— ì°¸ì—¬ ê°€ëŠ¥í•©ë‹ˆê¹Œ?',troops:'ë³‘ë ¥ ìœ í˜•',helios:'Helios ë³‘ë ¥',discord:'í•„ìš” ì‹œ Discord ì°¸ì—¬ê°€ ê°€ëŠ¥í•©ë‹ˆê¹Œ?',rotation:'ìŠ¤í…Œì´íŠ¸ëŠ” ì¡°ì´ë„ˆë¥¼ ìˆœí™˜ ë°°ì¹˜í•˜ë©° ìŠ¤í…Œì´íŠ¸ì— ê°€ìž¥ ë„ì›€ì´ ë˜ëŠ” ê²ƒì„ ìš°ì„ í•©ë‹ˆë‹¤. ê°œì¸ì ì¸ ì´ìœ ê°€ ì•„ë‹™ë‹ˆë‹¤.',leagueAvail:'ì „ì²´ TALì— ì°¸ì—¬ ê°€ëŠ¥í•©ë‹ˆê¹Œ?',submit:'ì œì¶œ',back:'ë’¤ë¡œ',secured:'ìž„ë¬´ í™•ë³´',securedText:'ì‘ë‹µì´ ì œì¶œë˜ì—ˆìŠµë‹ˆë‹¤.',returnHome:'ëŒì•„ê°€ê¸°',locked:'ì„¹ì…˜ ë‹«íž˜',meat:'Meat ìžì›',wood:'Wood ìžì›',coal:'Coal ìžì›',iron:'Iron ìžì›',notes:'ë©”ëª¨',svsNotes:'ì €í¬ê°€ ì•Œì•„ì•¼ í•  ì¤‘ìš”í•œ ë©”ëª¨ê°€ ìžˆë‚˜ìš”?',leagueNotes:'ì¼ë¶€ ê²½ê¸° ì°¸ì—¬ê°€ ì–´ë ¤ìš´ ê²½ìš° ë©”ëª¨',externalGift:'ê³µì‹ ê¸°í”„íŠ¸ ì½”ë“œ ì‚¬ì´íŠ¸ê°€ ìƒˆ íƒ­ì—ì„œ ì—´ë¦½ë‹ˆë‹¤. ê³„ì†í• ê¹Œìš”?',externalTool:'ê²Œìž„ ë³´ì¡° ë„êµ¬ê°€ ìƒˆ íƒ­ì—ì„œ ì—´ë¦½ë‹ˆë‹¤. ê³„ì†í• ê¹Œìš”?',labyrinthRank:'í˜„ìž¬ Labyrinth ìˆœìœ„ëŠ” ëª‡ ìœ„ìž…ë‹ˆê¹Œ?',labyrinthPoints:'í˜„ìž¬ Labyrinth í¬ì¸íŠ¸ëŠ” ì–¼ë§ˆìž…ë‹ˆê¹Œ?',weekdayAvailability:'í‰ì¼ì— ì°¸ì—¬ ê°€ëŠ¥í•œ ì‹œê°„ì€ ì–¸ì œìž…ë‹ˆê¹Œ?',weekdayDays:'ì›”ìš”ì¼ - í™”ìš”ì¼ - ìˆ˜ìš”ì¼ - ëª©ìš”ì¼ - ê¸ˆìš”ì¼',weekendAvailability:'ì£¼ë§ì— ì°¸ì—¬ ê°€ëŠ¥í•œ ì‹œê°„ì€ ì–¸ì œìž…ë‹ˆê¹Œ?',weekendDays:'í† ìš”ì¼ - ì¼ìš”ì¼',availableAnytime:'ì–¸ì œë“ ì§€ ê°€ëŠ¥',talResourcesReady:'TAL ì°¸ì—¬ì—ëŠ” ì¶©ë¶„í•œ Gems, Speedups, Teleportsê°€ í•„ìš”í•©ë‹ˆë‹¤. ì¤€ë¹„ë˜ì…¨ìŠµë‹ˆê¹Œ?',teleportCount:'í˜„ìž¬ ë³´ìœ í•œ TeleportsëŠ” ëª‡ ê°œìž…ë‹ˆê¹Œ?',teamPreference:'TALì—ì„œ ì–´ëŠ íŒ€ì— ì°¸ì—¬í•˜ê¸°ë¥¼ í¬ë§í•©ë‹ˆê¹Œ?',teamPreferenceNote:'ì´ ì„ íƒì€ ìš´ì˜ ê³„íšê³¼ ê°€ëŠ¥í•œ ì„ íƒì§€ë¥¼ í™•ì¸í•˜ê¸° ìœ„í•œ ìš©ë„ì¼ ë¿ì´ë©°, íŠ¹ì • íŒ€ ë“±ë¡ì´ë‚˜ ë°°ì •ì„ ë³´ìž¥í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤. ìš´ì˜ì§„ì€ íŒ€ì˜ í•„ìš”ì™€ ê°€ëŠ¥í•œ ìžë¦¬ë¥¼ ê³ ë ¤í•˜ì—¬ ìµœì„ ì„ ë‹¤í•´ ë°°ì •í•  ê²ƒìž…ë‹ˆë‹¤.',teamAmtMain:'AMT ë©”ì¸ íŒ€',teamAmtSub:'AMT í›„ë³´ íŒ€',teamProMain:'PRO ë©”ì¸ íŒ€',teamProSub:'PRO í›„ë³´ íŒ€',teamNoPreference:'ì„ í˜¸ ì—†ìŒ â€” ì–´ëŠ íŒ€ì´ë“  ì°¸ì—¬ ê°€ëŠ¥',selectTime:'ê° êµ¬ì—­ì—ì„œ ìµœì†Œ í•œ ê°œì˜ ì‹œê°„ì„ ì„ íƒí•˜ì„¸ìš”.',selectTeam:'íŒ€ ì˜µì…˜ì„ í•˜ë‚˜ ì´ìƒ ì„ íƒí•˜ì„¸ìš”.'},
+ "tr":{"choose":"Dilinizi seÃ§in","portalTitle":"EYALET PORTALI","slogan":"Liderlik et. Savun. Fethet.","president":"Mevcut BaÅŸkan","svsWins":"SVS Zaferleri","leagueTitles":"Lig ÅžampiyonluklarÄ±","playerMonth":"AyÄ±n Oyuncusu","announcement":"Eyalet Duyurusu","footer":"Birlikte AyaktayÄ±z. Efsaneler Asla DÃ¼ÅŸmez.","ministries":"SVS BakanlÄ±klarÄ±","svs":"SVS Anketi","fdt":"FDT Anketi","league":"TAL Anketi","enter":"Portala Gir","name":"Oyuncu AdÄ±","gameId":"Oyun IDâ€™niz","alliance":"Ä°ttifak","ministry":"Gerekli BakanlÄ±k","speedups":"HÄ±zlandÄ±rma GÃ¼nleri","timings":"Tercih Edilen UTC Saatleri - YalnÄ±zca 3 SeÃ§im","availability":"EtkinliÄŸin tamamÄ±nda mÃ¼sait misiniz?","troops":"Birlik TÃ¼rÃ¼","helios":"Helios Birlikleri","discord":"GerektiÄŸinde Discordâ€™a katÄ±labilir misiniz?","rotation":"Eyaletin katÄ±lÄ±mcÄ±larÄ± dÃ¶nÃ¼ÅŸÃ¼mlÃ¼ kullanacaÄŸÄ±nÄ± ve eyalete en Ã§ok fayda saÄŸlayan seÃ§eneÄŸe Ã¶ncelik vereceÄŸini biliyorsunuz. Bu kesinlikle kiÅŸisel deÄŸildir.","leagueAvail":"TALâ€™Ä±n tamamÄ±nda mÃ¼sait misiniz?","submit":"GÃ¶nder","back":"Geri","secured":"GÃ¶rev TamamlandÄ±","securedText":"YanÄ±tÄ±nÄ±z gÃ¶nderildi.","returnHome":"Geri DÃ¶n","locked":"BÃ¶lÃ¼m KapalÄ±","meat":"Et KaynaklarÄ±","wood":"Odun KaynaklarÄ±","coal":"KÃ¶mÃ¼r KaynaklarÄ±","iron":"Demir KaynaklarÄ±","notes":"Notlar","svsNotes":"Bilmemizi istediÄŸiniz Ã¶nemli bir not var mÄ±?","leagueNotes":"BazÄ± maÃ§larda mÃ¼sait deÄŸilseniz not ekleyin","externalGift":"ResmÃ® hediye kodu sitesi yeni sekmede aÃ§Ä±lacak. Devam edilsin mi?","externalTool":"YararlÄ± bir oyun aracÄ± yeni sekmede aÃ§Ä±lacak. Devam edilsin mi?","labyrinthRank":"Mevcut Labirent sÄ±ralamanÄ±z nedir?","labyrinthPoints":"Mevcut Labirent puanÄ±nÄ±z kaÃ§?","weekdayAvailability":"Hafta iÃ§i hangi saatlerde katÄ±labilirsiniz?","weekdayDays":"Pazartesi - SalÄ± - Ã‡arÅŸamba - PerÅŸembe - Cuma","weekendAvailability":"Hafta sonu hangi saatlerde katÄ±labilirsiniz?","weekendDays":"Cumartesi - Pazar","availableAnytime":"Her zaman mÃ¼sait","talResourcesReady":"TALâ€™a katÄ±lÄ±m iÃ§in yeterli MÃ¼cevher, HÄ±zlandÄ±rma ve IÅŸÄ±nlanma gerekir. HazÄ±r mÄ±sÄ±nÄ±z?","teleportCount":"Åžu anda kaÃ§ IÅŸÄ±nlanmanÄ±z var?","teamPreference":"TALâ€™da hangi takÄ±m veya takÄ±mlara katÄ±lmayÄ± tercih edersiniz?","teamPreferenceNote":"Bu seÃ§im yalnÄ±zca planlama ve mevcut seÃ§enekleri anlamak iÃ§indir. Belirli bir takÄ±ma kayÄ±t veya yerleÅŸtirme garantisi deÄŸildir. OrganizatÃ¶rler takÄ±m ihtiyaÃ§larÄ± ve boÅŸ yerlere gÃ¶re oyuncularÄ± en uygun ÅŸekilde yerleÅŸtirmeye Ã§alÄ±ÅŸacaktÄ±r.","teamAmtMain":"AMT Ana TakÄ±m","teamAmtSub":"AMT Yedek TakÄ±m","teamProMain":"PRO Ana TakÄ±m","teamProSub":"PRO Yedek TakÄ±m","teamNoPreference":"Tercihim yok â€” herhangi bir takÄ±ma katÄ±labilirim","selectTime":"Her bÃ¶lÃ¼m iÃ§in en az bir saat seÃ§in.","selectTeam":"En az bir takÄ±m seÃ§eneÄŸi seÃ§in."},
+ "es":{"choose":"Elige tu idioma","portalTitle":"PORTAL DEL ESTADO","slogan":"Lidera. Defiende. Conquista.","president":"Presidente actual","svsWins":"Victorias de SVS","leagueTitles":"TÃ­tulos de liga","playerMonth":"Jugador del mes","announcement":"Anuncio del estado","footer":"Unidos permanecemos. Las leyendas nunca caen.","ministries":"Ministerios de SVS","svs":"Encuesta de SVS","fdt":"Encuesta de FDT","league":"Encuesta de TAL","enter":"Entrar al portal","name":"Nombre del jugador","gameId":"Tu ID del juego","alliance":"Alianza","ministry":"Ministerio solicitado","speedups":"DÃ­as de aceleradores","timings":"Horarios UTC preferidos - Solo 3 opciones","availability":"Â¿EstÃ¡s disponible durante todo el evento?","troops":"Tipo de tropas","helios":"Tropas Helios","discord":"Â¿Puedes entrar a Discord si es necesario?","rotation":"Entiendes que el estado rotarÃ¡ a los participantes y priorizarÃ¡ lo que mÃ¡s beneficie al estado. No es algo personal.","leagueAvail":"Â¿EstÃ¡s disponible durante todo TAL?","submit":"Enviar","back":"AtrÃ¡s","secured":"MisiÃ³n asegurada","securedText":"Tu respuesta ha sido enviada.","returnHome":"Volver","locked":"SecciÃ³n cerrada","meat":"Recursos de carne","wood":"Recursos de madera","coal":"Recursos de carbÃ³n","iron":"Recursos de hierro","notes":"Notas","svsNotes":"Â¿Hay alguna nota importante que debamos conocer?","leagueNotes":"Notas si no estÃ¡s disponible para algunos combates","externalGift":"Se abrirÃ¡ el sitio oficial de cÃ³digos de regalo en una pestaÃ±a nueva. Â¿Continuar?","externalTool":"Se abrirÃ¡ una herramienta Ãºtil del juego en una pestaÃ±a nueva. Â¿Continuar?","labyrinthRank":"Â¿CuÃ¡l es tu clasificaciÃ³n actual en el Laberinto?","labyrinthPoints":"Â¿CuÃ¡ntos puntos tienes actualmente en el Laberinto?","weekdayAvailability":"Â¿En quÃ© horarios puedes participar entre semana?","weekdayDays":"Lunes - Martes - MiÃ©rcoles - Jueves - Viernes","weekendAvailability":"Â¿En quÃ© horarios puedes participar durante el fin de semana?","weekendDays":"SÃ¡bado - Domingo","availableAnytime":"Disponible a cualquier hora","talResourcesReady":"Participar en TAL requiere suficientes Gemas, Aceleradores y Teletransportes. Â¿EstÃ¡s preparado?","teleportCount":"Â¿CuÃ¡ntos Teletransportes tienes actualmente?","teamPreference":"Â¿En quÃ© equipo o equipos prefieres participar en TAL?","teamPreferenceNote":"Esta selecciÃ³n sirve Ãºnicamente para la planificaciÃ³n y para conocer las opciones disponibles. No confirma ni garantiza una plaza en un equipo especÃ­fico. Los organizadores intentarÃ¡n asignar a los jugadores de la mejor manera segÃºn las necesidades y los espacios disponibles.","teamAmtMain":"Equipo principal de AMT","teamAmtSub":"Equipo suplente de AMT","teamProMain":"Equipo principal de PRO","teamProSub":"Equipo suplente de PRO","teamNoPreference":"Sin preferencia â€” puedo unirme a cualquier equipo","selectTime":"Selecciona al menos un horario en cada secciÃ³n.","selectTeam":"Selecciona al menos una opciÃ³n de equipo."},
+ "pt":{"choose":"Escolha o seu idioma","portalTitle":"PORTAL DO ESTADO","slogan":"Lidere. Defenda. Conquiste.","president":"Presidente atual","svsWins":"VitÃ³rias de SVS","leagueTitles":"TÃ­tulos da liga","playerMonth":"Jogador do mÃªs","announcement":"AnÃºncio do estado","footer":"Unidos permanecemos. As lendas nunca caem.","ministries":"MinistÃ©rios de SVS","svs":"QuestionÃ¡rio de SVS","fdt":"QuestionÃ¡rio de FDT","league":"QuestionÃ¡rio de TAL","enter":"Entrar no portal","name":"Nome do jogador","gameId":"O seu ID de jogo","alliance":"AlianÃ§a","ministry":"MinistÃ©rio pretendido","speedups":"Dias de aceleraÃ§Ãµes","timings":"HorÃ¡rios UTC preferidos - Apenas 3 escolhas","availability":"EstÃ¡ disponÃ­vel durante todo o evento?","troops":"Tipo de tropas","helios":"Tropas Helios","discord":"Pode entrar no Discord se necessÃ¡rio?","rotation":"Tem conhecimento de que o estado farÃ¡ rotaÃ§Ã£o dos participantes e darÃ¡ prioridade ao que mais beneficia o estado. NÃ£o Ã© nada pessoal.","leagueAvail":"EstÃ¡ disponÃ­vel durante todo o TAL?","submit":"Enviar","back":"Voltar","secured":"MissÃ£o concluÃ­da","securedText":"A sua resposta foi enviada.","returnHome":"Regressar","locked":"SecÃ§Ã£o fechada","meat":"Recursos de carne","wood":"Recursos de madeira","coal":"Recursos de carvÃ£o","iron":"Recursos de ferro","notes":"Notas","svsNotes":"HÃ¡ alguma nota importante que queira partilhar?","leagueNotes":"Notas caso nÃ£o esteja disponÃ­vel para alguns combates","externalGift":"O site oficial de cÃ³digos de oferta serÃ¡ aberto num novo separador. Continuar?","externalTool":"Uma ferramenta Ãºtil do jogo serÃ¡ aberta num novo separador. Continuar?","labyrinthRank":"Qual Ã© a sua classificaÃ§Ã£o atual no Labirinto?","labyrinthPoints":"Quantos pontos tem atualmente no Labirinto?","weekdayAvailability":"Em que horÃ¡rios pode participar durante os dias Ãºteis?","weekdayDays":"Segunda - TerÃ§a - Quarta - Quinta - Sexta","weekendAvailability":"Em que horÃ¡rios pode participar durante o fim de semana?","weekendDays":"SÃ¡bado - Domingo","availableAnytime":"DisponÃ­vel a qualquer hora","talResourcesReady":"Participar no TAL requer Gemas, AceleraÃ§Ãµes e Teleportes suficientes. EstÃ¡ preparado?","teleportCount":"Quantos Teleportes tem atualmente?","teamPreference":"Em que equipa ou equipas prefere participar no TAL?","teamPreferenceNote":"Esta seleÃ§Ã£o serve apenas para planeamento e para compreender as opÃ§Ãµes disponÃ­veis. NÃ£o confirma nem garante uma vaga numa equipa especÃ­fica. Os organizadores procurarÃ£o distribuir os jogadores da melhor forma, de acordo com as necessidades das equipas e as vagas disponÃ­veis.","teamAmtMain":"Equipa principal da AMT","teamAmtSub":"Equipa suplente da AMT","teamProMain":"Equipa principal da PRO","teamProSub":"Equipa suplente da PRO","teamNoPreference":"Sem preferÃªncia â€” posso entrar em qualquer equipa","selectTime":"Selecione pelo menos um horÃ¡rio em cada secÃ§Ã£o.","selectTeam":"Selecione pelo menos uma opÃ§Ã£o de equipa."},
+ "pl":{"choose":"Wybierz jÄ™zyk","portalTitle":"PORTAL STANU","slogan":"ProwadÅº. BroÅ„. Podbijaj.","president":"Obecny prezydent","svsWins":"ZwyciÄ™stwa SVS","leagueTitles":"TytuÅ‚y ligowe","playerMonth":"Gracz miesiÄ…ca","announcement":"OgÅ‚oszenie stanu","footer":"Razem trwamy. Legendy nigdy nie upadajÄ….","ministries":"Ministerstwa SVS","svs":"Ankieta SVS","fdt":"Ankieta FDT","league":"Ankieta TAL","enter":"WejdÅº do portalu","name":"Nazwa gracza","gameId":"TwÃ³j identyfikator w grze","alliance":"Sojusz","ministry":"Wymagane ministerstwo","speedups":"Liczba dni przyspieszeÅ„","timings":"Preferowane godziny UTC - Tylko 3 wybory","availability":"Czy jesteÅ› dostÄ™pny przez caÅ‚e wydarzenie?","troops":"Typ wojsk","helios":"Wojska Helios","discord":"Czy moÅ¼esz doÅ‚Ä…czyÄ‡ do Discorda w razie potrzeby?","rotation":"Rozumiesz, Å¼e stan bÄ™dzie rotowaÄ‡ uczestnikÃ³w i wybieraÄ‡ rozwiÄ…zania najbardziej korzystne dla stanu. To nie jest nic osobistego.","leagueAvail":"Czy jesteÅ› dostÄ™pny przez caÅ‚y TAL?","submit":"WyÅ›lij","back":"Wstecz","secured":"Misja zabezpieczona","securedText":"Twoja odpowiedÅº zostaÅ‚a wysÅ‚ana.","returnHome":"PowrÃ³t","locked":"Sekcja zamkniÄ™ta","meat":"Zasoby miÄ™sa","wood":"Zasoby drewna","coal":"Zasoby wÄ™gla","iron":"Zasoby Å¼elaza","notes":"Uwagi","svsNotes":"Czy masz waÅ¼ne uwagi, o ktÃ³rych powinniÅ›my wiedzieÄ‡?","leagueNotes":"Uwagi, jeÅ›li nie moÅ¼esz uczestniczyÄ‡ w niektÃ³rych bitwach","externalGift":"Oficjalna strona kodÃ³w podarunkowych otworzy siÄ™ w nowej karcie. KontynuowaÄ‡?","externalTool":"Pomocne narzÄ™dzie do gry otworzy siÄ™ w nowej karcie. KontynuowaÄ‡?","labyrinthRank":"Jakie jest twoje aktualne miejsce w Labiryncie?","labyrinthPoints":"Ile masz obecnie punktÃ³w w Labiryncie?","weekdayAvailability":"W jakich godzinach moÅ¼esz uczestniczyÄ‡ w dni robocze?","weekdayDays":"PoniedziaÅ‚ek - Wtorek - Åšroda - Czwartek - PiÄ…tek","weekendAvailability":"W jakich godzinach moÅ¼esz uczestniczyÄ‡ w weekend?","weekendDays":"Sobota - Niedziela","availableAnytime":"DostÄ™pny o dowolnej porze","talResourcesReady":"UdziaÅ‚ w TAL wymaga wystarczajÄ…cej liczby KlejnotÃ³w, PrzyspieszeÅ„ i TeleportÃ³w. Czy jesteÅ› gotowy?","teleportCount":"Ile TeleportÃ³w masz obecnie?","teamPreference":"Do ktÃ³rego zespoÅ‚u lub zespoÅ‚Ã³w w TAL chcesz doÅ‚Ä…czyÄ‡?","teamPreferenceNote":"Ten wybÃ³r sÅ‚uÅ¼y wyÅ‚Ä…cznie planowaniu i poznaniu dostÄ™pnych opcji. Nie jest rejestracjÄ… ani gwarancjÄ… miejsca w konkretnym zespole. Organizatorzy postarajÄ… siÄ™ przydzieliÄ‡ graczy odpowiednio do potrzeb zespoÅ‚Ã³w i dostÄ™pnych miejsc.","teamAmtMain":"GÅ‚Ã³wny zespÃ³Å‚ AMT","teamAmtSub":"Rezerwowy zespÃ³Å‚ AMT","teamProMain":"GÅ‚Ã³wny zespÃ³Å‚ PRO","teamProSub":"Rezerwowy zespÃ³Å‚ PRO","teamNoPreference":"Brak preferencji â€” mogÄ™ doÅ‚Ä…czyÄ‡ do dowolnego zespoÅ‚u","selectTime":"Wybierz co najmniej jednÄ… godzinÄ™ w kaÅ¼dej sekcji.","selectTeam":"Wybierz co najmniej jednÄ… opcjÄ™ zespoÅ‚u."},
+ "de":{"choose":"WÃ¤hle deine Sprache","portalTitle":"STAATSPORTAL","slogan":"FÃ¼hre. Verteidige. Erobere.","president":"Aktueller PrÃ¤sident","svsWins":"SVS-Siege","leagueTitles":"Liga-Titel","playerMonth":"Spieler des Monats","announcement":"StaatsankÃ¼ndigung","footer":"Gemeinsam stehen wir. Legenden fallen nie.","ministries":"SVS-Ministerien","svs":"SVS-Umfrage","fdt":"FDT-Umfrage","league":"TAL-Umfrage","enter":"Portal Ã¶ffnen","name":"Spielername","gameId":"Deine Spiel-ID","alliance":"Allianz","ministry":"GewÃ¼nschtes Ministerium","speedups":"Tage an Beschleunigungen","timings":"Bevorzugte UTC-Zeiten - Nur 3 auswÃ¤hlen","availability":"Bist du wÃ¤hrend des gesamten Events verfÃ¼gbar?","troops":"Truppentyp","helios":"Helios-Truppen","discord":"Kannst du bei Bedarf Discord beitreten?","rotation":"Dir ist bewusst, dass der Staat Teilnehmer rotieren lÃ¤sst und priorisiert, was dem Staat am meisten hilft. Es ist nicht persÃ¶nlich gemeint.","leagueAvail":"Bist du wÃ¤hrend des gesamten TAL verfÃ¼gbar?","submit":"Senden","back":"ZurÃ¼ck","secured":"Mission gesichert","securedText":"Deine Antwort wurde gesendet.","returnHome":"ZurÃ¼ckkehren","locked":"Bereich geschlossen","meat":"Fleischressourcen","wood":"Holzressourcen","coal":"Kohleressourcen","iron":"Eisenressourcen","notes":"Notizen","svsNotes":"Gibt es wichtige Hinweise, die wir kennen sollten?","leagueNotes":"Hinweise, falls du bei bestimmten KÃ¤mpfen nicht verfÃ¼gbar bist","externalGift":"Die offizielle Geschenkcode-Seite wird in einem neuen Tab geÃ¶ffnet. Fortfahren?","externalTool":"Ein hilfreiches Spielwerkzeug wird in einem neuen Tab geÃ¶ffnet. Fortfahren?","labyrinthRank":"Wie ist dein aktueller Labyrinth-Rang?","labyrinthPoints":"Wie viele Labyrinth-Punkte hast du aktuell?","weekdayAvailability":"Zu welchen Zeiten kannst du an Werktagen teilnehmen?","weekdayDays":"Montag - Dienstag - Mittwoch - Donnerstag - Freitag","weekendAvailability":"Zu welchen Zeiten kannst du am Wochenende teilnehmen?","weekendDays":"Samstag - Sonntag","availableAnytime":"Jederzeit verfÃ¼gbar","talResourcesReady":"FÃ¼r die Teilnahme an TAL sind genÃ¼gend Edelsteine, Beschleunigungen und Teleports erforderlich. Bist du bereit?","teleportCount":"Wie viele Teleports hast du aktuell?","teamPreference":"Welchem Team oder welchen Teams mÃ¶chtest du bei TAL beitreten?","teamPreferenceNote":"Diese Auswahl dient nur der Planung und der Ãœbersicht Ã¼ber verfÃ¼gbare Optionen. Sie ist keine Anmeldung und garantiert keinen Platz in einem bestimmten Team. Die Organisatoren werden versuchen, die Spieler passend zum Teambedarf und zu den verfÃ¼gbaren PlÃ¤tzen einzuteilen.","teamAmtMain":"AMT-Hauptteam","teamAmtSub":"AMT-Ersatzteam","teamProMain":"PRO-Hauptteam","teamProSub":"PRO-Ersatzteam","teamNoPreference":"Keine PrÃ¤ferenz â€” ich kann jedem Team beitreten","selectTime":"WÃ¤hle in jedem Abschnitt mindestens eine Zeit aus.","selectTeam":"WÃ¤hle mindestens eine Teamoption aus."},
+ "zh-CN":{"choose":"é€‰æ‹©æ‚¨çš„è¯­è¨€","portalTitle":"å·žé—¨æˆ·","slogan":"é¢†å¯¼ã€‚é˜²å®ˆã€‚å¾æœã€‚","president":"çŽ°ä»»å·žé•¿","svsWins":"SVS èƒœåˆ©æ¬¡æ•°","leagueTitles":"è”èµ›å† å†›æ¬¡æ•°","playerMonth":"æœ¬æœˆæœ€ä½³çŽ©å®¶","announcement":"å·žå…¬å‘Š","footer":"å›¢ç»“ä¸€è‡´ï¼Œä¼ å¥‡æ°¸ä¸å€’ä¸‹ã€‚","ministries":"SVS éƒ¨é—¨","svs":"SVS è°ƒæŸ¥","fdt":"FDT è°ƒæŸ¥","league":"TAL è°ƒæŸ¥","enter":"è¿›å…¥é—¨æˆ·","name":"çŽ©å®¶åç§°","gameId":"æ‚¨çš„æ¸¸æˆ ID","alliance":"è”ç›Ÿ","ministry":"æ‰€éœ€éƒ¨é—¨","speedups":"åŠ é€Ÿå¤©æ•°","timings":"é¦–é€‰ UTC æ—¶é—´ - ä»…é€‰ 3 ä¸ª","availability":"æ‚¨èƒ½å‚åŠ æ•´ä¸ªæ´»åŠ¨å—ï¼Ÿ","troops":"éƒ¨é˜Ÿç±»åž‹","helios":"Helios éƒ¨é˜Ÿ","discord":"éœ€è¦æ—¶æ‚¨èƒ½åŠ å…¥ Discord å—ï¼Ÿ","rotation":"æ‚¨å·²äº†è§£å·žå†…ä¼šè½®æ¢å‚ä¸Žè€…ï¼Œå¹¶ä¼˜å…ˆé€‰æ‹©æœ€æœ‰åˆ©äºŽå·žå‘å±•çš„å®‰æŽ’ã€‚è¿™ç»éžé’ˆå¯¹ä¸ªäººã€‚","leagueAvail":"æ‚¨èƒ½å‚åŠ æ•´ä¸ª TAL å—ï¼Ÿ","submit":"æäº¤","back":"è¿”å›ž","secured":"ä»»åŠ¡å·²å®Œæˆ","securedText":"æ‚¨çš„å›žå¤å·²æäº¤ã€‚","returnHome":"è¿”å›žä¸»é¡µ","locked":"åŒºåŸŸå·²å…³é—­","meat":"è‚‰ç±»èµ„æº","wood":"æœ¨æèµ„æº","coal":"ç…¤ç‚­èµ„æº","iron":"é“çŸ¿èµ„æº","notes":"å¤‡æ³¨","svsNotes":"æ˜¯å¦æœ‰éœ€è¦æˆ‘ä»¬äº†è§£çš„é‡è¦å¤‡æ³¨ï¼Ÿ","leagueNotes":"å¦‚æžœæŸäº›æ¯”èµ›æ— æ³•å‚åŠ ï¼Œè¯·å¡«å†™å¤‡æ³¨","externalGift":"å°†åœ¨æ–°æ ‡ç­¾é¡µæ‰“å¼€å®˜æ–¹ç¤¼åŒ…ç ç½‘ç«™ã€‚æ˜¯å¦ç»§ç»­ï¼Ÿ","externalTool":"å°†åœ¨æ–°æ ‡ç­¾é¡µæ‰“å¼€å®žç”¨çš„æ¸¸æˆå·¥å…·ã€‚æ˜¯å¦ç»§ç»­ï¼Ÿ","labyrinthRank":"æ‚¨å½“å‰çš„è¿·å®«æŽ’åæ˜¯å¤šå°‘ï¼Ÿ","labyrinthPoints":"æ‚¨å½“å‰æœ‰å¤šå°‘è¿·å®«ç§¯åˆ†ï¼Ÿ","weekdayAvailability":"å·¥ä½œæ—¥æ‚¨å¯ä»¥åœ¨å“ªäº›æ—¶é—´å‚åŠ ï¼Ÿ","weekdayDays":"æ˜ŸæœŸä¸€ - æ˜ŸæœŸäºŒ - æ˜ŸæœŸä¸‰ - æ˜ŸæœŸå›› - æ˜ŸæœŸäº”","weekendAvailability":"å‘¨æœ«æ‚¨å¯ä»¥åœ¨å“ªäº›æ—¶é—´å‚åŠ ï¼Ÿ","weekendDays":"æ˜ŸæœŸå…­ - æ˜ŸæœŸæ—¥","availableAnytime":"ä»»ä½•æ—¶é—´éƒ½å¯ä»¥","talResourcesReady":"å‚åŠ  TAL éœ€è¦è¶³å¤Ÿçš„å®çŸ³ã€åŠ é€Ÿå’Œä¼ é€é“å…·ã€‚æ‚¨å‡†å¤‡å¥½äº†å—ï¼Ÿ","teleportCount":"æ‚¨ç›®å‰æœ‰å¤šå°‘ä¸ªä¼ é€é“å…·ï¼Ÿ","teamPreference":"æ‚¨å¸Œæœ›åœ¨ TAL ä¸­åŠ å…¥å“ªä¸ªæˆ–å“ªäº›é˜Ÿä¼ï¼Ÿ","teamPreferenceNote":"æ­¤é€‰æ‹©ä»…ç”¨äºŽè§„åˆ’å’Œäº†è§£å¯ç”¨é€‰é¡¹ï¼Œä¸ä»£è¡¨æŠ¥åï¼Œä¹Ÿä¸ä¿è¯è¿›å…¥ç‰¹å®šé˜Ÿä¼ã€‚ç»„ç»‡è€…ä¼šæ ¹æ®é˜Ÿä¼éœ€æ±‚å’Œå¯ç”¨åé¢ï¼Œå°½åŠ›è¿›è¡Œæœ€åˆé€‚çš„å®‰æŽ’ã€‚","teamAmtMain":"AMT ä¸»é˜Ÿ","teamAmtSub":"AMT æ›¿è¡¥é˜Ÿ","teamProMain":"PRO ä¸»é˜Ÿ","teamProSub":"PRO æ›¿è¡¥é˜Ÿ","teamNoPreference":"æ— åå¥½ â€” æˆ‘å¯ä»¥åŠ å…¥ä»»ä½•é˜Ÿä¼","selectTime":"è¯·åœ¨æ¯ä¸ªéƒ¨åˆ†è‡³å°‘é€‰æ‹©ä¸€ä¸ªæ—¶é—´ã€‚","selectTeam":"è¯·è‡³å°‘é€‰æ‹©ä¸€ä¸ªé˜Ÿä¼é€‰é¡¹ã€‚"}
 };
 const options={alliances:['SOS','XCR','ASL','L99'],ministries:['Education','VP - Constructions','VP - Research'],availability:['Yes - Full Time','Partially - First Two Hours','Partially - Two Mid Hours','Partially - Last Two Hours','Nope'],troops:['All Troops FC10','FC10 Infantry','FC10 Lancer','FC10 Marksmen','All Troops FC9','FC9 Infantry','FC9 Lancer','FC9 Marksmen','FC8 and Below'],helios:['ALL T11','T11/Infantry Only','T11/Lancer Only','T11/Marksman Only','Nope'],yesno:['Yes','No'],talTimes:['02:00 UTC','07:00 UTC','12:00 UTC','14:00 UTC','19:00 UTC','Available at any time'],teamPreferences:['AMT Main','AMT Substitute','PRO Main','PRO Substitute','No preference']};
 let lang='en', hq={settings:{},bt:[]}, activeType='', selectedTimings=[], selectedTroops=[], selectedHelios=[], selectedWeekdayTimes=[], selectedWeekendTimes=[], selectedTeamPreferences=[];
@@ -443,7 +672,12 @@ function initLangButtons(){
   const gate=$('gateLangs');
   const top=$('topLangs');
   if(gate){
-    gate.innerHTML=LANGS.map(([code,flag,name])=>`<button type="button" class="lang-btn ${code===lang?'active':''}" data-lang-code="${code}" aria-label="${name}"><img class="flag" src="${flag}" alt="" loading="eager"><span>${name}</span></button>`).join('');
+    const existingButtons=gate.querySelectorAll('[data-lang-code]');
+    if(!existingButtons.length){
+      gate.innerHTML=LANGS.map(([code,flag,name])=>`<button type="button" class="lang-btn ${code===lang?'active':''}" data-lang-code="${code}" aria-label="${name}"><img class="flag" src="${flag}" alt="" loading="eager"><span>${name}</span></button>`).join('');
+    }else{
+      existingButtons.forEach(button=>button.classList.toggle('active',button.dataset.langCode===lang));
+    }
   }
   if(top){
     const [,flag,name]=currentLangMeta();
@@ -471,20 +705,29 @@ function selectLang(code){
   try{renderCards()}catch(err){console.error('Portal cards error:',err)}
   closeLangMenu();
 }
+window.selectLang=selectLang;
 function applyLang(){document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=t(el.dataset.i18n))}
 function boot(){
   if(document.documentElement.dataset.state2099Booted==='1')return;
   document.documentElement.dataset.state2099Booted='1';
-  const stored=readStoredLanguage();
-  lang=LANGS.some(([code])=>code===stored)?stored:'en';
+
+  try{
+    const stored=readStoredLanguage();
+    lang=LANGS.some(([code])=>code===stored)?stored:'en';
+  }catch(err){
+    console.error('Stored language error:',err);
+    lang='en';
+  }
+
   document.documentElement.lang=lang;
   document.documentElement.dir=lang==='ar'?'rtl':'ltr';
   document.body.classList.toggle('lang-ar',lang==='ar');
   document.body.classList.toggle('lang-zh',lang==='zh-CN');
-  initLangButtons();
-  applyLang();
-  renderInstallCard();
-  loadData();
+
+  try{initLangButtons()}catch(err){console.error('Language initialization error:',err)}
+  try{applyLang()}catch(err){console.error('Translation initialization error:',err)}
+  try{renderInstallCard()}catch(err){console.error('Install card initialization error:',err)}
+  try{loadData()}catch(err){console.error('Portal data initialization error:',err)}
 }
 document.addEventListener('click',event=>{
   const languageButton=event.target.closest('[data-lang-code]');
@@ -1001,52 +1244,52 @@ function planningRatio(){const inf=Number(planningVal('p-inf')),lan=Number(plann
 function showPlanningError(msg){const box=$('planningError');if(!box)return;box.textContent=msg;box.style.display=msg?'block':'none'}
 function planningMessageLang(){return planningVal('p-msg-lang')||'en'}
 function formatFormation(r,lang){
-  if(lang==='ar')return `مشاة ${r.inf}% | رماح ${r.lan}% | رماة ${r.mar}%`;
-  if(lang==='ru')return `Пехота ${r.inf}% | Копья ${r.lan}% | Стрелки ${r.mar}%`;
+  if(lang==='ar')return `Ù…Ø´Ø§Ø© ${r.inf}% | Ø±Ù…Ø§Ø­ ${r.lan}% | Ø±Ù…Ø§Ø© ${r.mar}%`;
+  if(lang==='ru')return `ÐŸÐµÑ…Ð¾Ñ‚Ð° ${r.inf}% | ÐšÐ¾Ð¿ÑŒÑ ${r.lan}% | Ð¡Ñ‚Ñ€ÐµÐ»ÐºÐ¸ ${r.mar}%`;
   if(lang==='id')return `Infanteri ${r.inf}% | Lancer ${r.lan}% | Marksman ${r.mar}%`;
-  if(lang==='ko')return `보병 ${r.inf}% | 창병 ${r.lan}% | 궁병 ${r.mar}%`;
-  if(lang==='de')return `Infanterie ${r.inf}% | Lanzen ${r.lan}% | Schützen ${r.mar}%`;
+  if(lang==='ko')return `ë³´ë³‘ ${r.inf}% | ì°½ë³‘ ${r.lan}% | ê¶ë³‘ ${r.mar}%`;
+  if(lang==='de')return `Infanterie ${r.inf}% | Lanzen ${r.lan}% | SchÃ¼tzen ${r.mar}%`;
   return `INF ${r.inf}% | LAN ${r.lan}% | MAR ${r.mar}%`;
 }
 function makeRallyMessage(lang,d){
-  if(lang==='ar')return `تم تعيينك قائد حشد.
+  if(lang==='ar')return `ØªÙ… ØªØ¹ÙŠÙŠÙ†Ùƒ Ù‚Ø§Ø¦Ø¯ Ø­Ø´Ø¯.
 
 ${d.team}
 Alliance: ${d.alliance}
-تفعيل الحيوانات: ${d.pets}
+ØªÙØ¹ÙŠÙ„ Ø§Ù„Ø­ÙŠÙˆØ§Ù†Ø§Øª: ${d.pets}
 
-أبطال الحشد:
+Ø£Ø¨Ø·Ø§Ù„ Ø§Ù„Ø­Ø´Ø¯:
 ${d.h1} / ${d.h2} / ${d.h3}
 
-النسبة:
+Ø§Ù„Ù†Ø³Ø¨Ø©:
 ${formatFormation(d.r,lang)}
 
-الجوينرز:
+Ø§Ù„Ø¬ÙˆÙŠÙ†Ø±Ø²:
 ${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
 
-نأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.
+Ù†Ø£Ù…Ù„ Ø­ÙØ¸ Ø§Ù„ØªØ´ÙƒÙŠÙ„Ø§Øª Ù…Ø¨ÙƒØ±Ù‹Ø§ Ù„Ù„Ø¬Ù‡ÙˆØ²ÙŠØ©ØŒ ÙØ¶Ù„Ù‹Ø§.
 
-ابدأ في AMT لأول سيطرة.
-ثم انتقل إلى ${d.alliance} واتبع تعليمات الديسكورد.`;
-  if(lang==='ru')return `Вы назначены лидером ралли.
+Ø§Ø¨Ø¯Ø£ ÙÙŠ AMT Ù„Ø£ÙˆÙ„ Ø³ÙŠØ·Ø±Ø©.
+Ø«Ù… Ø§Ù†ØªÙ‚Ù„ Ø¥Ù„Ù‰ ${d.alliance} ÙˆØ§ØªØ¨Ø¹ ØªØ¹Ù„ÙŠÙ…Ø§Øª Ø§Ù„Ø¯ÙŠØ³ÙƒÙˆØ±Ø¯.`;
+  if(lang==='ru')return `Ð’Ñ‹ Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ñ‹ Ð»Ð¸Ð´ÐµÑ€Ð¾Ð¼ Ñ€Ð°Ð»Ð»Ð¸.
 
 ${d.team}
 Alliance: ${d.alliance}
-Активация питомцев: ${d.pets}
+ÐÐºÑ‚Ð¸Ð²Ð°Ñ†Ð¸Ñ Ð¿Ð¸Ñ‚Ð¾Ð¼Ñ†ÐµÐ²: ${d.pets}
 
-Герои ралли:
+Ð“ÐµÑ€Ð¾Ð¸ Ñ€Ð°Ð»Ð»Ð¸:
 ${d.h1} / ${d.h2} / ${d.h3}
 
-Формация:
+Ð¤Ð¾Ñ€Ð¼Ð°Ñ†Ð¸Ñ:
 ${formatFormation(d.r,lang)}
 
 Joiners:
 ${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
 
-Сохраните пресеты заранее для готовности.
+Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚Ðµ Ð¿Ñ€ÐµÑÐµÑ‚Ñ‹ Ð·Ð°Ñ€Ð°Ð½ÐµÐµ Ð´Ð»Ñ Ð³Ð¾Ñ‚Ð¾Ð²Ð½Ð¾ÑÑ‚Ð¸.
 
-Начните в AMT для первого контроля.
-Затем перейдите в ${d.alliance} и следуйте Discord.`;
+ÐÐ°Ñ‡Ð½Ð¸Ñ‚Ðµ Ð² AMT Ð´Ð»Ñ Ð¿ÐµÑ€Ð²Ð¾Ð³Ð¾ ÐºÐ¾Ð½Ñ‚Ñ€Ð¾Ð»Ñ.
+Ð—Ð°Ñ‚ÐµÐ¼ Ð¿ÐµÑ€ÐµÐ¹Ð´Ð¸Ñ‚Ðµ Ð² ${d.alliance} Ð¸ ÑÐ»ÐµÐ´ÑƒÐ¹Ñ‚Ðµ Discord.`;
   if(lang==='id')return `Kamu ditugaskan sebagai Rally Leader.
 
 ${d.team}
@@ -1066,25 +1309,25 @@ Harap simpan preset lebih awal agar siap.
 
 Mulai di AMT untuk kontrol pertama.
 Lalu pindah ke ${d.alliance} dan ikuti Discord.`;
-  if(lang==='ko')return `랠리 리더로 배정되었습니다.
+  if(lang==='ko')return `ëž ë¦¬ ë¦¬ë”ë¡œ ë°°ì •ë˜ì—ˆìŠµë‹ˆë‹¤.
 
 ${d.team}
 Alliance: ${d.alliance}
-펫 활성화: ${d.pets}
+íŽ« í™œì„±í™”: ${d.pets}
 
-랠리 영웅:
+ëž ë¦¬ ì˜ì›…:
 ${d.h1} / ${d.h2} / ${d.h3}
 
-편성:
+íŽ¸ì„±:
 ${formatFormation(d.r,lang)}
 
-조이너 순서:
+ì¡°ì´ë„ˆ ìˆœì„œ:
 ${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
 
-준비를 위해 미리 프리셋을 저장해 주세요.
+ì¤€ë¹„ë¥¼ ìœ„í•´ ë¯¸ë¦¬ í”„ë¦¬ì…‹ì„ ì €ìž¥í•´ ì£¼ì„¸ìš”.
 
-첫 점령은 AMT에서 시작하세요.
-그다음 ${d.alliance}(으)로 이동하고 Discord 지시를 따르세요.`;
+ì²« ì ë ¹ì€ AMTì—ì„œ ì‹œìž‘í•˜ì„¸ìš”.
+ê·¸ë‹¤ìŒ ${d.alliance}(ìœ¼)ë¡œ ì´ë™í•˜ê³  Discord ì§€ì‹œë¥¼ ë”°ë¥´ì„¸ìš”.`;
   if(lang==='de')return `Du bist als Rally Leader eingeteilt.
 
 ${d.team}
@@ -1100,9 +1343,9 @@ ${formatFormation(d.r,lang)}
 Joiner-Reihenfolge:
 ${d.j1} > ${d.j2} > ${d.j3} > ${d.j4}
 
-Bitte speichere die Formationen frühzeitig zur Bereitschaft.
+Bitte speichere die Formationen frÃ¼hzeitig zur Bereitschaft.
 
-Starte in AMT für die erste Kontrolle.
+Starte in AMT fÃ¼r die erste Kontrolle.
 Wechsle dann zu ${d.alliance} und folge Discord.`;
   return `You are assigned as Rally Leader.
 
@@ -1125,36 +1368,36 @@ Start in AMT for first control.
 Then move to ${d.alliance} and follow Discord.`;
 }
 function makeJoinerMessage(lang,d){
-  if(lang==='ar')return `تم تعيينك جوينر.
+  if(lang==='ar')return `ØªÙ… ØªØ¹ÙŠÙŠÙ†Ùƒ Ø¬ÙˆÙŠÙ†Ø±.
 
 Alliance: ${d.alliance}
 Castle Row: ${d.row}
 
-احفظ التشكيلات التالية:
+Ø§Ø­ÙØ¸ Ø§Ù„ØªØ´ÙƒÙŠÙ„Ø§Øª Ø§Ù„ØªØ§Ù„ÙŠØ©:
 
-1- ${d.j1} + أي بطلين | ${d.r.txt}
-2- ${d.j2} + أي بطلين | ${d.r.txt}
-3- ${d.j3} + أي بطلين | ${d.r.txt}
-4- ${d.j4} + أي بطلين | ${d.r.txt}
+1- ${d.j1} + Ø£ÙŠ Ø¨Ø·Ù„ÙŠÙ† | ${d.r.txt}
+2- ${d.j2} + Ø£ÙŠ Ø¨Ø·Ù„ÙŠÙ† | ${d.r.txt}
+3- ${d.j3} + Ø£ÙŠ Ø¨Ø·Ù„ÙŠÙ† | ${d.r.txt}
+4- ${d.j4} + Ø£ÙŠ Ø¨Ø·Ù„ÙŠÙ† | ${d.r.txt}
 
-نأمل حفظ التشكيلات مبكرًا للجهوزية، فضلًا.
+Ù†Ø£Ù…Ù„ Ø­ÙØ¸ Ø§Ù„ØªØ´ÙƒÙŠÙ„Ø§Øª Ù…Ø¨ÙƒØ±Ù‹Ø§ Ù„Ù„Ø¬Ù‡ÙˆØ²ÙŠØ©ØŒ ÙØ¶Ù„Ù‹Ø§.
 
-اتبع الترتيب وادخل الديسكورد.`;
-  if(lang==='ru')return `Вы назначены joiner.
+Ø§ØªØ¨Ø¹ Ø§Ù„ØªØ±ØªÙŠØ¨ ÙˆØ§Ø¯Ø®Ù„ Ø§Ù„Ø¯ÙŠØ³ÙƒÙˆØ±Ø¯.`;
+  if(lang==='ru')return `Ð’Ñ‹ Ð½Ð°Ð·Ð½Ð°Ñ‡ÐµÐ½Ñ‹ joiner.
 
 Alliance: ${d.alliance}
 Castle Row: ${d.row}
 
-Сохраните следующие пресеты:
+Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚Ðµ ÑÐ»ÐµÐ´ÑƒÑŽÑ‰Ð¸Ðµ Ð¿Ñ€ÐµÑÐµÑ‚Ñ‹:
 
-1- ${d.j1} + любые 2 | ${d.r.txt}
-2- ${d.j2} + любые 2 | ${d.r.txt}
-3- ${d.j3} + любые 2 | ${d.r.txt}
-4- ${d.j4} + любые 2 | ${d.r.txt}
+1- ${d.j1} + Ð»ÑŽÐ±Ñ‹Ðµ 2 | ${d.r.txt}
+2- ${d.j2} + Ð»ÑŽÐ±Ñ‹Ðµ 2 | ${d.r.txt}
+3- ${d.j3} + Ð»ÑŽÐ±Ñ‹Ðµ 2 | ${d.r.txt}
+4- ${d.j4} + Ð»ÑŽÐ±Ñ‹Ðµ 2 | ${d.r.txt}
 
-Сохраните пресеты заранее для готовности.
+Ð¡Ð¾Ñ…Ñ€Ð°Ð½Ð¸Ñ‚Ðµ Ð¿Ñ€ÐµÑÐµÑ‚Ñ‹ Ð·Ð°Ñ€Ð°Ð½ÐµÐµ Ð´Ð»Ñ Ð³Ð¾Ñ‚Ð¾Ð²Ð½Ð¾ÑÑ‚Ð¸.
 
-Следуйте порядку и зайдите в Discord.`;
+Ð¡Ð»ÐµÐ´ÑƒÐ¹Ñ‚Ðµ Ð¿Ð¾Ñ€ÑÐ´ÐºÑƒ Ð¸ Ð·Ð°Ð¹Ð´Ð¸Ñ‚Ðµ Ð² Discord.`;
   if(lang==='id')return `Kamu ditugaskan sebagai Joiner.
 
 Alliance: ${d.alliance}
@@ -1170,21 +1413,21 @@ Simpan preset berikut:
 Harap simpan preset lebih awal agar siap.
 
 Ikuti urutan dan masuk Discord.`;
-  if(lang==='ko')return `조이너로 배정되었습니다.
+  if(lang==='ko')return `ì¡°ì´ë„ˆë¡œ ë°°ì •ë˜ì—ˆìŠµë‹ˆë‹¤.
 
 Alliance: ${d.alliance}
 Castle Row: ${d.row}
 
-아래 프리셋을 저장하세요:
+ì•„ëž˜ í”„ë¦¬ì…‹ì„ ì €ìž¥í•˜ì„¸ìš”:
 
-1- ${d.j1} + 아무 영웅 2명 | ${d.r.txt}
-2- ${d.j2} + 아무 영웅 2명 | ${d.r.txt}
-3- ${d.j3} + 아무 영웅 2명 | ${d.r.txt}
-4- ${d.j4} + 아무 영웅 2명 | ${d.r.txt}
+1- ${d.j1} + ì•„ë¬´ ì˜ì›… 2ëª… | ${d.r.txt}
+2- ${d.j2} + ì•„ë¬´ ì˜ì›… 2ëª… | ${d.r.txt}
+3- ${d.j3} + ì•„ë¬´ ì˜ì›… 2ëª… | ${d.r.txt}
+4- ${d.j4} + ì•„ë¬´ ì˜ì›… 2ëª… | ${d.r.txt}
 
-준비를 위해 미리 프리셋을 저장해 주세요.
+ì¤€ë¹„ë¥¼ ìœ„í•´ ë¯¸ë¦¬ í”„ë¦¬ì…‹ì„ ì €ìž¥í•´ ì£¼ì„¸ìš”.
 
-순서를 따르고 Discord에 들어오세요.`;
+ìˆœì„œë¥¼ ë”°ë¥´ê³  Discordì— ë“¤ì–´ì˜¤ì„¸ìš”.`;
   if(lang==='de')return `Du bist als Joiner eingeteilt.
 
 Alliance: ${d.alliance}
@@ -1197,7 +1440,7 @@ Speichere die folgenden Formationen:
 3- ${d.j3} + beliebige 2 Helden | ${d.r.txt}
 4- ${d.j4} + beliebige 2 Helden | ${d.r.txt}
 
-Bitte speichere die Formationen frühzeitig zur Bereitschaft.
+Bitte speichere die Formationen frÃ¼hzeitig zur Bereitschaft.
 
 Folge der Reihenfolge und komm in Discord.`;
   return `You are assigned as Joiner.
