@@ -877,14 +877,14 @@
     /* Compact briefing strip: announcement + resources */
     .briefing-row{
       display:grid;
-      grid-template-columns:minmax(0,1.2fr) minmax(340px,.8fr);
+      grid-template-columns:minmax(0,1.35fr) minmax(340px,.65fr);
       gap:11px;
       margin:10px 0 14px;
       align-items:stretch;
     }
     .briefing-row .announce,
     .briefing-row .community-hub{
-      min-height:142px;
+      min-height:132px;
       height:100%;
       margin:0;
     }
@@ -903,16 +903,17 @@
       overflow:auto;
     }
     .briefing-row .community-hub{
-      display:block;
+      display:flex;
+      align-items:center;
       padding:12px 13px;
       border-radius:17px;
     }
-    .briefing-row .community-main{padding:0}
+    .briefing-row .community-main{width:100%;padding:0}
     .briefing-row .community-badge{padding:4px 8px;font-size:.45rem;letter-spacing:.14em}
     .briefing-row .community-title{margin-top:7px;font-size:.90rem;letter-spacing:.07em}
     .briefing-row .community-desc{margin-top:2px;font-size:.66rem;line-height:1.35}
-    .briefing-row .community-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
-    .briefing-row .community-action{min-height:36px;padding:0 9px;border-radius:10px;font-size:.58rem;letter-spacing:.025em}
+    .briefing-row .community-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:0}
+    .briefing-row .community-action{min-height:42px;padding:6px 9px;border-radius:10px;font-size:.60rem;line-height:1.3;text-align:center;letter-spacing:.025em}
     .briefing-row .community-action i{font-size:.88rem}
     .briefing-row .transfer-note{margin-top:7px;padding:6px 8px;border-radius:9px;font-size:.58rem;line-height:1.3}
 
@@ -1054,27 +1055,19 @@
         </div>
         <section class="community-hub" aria-label="State 2099 resources">
           <div class="community-main">
-            <div class="community-badge"><i class="fa-solid fa-snowflake"></i><span>STATE 2099</span></div>
-            <div class="community-title">STATE RESOURCES</div>
-            <div class="community-desc">Official guidelines and Discord access.</div>
             <div class="community-actions">
-              <a class="community-action guidelines-action" href="https://drive.google.com/uc?export=download&id=1aUW6cYo80xQNBmAVCOkudEwgOUETSAs-" download="2099_State_Guidelines.pdf">
-                <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
-                <span>State Guidelines</span>
+              <a class="community-action guidelines-action" href="assets/2099-State-Guidelines.pdf" target="_blank" rel="noopener">
+                <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+                <span data-i18n="guidelinesLink">State Guidelines and Rules</span>
               </a>
               <a class="community-action discord-action" href="https://discord.gg/HKDcqgNqhD" target="_blank" rel="noopener noreferrer">
                 <i class="fa-brands fa-discord" aria-hidden="true"></i>
-                <span>Join Discord</span>
+                <span data-i18n="joinDiscordLink">Join Our Discord</span>
               </a>
             </div>
-            <div class="transfer-note"><i class="fa-solid fa-right-left" aria-hidden="true"></i><span>Transfer requests are handled through Discord.</span></div>
+            <div class="transfer-note"><i class="fa-solid fa-right-left" aria-hidden="true"></i><span data-i18n="transferDiscordNote">Please submit transfer requests through our Discord server.</span></div>
           </div>
         </section>
-      </div>
-
-      <div class="portal-section-head">
-        <div><span>STATE OPERATIONS</span><strong>Choose a portal</strong></div>
-        <div class="portal-count"><b>4</b><span>ACTIVE PORTALS</span></div>
       </div>
       <div class="cards" id="cards"></div>
       <footer class="footer">
@@ -1168,6 +1161,8 @@ const I18N={
 };
 
 const options={alliances:['SOS','XCR','ASL','L99'],ministries:['Education','VP - Constructions','VP - Research'],availability:['Yes - Full Time','Partially - First Two Hours','Partially - Two Mid Hours','Partially - Last Two Hours','Nope'],troops:['All Troops FC10','FC10 Infantry','FC10 Lancer','FC10 Marksmen','All Troops FC9','FC9 Infantry','FC9 Lancer','FC9 Marksmen','FC8 and Below'],helios:['ALL T11','T11/Infantry Only','T11/Lancer Only','T11/Marksman Only','Nope'],yesno:['Yes','No'],talTimes:['02:00 UTC','07:00 UTC','12:00 UTC','14:00 UTC','19:00 UTC','Available at any time'],teamPreferences:['AMT Main','AMT Substitute','PRO Main','PRO Substitute','No preference']};
+Object.assign(I18N.en,{guidelinesLink:'State Guidelines and Rules',joinDiscordLink:'Join Our Discord',transferDiscordNote:'Please submit transfer requests through our Discord server.'});
+Object.assign(I18N.ar,{guidelinesLink:'قوانين وإرشادات المقاطعة',joinDiscordLink:'انضموا لنا إلى سيرفر الديسكورد!',transferDiscordNote:'طلبات الانتقال، فضلًا تقديمها على سيرفرنا بالديسكورد.'});
 let lang='en', hq={settings:{},bt:[]}, activeType='', selectedTimings=[], selectedTroops=[], selectedHelios=[], selectedWeekdayTimes=[], selectedWeekendTimes=[], selectedTeamPreferences=[];
 const $=id=>document.getElementById(id), t=k=>(I18N[lang]&&I18N[lang][k])||I18N.en[k]||k;
 
