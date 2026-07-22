@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/planning",
+      "destination": "https://state2099-next.vercel.app/planning",
+      "permanent": true
+    },
+    {
+      "source": "/planning.html",
+      "destination": "https://state2099-next.vercel.app/planning",
+      "permanent": true
+    }
+  ]
+}
