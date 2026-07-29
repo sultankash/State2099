@@ -1975,7 +1975,7 @@ function generatePlanningMessage(type){
 }
 function copyPlanningMessage(){const out=$('planningOutput');if(!out||!out.value){alert('Generate the message first');return}navigator.clipboard?.writeText(out.value).then(()=>alert('Copied')).catch(()=>{out.select();document.execCommand('copy');alert('Copied')})}
 
-const TOOL_LINKS={gift:'https://wos-giftcode.centurygame.com/',charms:'https://www.quackulator.com/chiefcharm.php',building:'https://www.quackulator.com/building.php',sim:'https://battlesim2099-v2.vercel.app//'};
+const TOOL_LINKS={gift:'https://wos-giftcode.centurygame.com/',charms:'https://www.quackulator.com/chiefcharm.php',building:'https://www.quackulator.com/building.php',sim:'battlesim2099-v3.vercel.app//'};
 function openTool(key){const msg=key==='gift'?t('externalGift'):t('externalTool');if(confirm(msg)){window.open(TOOL_LINKS[key],'_blank','noopener,noreferrer')}}
 
 /* Live refresh for Android and team devices */
