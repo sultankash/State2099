@@ -1165,10 +1165,14 @@ const I18N={
  "zh-CN":{"choose":"选择您的语言","portalTitle":"州门户","slogan":"领导。防守。征服。","president":"现任州长","svsWins":"SVS 胜利次数","leagueTitles":"联赛冠军次数","playerMonth":"本月最佳玩家","announcement":"州公告","footer":"团结一致，传奇永不倒下。","ministries":"SVS 部门","svs":"SVS 调查","fdt":"FDT 调查","league":"TAL 调查","enter":"进入门户","name":"玩家名称","gameId":"您的游戏 ID","alliance":"联盟","ministry":"所需部门","speedups":"加速天数","timings":"首选 UTC 时间 - 仅选 3 个","availability":"您能参加整个活动吗？","troops":"部队类型","helios":"Helios 部队","discord":"需要时您能加入 Discord 吗？","rotation":"您已了解州内会轮换参与者，并优先选择最有利于州发展的安排。这绝非针对个人。","leagueAvail":"您能参加整个 TAL 吗？","submit":"提交","back":"返回","secured":"任务已完成","securedText":"您的回复已提交。","returnHome":"返回主页","locked":"区域已关闭","meat":"肉类资源","wood":"木材资源","coal":"煤炭资源","iron":"铁矿资源","notes":"备注","svsNotes":"是否有需要我们了解的重要备注？","leagueNotes":"如果某些比赛无法参加，请填写备注","externalGift":"将在新标签页打开官方礼包码网站。是否继续？","externalTool":"将在新标签页打开实用的游戏工具。是否继续？","labyrinthRank":"您当前的迷宫排名是多少？","labyrinthPoints":"您当前有多少迷宫积分？","weekdayAvailability":"工作日您可以在哪些时间参加？","weekdayDays":"星期一 - 星期二 - 星期三 - 星期四 - 星期五","weekendAvailability":"周末您可以在哪些时间参加？","weekendDays":"星期六 - 星期日","availableAnytime":"任何时间都可以","talResourcesReady":"参加 TAL 需要足够的宝石、加速和传送道具。您准备好了吗？","teleportCount":"您目前有多少个传送道具？","teamPreference":"您希望在 TAL 中加入哪个或哪些队伍？","teamPreferenceNote":"此选择仅用于规划和了解可用选项，不代表报名，也不保证进入特定队伍。组织者会根据队伍需求和可用名额，尽力进行最合适的安排。","teamAmtMain":"AMT 主队","teamAmtSub":"AMT 替补队","teamProMain":"PRO 主队","teamProSub":"PRO 替补队","teamNoPreference":"无偏好 — 我可以加入任何队伍","selectTime":"请在每个部分至少选择一个时间。","selectTeam":"请至少选择一个队伍选项。"}
 };
 
-const options={alliances:['SOS','XCR','ASL','L99'],ministries:['Education','VP - Constructions','VP - Research'],availability:['Yes - Full Time','Partially - First Two Hours','Partially - Two Mid Hours','Partially - Last Two Hours','Nope'],troops:['All Troops FC10','FC10 Infantry','FC10 Lancer','FC10 Marksmen','All Troops FC9','FC9 Infantry','FC9 Lancer','FC9 Marksmen','FC8 and Below'],helios:['ALL T11','T11/Infantry Only','T11/Lancer Only','T11/Marksman Only','Nope'],yesno:['Yes','No'],talTimes:['02:00 UTC','07:00 UTC','12:00 UTC','14:00 UTC','19:00 UTC','Available at any time'],teamPreferences:['AMT Main','AMT Substitute','PRO Main','PRO Substitute','No preference']};
+
+// Survey update: translated labels; submission values remain language-independent.
+const SURVEY_I18N={"en":{"refinedCrystals":"How many Refined Crystals do you have?","fireCrystalShards":"How many Fire Crystal Shards do you have?","fullT11Question":"Are all your troop types FC10 and fully Helios T11 or higher?","fullT11Yes":"Yes — Full T11 or higher","fullT11No":"No — Not Full T11","t12Infantry":"Do you have T12 Infantry?","t12Lancer":"Do you have T12 Lancers?","t12Marksman":"Do you have T12 Marksmen?","skillLevel":"Skill Level","selectAnswer":"Select","answerYes":"Yes","answerNo":"No","t12Help":"Answer each T12 question separately, regardless of your answer above.","troopAnswersRequired":"Please answer the troop questions and select a skill level for each T12 troop type you have.","wholeNumberRequired":"Enter a whole number of 0 or more.","submitFailed":"Your response could not be confirmed. Please try again.","submitUnconfirmed":"Your browser cannot confirm saving. Please check with an organizer before submitting again."},"ar":{"refinedCrystals":"كم عدد الكريستال المكرر لديك؟","fireCrystalShards":"كم عدد مسحوق الكريستال لديك؟","fullT11Question":"هل جميع أنواع قواتك FC10 ومفتوحة لها قوات هيليوس T11 أو أعلى؟","fullT11Yes":"نعم — جميع القوات T11 أو أعلى","fullT11No":"لا — ليست جميع القوات T11","t12Infantry":"هل لديك مشاة T12؟","t12Lancer":"هل لديك رماح T12؟","t12Marksman":"هل لديك قناصة T12؟","skillLevel":"مستوى المهارة","selectAnswer":"اختر","answerYes":"نعم","answerNo":"لا","t12Help":"أجب عن كل نوع من قوات T12 بشكل مستقل، مهما كانت إجابتك أعلاه.","troopAnswersRequired":"أجب عن أسئلة القوات وحدّد مستوى المهارة لكل نوع T12 متوفر لديك.","wholeNumberRequired":"أدخل عددًا صحيحًا يساوي صفرًا أو أكثر.","submitFailed":"تعذّر تأكيد حفظ إجابتك. حاول مرة أخرى.","submitUnconfirmed":"متصفحك لا يستطيع تأكيد الحفظ. تحقق مع أحد المنظمين قبل إعادة الإرسال."},"id":{"refinedCrystals":"Berapa Refined Crystal yang kamu miliki?","fireCrystalShards":"Berapa Fire Crystal Shards yang kamu miliki?","fullT11Question":"Apakah semua jenis pasukanmu FC10 dan sudah sepenuhnya Helios T11 atau lebih tinggi?","fullT11Yes":"Ya — Semua T11 atau lebih tinggi","fullT11No":"Tidak — Belum semua T11","t12Infantry":"Apakah kamu memiliki Infantry T12?","t12Lancer":"Apakah kamu memiliki Lancer T12?","t12Marksman":"Apakah kamu memiliki Marksman T12?","skillLevel":"Level Skill","selectAnswer":"Pilih","answerYes":"Ya","answerNo":"Tidak","t12Help":"Jawab setiap pertanyaan T12 secara terpisah, apa pun jawabanmu di atas.","troopAnswersRequired":"Jawab pertanyaan pasukan dan pilih level skill untuk setiap jenis pasukan T12 yang kamu miliki.","wholeNumberRequired":"Masukkan bilangan bulat 0 atau lebih.","submitFailed":"Penyimpanan jawabanmu belum dapat dikonfirmasi. Coba lagi.","submitUnconfirmed":"Browser tidak dapat mengonfirmasi penyimpanan. Periksa dengan penyelenggara sebelum mengirim ulang."},"ru":{"refinedCrystals":"Сколько у вас очищенных огненных кристаллов (Refined Crystal)?","fireCrystalShards":"Сколько у вас осколков огненного кристалла (Fire Crystal Shards)?","fullT11Question":"Все ли ваши типы войск имеют FC10 и полностью открытый Helios T11 или выше?","fullT11Yes":"Да — Все T11 или выше","fullT11No":"Нет — Не все T11","t12Infantry":"Есть ли у вас пехота T12?","t12Lancer":"Есть ли у вас копейщики T12?","t12Marksman":"Есть ли у вас стрелки T12?","skillLevel":"Уровень навыка","selectAnswer":"Выберите","answerYes":"Да","answerNo":"Нет","t12Help":"Ответьте отдельно для каждого типа T12 независимо от ответа выше.","troopAnswersRequired":"Ответьте на вопросы о войсках и выберите уровень навыка для каждого имеющегося типа T12.","wholeNumberRequired":"Введите целое число от 0 и выше.","submitFailed":"Не удалось подтвердить сохранение ответа. Попробуйте ещё раз.","submitUnconfirmed":"Браузер не может подтвердить сохранение. Уточните у организатора перед повторной отправкой."},"ko":{"refinedCrystals":"정제된 불의 수정(Refined Crystal)을 몇 개 보유하고 있나요?","fireCrystalShards":"불의 수정 조각(Fire Crystal Shards)을 몇 개 보유하고 있나요?","fullT11Question":"모든 병종이 FC10이며 헬리오스 T11 이상을 모두 해금했나요?","fullT11Yes":"예 — 모든 병종 T11 이상","fullT11No":"아니요 — 모든 병종이 T11은 아님","t12Infantry":"T12 보병을 보유하고 있나요?","t12Lancer":"T12 창병을 보유하고 있나요?","t12Marksman":"T12 궁병을 보유하고 있나요?","skillLevel":"스킬 레벨","selectAnswer":"선택","answerYes":"예","answerNo":"아니요","t12Help":"위 답변과 관계없이 각 T12 병종에 대해 따로 답변해 주세요.","troopAnswersRequired":"병력 질문에 답하고 보유한 각 T12 병종의 스킬 레벨을 선택해 주세요.","wholeNumberRequired":"0 이상의 정수를 입력해 주세요.","submitFailed":"답변 저장을 확인할 수 없습니다. 다시 시도해 주세요.","submitUnconfirmed":"브라우저에서 저장 여부를 확인할 수 없습니다. 재전송 전에 운영진에게 확인해 주세요."},"tr":{"refinedCrystals":"Kaç Rafine Ateş Kristaliniz (Refined Crystal) var?","fireCrystalShards":"Kaç Ateş Kristali Parçanız (Fire Crystal Shards) var?","fullT11Question":"Tüm birlik türleriniz FC10 ve tamamen Helios T11 veya üzeri mi?","fullT11Yes":"Evet — Tümü T11 veya üzeri","fullT11No":"Hayır — Tümü T11 değil","t12Infantry":"T12 Piyadeniz var mı?","t12Lancer":"T12 Mızrakçınız var mı?","t12Marksman":"T12 Nişancınız var mı?","skillLevel":"Beceri Seviyesi","selectAnswer":"Seçin","answerYes":"Evet","answerNo":"Hayır","t12Help":"Yukarıdaki yanıtınızdan bağımsız olarak her T12 sorusunu ayrı yanıtlayın.","troopAnswersRequired":"Birlik sorularını yanıtlayın ve sahip olduğunuz her T12 türü için beceri seviyesini seçin.","wholeNumberRequired":"0 veya daha büyük bir tam sayı girin.","submitFailed":"Yanıtınızın kaydedildiği doğrulanamadı. Tekrar deneyin.","submitUnconfirmed":"Tarayıcı kaydı doğrulayamıyor. Yeniden göndermeden önce bir organizatöre danışın."},"es":{"refinedCrystals":"¿Cuántos cristales refinados (Refined Crystal) tienes?","fireCrystalShards":"¿Cuántos fragmentos de cristal de fuego (Fire Crystal Shards) tienes?","fullT11Question":"¿Todos tus tipos de tropas son FC10 y tienen Helios T11 o superior totalmente desbloqueado?","fullT11Yes":"Sí — Todas T11 o superior","fullT11No":"No — No todas son T11","t12Infantry":"¿Tienes infantería T12?","t12Lancer":"¿Tienes lanceros T12?","t12Marksman":"¿Tienes tiradores T12?","skillLevel":"Nivel de habilidad","selectAnswer":"Selecciona","answerYes":"Sí","answerNo":"No","t12Help":"Responde por separado a cada pregunta de T12, independientemente de tu respuesta anterior.","troopAnswersRequired":"Responde las preguntas de tropas y selecciona el nivel de habilidad de cada tipo T12 que tengas.","wholeNumberRequired":"Introduce un número entero igual o superior a 0.","submitFailed":"No se pudo confirmar que se guardó tu respuesta. Inténtalo de nuevo.","submitUnconfirmed":"El navegador no puede confirmar el guardado. Consulta con un organizador antes de reenviar."},"pt":{"refinedCrystals":"Quantos Cristais Refinados (Refined Crystal) você tem?","fireCrystalShards":"Quantos Fragmentos de Cristal de Fogo (Fire Crystal Shards) você tem?","fullT11Question":"Todos os seus tipos de tropas são FC10 e têm Helios T11 ou superior totalmente desbloqueado?","fullT11Yes":"Sim — Todas T11 ou superior","fullT11No":"Não — Nem todas são T11","t12Infantry":"Você tem Infantaria T12?","t12Lancer":"Você tem Lanceiros T12?","t12Marksman":"Você tem Atiradores T12?","skillLevel":"Nível da habilidade","selectAnswer":"Selecione","answerYes":"Sim","answerNo":"Não","t12Help":"Responda separadamente para cada tipo T12, independentemente da resposta acima.","troopAnswersRequired":"Responda às perguntas de tropas e selecione o nível da habilidade de cada tipo T12 que possui.","wholeNumberRequired":"Digite um número inteiro igual ou maior que 0.","submitFailed":"Não foi possível confirmar o salvamento da resposta. Tente novamente.","submitUnconfirmed":"O navegador não consegue confirmar o salvamento. Consulte um organizador antes de reenviar."},"pl":{"refinedCrystals":"Ile masz rafinowanych kryształów (Refined Crystal)?","fireCrystalShards":"Ile masz odłamków kryształu ognia (Fire Crystal Shards)?","fullT11Question":"Czy wszystkie twoje rodzaje wojsk mają FC10 i w pełni odblokowany Helios T11 lub wyższy?","fullT11Yes":"Tak — Wszystkie T11 lub wyższe","fullT11No":"Nie — Nie wszystkie T11","t12Infantry":"Czy masz piechotę T12?","t12Lancer":"Czy masz włóczników T12?","t12Marksman":"Czy masz strzelców T12?","skillLevel":"Poziom umiejętności","selectAnswer":"Wybierz","answerYes":"Tak","answerNo":"Nie","t12Help":"Odpowiedz osobno dla każdego rodzaju T12, niezależnie od odpowiedzi powyżej.","troopAnswersRequired":"Odpowiedz na pytania o wojska i wybierz poziom umiejętności każdego posiadanego rodzaju T12.","wholeNumberRequired":"Wpisz liczbę całkowitą równą 0 lub większą.","submitFailed":"Nie udało się potwierdzić zapisania odpowiedzi. Spróbuj ponownie.","submitUnconfirmed":"Przeglądarka nie może potwierdzić zapisu. Przed ponownym wysłaniem zapytaj organizatora."},"de":{"refinedCrystals":"Wie viele veredelte Feuerkristalle (Refined Crystal) hast du?","fireCrystalShards":"Wie viele Feuerkristallsplitter (Fire Crystal Shards) hast du?","fullT11Question":"Sind alle deine Truppentypen FC10 und vollständig als Helios T11 oder höher freigeschaltet?","fullT11Yes":"Ja — Alle T11 oder höher","fullT11No":"Nein — Nicht alle T11","t12Infantry":"Hast du T12-Infanterie?","t12Lancer":"Hast du T12-Lanzenträger?","t12Marksman":"Hast du T12-Scharfschützen?","skillLevel":"Fähigkeitsstufe","selectAnswer":"Auswählen","answerYes":"Ja","answerNo":"Nein","t12Help":"Beantworte jede T12-Frage unabhängig von deiner Antwort oben.","troopAnswersRequired":"Beantworte die Truppenfragen und wähle für jeden vorhandenen T12-Truppentyp die Fähigkeitsstufe.","wholeNumberRequired":"Gib eine ganze Zahl ab 0 ein.","submitFailed":"Das Speichern deiner Antwort konnte nicht bestätigt werden. Versuche es erneut.","submitUnconfirmed":"Der Browser kann das Speichern nicht bestätigen. Frage vor erneutem Senden einen Organisator."},"zh-CN":{"refinedCrystals":"您有多少精炼火晶（Refined Crystal）？","fireCrystalShards":"您有多少火晶碎片（Fire Crystal Shards）？","fullT11Question":"您的所有兵种是否均达到FC10并完全解锁Helios T11或更高等级？","fullT11Yes":"是 — 所有兵种均为T11或更高","fullT11No":"否 — 并非所有兵种均为T11","t12Infantry":"您是否拥有T12步兵？","t12Lancer":"您是否拥有T12矛兵？","t12Marksman":"您是否拥有T12射手？","skillLevel":"技能等级","selectAnswer":"请选择","answerYes":"是","answerNo":"否","t12Help":"无论上方如何选择，请分别回答每个T12兵种的问题。","troopAnswersRequired":"请回答部队问题，并为您拥有的每个T12兵种选择技能等级。","wholeNumberRequired":"请输入大于或等于0的整数。","submitFailed":"无法确认您的回答是否已保存，请重试。","submitUnconfirmed":"浏览器无法确认保存结果。再次提交前请向组织者确认。"}};
+Object.keys(SURVEY_I18N).forEach(code=>Object.assign(I18N[code],SURVEY_I18N[code]));
+const options={alliances:['SOS','XCR','ASL','L99'],ministries:['Education','VP - Constructions','VP - Research'],availability:['Yes - Full Time','Partially - First Two Hours','Partially - Two Mid Hours','Partially - Last Two Hours','Nope'],yesno:['Yes','No'],talTimes:['02:00 UTC','07:00 UTC','12:00 UTC','14:00 UTC','19:00 UTC','Available at any time'],teamPreferences:['AMT Main','AMT Substitute','PRO Main','PRO Substitute','No preference']};
 Object.assign(I18N.en,{guidelinesLink:'State Guidelines and Rules',joinDiscordLink:'Join Our Discord',transferDiscordNote:'Please submit transfer requests through our Discord server.'});
 Object.assign(I18N.ar,{guidelinesLink:'قوانين وإرشادات المقاطعة',joinDiscordLink:'انضموا لنا إلى سيرفر الديسكورد!',transferDiscordNote:'طلبات الانتقال، فضلًا تقديمها على سيرفرنا بالديسكورد.'});
-let lang='en', hq={settings:{},bt:[]}, activeType='', selectedTimings=[], selectedTroops=[], selectedHelios=[], selectedWeekdayTimes=[], selectedWeekendTimes=[], selectedTeamPreferences=[];
+let lang='en', hq={settings:{},bt:[]}, activeType='', selectedTimings=[], selectedWeekdayTimes=[], selectedWeekendTimes=[], selectedTeamPreferences=[];
 const $=id=>document.getElementById(id), t=k=>(I18N[lang]&&I18N[lang][k])||I18N.en[k]||k;
 
 function currentLangMeta(){return LANGS.find(([c])=>c===lang)||LANGS[1]||LANGS[0]}
@@ -1318,8 +1322,6 @@ function openForm(type){
   if(lock==='TRUE')return;
   activeType=type;
   selectedTimings=[];
-  selectedTroops=[];
-  selectedHelios=[];
   selectedWeekdayTimes=[];
   selectedWeekendTimes=[];
   selectedTeamPreferences=[];
@@ -1341,13 +1343,48 @@ function timingSlots(){let a=[];for(let h=0;h<24;h++){for(let m of [0,30]){let s
 function chips(arr,fn,group=''){return `<div class="choices ${group}" data-group="${group}">${arr.map(v=>`<button type="button" class="choice" data-val="${v}" onclick="${fn}(this)">${v==='Available at any time'?t('availableAnytime'):v}</button>`).join('')}</div>`}
 function teamPreferenceLabel(v){return {'AMT Main':t('teamAmtMain'),'AMT Substitute':t('teamAmtSub'),'PRO Main':t('teamProMain'),'PRO Substitute':t('teamProSub'),'No preference':t('teamNoPreference')}[v]||v}
 function teamPreferenceChips(){return `<div class="choices team-preference-choices">${options.teamPreferences.map(v=>`<button type="button" class="choice" data-val="${v}" onclick="toggleTeamPreference(this)">${teamPreferenceLabel(v)}</button>`).join('')}</div>`}
+function surveySelect(id,label,choices,onchange=''){
+  return `<div class="field"><label for="${id}">${label}</label><select id="${id}" required${onchange?` onchange="${onchange}"`:''}><option value="" selected disabled>${t('selectAnswer')}</option>${choices.map(([value,text])=>`<option value="${value}">${text}</option>`).join('')}</select></div>`;
+}
+function crystalSurveyFields(){
+  return `<div class="resource-grid">${field('f-refined-crystals',t('refinedCrystals'),'number',true,0).replace('type="number"','type="number" step="1"')}${field('f-fire-crystal-shards',t('fireCrystalShards'),'number',true,0).replace('type="number"','type="number" step="1"')}</div>`;
+}
+function troopSurveyFields(){
+  let html=surveySelect('f-full-t11',t('fullT11Question'),[['Yes',t('fullT11Yes')],['No',t('fullT11No')]]);
+  html+=`<div class="field"><div class="helper">${t('t12Help')}</div></div>`;
+  for(const [kind,key] of [['infantry','t12Infantry'],['lancer','t12Lancer'],['marksman','t12Marksman']]){
+    html+=surveySelect(`f-t12-${kind}`,t(key),[['Yes',t('answerYes')],['No',t('answerNo')]],`updateT12Skill('${kind}')`);
+    html+=`<div class="field" id="f-t12-${kind}-skill-wrap" style="display:none"><label for="f-t12-${kind}-skill">${t(key)} — ${t('skillLevel')}</label><select id="f-t12-${kind}-skill" disabled><option value="" selected disabled>${t('selectAnswer')}</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>`;
+  }
+  return html;
+}
+function updateT12Skill(kind){
+  const enabled=val(`f-t12-${kind}`)==='Yes';
+  const skill=$(`f-t12-${kind}-skill`);
+  $(`f-t12-${kind}-skill-wrap`).style.display=enabled?'':'none';
+  skill.disabled=!enabled;
+  skill.required=enabled;
+  if(!enabled)skill.value='';
+}
+function troopSurveyAnswers(){
+  const answer={fullT11OrHigher:val('f-full-t11')};
+  if(!['Yes','No'].includes(answer.fullT11OrHigher)){alert(t('troopAnswersRequired'));return null}
+  for(const kind of ['infantry','lancer','marksman']){
+    const owned=val(`f-t12-${kind}`), skill=val(`f-t12-${kind}-skill`);
+    if(!['Yes','No'].includes(owned)||(owned==='Yes'&&!['1','2','3'].includes(skill))){alert(t('troopAnswersRequired'));return null}
+    const name=kind[0].toUpperCase()+kind.slice(1);
+    answer['t12'+name]=owned;
+    answer['t12'+name+'SkillLevel']=owned==='Yes'?Number(skill):'';
+  }
+  return answer;
+}
 function buildForm(type){
   let common=field('f-name',t('name'))+field('f-game',t('gameId'))+selectField('f-alliance',t('alliance'),options.alliances);
   let body='';
   if(type==='ministries'){
-    body=common+selectField('f-ministry',t('ministry'),options.ministries)+field('f-speedups',t('speedups'),'number',true,0)+`<div class="field"><label>${t('timings')}</label>${chips(timingSlots(),'toggleTiming','timing-choices')}<div class="helper" id="timingHelp">0 / 3</div></div>`;
+    body=common+selectField('f-ministry',t('ministry'),options.ministries)+field('f-speedups',t('speedups'),'number',true,0)+crystalSurveyFields()+`<div class="field"><label>${t('timings')}</label>${chips(timingSlots(),'toggleTiming','timing-choices')}<div class="helper" id="timingHelp">0 / 3</div></div>`;
   }else if(type==='svs_survey'||type==='fdt_survey'){
-    body=common+selectField('f-availability',t('availability'),options.availability)+selectField('f-discord',t('discord'),options.yesno)+`<div class="field"><label>${t('troops')}</label>${chips(options.troops,'toggleTroops','troops-choices')}<div class="helper" id="troopsHelp">0 selected</div></div>`+`<div class="field"><label>${t('helios')}</label>${chips(options.helios,'toggleHelios','helios-choices')}<div class="helper" id="heliosHelp">0 / 3</div></div>`;
+    body=common+selectField('f-availability',t('availability'),options.availability)+selectField('f-discord',t('discord'),options.yesno)+troopSurveyFields();
     if(type==='svs_survey')body+=textareaField('f-notes',t('svsNotes'),false);
     if(type==='fdt_survey')body+=`<div class="resource-grid">${field('f-meat',t('meat'),'number',true,0)}${field('f-wood',t('wood'),'number',true,0)}${field('f-coal',t('coal'),'number',true,0)}${field('f-iron',t('iron'),'number',true,0)}</div>`+textareaField('f-notes',t('notes'),false);
   }else{
@@ -1355,8 +1392,7 @@ function buildForm(type){
       `<div class="resource-grid">${field('f-labyrinth-rank',t('labyrinthRank'),'number',true,0)}${field('f-labyrinth-points',t('labyrinthPoints'),'number',true,0)}</div>`+
       `<div class="field"><label>${t('weekdayAvailability')}<br><span style="color:var(--muted);font-size:.86em">(${t('weekdayDays')})</span></label>${chips(options.talTimes,'toggleWeekdayTime','weekday-choices')}<div class="helper" id="weekdayHelp">0 selected</div></div>`+
       `<div class="field"><label>${t('weekendAvailability')}<br><span style="color:var(--muted);font-size:.86em">(${t('weekendDays')})</span></label>${chips(options.talTimes,'toggleWeekendTime','weekend-choices')}<div class="helper" id="weekendHelp">0 selected</div></div>`+
-      `<div class="field"><label>${t('troops')}</label>${chips(options.troops,'toggleTroops','troops-choices')}<div class="helper" id="troopsHelp">0 selected</div></div>`+
-      `<div class="field"><label>${t('helios')}</label>${chips(options.helios,'toggleHelios','helios-choices')}<div class="helper" id="heliosHelp">0 / 3</div></div>`+
+      troopSurveyFields()+
       selectField('f-tal-ready',t('talResourcesReady'),options.yesno)+
       field('f-teleports',t('teleportCount'),'number',true,0)+
       `<div class="field"><label>${t('teamPreference')}</label><div class="helper" style="margin:0 0 10px;line-height:1.55">${t('teamPreferenceNote')}</div>${teamPreferenceChips()}<div class="helper" id="teamPreferenceHelp">0 selected</div></div>`+
@@ -1366,23 +1402,6 @@ function buildForm(type){
   return `<form onsubmit="submitForm(event)" class="form-grid">${body}<div class="actions"><button class="ghost" type="button" onclick="closeForm()">${t('back')}</button><button class="primary" id="submitBtn" type="submit">${t('submit')}</button></div></form>`;
 }
 function toggleTiming(el){const v=el.dataset.val;const i=selectedTimings.indexOf(v);if(i>-1){selectedTimings.splice(i,1);el.classList.remove('selected')}else{if(selectedTimings.length>=3){alert('3 picks only');return}selectedTimings.push(v);el.classList.add('selected')}$('timingHelp').textContent=selectedTimings.length+' / 3'}
-function toggleTroops(el){const v=el.dataset.val;const i=selectedTroops.indexOf(v);if(i>-1){selectedTroops.splice(i,1);el.classList.remove('selected')}else{selectedTroops.push(v);el.classList.add('selected')}const help=$('troopsHelp');if(help)help.textContent=selectedTroops.length+' selected'}
-function toggleHelios(el){
-  const v=el.dataset.val;
-  const group=el.closest('.helios-choices');
-  if(v==='Nope'||v==='ALL T11'){
-    group?.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected'));
-    selectedHelios=[v];
-    el.classList.add('selected');
-  }else{
-    selectedHelios=selectedHelios.filter(x=>x!=='Nope'&&x!=='ALL T11');
-    group?.querySelectorAll('.choice[data-val="Nope"],.choice[data-val="ALL T11"]').forEach(x=>x.classList.remove('selected'));
-    const i=selectedHelios.indexOf(v);
-    if(i>-1){selectedHelios.splice(i,1);el.classList.remove('selected')}
-    else{if(selectedHelios.length>=3){alert('3 picks only');return}selectedHelios.push(v);el.classList.add('selected')}
-  }
-  const help=$('heliosHelp');if(help)help.textContent=selectedHelios.length+' / 3';
-}
 function toggleTalTime(el,target,groupSelector,helpId){
   const v=el.dataset.val;
   const group=el.closest(groupSelector);
@@ -1419,29 +1438,27 @@ function toggleTeamPreference(el){
 function val(id){return ($(id)?.value||'').trim()}
 function submitForm(e){
   e.preventDefault();
-  let payload={playerName:val('f-name'),gameId:val('f-game'),alliance:val('f-alliance'),language:lang};
+  let payload={playerName:val('f-name'),gameId:val('f-game'),alliance:val('f-alliance'),language:lang,surveySchema:18};
   let type=activeType;
   if(type==='ministries'){
     if(selectedTimings.length<1){alert('Select at least 1 timing');return}
+    for(const id of ['f-refined-crystals','f-fire-crystal-shards']){const v=val(id);if(v===''||!Number.isSafeInteger(Number(v))||Number(v)<0){alert(t('wholeNumberRequired'));return}}
+    Object.assign(payload,{refinedCrystals:Number(val('f-refined-crystals')),fireCrystalShards:Number(val('f-fire-crystal-shards'))});
     Object.assign(payload,{ministryRequired:val('f-ministry'),speedupsDays:val('f-speedups'),timings:selectedTimings});
   }else if(type==='svs_survey'||type==='fdt_survey'){
-    if(selectedTroops.length<1){alert('Select at least one Troops Type');return}
-    if(selectedHelios.length<1){alert('Select Helios Troops');return}
-    Object.assign(payload,{availability:val('f-availability'),troops:selectedTroops,heliosTroops:selectedHelios,discordAvailable:val('f-discord')});
+    const troops=troopSurveyAnswers();if(!troops)return;Object.assign(payload,troops);
+    Object.assign(payload,{availability:val('f-availability'),discordAvailable:val('f-discord')});
     if(type==='svs_survey')Object.assign(payload,{notes:val('f-notes')});
     if(type==='fdt_survey')Object.assign(payload,{meatResources:val('f-meat'),woodResources:val('f-wood'),coalResources:val('f-coal'),ironResources:val('f-iron'),notes:val('f-notes')});
   }else{
     if(selectedWeekdayTimes.length<1||selectedWeekendTimes.length<1){alert(t('selectTime'));return}
-    if(selectedTroops.length<1){alert('Select at least one Troops Type');return}
-    if(selectedHelios.length<1){alert('Select Helios Troops');return}
+    const troops=troopSurveyAnswers();if(!troops)return;Object.assign(payload,troops);
     if(selectedTeamPreferences.length<1){alert(t('selectTeam'));return}
     Object.assign(payload,{
       labyrinthRank:val('f-labyrinth-rank'),
       labyrinthPoints:val('f-labyrinth-points'),
       weekdayAvailability:selectedWeekdayTimes,
       weekendAvailability:selectedWeekendTimes,
-      troops:selectedTroops,
-      heliosTroops:selectedHelios,
       talResourcesReady:val('f-tal-ready'),
       teleportCount:val('f-teleports'),
       teamPreferences:selectedTeamPreferences,
@@ -1450,7 +1467,16 @@ function submitForm(e){
     });
   }
   const btn=$('submitBtn');btn.disabled=true;btn.textContent='...';
-  fetch(API,{method:'POST',mode:'no-cors',body:JSON.stringify({type,payload})}).then(()=>showSuccess()).catch(()=>showSuccess());
+  const sameOrigin=new URL(API,location.href).origin===location.origin;
+  fetch(API,{method:'POST',mode:sameOrigin?'same-origin':'no-cors',body:JSON.stringify({type,payload})}).then(async response=>{
+    if(response.type==='opaque'){
+      // Preserve the standalone portal's legacy no-cors flow; verify saving on
+      // the integrated portal or directly in Sheets during the installation check.
+      showSuccess();return;
+    }
+    if(!response.ok||(await response.text()).trim()!=='Success')throw new Error('Submission not confirmed');
+    showSuccess();
+  }).catch(()=>{btn.disabled=false;btn.textContent=t('submit');alert(t('submitFailed'))});
 }
 function showSuccess(){$('formArea').style.display='none';$('successView').style.display='block'}
 
